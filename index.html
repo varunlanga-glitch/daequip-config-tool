@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Configurator Pro</title>
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+
+<div class="app">
+  <!-- ── Top bar ──────────────────────────────────────── -->
+  <div class="topbar">
+    <div class="tabs" id="tabs"></div>
+    <button class="btn primary" id="btnNewTab">+ New Tab</button>
+    <button class="btn" id="btnSave"   title="Save checkpoint">💾 Save</button>
+    <button class="btn" id="btnLoad"   title="Load checkpoint">📂 Load</button>
+    <button class="btn" id="btnExport" title="Export CSV">📊 Export CSV</button>
+    <input type="file" id="fileInput" accept=".json" style="display:none" />
+  </div>
+
+  <!-- ── Three-panel layout ───────────────────────────── -->
+  <div class="main" id="mainContainer">
+
+    <!-- Left: context selectors -->
+    <div class="panel" id="leftPanel">
+      <div class="panel-header">Context</div>
+      <div class="panel-body" id="contextBody"></div>
+    </div>
+
+    <div class="resizer" id="resizer1"></div>
+
+    <!-- Centre: output grid -->
+    <div class="panel" id="centerPanel" style="flex:1">
+      <div class="panel-header"><div id="productName">---</div></div>
+      <div id="columnFilterBar" class="column-filter-bar" style="display:none"></div>
+      <div class="panel-body" style="padding:0">
+        <table id="mainGrid">
+          <thead><tr id="gridHead"></tr></thead>
+          <tbody id="gridBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="resizer" id="resizer2"></div>
+
+    <!-- Right: tabbed panel (Parts / Rules / Config) -->
+    <div class="panel" id="rightPanel">
+      <div style="display:flex;border-bottom:1px solid var(--stroke)">
+        <button class="btn rtab active" data-rtab="parts"  style="flex:1;border:0;border-radius:0;padding:10px">Parts</button>
+        <button class="btn rtab"        data-rtab="rules"  style="flex:1;border:0;border-radius:0;padding:10px">Rules</button>
+        <button class="btn rtab"        data-rtab="config" style="flex:1;border:0;border-radius:0;padding:10px">Config</button>
+      </div>
+      <div class="panel-body">
+        <div id="tab-parts"></div>
+        <div id="tab-rules"  style="display:none"></div>
+        <div id="tab-config" style="display:none"></div>
+      </div>
+    </div>
+
+  </div><!-- /.main -->
+</div><!-- /.app -->
+
+<!--
+  ╔══════════════════════════════════════════════════════════╗
+  ║  SCRIPT LOAD ORDER — DO NOT REORDER                     ║
+  ║                                                          ║
+  ║  1. state.js     — State object + accessors (no deps)   ║
+  ║  2. engine.js    — Logic that reads State (needs 1)     ║
+  ║  3. renderers.js — DOM writers (needs 1, 2)             ║
+  ║  4. actions.js   — Mutations + re-render (needs 1-3)    ║
+  ║  5. ui.js        — Dialogs, inline edit (needs 1-4)     ║
+  ║  6. io.js        — File I/O, wires toolbar (needs 1-5)  ║
+  ╚══════════════════════════════════════════════════════════╝
+-->
+<script src="js/state.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/renderers.js"></script>
+<script src="js/actions.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/io.js"></script>
+
+<script>
+  /*
+   * Startup: load the seed data file.
+   * On Netlify this fetch will succeed.
+   * Locally (file://) it will fail gracefully and use default State.
+   */
+  loadSeedData('data/Buckets_1.json');
+</script>
+
+</body>
+</html>
