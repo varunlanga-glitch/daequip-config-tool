@@ -7,7 +7,7 @@
   ],
   "activeClassId": "cat_1773868048483_1",
   "selectedPartId": "p1773869852653",
-  "activeRightTab": "config",
+  "activeRightTab": "rules",
   "master": {
     "cat_1773868048483_1": [
       {
@@ -50,7 +50,10 @@
       {
         "key": "INDUCTION_HARDENED",
         "label": "Induction Hardened",
-        "vals": []
+        "vals": [
+          "Yes",
+          "No"
+        ]
       },
       {
         "key": "PIN_TYPE",
@@ -68,6 +71,22 @@
           "1.063",
           "1.250"
         ]
+      },
+      {
+        "key": "DRILL",
+        "label": "Drill",
+        "vals": [
+          "1/8",
+          "1/8"
+        ]
+      },
+      {
+        "key": "TAP",
+        "label": "Tap",
+        "vals": [
+          "1/4",
+          "1/8"
+        ]
       }
     ]
   },
@@ -76,8 +95,8 @@
       "PIN_OD": "100MM",
       "PIN_TYPE": "FLT",
       "PIN_LENGTH": "10.000",
-      "INDUCTION_HARDENED": "Yes",
-      "CROSS_HOLE": "1.250"
+      "CROSS_HOLE": "1.250",
+      "INDUCTION_HARDENED": "Yes"
     }
   },
   "parts": {
@@ -143,7 +162,8 @@
       },
       "p1773869852653": {
         "f1773869896995": "PIN-PIN_OD-GA",
-        "f1773869904615": "PIN_TYPE - (PIN_OD/25.4) X PIN_LENGTH"
+        "f1773869904615": "PIN_TYPE - (PIN_OD/25.4) X PIN_LENGTH",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP?TAPPED - TAP}"
       }
     }
   },
