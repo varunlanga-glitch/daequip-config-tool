@@ -798,21 +798,106 @@ function _wireTokenAutocomplete(textarea, palette, propId) {
     renderPalette('');
   };
 
-  /* Insert a conditional snippet {KEY?} with cursor placed before closing } */
-  const insertConditional = key => {
-    const pos    = textarea.selectionStart;
-    const before = textarea.value.substring(0, pos);
-    const after  = textarea.value.substring(pos);
-    const word   = getCurrentWord();
-    const snippet  = '{' + key + '?}';
-    const newBefore = before.substring(0, before.length - word.length) + snippet;
-    textarea.value  = newBefore + after;
-    // Position cursor before the closing }
-    const cursorPos = newBefore.length - 1;
-    textarea.setSelectionRange(cursorPos, cursorPos);
-    textarea.dispatchEvent(new Event('input'));
-    textarea.focus();
-    palette.style.display = 'none';
+  /* Open the conditional builder popover for the given token */
+  const openConditionalBuilder = (key, label, ifBtnEl) => {
+    // Remove any existing popover
+    const existing = document.getElementById('cond-popover');
+    if (existing) existing.remove();
+
+    const tokens = getTokens();
+    const pop = document.createElement('div');
+    pop.id = 'cond-popover';
+    pop.className = 'cond-popover';
+
+    // Title
+    const title = document.createElement('div');
+    title.className = 'cond-popover-title';
+    title.innerHTML = 'When <strong>' + escapeHtml(label) + '</strong> is set, show:';
+    pop.appendChild(title);
+
+    // Output text input
+    const outputInput = document.createElement('input');
+    outputInput.type = 'text';
+    outputInput.className = 'cond-popover-input';
+    outputInput.placeholder = 'e.g. CROSS HOLE - CROSS_HOLE';
+    pop.appendChild(outputInput);
+
+    // Mini token pills so user can insert variable values into the output
+    const miniPills = document.createElement('div');
+    miniPills.className = 'cond-popover-pills';
+    tokens.forEach(t => {
+      const p = document.createElement('button');
+      p.className = 'token-pill token-new cond-mini-pill';
+      p.textContent = t.key;
+      p.title = 'Insert ' + t.label + ' value into the output';
+      p.addEventListener('mousedown', e => {
+        e.preventDefault();
+        const s = outputInput.selectionStart;
+        const e2 = outputInput.selectionEnd;
+        const v = outputInput.value;
+        outputInput.value = v.substring(0, s) + t.key + v.substring(e2);
+        const pos = s + t.key.length;
+        outputInput.setSelectionRange(pos, pos);
+        outputInput.focus();
+        updatePreview();
+      });
+      miniPills.appendChild(p);
+    });
+    pop.appendChild(miniPills);
+
+    // Live preview
+    const previewEl = document.createElement('div');
+    previewEl.className = 'cond-popover-preview';
+    const updatePreview = () => {
+      const draftTemplate = '{' + key + '?' + outputInput.value + '}';
+      const resolved = resolveRule(draftTemplate, State.selectedPartId);
+      previewEl.textContent = resolved ? '→ ' + resolved : '(blank when not set)';
+    };
+    outputInput.addEventListener('input', updatePreview);
+    updatePreview();
+    pop.appendChild(previewEl);
+
+    // Insert button
+    const insertBtn = document.createElement('button');
+    insertBtn.className = 'btn primary cond-popover-insert';
+    insertBtn.textContent = 'Insert';
+    insertBtn.addEventListener('mousedown', e => {
+      e.preventDefault();
+      const snippet = '{' + key + '?' + outputInput.value + '}';
+      const pos    = textarea.selectionStart;
+      const before = textarea.value.substring(0, pos);
+      const after  = textarea.value.substring(pos);
+      const word   = getCurrentWord();
+      const newVal = before.substring(0, before.length - word.length) + snippet + after;
+      textarea.value = newVal;
+      const newPos = before.length - word.length + snippet.length;
+      textarea.setSelectionRange(newPos, newPos);
+      textarea.dispatchEvent(new Event('input'));
+      pop.remove();
+      textarea.focus();
+      palette.style.display = 'none';
+    });
+    pop.appendChild(insertBtn);
+
+    // Position below the if-button
+    document.body.appendChild(pop);
+    const rect = ifBtnEl.getBoundingClientRect();
+    const popW = 280;
+    let left = rect.left;
+    if (left + popW > window.innerWidth - 8) left = window.innerWidth - popW - 8;
+    pop.style.left = left + 'px';
+    pop.style.top  = (rect.bottom + 6) + 'px';
+
+    outputInput.focus();
+
+    // Dismiss on outside click
+    const dismiss = ev => {
+      if (!pop.contains(ev.target) && ev.target !== ifBtnEl) {
+        pop.remove();
+        document.removeEventListener('mousedown', dismiss, true);
+      }
+    };
+    setTimeout(() => document.addEventListener('mousedown', dismiss, true), 0);
   };
 
   /* True when the token key appears as a whole word in the current formula */
@@ -886,7 +971,7 @@ function _wireTokenAutocomplete(textarea, palette, propId) {
         ifBtn.addEventListener('mousedown', e => {
           e.preventDefault();
           e.stopPropagation();
-          insertConditional(t.key);
+          openConditionalBuilder(t.key, t.label, ifBtn);
         });
         btn.appendChild(ifBtn);
       }
