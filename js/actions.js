@@ -15,7 +15,12 @@ function markDirty() {
 /* ── Context selector ────────────────────────────────────── */
 window.handleContextSelect = (key, val) => {
   if (val !== '__NEW__') {
-    getActiveContext()[key] = val;
+    // Empty string = user chose "— select —" to clear their selection
+    if (val === '') {
+      delete getActiveContext()[key];
+    } else {
+      getActiveContext()[key] = val;
+    }
 
     // Auto-derive CLASS_NO from CLASS — extract digits only (e.g. HE300 → 300)
     if (key === 'CLASS') {
