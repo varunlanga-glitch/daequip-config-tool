@@ -79,12 +79,9 @@ function resolveRule(template, partId) {
     .replace(/\bNAME\b/g, part.name);
 
   const ctx = getActiveContext();
-  Object.keys(ctx).forEach(key => {
-    const regex = new RegExp(`\\b${key}\\b`, 'g');
-    s = s.replace(regex, ctx[key] || '');
-  });
 
-  // Evaluate conditionals: {VAR=value:output} or {VAR?output}
+  // Evaluate conditionals BEFORE variable substitution so {VAR?output} is
+  // processed while VAR is still a key name, not its substituted value.
   // {VAR=value:output} → shows output if VAR equals value, else blank
   // {VAR?output}       → shows output if VAR is set (non-blank, not "—select—"), else blank
   const BLANK_VALUES = ['', '—select—', '-- select --', '--select--'];
@@ -95,6 +92,11 @@ function resolveRule(template, partId) {
   s = s.replace(/\{([^{}=?:]+)\?([^{}]*)\}/g, (match, varName, output) => {
     const val = (ctx[varName.trim()] || '').trim();
     return BLANK_VALUES.includes(val) ? '' : output;
+  });
+
+  Object.keys(ctx).forEach(key => {
+    const regex = new RegExp(`\\b${key}\\b`, 'g');
+    s = s.replace(regex, ctx[key] || '');
   });
 
   // Evaluate math expressions wrapped in parentheses, e.g. (70/25.4) → "2.7559"
