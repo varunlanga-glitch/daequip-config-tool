@@ -127,8 +127,43 @@ function renderTabs() {
     div.className = `tab ${isActive ? 'active' : ''} ${locked ? 'tab-locked' : ''}`;
 
     const nameSpan = document.createElement('span');
+    nameSpan.className = 'tab-name';
     nameSpan.textContent = c.name;
     div.appendChild(nameSpan);
+
+    // Actions wrapper — pushed to the right via margin-left:auto
+    const actions = document.createElement('span');
+    actions.className = 'tab-actions';
+
+    // Edit/rename button (only on active unlocked tab)
+    if (isActive && !locked) {
+      const editBtn = document.createElement('span');
+      editBtn.className = 'tab-action edit';
+      editBtn.title = 'Rename tab';
+      editBtn.innerHTML = '✏️';
+      editBtn.onclick = e => {
+        e.stopPropagation();
+        nameSpan.contentEditable = 'true';
+        nameSpan.focus();
+        // Select all text
+        const range = document.createRange();
+        range.selectNodeContents(nameSpan);
+        const sel = window.getSelection();
+        sel.removeAllRanges(); sel.addRange(range);
+        const finish = () => {
+          nameSpan.contentEditable = 'false';
+          const newName = nameSpan.textContent.trim();
+          if (newName && newName !== c.name) { renameActiveTab(newName); }
+          else { nameSpan.textContent = c.name; }
+        };
+        nameSpan.onblur = finish;
+        nameSpan.onkeydown = ev => {
+          if (ev.key === 'Enter')  { ev.preventDefault(); nameSpan.blur(); }
+          if (ev.key === 'Escape') { nameSpan.textContent = c.name; nameSpan.blur(); }
+        };
+      };
+      actions.appendChild(editBtn);
+    }
 
     // Lock/unlock icon
     const lockBtn = document.createElement('span');
@@ -145,7 +180,7 @@ function renderTabs() {
         removeTabLock(c.id);
       }
     };
-    div.appendChild(lockBtn);
+    actions.appendChild(lockBtn);
 
     // Clone button (only if not locked)
     if (!locked) {
@@ -154,7 +189,7 @@ function renderTabs() {
       cloneBtn.title = 'Duplicate this tab';
       cloneBtn.className = 'tab-action clone';
       cloneBtn.onclick = e => { e.stopPropagation(); cloneTab(c.id); };
-      div.appendChild(cloneBtn);
+      actions.appendChild(cloneBtn);
     }
 
     // Close button (only when >1 tab and not locked)
@@ -163,8 +198,10 @@ function renderTabs() {
       closeBtn.innerHTML = '&times;';
       closeBtn.className = 'tab-action close';
       closeBtn.onclick = e => { e.stopPropagation(); deleteTab(c.id); };
-      div.appendChild(closeBtn);
+      actions.appendChild(closeBtn);
     }
+
+    div.appendChild(actions);
 
     div.onclick = e => {
       if (e.target === div || e.target === nameSpan) {

@@ -42,24 +42,40 @@ body {
 
 /* ── Tabs ────────────────────────────────────────────────── */
 .tab {
-  flex: 1; min-width: 120px; max-width: 240px;
+  flex: 1; min-width: 140px; max-width: 280px;
   padding: 6px 10px; border-radius: 8px;
   border: 1px solid var(--stroke); background: var(--panel);
   cursor: pointer; white-space: nowrap;
-  display: flex; align-items: center; gap: 6px; font-size: 13px;
+  display: flex; align-items: center; gap: 4px; font-size: 13px;
   overflow: hidden;
 }
 .tab.active {
   background: linear-gradient(90deg, rgba(43,108,176,0.12), rgba(43,108,176,0.04));
   border-color: rgba(43,108,176,0.4);
 }
+.tab-name {
+  flex: 1; min-width: 0;
+  overflow: hidden; text-overflow: ellipsis;
+}
+.tab-name[contenteditable="true"] {
+  outline: 1px solid var(--accent);
+  border-radius: 3px;
+  padding: 0 3px;
+  background: #fff;
+}
+.tab-actions {
+  display: flex; align-items: center; gap: 3px;
+  margin-left: auto; flex-shrink: 0;
+}
 .tab-action {
   cursor: pointer; font-weight: bold; font-size: 14px;
-  padding: 0 2px; opacity: 0.5; transition: opacity 0.15s;
+  padding: 2px 3px; opacity: 0.4; transition: opacity 0.15s;
+  border-radius: 3px;
 }
-.tab-action:hover { opacity: 1; }
+.tab-action:hover { opacity: 1; background: rgba(0,0,0,0.05); }
+.tab-action.edit  { font-size: 12px; }
 .tab-action.clone { color: var(--accent); }
-.tab-action.close { color: var(--danger); }
+.tab-action.close { color: var(--danger); font-size: 16px; }
 
 /* ── Buttons ─────────────────────────────────────────────── */
 .btn {
@@ -722,9 +738,12 @@ tbody tr.selected td:first-child {
    INVENTOR MAPPING MODAL
    ════════════════════════════════════════════════════════════ */
 .inventor-map-box {
-  width: min(90vw, 900px);
+  width: min(92vw, 960px);
+  max-height: 85vh;
   padding: 0;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .inventor-map-box .confirm-title {
   padding: 18px 20px 14px;
@@ -961,7 +980,7 @@ tr:hover .cell-filepick-btn {
    ════════════════════════════════════════════════════════════ */
 
 .imap-review-scroll {
-  max-height: 320px;
+  max-height: min(50vh, 420px);
   overflow: auto;
   padding: 0 20px 10px;
 }
