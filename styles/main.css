@@ -1239,3 +1239,162 @@ tr:hover .cell-filepick-btn {
 }
 .gh-toast-visible { opacity: 1; transform: translateX(-50%) translateY(0); }
 .gh-toast-error   { background: #b91c1c; }
+
+/* ── Home screen ─────────────────────────────────────────── */
+.home-screen {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px 40px 48px;
+  background: var(--bg);
+}
+
+.home-heading {
+  margin: 0 0 24px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 240px));
+  gap: 16px;
+}
+
+/* Category card */
+.home-card {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  padding: 20px 18px 14px;
+  cursor: pointer;
+  user-select: none;
+  transition: box-shadow .15s, transform .1s, border-color .15s;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 130px;
+}
+.home-card:hover {
+  box-shadow: 0 4px 18px rgba(0,0,0,.12);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.home-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.home-card-icon {
+  font-size: 28px;
+  line-height: 1;
+  display: block;
+}
+.home-card-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.home-card-meta {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.home-card-meta-unloaded {
+  font-style: italic;
+  opacity: .7;
+}
+
+/* Unpublished dot */
+.home-card-dirty {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 10px;
+  color: #e67e22;
+  title: 'Unpublished changes';
+}
+
+/* Action bar — visible on hover only */
+.home-card-actions {
+  display: flex;
+  gap: 4px;
+  margin-top: auto;
+  padding-top: 10px;
+  opacity: 0;
+  transition: opacity .15s;
+}
+.home-card:hover .home-card-actions,
+.home-card:focus-within .home-card-actions {
+  opacity: 1;
+}
+.home-card-btn {
+  font-size: 12px;
+  padding: 3px 7px;
+  border-radius: 5px;
+}
+.home-card-delete-btn {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--danger);
+  border-color: transparent;
+  background: transparent;
+  margin-left: auto;
+}
+.home-card-delete-btn:hover {
+  background: rgba(185,28,28,.08);
+  border-color: var(--danger);
+}
+.home-card-rename-input {
+  font-size: 15px;
+  font-weight: 700;
+  width: 100%;
+  padding: 2px 4px;
+}
+
+/* + New Category card */
+.home-card-add {
+  border-style: dashed;
+  border-color: rgba(0,0,0,.2);
+  background: transparent;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  gap: 8px;
+}
+.home-card-add:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(43,108,176,.04);
+}
+.home-card-add-icon {
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1;
+}
+.home-card-add-label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* App title in tabs slot (home screen) */
+.app-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  padding: 0 4px;
+  letter-spacing: .01em;
+}
+
+/* ← Home button */
+.btn-back-home {
+  white-space: nowrap;
+  font-weight: 600;
+  flex-shrink: 0;
+}

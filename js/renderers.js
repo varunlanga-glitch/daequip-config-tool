@@ -6,6 +6,13 @@
 
 function renderAll() {
   if (typeof _updateDirtyIndicator === 'function') _updateDirtyIndicator();
+
+  // Home screen — delegate entirely to categories.js
+  if (window._appScreen !== 'workspace') {
+    if (typeof renderHomeScreen === 'function') renderHomeScreen();
+    return;
+  }
+
   renderTabs();
 
   // If active tab is locked, show overlay and skip content render

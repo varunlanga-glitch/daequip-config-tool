@@ -12,10 +12,14 @@
 
 'use strict';
 
-const _GH_OWNER = 'varunlanga-glitch';
-const _GH_REPO  = 'daequip-config-tool';
-const _GH_PATH  = 'data/buckets_1.json';
-const _GH_API   = `https://api.github.com/repos/${_GH_OWNER}/${_GH_REPO}/contents/${_GH_PATH}`;
+const _GH_OWNER    = 'varunlanga-glitch';
+const _GH_REPO     = 'daequip-config-tool';
+const _GH_CAT_PATH = 'data/categories.json';
+
+// Dynamic helpers — resolves to the active category's file at call time
+const _ghCatFilePath = () => window._activeCategory?.file || 'data/buckets_1.json';
+const _ghCatFileApi  = () => `https://api.github.com/repos/${_GH_OWNER}/${_GH_REPO}/contents/${_ghCatFilePath()}`;
+const _ghCatCfgApi   = () => `https://api.github.com/repos/${_GH_OWNER}/${_GH_REPO}/contents/${_GH_CAT_PATH}`;
 
 const _TOKEN_KEY = 'gh_pat';
 const _PIN_KEY   = 'gh_pin_hash';
@@ -56,25 +60,25 @@ async function _ghFetch(method, url, token, body) {
   return r.json();
 }
 
-async function _ghGetFile(token) {
-  return _ghFetch('GET', _GH_API, token);
+async function _ghGetFile(token, apiUrl) {
+  return _ghFetch('GET', apiUrl || _ghCatFileApi(), token);
 }
 
-async function _ghPushFile(token, content, sha, message) {
+async function _ghPushFile(token, content, sha, message, apiUrl) {
   // btoa with UTF-8 safety
   const encoded = btoa(unescape(encodeURIComponent(content)));
-  return _ghFetch('PUT', _GH_API, token, { message, content: encoded, sha });
+  return _ghFetch('PUT', apiUrl || _ghCatFileApi(), token, { message, content: encoded, sha });
 }
 
 async function _ghGetHistory() {
-  const url = `https://api.github.com/repos/${_GH_OWNER}/${_GH_REPO}/commits?path=${_GH_PATH}&per_page=10`;
+  const url = `https://api.github.com/repos/${_GH_OWNER}/${_GH_REPO}/commits?path=${_ghCatFilePath()}&per_page=10`;
   const r = await fetch(url, { headers: { Accept: 'application/vnd.github+json' } });
   if (!r.ok) throw new Error(`GitHub ${r.status}`);
   return r.json();
 }
 
 async function _ghGetFileAtRef(ref) {
-  const r = await fetch(`${_GH_API}?ref=${ref}`, { headers: { Accept: 'application/vnd.github+json' } });
+  const r = await fetch(`${_ghCatFileApi()}?ref=${ref}`, { headers: { Accept: 'application/vnd.github+json' } });
   if (!r.ok) throw new Error(`GitHub ${r.status}`);
   const data = await r.json();
   return decodeURIComponent(escape(atob(data.content)));
@@ -142,7 +146,9 @@ function _openSetupModal(onDone) {
     err.textContent = 'Verifying token…';
 
     try {
-      await _ghGetFile(token);
+      // Verify against the categories config (always exists) or fallback file
+      const verifyApi = `https://api.github.com/repos/${_GH_OWNER}/${_GH_REPO}/contents/data/categories.json`;
+      await _ghGetFile(token, verifyApi);
     } catch(e) {
       err.style.color = '#e74c3c';
       err.textContent = 'Token check failed — ensure it has Contents: Read & Write.';
@@ -220,6 +226,9 @@ function _withAuth(label, onToken) {
 
 /* ── Publish modal ────────────────────────────────────── */
 function openPublishModal() {
+  const catLabel = window._activeCategory?.label || 'config';
+  const pushCats = !!window._categoriesDirty;
+
   _withAuth('🔒 Enter PIN to Publish', token => {
     const { dirty, ...saveState } = State;
     const content = JSON.stringify(saveState, null, 2);
@@ -233,7 +242,8 @@ function openPublishModal() {
         <div class="gh-form">
           <label class="gh-label">Commit message</label>
           <input id="ghCommitMsg" class="combo gh-input"
-            value="Update config via Configurator Pro" autocomplete="off">
+            value="Update ${catLabel} config" autocomplete="off">
+          ${pushCats ? '<div class="gh-status" style="color:var(--muted)">categories.json will also be updated</div>' : ''}
           <div id="ghPublishStatus" class="gh-status"></div>
         </div>
         <div class="confirm-buttons">
@@ -250,17 +260,34 @@ function openPublishModal() {
     overlay.querySelector('#ghPubCancel').onclick = () => overlay.remove();
 
     pubBtn.onclick = async () => {
-      const msg = overlay.querySelector('#ghCommitMsg').value.trim() || 'Update config';
+      const msg = overlay.querySelector('#ghCommitMsg').value.trim() || `Update ${catLabel} config`;
       pubBtn.disabled = true;
       status.className = 'gh-status';
-      status.textContent = 'Fetching current SHA…';
+      status.textContent = 'Pushing category data…';
 
       try {
+        // 1. Push current category data
         const meta = await _ghGetFile(token);
-        status.textContent = 'Pushing…';
         await _ghPushFile(token, content, meta.sha, msg);
 
+        // 2. Push categories.json if the list has changed
+        if (window._categoriesDirty) {
+          status.textContent = 'Updating categories.json…';
+          const catsContent = JSON.stringify(window._categories, null, 2);
+          let catsMeta;
+          try {
+            catsMeta = await _ghGetFile(token, _ghCatCfgApi());
+          } catch(_) {
+            catsMeta = { sha: undefined };
+          }
+          await _ghPushFile(token, catsContent, catsMeta.sha, msg + ' [categories]', _ghCatCfgApi());
+          window._categoriesDirty = false;
+        }
+
         State.dirty = false;
+        if (window._activeCategory) {
+          window._categoryDirty[window._activeCategory.id] = false;
+        }
         _updateDirtyIndicator();
 
         status.className = 'gh-status gh-status-ok';
