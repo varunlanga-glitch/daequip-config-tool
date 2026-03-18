@@ -242,7 +242,7 @@ function renderContext() {
     const div = document.createElement('div');
     div.className = 'field';
 
-    const sortedVals = [...m.vals].sort((a, b) => a.localeCompare(b));
+    const sortedVals = [...m.vals].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
     const currentVal = getActiveContext()[m.key];
     const hasSelection = sortedVals.includes(currentVal);
     const placeholder = hasSelection ? '' : `<option value="" disabled selected>— select —</option>`;
