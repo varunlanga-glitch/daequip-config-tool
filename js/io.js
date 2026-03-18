@@ -225,13 +225,10 @@ const INVENTOR_IPROP_OPTIONS = [
 function _getInventorMap() {
   if (!State.inventorMaps) State.inventorMaps = {};
   if (!State.inventorMaps[State.activeClassId]) {
-    // Build sensible defaults — match by column name to common iProperty names
-    const map = { fileNamePropId: null, mapping: {} };
+    // Generated filename always comes from the part name (p.name) — no dedicated column.
+    const map = { mapping: {} };
     getActiveProps().forEach(p => {
       const name = p.name.toLowerCase();
-      if (name.includes('file name') || name.includes('filename') || name.includes('part name')) {
-        map.fileNamePropId = map.fileNamePropId || p.id; // first match = filename column
-      }
       // Auto-match obvious names
       const AUTO = {
         'description': 'Description', 'class': 'Class', 'hook-up': 'Hook-Up',
@@ -242,10 +239,6 @@ function _getInventorMap() {
       };
       map.mapping[p.id] = AUTO[name] || '';
     });
-    // Default fileNamePropId to first prop if nothing matched
-    if (!map.fileNamePropId && getActiveProps().length) {
-      map.fileNamePropId = getActiveProps()[0].id;
-    }
     State.inventorMaps[State.activeClassId] = map;
   }
   return State.inventorMaps[State.activeClassId];
@@ -317,11 +310,10 @@ function _wireReviewCheckboxes(wrap, parts, sel, mappedProps) {
   });
 }
 
-function _renderReviewTab(parts, fileColId, mapping, overrides) {
-  const mappedProps = getActiveProps().filter(p => p.id !== fileColId && mapping[p.id]);
+function _renderReviewTab(parts, mapping, overrides) {
+  const mappedProps = getActiveProps().filter(p => mapping[p.id]);
   const mappedPropIds = mappedProps.map(p => p.id);
   const sel = _getExportSelections(parts, mappedPropIds);
-  const rules = getActiveRules();
 
   const wrap = document.getElementById('imapReviewWrap');
   if (!wrap) return;
@@ -379,8 +371,7 @@ function _renderReviewTab(parts, fileColId, mapping, overrides) {
   // TBODY
   const tbody = document.createElement('tbody');
   parts.forEach(p => {
-    const partRules = rules[p.id] || {};
-    const generatedName = resolveRule(partRules[fileColId], p.id) || p.name;
+    const generatedName = p.name;
     const currentName   = overrides[p.id] || generatedName;
     const partSel = sel[p.id] || { rename: true, props: {} };
 
@@ -433,7 +424,6 @@ function exportInventor() {
   const map    = _getInventorMap();
   const props  = getActiveProps();
   const parts  = getActiveParts();
-  const fileColId = map.fileNamePropId;
 
   // Per-part file overrides: partId → actual filename (no ext), set via file picker
   if (!State.fileNameOverrides) State.fileNameOverrides = {};
@@ -447,8 +437,8 @@ function exportInventor() {
   const box = document.createElement('div');
   box.className = 'confirm-box inventor-map-box';
 
-  // ── Section 1: iProperty column mapping (no Step 1 — file name auto-detected) ──
-  const propRows = props.filter(p => p.id !== fileColId).map(p => {
+  // ── iProperty column mapping ──
+  const propRows = props.map(p => {
     const current  = map.mapping[p.id] || '';
     const opts = INVENTOR_IPROP_OPTIONS.map(o =>
       `<option value="${o === '(type custom name...)' ? '__custom__' : o}"${current === o ? ' selected' : ''}>${o}</option>`
@@ -467,10 +457,9 @@ function exportInventor() {
       </tr>`;
   }).join('');
 
-  // ── Section 2: File name mapping — generated name → linked actual file ──
+  // ── File name linking — part name → linked actual file ──
   const fileRows = parts.map(p => {
-    const rules    = getActiveRules()[p.id] || {};
-    const generated = resolveRule(rules[fileColId], p.id) || p.name;
+    const generated = p.name;
     const linked   = overrides[p.id] || '';
     const hasLink  = !!linked;
     return `<tr data-partid="${p.id}">
@@ -541,9 +530,9 @@ function exportInventor() {
     tab.onclick = () => {
       // If switching to Review, collect current mapping first
       if (tab.dataset.itab === 'review') {
-        const { fileColId: fc, mapping } = collectMap();
+        const { mapping } = collectMap();
         map.mapping = mapping;
-        _renderReviewTab(parts, fc, mapping, overrides);
+        _renderReviewTab(parts, mapping, overrides);
       }
       box.querySelectorAll('.imap-tab').forEach(t => t.classList.remove('active'));
       box.querySelectorAll('.imap-tab-panel').forEach(p => p.style.display = 'none');
@@ -627,22 +616,22 @@ function exportInventor() {
       if (val === '__custom__') { val = box.querySelector(`.imap-custom[data-pid="${pid}"]`)?.value?.trim() || ''; }
       if (val && val !== '(skip — do not export)') m[pid] = val;
     });
-    return { fileColId, mapping: m };
+    return { mapping: m };
   };
 
   box.querySelector('#imapBtnPreview').onclick = () => {
-    const { fileColId: fc, mapping } = collectMap();
-    const csv = _buildInventorCSV(fc, mapping);
+    const { mapping } = collectMap();
+    const csv = _buildInventorCSV(mapping);
     const w = window.open('', '_blank');
     w.document.write(`<pre style="font-family:monospace;font-size:12px;padding:20px">${csv.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre>`);
   };
 
   box.querySelector('#imapBtnExport').onclick = () => {
-    const { fileColId: fc, mapping } = collectMap();
+    const { mapping } = collectMap();
     map.mapping = mapping;
 
     const exportSel = (State.exportSelections || {})[State.activeClassId] || {};
-    const csv = _buildInventorCSV(fc, mapping, exportSel);
+    const csv = _buildInventorCSV(mapping, exportSel);
     const ilogic = _buildILogicScript();
 
     const timestamp = new Date().toISOString().replace(/[:.]/g,'-').slice(0,-5);
@@ -663,10 +652,10 @@ function _clearFileLink(partId, row, overrides, updateLinkCount) {
   updateLinkCount();
 }
 
-function _buildInventorCSV(fileColId, mapping, selections) {
+function _buildInventorCSV(mapping, selections) {
   const parts   = getActiveParts();
   const props   = getActiveProps();
-  const otherProps = props.filter(p => p.id !== fileColId && mapping[p.id]);
+  const otherProps = props.filter(p => mapping[p.id]);
   const overrides  = ((State.fileNameOverrides || {})[State.activeClassId]) || {};
   const sel = selections || {};
 
@@ -677,8 +666,7 @@ function _buildInventorCSV(fileColId, mapping, selections) {
   ].join(',');
 
   const rows = parts.map(p => {
-    const rules         = getActiveRules()[p.id] || {};
-    const generatedName = resolveRule(rules[fileColId], p.id) || '';
+    const generatedName = p.name;
     const currentName   = overrides[p.id] || generatedName;
     const partSel       = sel[p.id] || { rename: true, props: {} };
 
