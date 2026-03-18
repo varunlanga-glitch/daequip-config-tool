@@ -252,7 +252,7 @@ function renderContext() {
     div.innerHTML = `
       <div class="label"><span>${m.label}</span></div>
       <div class="combo">
-        <select onchange="handleContextSelect('${m.key}', this.value)">
+        <select data-ctx-key="${m.key}" onchange="handleContextSelect('${m.key}', this.value)">
           ${placeholder}
           ${options}
           <option value="__NEW__">+ Add New...</option>
