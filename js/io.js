@@ -129,7 +129,7 @@ function migrateState() {
 
 /* ── Seed data loader ────────────────────────────────────── */
 function loadSeedData(url) {
-  fetch(url)
+  fetch(url + '?t=' + Date.now())
     .then(r => {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       return r.json();
