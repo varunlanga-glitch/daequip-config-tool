@@ -15,7 +15,11 @@ let State = {
   parts:       { buckets: [] },
   props:       { buckets: [] },
   rules:       { buckets: {} },
-  hiddenProps: { buckets: [] }
+  hiddenProps: { buckets: [] },
+  lockedTabs:       {},   // tabId → SHA-256 hash of PIN (hex string)
+  lockedSections:   {},   // "tabId:rules" or "tabId:config" → SHA-256 hash
+  inventorMaps:     {},   // tabId → { propId: iPropertyName, fileNamePropId: 'id' }
+  fileNameOverrides: {}   // tabId → { partId: actualFilename (no ext) }
 };
 
 const getActiveParts   = () => State.parts[State.activeClassId]   || [];

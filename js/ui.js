@@ -77,6 +77,7 @@ function switchRightTab(tabName) {
   document.getElementById('tab-rules').style.display  = tabName === 'rules'  ? 'block' : 'none';
   document.getElementById('tab-config').style.display = tabName === 'config' ? 'block' : 'none';
 
+  renderRightPanelTabs();
   if (tabName === 'rules')  renderRuleList();
   if (tabName === 'config') renderConfigList();
 }
@@ -226,6 +227,9 @@ function initColumnResizers() {
         document.removeEventListener('mouseup', onUp);
         document.body.style.cursor     = '';
         document.body.style.userSelect = '';
+        // Persist width for session duration
+        const colKey = th.dataset.colKey;
+        if (colKey) _colWidths[colKey] = th.offsetWidth;
       };
 
       document.body.style.cursor     = 'col-resize';

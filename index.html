@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Configurator Pro</title>
-  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/main.css?v=20260317" />
 </head>
 <body>
 
@@ -15,7 +15,7 @@
     <button class="btn primary" id="btnNewTab">+ New Tab</button>
     <button class="btn" id="btnSave"   title="Save checkpoint">💾 Save</button>
     <button class="btn" id="btnLoad"   title="Load checkpoint">📂 Load</button>
-    <button class="btn" id="btnExport" title="Export CSV">📊 Export CSV</button>
+    <button class="btn" id="btnExportInventor" title="Export for Autodesk Inventor iProperties">🔩 Export Inventor</button>
     <input type="file" id="fileInput" accept=".json" style="display:none" />
   </div>
 
@@ -73,20 +73,21 @@
   ║  6. io.js        — File I/O, wires toolbar (needs 1-5)  ║
   ╚══════════════════════════════════════════════════════════╝
 -->
-<script src="js/state.js"></script>
-<script src="js/engine.js"></script>
-<script src="js/renderers.js"></script>
-<script src="js/actions.js"></script>
-<script src="js/ui.js"></script>
-<script src="js/io.js"></script>
+<script src="js/state.js?v=20260317"></script>
+<script src="js/engine.js?v=20260317"></script>
+<script src="js/renderers.js?v=20260317"></script>
+<script src="js/actions.js?v=20260317"></script>
+<script src="js/ui.js?v=20260317"></script>
+<script src="js/io.js?v=20260317"></script>
 
 <script>
   /*
-   * Startup: load the seed data file.
-   * On Netlify this fetch will succeed.
-   * Locally (file://) it will fail gracefully and use default State.
+   * Startup: fetch the shared config JSON.
+   * ⚠️  This URL is rewritten by build.py at deploy time — do not edit manually.
+   * To change the URL, update DATA_URL in build.py and re-run `python build.py`.
+   * Locally (file://) the fetch will fail gracefully and use the empty default State.
    */
-  loadSeedData('data/Buckets_1.json');
+  loadSeedData('https://raw.githubusercontent.com/varunlanga-glitch/daequip-config-tool/main/data/buckets_1.json');
 </script>
 
 </body>

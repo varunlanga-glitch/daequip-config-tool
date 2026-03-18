@@ -6,12 +6,87 @@
 
 function renderAll() {
   renderTabs();
+
+  // If active tab is locked, show overlay and skip content render
+  if (isTabLocked(State.activeClassId)) {
+    renderRightPanelTabs();
+    _renderLockedOverlay();
+    return;
+  }
+
+  _clearLockedOverlay();
   renderContext();
   renderColumnFilter();
   renderGrid();
   renderPartList();
+  renderRightPanelTabs();
   if (State.activeRightTab === 'rules')  renderRuleList();
   if (State.activeRightTab === 'config') renderConfigList();
+}
+
+function _renderLockedOverlay() {
+  // Clear main panels
+  document.getElementById('contextBody').innerHTML  = '';
+  document.getElementById('columnFilterBar').innerHTML = '';
+  document.getElementById('columnFilterBar').style.display = 'none';
+  document.getElementById('gridHead').innerHTML = '';
+  document.getElementById('gridBody').innerHTML = '';
+  document.getElementById('tab-parts').innerHTML  = '';
+  document.getElementById('tab-rules').innerHTML  = '';
+  document.getElementById('tab-config').innerHTML = '';
+
+  // Show lock overlay in center panel
+  let overlay = document.getElementById('lockOverlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'lockOverlay';
+    overlay.className = 'lock-overlay';
+    const centerBody = document.querySelector('.panel.center .panel-body');
+    if (centerBody) centerBody.appendChild(overlay);
+  }
+  const name = State.productClasses.find(c => c.id === State.activeClassId)?.name || '';
+  overlay.innerHTML = `
+    <div class="lock-overlay-content">
+      <div class="lock-icon">🔒</div>
+      <div class="lock-title">${name} is locked</div>
+      <p class="lock-desc">This tab is protected by a PIN.</p>
+      <button class="btn primary" onclick="unlockTab('${State.activeClassId}', null)">Unlock</button>
+    </div>`;
+}
+
+function _clearLockedOverlay() {
+  const overlay = document.getElementById('lockOverlay');
+  if (overlay) overlay.remove();
+}
+
+/* ── Right-panel section tab buttons with lock icons ─────── */
+function renderRightPanelTabs() {
+  const sections = ['parts', 'rules', 'config'];
+  sections.forEach(section => {
+    const btn = document.querySelector(`.rtab[data-rtab="${section}"]`);
+    if (!btn) return;
+
+    // Remove any existing lock icon we added before
+    const existing = btn.querySelector('.section-lock-icon');
+    if (existing) existing.remove();
+
+    if (section === 'parts') return; // Parts section is not lockable
+
+    const hasLock  = !!(State.lockedSections || {})[`${State.activeClassId}:${section}`];
+    const locked   = isSectionLocked(section);
+
+    const icon = document.createElement('span');
+    icon.className = 'section-lock-icon';
+    icon.title     = hasLock ? (locked ? 'Unlock section' : 'Remove lock') : 'Lock section';
+    icon.textContent = hasLock ? (locked ? '🔒' : '🔓') : '🔐';
+    icon.onclick = e => {
+      e.stopPropagation();
+      if (!hasLock)   lockSection(section);
+      else if (locked) unlockSection(section, null);
+      else             removeSectionLock(section);
+    };
+    btn.appendChild(icon);
+  });
 }
 
 /* ── Column visibility filter bar ────────────────────────── */
@@ -43,24 +118,46 @@ function renderTabs() {
   container.innerHTML = '';
 
   State.productClasses.forEach(c => {
-    const div = document.createElement('div');
-    div.className = `tab ${c.id === State.activeClassId ? 'active' : ''}`;
+    const locked   = isTabLocked(c.id);
+    const hasLock  = !!(State.lockedTabs || {})[c.id];
+    const isActive = c.id === State.activeClassId;
 
-    // Name span — NO data-edit; renaming is done via the center header only
+    const div = document.createElement('div');
+    div.className = `tab ${isActive ? 'active' : ''} ${locked ? 'tab-locked' : ''}`;
+
     const nameSpan = document.createElement('span');
     nameSpan.textContent = c.name;
     div.appendChild(nameSpan);
 
-    // Clone button
-    const cloneBtn = document.createElement('span');
-    cloneBtn.innerHTML = '⎘';
-    cloneBtn.title = 'Clone this tab';
-    cloneBtn.className = 'tab-action clone';
-    cloneBtn.onclick = e => { e.stopPropagation(); cloneTab(c.id); };
-    div.appendChild(cloneBtn);
+    // Lock/unlock icon
+    const lockBtn = document.createElement('span');
+    lockBtn.className = 'tab-action lock';
+    lockBtn.title     = hasLock ? (locked ? 'Unlock tab' : 'Remove lock') : 'Lock tab with PIN';
+    lockBtn.innerHTML = hasLock ? (locked ? '🔒' : '🔓') : '🔐';
+    lockBtn.onclick   = e => {
+      e.stopPropagation();
+      if (!hasLock) {
+        lockTab(c.id);
+      } else if (locked) {
+        unlockTab(c.id, null);
+      } else {
+        removeTabLock(c.id);
+      }
+    };
+    div.appendChild(lockBtn);
 
-    // Close button (only when >1 tab exists)
-    if (State.productClasses.length > 1) {
+    // Clone button (only if not locked)
+    if (!locked) {
+      const cloneBtn = document.createElement('span');
+      cloneBtn.innerHTML = '⎘';
+      cloneBtn.title = 'Clone this tab';
+      cloneBtn.className = 'tab-action clone';
+      cloneBtn.onclick = e => { e.stopPropagation(); cloneTab(c.id); };
+      div.appendChild(cloneBtn);
+    }
+
+    // Close button (only when >1 tab and not locked)
+    if (State.productClasses.length > 1 && !locked) {
       const closeBtn = document.createElement('span');
       closeBtn.innerHTML = '&times;';
       closeBtn.className = 'tab-action close';
@@ -70,6 +167,10 @@ function renderTabs() {
 
     div.onclick = e => {
       if (e.target === div || e.target === nameSpan) {
+        if (locked) {
+          unlockTab(c.id, null);
+          return;
+        }
         State.activeClassId  = c.id;
         State.selectedPartId = null;
         renderAll();
@@ -113,6 +214,9 @@ function renderContext() {
 }
 
 /* ── Centre grid (IDX column hidden) ────────────────────── */
+/* ── Session column-width memory (survives renderGrid rebuilds) ── */
+const _colWidths = {};   // keyed by colKey string → width in px
+
 function renderGrid() {
   const head      = document.getElementById('gridHead');
   const body      = document.getElementById('gridBody');
@@ -122,19 +226,20 @@ function renderGrid() {
 
   head.innerHTML = '';
 
-  const makeHeaderCell = (text, cls) => {
+  const makeHeaderCell = (text, cls, colKey) => {
     const th = document.createElement('th');
-    th.className = cls;
-    th.textContent = text;
+    th.className        = cls;
+    th.dataset.colKey   = colKey;
+    th.textContent      = text;
+    if (_colWidths[colKey]) th.style.width = _colWidths[colKey] + 'px';
     const handle = document.createElement('div');
     handle.className = 'col-resizer';
     th.appendChild(handle);
     return th;
   };
 
-  // Sticky part-identifier column (no separate "Part Name" column)
-  head.appendChild(makeHeaderCell('Part', 'col-row-header'));
-  visProps.forEach(p => head.appendChild(makeHeaderCell(p.name, 'col-prop')));
+  // Data columns only — Part column removed
+  visProps.forEach(p => head.appendChild(makeHeaderCell(p.name, 'col-prop', p.id)));
 
   body.innerHTML = '';
   parts.forEach((p, i) => {
@@ -142,21 +247,9 @@ function renderGrid() {
     if (p.id === State.selectedPartId) tr.classList.add('selected');
     if ((p.level || 0) > 0) tr.classList.add('row-child');
 
-    // Row-header <th>: idx badge + part name (replaces the old Part Name <td>)
-    const rh = document.createElement('th');
-    rh.scope     = 'row';
-    const lvl    = p.level || 0;
-    rh.className = 'row-header' + (lvl > 0 ? ' row-header-child' : '');
-    rh.style.paddingLeft = lvl > 0 ? (8 + lvl * 16) + 'px' : '';
-    const idxSpan  = document.createElement('span');
-    idxSpan.className = 'inline-idx'; idxSpan.textContent = idxList[i];
-    const nameSpan = document.createElement('span');
-    nameSpan.className = 'row-part-name'; nameSpan.textContent = p.name;
-    rh.appendChild(idxSpan); rh.appendChild(nameSpan);
-    tr.appendChild(rh);
-
-    // Data cells — one per visible property, with copy-on-hover
+    // Data cells only — no row-header th
     const rules = getActiveRules()[p.id] || {};
+
     visProps.forEach(pr => {
       const val = resolveRule(rules[pr.id], p.id);
       const td  = document.createElement('td');
@@ -169,6 +262,13 @@ function renderGrid() {
       td.appendChild(textSpan);
 
       if (val) {
+        // Char-count badge — appears on row hover, left of copy button
+        const charBadge = document.createElement('span');
+        charBadge.className   = 'cell-char-badge';
+        charBadge.textContent = val.length;
+        charBadge.title       = val.length + ' character' + (val.length !== 1 ? 's' : '');
+        td.appendChild(charBadge);
+
         const copyBtn = document.createElement('button');
         copyBtn.className = 'cell-copy-btn';
         copyBtn.title     = 'Copy';
@@ -295,9 +395,27 @@ function renderPartList() {
   initPartsDragDrop();
 }
 
+/* ── Section lock overlay (Rules / Config) ───────────────── */
+function _renderSectionLockOverlay(container, section) {
+  const label = section.charAt(0).toUpperCase() + section.slice(1);
+  container.innerHTML = `
+    <div class="section-lock-overlay">
+      <div class="lock-icon">🔒</div>
+      <div class="lock-title">${label} is locked</div>
+      <p class="lock-desc">Enter the PIN to access this section.</p>
+      <button class="btn primary" onclick="unlockSection('${section}', null)">Unlock</button>
+    </div>`;
+}
+
 /* ── Right panel: Config list ────────────────────────────── */
 function renderConfigList() {
   const container = document.getElementById('tab-config');
+
+  if (isSectionLocked('config')) {
+    _renderSectionLockOverlay(container, 'config');
+    return;
+  }
+
   container.innerHTML = `
     <div class="tree-controls">
       <button class="btn primary" onclick="addVariable()">+ New Variable</button>
@@ -381,6 +499,12 @@ function renderConfigList() {
 /* ── Right panel: Rules list ─────────────────────────────── */
 function renderRuleList() {
   const container = document.getElementById('tab-rules');
+
+  if (isSectionLocked('rules')) {
+    _renderSectionLockOverlay(container, 'rules');
+    return;
+  }
+
   container.innerHTML = `
     <div class="tree-controls">
       <button class="btn primary" onclick="addProp()">+ Add Property Column</button>
@@ -432,17 +556,49 @@ function renderRuleList() {
 
     const currentRule = rules[pr.id] || '';
 
+    const resolvedVal = resolveRule(currentRule, State.selectedPartId);
+
     const textarea = document.createElement('textarea');
     textarea.className = 'rule-textarea';
     textarea.value   = currentRule;
-    textarea.oninput = function () { updateRule(State.selectedPartId, pr.id, this.value); };
+
+    const preview = document.createElement('div');
+    preview.className = 'rule-preview';
+
+    const previewText = document.createElement('span');
+    previewText.className   = 'rule-preview-text';
+    previewText.textContent = resolvedVal;
+
+    const previewCount = document.createElement('span');
+    previewCount.className   = 'rule-preview-count';
+    previewCount.textContent = resolvedVal.length;
+    previewCount.title       = resolvedVal.length + ' characters';
+
+    preview.appendChild(previewText);
+    if (resolvedVal) preview.appendChild(previewCount);
+
+    textarea.oninput = function () {
+      updateRule(State.selectedPartId, pr.id, this.value);
+      // Update preview text + count live
+      let el = this.nextElementSibling;
+      if (el && el.classList.contains('token-palette')) el = el.nextElementSibling;
+      if (el && el.classList.contains('rule-preview')) {
+        const txt = el.querySelector('.rule-preview-text');
+        const cnt = el.querySelector('.rule-preview-count');
+        const resolved = resolveRule(this.value, State.selectedPartId);
+        if (txt) txt.textContent = resolved;
+        if (cnt) { cnt.textContent = resolved.length; cnt.style.display = resolved ? '' : 'none'; }
+        else if (resolved) {
+          const newCnt = document.createElement('span');
+          newCnt.className = 'rule-preview-count';
+          newCnt.textContent = resolved.length;
+          el.appendChild(newCnt);
+        }
+      }
+    };
 
     const palette = document.createElement('div');
     palette.className = 'token-palette';
-
-    const preview = document.createElement('div');
-    preview.className   = 'rule-preview';
-    preview.textContent = resolveRule(currentRule, State.selectedPartId);
 
     // Wire autocomplete between textarea and palette
     _wireTokenAutocomplete(textarea, palette, pr.id);

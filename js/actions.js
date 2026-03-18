@@ -8,6 +8,26 @@
 window.handleContextSelect = (key, val) => {
   if (val !== '__NEW__') {
     getActiveContext()[key] = val;
+
+    // Auto-derive CLASS_NO from CLASS — extract digits only (e.g. HE300 → 300)
+    if (key === 'CLASS') {
+      const digits = val.replace(/[^0-9]/g, '');
+      const master = getActiveMaster();
+      const classNoVar = master.find(m => m.key === 'CLASS_NO');
+      if (classNoVar && digits) {
+        // Add digit value to CLASS_NO options if not already present
+        if (!classNoVar.vals.includes(digits)) classNoVar.vals.push(digits);
+        getActiveContext()['CLASS_NO'] = digits;
+      }
+    }
+
+    renderAll();
+    return;
+  }
+
+  // Adding a new value mutates Config — block if Config is locked
+  if (!_guardSection('config')) {
+    // Revert the select to its previous value
     renderAll();
     return;
   }
@@ -216,6 +236,7 @@ window.reorderParts = orderedIds => {
 
 /* ── Context variables ───────────────────────────────────── */
 window.addVariable = () => {
+  if (!_guardSection('config')) return;
   const newKey   = 'VAR' + Date.now();
   const newLabel = 'New Variable';
   getActiveMaster().push({ key: newKey, label: newLabel, vals: [] });
@@ -233,6 +254,7 @@ window.addVariable = () => {
 };
 
 window.deleteVariable = k => {
+  if (!_guardSection('config')) return;
   const master = getActiveMaster().find(m => m.key === k);
   showConfirm(
     'Delete Variable',
@@ -251,6 +273,7 @@ window.deleteVariable = k => {
  * newLabel: user-supplied human label.
  */
 window.renameVariable = (oldKey, newLabel) => {
+  if (!_guardSection('config')) return;
   if (!newLabel) return;
   const master = getActiveMaster().find(m => m.key === oldKey);
   if (!master) return;
@@ -310,6 +333,7 @@ function _startConfigLabelEdit(labelSpan, currentKey) {
 }
 
 window.addChip = (k, v) => {
+  if (!_guardSection('config')) return;
   if (!v?.trim()) return;
   const master = getActiveMaster().find(m => m.key === k);
   if (master && !master.vals.includes(v.trim())) {
@@ -320,6 +344,7 @@ window.addChip = (k, v) => {
 
 /* Comma-separated batch add */
 window.addChips = (k, rawValue) => {
+  if (!_guardSection('config')) return;
   if (!rawValue?.trim()) return;
   const master = getActiveMaster().find(m => m.key === k);
   if (!master) return;
@@ -328,12 +353,14 @@ window.addChips = (k, rawValue) => {
 };
 
 window.removeChip = (k, v) => {
+  if (!_guardSection('config')) return;
   const m = getActiveMaster().find(x => x.key === k);
   if (m) { m.vals = m.vals.filter(x => x !== v); renderAll(); }
 };
 
 /* ── Properties (columns) ────────────────────────────────── */
 window.addProp = () => {
+  if (!_guardSection('rules')) return;
   const newProp = { id: 'f' + Date.now(), name: 'New Column' };
   getActiveProps().push(newProp);
   // Ensure new column starts visible
@@ -344,6 +371,7 @@ window.addProp = () => {
 };
 
 window.togglePropVisibility = id => {
+  if (!_guardSection('rules')) return;
   const hidden = getHiddenProps();
   const idx = hidden.indexOf(id);
   if (idx === -1) hidden.push(id);
@@ -352,6 +380,7 @@ window.togglePropVisibility = id => {
 };
 
 window.deleteProp = id => {
+  if (!_guardSection('rules')) return;
   const prop = getActiveProps().find(p => p.id === id);
   showConfirm(
     'Delete Property Column',
@@ -368,6 +397,7 @@ window.deleteProp = id => {
 
 /* ── Rule update ─────────────────────────────────────────── */
 function updateRule(partId, propId, value) {
+  if (!_guardSection('rules')) return;
   const activeRules = getActiveRules();
   if (!activeRules[partId]) activeRules[partId] = {};
   activeRules[partId][propId] = value;
@@ -378,6 +408,18 @@ function updateRule(partId, propId, value) {
     if (el && el.classList.contains('rule-preview')) el.textContent = resolveRule(value, partId);
   }
 }
+
+/**
+ * Directly sets a rule formula to a literal string value.
+ * Used by the file-picker cell action — bypasses the rules section lock
+ * since the user is acting on the grid cell, not the rules panel.
+ */
+window.setRuleLiteral = (partId, propId, literalValue) => {
+  const activeRules = getActiveRules();
+  if (!activeRules[partId]) activeRules[partId] = {};
+  activeRules[partId][propId] = literalValue;
+  renderAll();
+};
 
 /* ── Tabs (product classes) ──────────────────────────────── */
 window.newTab = () => {
@@ -390,6 +432,9 @@ window.newTab = () => {
   State.props[id]       = [];
   State.rules[id]       = {};
   State.hiddenProps[id] = [];
+  // New tabs start unlocked — no lock entries needed
+  if (!State.lockedTabs)     State.lockedTabs     = {};
+  if (!State.lockedSections) State.lockedSections = {};
   State.activeClassId   = id;
   State.selectedPartId  = null;
   renderAll();
@@ -408,6 +453,9 @@ window.cloneTab = sourceId => {
   State.props[newId]       = JSON.parse(JSON.stringify(State.props[sourceId]   || []));
   State.rules[newId]       = JSON.parse(JSON.stringify(State.rules[sourceId]   || {}));
   State.hiddenProps[newId] = JSON.parse(JSON.stringify((State.hiddenProps || {})[sourceId] || []));
+  // Clones are always unlocked — never inherit the source tab's locks
+  if (!State.lockedTabs)     State.lockedTabs     = {};
+  if (!State.lockedSections) State.lockedSections = {};
   State.activeClassId  = newId;
   State.selectedPartId = null;
   renderAll();
@@ -431,6 +479,17 @@ window.deleteTab = id => {
       delete State.props[id];
       delete State.rules[id];
       if (State.hiddenProps) delete State.hiddenProps[id];
+      // Clean up lock data for deleted tab
+      if (State.lockedTabs)     delete State.lockedTabs[id];
+      if (State.lockedSections) {
+        delete State.lockedSections[id + ':rules'];
+        delete State.lockedSections[id + ':config'];
+      }
+      if (window._unlockedTabs)     window._unlockedTabs.delete(id);
+      if (window._unlockedSections) {
+        window._unlockedSections.delete(id + ':rules');
+        window._unlockedSections.delete(id + ':config');
+      }
       if (State.activeClassId === id) {
         State.activeClassId  = State.productClasses[0].id;
         State.selectedPartId = null;
@@ -448,3 +507,138 @@ window.renameActiveTab = newName => {
   const cls = State.productClasses.find(c => c.id === State.activeClassId);
   if (cls && newName) { cls.name = newName; renderAll(); }
 };
+
+/* ── Tab password lock ───────────────────────────────────── */
+
+async function _sha256hex(text) {
+  const buf  = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+/**
+ * Lock the active tab with a PIN. Prompts twice to confirm.
+ */
+window.lockTab = id => {
+  showPrompt('Set PIN', 'Enter a PIN to lock this tab:', '', pin1 => {
+    if (!pin1) return;
+    showPrompt('Confirm PIN', 'Re-enter PIN to confirm:', '', async pin2 => {
+      if (pin1 !== pin2) {
+        showConfirm('PIN Mismatch', 'PINs did not match. Tab not locked.', () => {});
+        return;
+      }
+      if (!State.lockedTabs) State.lockedTabs = {};
+      State.lockedTabs[id] = await _sha256hex(pin1);
+      // Track unlocked session state (in-memory only, not persisted)
+      if (!window._unlockedTabs) window._unlockedTabs = new Set();
+      window._unlockedTabs.delete(id);
+      renderAll();
+    });
+  });
+};
+
+/**
+ * Unlock a tab by verifying the PIN. Unlocked state is session-only (not saved).
+ */
+window.unlockTab = (id, onSuccess) => {
+  showPrompt('Unlock Tab', 'Enter PIN to unlock:', '', async pin => {
+    if (!pin) return;
+    const hash = await _sha256hex(pin);
+    if (hash === (State.lockedTabs || {})[id]) {
+      if (!window._unlockedTabs) window._unlockedTabs = new Set();
+      window._unlockedTabs.add(id);
+      if (onSuccess) onSuccess();
+      renderAll();
+    } else {
+      showConfirm('Wrong PIN', 'Incorrect PIN. Try again.', () => {});
+    }
+  });
+};
+
+window.removeTabLock = id => {
+  showPrompt('Remove Lock', 'Enter current PIN to remove lock:', '', async pin => {
+    if (!pin) return;
+    const hash = await _sha256hex(pin);
+    if (hash === (State.lockedTabs || {})[id]) {
+      delete State.lockedTabs[id];
+      if (window._unlockedTabs) window._unlockedTabs.delete(id);
+      renderAll();
+    } else {
+      showConfirm('Wrong PIN', 'Incorrect PIN.', () => {});
+    }
+  });
+};
+
+/** Returns true if tab is locked AND not currently unlocked for this session */
+window.isTabLocked = id => {
+  if (!(State.lockedTabs || {})[id]) return false;
+  if (window._unlockedTabs && window._unlockedTabs.has(id)) return false;
+  return true;
+};
+
+/* ── Section password lock (Rules / Config per tab) ─────── */
+
+const _sectionKey = (section) => `${State.activeClassId}:${section}`;
+
+window.lockSection = section => {
+  showPrompt(`Lock ${section} — Set PIN`, 'Enter a PIN to lock this section:', '', pin1 => {
+    if (!pin1) return;
+    showPrompt(`Lock ${section} — Confirm PIN`, 'Re-enter PIN to confirm:', '', async pin2 => {
+      if (pin1 !== pin2) {
+        showConfirm('PIN Mismatch', 'PINs did not match. Section not locked.', () => {});
+        return;
+      }
+      if (!State.lockedSections) State.lockedSections = {};
+      State.lockedSections[_sectionKey(section)] = await _sha256hex(pin1);
+      if (!window._unlockedSections) window._unlockedSections = new Set();
+      window._unlockedSections.delete(_sectionKey(section));
+      renderAll();
+    });
+  });
+};
+
+window.unlockSection = (section, onSuccess) => {
+  showPrompt(`Unlock ${section}`, 'Enter PIN to unlock:', '', async pin => {
+    if (!pin) return;
+    const hash = await _sha256hex(pin);
+    if (hash === (State.lockedSections || {})[_sectionKey(section)]) {
+      if (!window._unlockedSections) window._unlockedSections = new Set();
+      window._unlockedSections.add(_sectionKey(section));
+      if (onSuccess) onSuccess();
+      renderAll();
+    } else {
+      showConfirm('Wrong PIN', 'Incorrect PIN. Try again.', () => {});
+    }
+  });
+};
+
+window.removeSectionLock = section => {
+  showPrompt(`Remove ${section} Lock`, 'Enter current PIN to remove lock:', '', async pin => {
+    if (!pin) return;
+    const hash = await _sha256hex(pin);
+    if (hash === (State.lockedSections || {})[_sectionKey(section)]) {
+      delete State.lockedSections[_sectionKey(section)];
+      if (window._unlockedSections) window._unlockedSections.delete(_sectionKey(section));
+      renderAll();
+    } else {
+      showConfirm('Wrong PIN', 'Incorrect PIN.', () => {});
+    }
+  });
+};
+
+window.isSectionLocked = section => {
+  const key = _sectionKey(section);
+  if (!(State.lockedSections || {})[key]) return false;
+  if (window._unlockedSections && window._unlockedSections.has(key)) return false;
+  return true;
+};
+
+/**
+ * Call at the top of any action that mutates a locked section.
+ * Returns true if allowed (not locked, or already unlocked).
+ * Returns false and shows unlock prompt if locked.
+ */
+function _guardSection(section) {
+  if (!isSectionLocked(section)) return true;
+  unlockSection(section, null);
+  return false;
+}

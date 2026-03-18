@@ -130,20 +130,27 @@ body {
 /* ── Grid / Table ────────────────────────────────────────── */
 table           { border-collapse: collapse; width: 100%; min-width: 400px; table-layout: fixed; }
 thead th        {
-  position: sticky; top: 0; background: #fff;
-  padding: 10px; border-bottom: 2px solid var(--stroke);
-  font-size: 11px; color: var(--muted); text-align: left;
+  position: sticky; top: 0; z-index: 2; background: #fafaf8;
+  padding: 8px 10px; border-bottom: 2px solid var(--stroke);
+  border-right: 1px solid rgba(0,0,0,0.07);
+  font-size: 11px; font-weight: 600; color: var(--muted); text-align: left;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   user-select: none; position: relative;
+  letter-spacing: 0.03em; text-transform: uppercase;
 }
-thead th.col-name { width: 220px; }
+thead th:last-child { border-right: none; }
 thead th.col-prop { width: 150px; min-width: 60px; }
 tbody td        {
-  padding: 8px 10px; border-bottom: 1px solid rgba(0,0,0,0.04);
-  font-size: 12px; overflow: hidden; text-overflow: ellipsis;
-  white-space: nowrap; max-width: 0;
+  padding: 7px 10px; border-bottom: 1px solid rgba(0,0,0,0.04);
+  border-right: 1px solid rgba(0,0,0,0.05);
+  font-size: 12px;
+  overflow: hidden;
+  max-width: 0;      /* essential for table-layout:fixed + ellipsis */
 }
-tbody tr.selected td { background: rgba(43,108,176,0.08); }
+tbody td:last-child { border-right: none; }
+tbody tr.selected td { background: rgba(43,108,176,0.07); }
+tbody tr:hover td    { background: rgba(0,0,0,0.015); }
+tbody tr.selected:hover td { background: rgba(43,108,176,0.1); }
 tbody tr.row-child td { background: rgba(43,108,176,0.02); }
 tbody tr.row-child .inline-idx { opacity: 0.6; font-size: 9px; }
 
@@ -366,15 +373,18 @@ tbody tr.row-child .inline-idx { opacity: 0.6; font-size: 9px; }
 /* Make cells a positioning context for the copy button */
 td.data-cell {
   position: relative;
-  padding-right: 26px;   /* reserve room so text doesn't overlap button */
+  padding: 7px 60px 7px 10px;  /* right: room for char-badge + copy btn */
+  overflow: hidden;
+  max-width: 0;
 }
 
-/* Text truncates as before */
+/* Text fills available width and clips with ellipsis */
 td.data-cell .cell-text {
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  width: 100%;
 }
 
 /* Copy button — hidden by default, revealed on row hover */
@@ -551,3 +561,396 @@ tbody .row-header-child { background: rgba(43,108,176,.04); }
 
 /* Tooltip hint on drag handle */
 .drag-handle { position: relative; }
+
+/* ════════════════════════════════════════════════════════════
+   CHAR-COUNT BADGE  (middle grid cells, appears on row hover)
+   ════════════════════════════════════════════════════════════ */
+.cell-char-badge {
+  position: absolute;
+  right: 28px;           /* sits left of the copy button */
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  pointer-events: none;
+
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+  line-height: 1.6;
+
+  background: rgba(43,108,176,0.12);
+  color: var(--accent);
+  border: 1px solid rgba(43,108,176,0.25);
+
+  transition: opacity 0.12s;
+}
+
+/* Show alongside copy button when row is hovered */
+tr:hover .cell-char-badge { opacity: 1; }
+
+/* ── Rule preview: inline char-count ────────────────────── */
+.rule-preview {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between;
+}
+.rule-preview-text {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #444;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rule-preview-count {
+  flex-shrink: 0;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  background: rgba(43,108,176,0.10);
+  color: var(--accent);
+  border: 1px solid rgba(43,108,176,0.22);
+  white-space: nowrap;
+}
+
+/* ════════════════════════════════════════════════════════════
+   TAB LOCK SYSTEM
+   ════════════════════════════════════════════════════════════ */
+.tab-locked {
+  opacity: 0.7;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 4px,
+    rgba(0,0,0,0.03) 4px,
+    rgba(0,0,0,0.03) 8px
+  ) !important;
+}
+.tab-locked .tab-action.lock { color: #c05621; }
+
+.tab-action.lock {
+  font-size: 11px;
+  opacity: 0.5;
+  transition: opacity 0.15s;
+  cursor: pointer;
+  padding: 0 1px;
+}
+.tab:hover .tab-action.lock { opacity: 1; }
+
+/* Lock overlay in center panel */
+.lock-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 300px;
+}
+.lock-overlay-content {
+  text-align: center;
+  padding: 40px;
+}
+.lock-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.4;
+}
+.lock-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.lock-desc {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   GRID UX POLISH
+   ════════════════════════════════════════════════════════════ */
+
+/* Slightly taller rows for readability */
+tbody td { line-height: 1.4; }
+
+/* Column header hover highlight */
+thead th:hover { background: #f5f3ee; }
+
+/* Selected row accent on left edge */
+tbody tr.selected td:first-child {
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+/* ════════════════════════════════════════════════════════════
+   SECTION LOCK (Rules / Config panels)
+   ════════════════════════════════════════════════════════════ */
+.section-lock-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+}
+.section-lock-overlay .lock-icon  { font-size: 36px; opacity: 0.35; margin-bottom: 12px; }
+.section-lock-overlay .lock-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.section-lock-overlay .lock-desc  { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
+
+/* Lock icon on Rules / Config tab buttons */
+.section-lock-icon {
+  font-size: 10px;
+  margin-left: 5px;
+  opacity: 0.4;
+  cursor: pointer;
+  vertical-align: middle;
+  transition: opacity 0.15s;
+}
+.rtab:hover .section-lock-icon { opacity: 1; }
+.rtab.active .section-lock-icon { opacity: 0.7; }
+
+/* ════════════════════════════════════════════════════════════
+   INVENTOR MAPPING MODAL
+   ════════════════════════════════════════════════════════════ */
+.inventor-map-box {
+  width: 580px;
+  max-width: 95vw;
+  padding: 0;
+  overflow: hidden;
+}
+.inventor-map-box .confirm-title {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--stroke);
+  margin: 0;
+}
+.imap-filename-section {
+  padding: 16px 20px;
+  background: #f8f7f4;
+  border-bottom: 1px solid var(--stroke);
+}
+.imap-map-section {
+  padding: 14px 20px;
+}
+.inventor-map-box .confirm-buttons {
+  padding: 12px 20px;
+  border-top: 1px solid var(--stroke);
+  background: #fafaf8;
+  margin: 0;
+}
+.imap-step {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 999px;
+  margin-right: 6px;
+  vertical-align: middle;
+  letter-spacing: 0.04em;
+}
+.imap-filename-label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+.imap-filename-hint {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 0 0 10px;
+  line-height: 1.5;
+}
+.imap-filecol-select {
+  width: 100%;
+  padding: 7px 10px;
+  border: 2px solid var(--accent);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #fff;
+  color: var(--text);
+  cursor: pointer;
+}
+.imap-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.imap-table th {
+  padding: 6px 10px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  background: #fafaf8;
+  border-bottom: 2px solid var(--stroke);
+  position: sticky;
+  top: 0;
+}
+.imap-table td {
+  padding: 5px 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  vertical-align: middle;
+}
+.imap-col-name {
+  font-weight: 600;
+  white-space: nowrap;
+  width: 42%;
+}
+.imap-select {
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 12px;
+  background: #fff;
+}
+.imap-custom {
+  display: none;
+  margin-top: 4px;
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  font-size: 12px;
+}
+.imap-table tr:hover td { background: rgba(0,0,0,0.02); }
+
+/* ════════════════════════════════════════════════════════════
+   FILE-PICKER BUTTON (filename column cells)
+   ════════════════════════════════════════════════════════════ */
+td.data-cell--filepick {
+  padding-right: 84px;   /* extra room for folder icon + char badge + copy btn */
+}
+.cell-filepick-btn {
+  position: absolute;
+  right: 48px;           /* left of copy button */
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.35;         /* always slightly visible so users can find it */
+  pointer-events: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid rgba(180,120,30,0.35);
+  background: #fffdf7;
+  cursor: pointer;
+  color: #b7791f;
+  padding: 0;
+  transition: opacity 0.12s, background 0.12s, color 0.12s, border-color 0.12s;
+}
+.cell-filepick-btn:hover {
+  opacity: 1;
+  background: #fffbeb;
+  border-color: #b7791f;
+  color: #92400e;
+}
+tr:hover .cell-filepick-btn {
+  opacity: 1;
+}
+
+/* ── Inventor modal tabs ─────────────────────────────────── */
+.imap-tabs {
+  display: flex;
+  border-bottom: 2px solid var(--stroke);
+  padding: 0 20px;
+  gap: 4px;
+  background: #fafaf8;
+}
+.imap-tab {
+  padding: 9px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  background: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  color: var(--muted);
+  transition: color 0.12s, border-color 0.12s;
+}
+.imap-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.imap-tab:hover:not(.active) { color: var(--text); }
+.imap-link-count {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 999px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.imap-tab-panel { padding: 0; }
+.imap-footer {
+  padding: 12px 20px;
+  border-top: 1px solid var(--stroke);
+  background: #fafaf8;
+  margin: 0;
+}
+
+/* ── File linking table ──────────────────────────────────── */
+.imap-table td { vertical-align: middle; }
+.imap-file-link-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+}
+.imap-linked-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+  font-family: var(--mono, monospace);
+  color: #aaa;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-style: italic;
+}
+.imap-linked-name--set {
+  color: #276749;
+  font-weight: 600;
+  font-style: normal;
+}
+.imap-browse-btn {
+  flex-shrink: 0;
+  font-size: 11px;
+  padding: 3px 10px;
+  white-space: nowrap;
+  background: #f5f5f3;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.imap-browse-btn:hover { background: #fffbeb; border-color: #b7791f; }
+.imap-clear-btn {
+  flex-shrink: 0;
+  font-size: 11px;
+  padding: 3px 6px;
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #999;
+}
+.imap-clear-btn:hover { color: #e53e3e; border-color: #e53e3e; }
