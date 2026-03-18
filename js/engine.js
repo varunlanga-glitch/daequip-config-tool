@@ -84,6 +84,19 @@ function resolveRule(template, partId) {
     s = s.replace(regex, ctx[key] || '');
   });
 
+  // Evaluate conditionals: {VAR=value:output} or {VAR?output}
+  // {VAR=value:output} → shows output if VAR equals value, else blank
+  // {VAR?output}       → shows output if VAR is set (non-blank, not "—select—"), else blank
+  const BLANK_VALUES = ['', '—select—', '-- select --', '--select--'];
+  s = s.replace(/\{([^{}=?:]+)=([^{}:]+):([^{}]*)\}/g, (match, varName, expected, output) => {
+    const val = (ctx[varName.trim()] || '').trim();
+    return val === expected.trim() ? output : '';
+  });
+  s = s.replace(/\{([^{}=?:]+)\?([^{}]*)\}/g, (match, varName, output) => {
+    const val = (ctx[varName.trim()] || '').trim();
+    return BLANK_VALUES.includes(val) ? '' : output;
+  });
+
   // Evaluate math expressions wrapped in parentheses, e.g. (70/25.4) → "2.7559"
   s = s.replace(/\(([^()]*)\)/g, (match, inner) => {
     const val = _safeMathEval(inner.trim());
