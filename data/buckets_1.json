@@ -1212,106 +1212,91 @@
         "id": "p1",
         "name": "GA",
         "midx": "A",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p2",
         "name": "Tooth Weldment",
         "midx": "B",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762899954",
         "name": "Body Weldment",
         "midx": "C",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762912068",
         "name": "Width Profile",
         "midx": "D",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762928430",
         "name": "Capacity",
         "midx": "00",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762938928",
         "name": "Shell Plate",
         "midx": null,
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762944205",
         "name": "Strongback Plate",
         "midx": null,
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762956126",
         "name": "Wear Bar Assm",
         "midx": null,
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762975793",
         "name": "Wear Bar",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770767898320",
         "name": "Profile Sketch",
         "midx": null,
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770767923264",
         "name": "Side Edge Plate",
         "midx": null,
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770767931018",
         "name": "Side Plate",
         "midx": null,
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770767938206",
         "name": "Cheek Plate-RH",
         "midx": null,
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770767948898",
         "name": "Cheek Plate-LH",
         "midx": null,
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770767958952",
         "name": "Lifting Eye Plate",
         "midx": null,
-        "level": 0,
-        "enabled": true
+        "level": 0
       }
     ],
     "tab1770826801156": [
@@ -1319,78 +1304,67 @@
         "id": "p1",
         "name": "GA",
         "midx": "A",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762899954",
         "name": "Body-Hub Weldment",
         "midx": "B",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770767898320",
         "name": "Profile Sketch",
         "midx": "00",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762912068",
         "name": "Body Weldment",
         "midx": "01",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762928430",
         "name": "Side Plate MC",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770762938928",
         "name": "Side Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770762944205",
         "name": "Front Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770762956126",
         "name": "Bolt Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770762975793",
         "name": "Rear Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770767923264",
         "name": "Wedge Bar MC",
         "midx": null,
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770767931018",
         "name": "Wedge Bar",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       }
     ],
     "tab1770838553711": [
@@ -1398,190 +1372,163 @@
         "id": "p1",
         "name": "GA",
         "midx": "A",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762899954",
         "name": "Body-Hub Weldment",
         "midx": "B",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770837330352",
         "name": "Hub-Front-Right",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770837360914",
         "name": "Hub-Front-Left",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770837368844",
         "name": "Hub-Rear-Right",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770837371450",
         "name": "Hub-Rear-Left",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770767898320",
         "name": "Profile Sketch",
         "midx": "00",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762912068",
         "name": "Body Weldment",
         "midx": "01",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762928430",
         "name": "Side Plate MC",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770762938928",
         "name": "Side Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832021049",
         "name": "Cyl Plate MC",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832041056",
         "name": "Cyl Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770838910007",
         "name": "Spring Bolt Plate MC",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770838933503",
         "name": "Spring Bolt Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832083800",
         "name": "Back Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770762944205",
         "name": "Front base Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770838969693",
         "name": "Middle Base Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770762975793",
         "name": "Rear Cross Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832115401",
         "name": "Wedge Protect Plate-RH",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832127303",
         "name": "Wedge Protect Plate-LH",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832138407",
         "name": "Safety Key Lug Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832149926",
         "name": "Lifting Eye Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832160731",
         "name": "Hardware Assembly",
         "midx": "02",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770767923264",
         "name": "Wedge Bar Plate MC",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770767931018",
         "name": "Wedge Bar Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832472093",
         "name": "Safety Key Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832218222",
         "name": "Cover Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       }
     ],
     "tab1770838629859": [
@@ -1589,190 +1536,163 @@
         "id": "p1",
         "name": "GA",
         "midx": "A",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762899954",
         "name": "Body-Hub Weldment",
         "midx": "B",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770837330352",
         "name": "Hub-Front-Right",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770837360914",
         "name": "Hub-Front-Left",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770837368844",
         "name": "Hub-Rear-Right",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770837371450",
         "name": "Hub-Rear-Left",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770767898320",
         "name": "Profile Sketch",
         "midx": "00",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762912068",
         "name": "Body Weldment",
         "midx": "01",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762928430",
         "name": "Side Plate MC",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770762938928",
         "name": "Side Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832021049",
         "name": "Cyl Plate MC",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832041056",
         "name": "Cyl Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770762944205",
         "name": "Front Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832101193",
         "name": "Base Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832083800",
         "name": "Back Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770762975793",
         "name": "Rear Cross Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832138407",
         "name": "Safety Key Lug Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832149926",
         "name": "Lifting Eye Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832115401",
         "name": "Wedge Protect Plate-RH",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832127303",
         "name": "Wedge Protect Plate-LH",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832160731",
         "name": "Hardware Assembly",
         "midx": "02",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770767923264",
         "name": "Wedge Bar Plate MC",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770767931018",
         "name": "Wedge Bar Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832472093",
         "name": "Safety Key Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770835955029",
         "name": "Cover Plate Support Bar",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832218222",
         "name": "Cover Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770835969099",
         "name": "Spring Retainer",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       }
     ],
     "tab1770842447295": [
@@ -1780,190 +1700,163 @@
         "id": "p1",
         "name": "GA",
         "midx": "A",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762899954",
         "name": "Body-Hub Weldment",
         "midx": "B",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770837330352",
         "name": "Hub-Front-Right",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770837360914",
         "name": "Hub-Front-Left",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770837368844",
         "name": "Hub-Rear-Right",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770837371450",
         "name": "Hub-Rear-Left",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770767898320",
         "name": "Profile Sketch",
         "midx": "00",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762912068",
         "name": "Body Weldment",
         "midx": "01",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770762928430",
         "name": "Side Plate MC",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770762938928",
         "name": "Side Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832021049",
         "name": "Cyl Plate MC",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832041056",
         "name": "Cyl Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770762944205",
         "name": "Front Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832101193",
         "name": "Base Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832083800",
         "name": "Back Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770762975793",
         "name": "Rear Cross Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832138407",
         "name": "Safety Key Lug Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832149926",
         "name": "Lifting Eye Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832115401",
         "name": "Wedge Protect Plate-RH",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832127303",
         "name": "Wedge Protect Plate-LH",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832160731",
         "name": "Hardware Assembly",
         "midx": "02",
-        "level": 0,
-        "enabled": true
+        "level": 0
       },
       {
         "id": "p1770767923264",
         "name": "Wedge Bar Plate MC",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770767931018",
         "name": "Wedge Bar Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832472093",
         "name": "Safety Key Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770835955029",
         "name": "Cover Plate Support Bar",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770832218222",
         "name": "Cover Plate",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       },
       {
         "id": "p1770835969099",
         "name": "Spring Retainer",
         "midx": null,
-        "level": 1,
-        "enabled": true
+        "level": 1
       }
     ]
   },
@@ -2759,6 +2652,5 @@
   "lockedTabs": {},
   "lockedSections": {},
   "inventorMaps": {},
-  "fileNameOverrides": {},
-  "exportSelections": {}
+  "fileNameOverrides": {}
 }
