@@ -1,0 +1,149 @@
+{
+  "productClasses": [
+    {
+      "id": "cat_1773868048483_1",
+      "name": "Pins"
+    }
+  ],
+  "activeClassId": "cat_1773868048483_1",
+  "selectedPartId": "p1773869852653",
+  "activeRightTab": "parts",
+  "master": {
+    "cat_1773868048483_1": [
+      {
+        "key": "PIN_OD",
+        "label": "Pin OD",
+        "vals": [
+          "45MM",
+          "50MM",
+          "55MM",
+          "60MM",
+          "65MM",
+          "70MM",
+          "80MM",
+          "90MM",
+          "100MM",
+          "110MM",
+          "120MM",
+          "130MM",
+          "140MM"
+        ]
+      },
+      {
+        "key": "PIN_ID",
+        "label": "Pin ID",
+        "vals": []
+      },
+      {
+        "key": "PIN_LENGTH",
+        "label": "Pin Length",
+        "vals": [
+          "10.000",
+          "37.125",
+          "15.875",
+          "9.750"
+        ]
+      },
+      {
+        "key": "INDUCTION_HARDENED",
+        "label": "Induction Hardened",
+        "vals": [
+          "Yes",
+          "No"
+        ]
+      },
+      {
+        "key": "PIN_TYPE",
+        "label": "Pin Type",
+        "vals": [
+          "Floating",
+          "Fixed"
+        ]
+      },
+      {
+        "key": "CROSS_HOLE",
+        "label": "Cross Hole",
+        "vals": [
+          "1.500",
+          "1.063",
+          "1.250"
+        ]
+      }
+    ]
+  },
+  "context": {
+    "cat_1773868048483_1": {}
+  },
+  "parts": {
+    "cat_1773868048483_1": [
+      {
+        "id": "p1773869852653",
+        "name": "Pin GA",
+        "midx": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1773869860795",
+        "name": "Pin",
+        "midx": null,
+        "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1773869871318",
+        "name": "Pin Wldt",
+        "midx": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1773869885948",
+        "name": "Pin",
+        "midx": null,
+        "level": 1,
+        "enabled": true
+      }
+    ]
+  },
+  "props": {
+    "cat_1773868048483_1": [
+      {
+        "id": "f1773869896995",
+        "name": "Description"
+      },
+      {
+        "id": "f1773869904615",
+        "name": "Features 1"
+      },
+      {
+        "id": "f1773869927490",
+        "name": "Features 2"
+      },
+      {
+        "id": "f1773869932699",
+        "name": "Specs 1"
+      },
+      {
+        "id": "f1773869937461",
+        "name": "Specs 2"
+      }
+    ]
+  },
+  "rules": {
+    "cat_1773868048483_1": {
+      "p1773869885948": {
+        "f1773869896995": "PIN"
+      },
+      "p1773869852653": {}
+    }
+  },
+  "hiddenProps": {
+    "cat_1773868048483_1": []
+  },
+  "lockedTabs": {},
+  "lockedSections": {},
+  "inventorMaps": {},
+  "fileNameOverrides": {},
+  "exportSelections": {}
+}
