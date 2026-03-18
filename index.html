@@ -4,23 +4,27 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Configurator Pro</title>
-  <link rel="stylesheet" href="styles/main.css?v=20260317" />
+  <link rel="stylesheet" href="styles/main.css?v=20260318" />
 </head>
 <body>
 
 <div class="app">
   <!-- ── Top bar ──────────────────────────────────────── -->
   <div class="topbar">
+    <button class="btn btn-back-home" id="btnHome" style="display:none" title="Back to category list">← Home</button>
     <div class="tabs" id="tabs"></div>
-    <button class="btn primary" id="btnNewTab">+ New Tab</button>
-    <button class="btn" id="btnSave"   title="Save checkpoint (Ctrl+S)">💾 Save</button>
-    <button class="btn btn-publish"   id="btnPublish" title="Publish changes to GitHub (live for everyone)">☁ Publish</button>
-    <button class="btn"               id="btnHistory" title="View last 10 checkpoints &amp; revert">🕐 History</button>
-    <button class="btn" id="btnExportInventor" title="Export for Autodesk Inventor iProperties">🔩 Export Inventor</button>
+    <button class="btn primary" id="btnNewTab" style="display:none">+ New Tab</button>
+    <button class="btn" id="btnSave" style="display:none" title="Save checkpoint (Ctrl+S)">💾 Save</button>
+    <button class="btn btn-publish" id="btnPublish" title="Publish changes to GitHub (live for everyone)">☁ Publish</button>
+    <button class="btn"            id="btnHistory" title="View last 10 checkpoints &amp; revert">🕐 History</button>
+    <button class="btn" id="btnExportInventor" style="display:none" title="Export for Autodesk Inventor iProperties">🔩 Export Inventor</button>
   </div>
 
-  <!-- ── Three-panel layout ───────────────────────────── -->
-  <div class="main" id="mainContainer">
+  <!-- ── Home screen (category card grid) ─────────────── -->
+  <div id="homeScreen" class="home-screen" style="display:none"></div>
+
+  <!-- ── Three-panel workspace ─────────────────────────── -->
+  <div class="main" id="mainContainer" style="display:none">
 
     <!-- Left: context selectors -->
     <div class="panel" id="leftPanel">
@@ -35,7 +39,7 @@
       <div class="panel-header"><div id="productName">---</div></div>
       <div id="columnFilterBar" class="column-filter-bar" style="display:none"></div>
       <div class="panel-body" style="padding:0">
-        <div id="loadingIndicator" class="loading-indicator">Loading configuration…</div>
+        <div id="loadingIndicator" class="loading-indicator" style="display:none">Loading configuration…</div>
         <table id="mainGrid">
           <thead><tr id="gridHead"></tr></thead>
           <tbody id="gridBody"></tbody>
@@ -66,30 +70,28 @@
   ╔══════════════════════════════════════════════════════════╗
   ║  SCRIPT LOAD ORDER — DO NOT REORDER                     ║
   ║                                                          ║
-  ║  1. state.js     — State object + accessors (no deps)   ║
-  ║  2. engine.js    — Logic that reads State (needs 1)     ║
-  ║  3. renderers.js — DOM writers (needs 1, 2)             ║
-  ║  4. actions.js   — Mutations + re-render (needs 1-3)    ║
-  ║  5. ui.js        — Dialogs, inline edit (needs 1-4)     ║
-  ║  6. io.js        — File I/O, wires toolbar (needs 1-5)  ║
+  ║  1. state.js       — State object + accessors           ║
+  ║  2. engine.js      — Logic that reads State             ║
+  ║  3. renderers.js   — DOM writers                        ║
+  ║  4. actions.js     — Mutations + re-render              ║
+  ║  5. ui.js          — Dialogs, inline edit               ║
+  ║  6. io.js          — File I/O, wires toolbar            ║
+  ║  7. github.js      — GitHub publish & history           ║
+  ║  8. categories.js  — Category nav, lazy load, home      ║
   ╚══════════════════════════════════════════════════════════╝
 -->
-<script src="js/state.js?v=20260317"></script>
-<script src="js/engine.js?v=20260317"></script>
-<script src="js/renderers.js?v=20260317"></script>
-<script src="js/actions.js?v=20260317"></script>
-<script src="js/ui.js?v=20260317"></script>
-<script src="js/io.js?v=20260317"></script>
-<script src="js/github.js?v=20260317"></script>
+<script src="js/state.js?v=20260318"></script>
+<script src="js/engine.js?v=20260318"></script>
+<script src="js/renderers.js?v=20260318"></script>
+<script src="js/actions.js?v=20260318"></script>
+<script src="js/ui.js?v=20260318"></script>
+<script src="js/io.js?v=20260318"></script>
+<script src="js/github.js?v=20260318"></script>
+<script src="js/categories.js?v=20260318"></script>
 
 <script>
-  /*
-   * Startup: fetch the shared config JSON.
-   * ⚠️  This URL is rewritten by build.py at deploy time — do not edit manually.
-   * To change the URL, update DATA_URL in build.py and re-run `python build.py`.
-   * Locally (file://) the fetch will fail gracefully and use the empty default State.
-   */
-  loadSeedData('https://raw.githubusercontent.com/varunlanga-glitch/daequip-config-tool/main/data/buckets_1.json');
+  /* Startup — load categories config, show home screen */
+  initCategories();
 </script>
 
 </body>

@@ -15,7 +15,7 @@ function saveCheckpoint() {
     const { dirty, ...saveState } = State;
     _downloadBlob(JSON.stringify(saveState, null, 2), 'application/json', `${safeName}.json`);
     State.dirty = false;
-    localStorage.removeItem('configurator_autosave');
+    localStorage.removeItem(_autosaveKey());
     _updateDirtyIndicator();
   });
 }
@@ -48,6 +48,11 @@ function _updateDirtyIndicator() {
   if (btn) btn.classList.toggle('btn-dirty', !!State.dirty);
 }
 
+/* ── Per-category autosave key ───────────────────────────── */
+function _autosaveKey() {
+  return 'cat_autosave_' + (window._activeCategory?.id || 'main');
+}
+
 /* ── Autosave to localStorage ────────────────────────────── */
 let _autosaveTimer = null;
 function scheduleAutosave() {
@@ -56,7 +61,7 @@ function scheduleAutosave() {
     if (!State.dirty) return;
     try {
       const { dirty, ...saveState } = State;
-      localStorage.setItem('configurator_autosave', JSON.stringify({
+      localStorage.setItem(_autosaveKey(), JSON.stringify({
         timestamp: Date.now(),
         state: saveState
       }));
@@ -77,7 +82,7 @@ function _showAutosaveBanner() {
 
   document.getElementById('btnAutosaveRestore').onclick = () => {
     try {
-      const saved = JSON.parse(localStorage.getItem('configurator_autosave'));
+      const saved = JSON.parse(localStorage.getItem(_autosaveKey()));
       if (saved?.state) {
         Object.keys(State).forEach(k => delete State[k]);
         Object.assign(State, saved.state);
@@ -89,12 +94,12 @@ function _showAutosaveBanner() {
         _updateDirtyIndicator();
       }
     } catch(e) {}
-    localStorage.removeItem('configurator_autosave');
+    localStorage.removeItem(_autosaveKey());
     banner.remove();
   };
 
   document.getElementById('btnAutosaveDiscard').onclick = () => {
-    localStorage.removeItem('configurator_autosave');
+    localStorage.removeItem(_autosaveKey());
     banner.remove();
   };
 }
@@ -157,7 +162,7 @@ function _finishLoad() {
   // Update dirty indicator (should be clean after load)
   _updateDirtyIndicator();
   // Show autosave restore banner if a previous session was interrupted
-  if (localStorage.getItem('configurator_autosave')) _showAutosaveBanner();
+  if (localStorage.getItem(_autosaveKey())) _showAutosaveBanner();
 }
 
 /* ── Internal download helper ────────────────────────────── */
@@ -177,6 +182,7 @@ document.getElementById('btnExportInventor').addEventListener('click', exportInv
 document.getElementById('btnNewTab').addEventListener('click',         newTab);
 document.getElementById('btnPublish').addEventListener('click',        () => openPublishModal());
 document.getElementById('btnHistory').addEventListener('click',        () => openHistoryModal());
+document.getElementById('btnHome').addEventListener('click',           () => goHome());
 
 /* ── Keyboard shortcuts ──────────────────────────────────── */
 document.addEventListener('keydown', e => {
