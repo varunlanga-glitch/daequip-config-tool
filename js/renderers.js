@@ -936,7 +936,9 @@ function _wireTokenAutocomplete(textarea, palette, propId) {
       btn.className = 'token-pill' +
         (used    ? ' token-used' : ' token-new') +
         (isDimmed ? ' token-dim' : '');
-      btn.title = t.label + (used ? ' — already used' : ' — click to insert');
+      btn.title = t.key !== 'IDX' && t.key !== 'NAME'
+        ? t.label + (used ? ' — already used as conditional' : ' — click to insert as conditional')
+        : t.label + (used ? ' — already used' : ' — click to insert');
 
       if (prefix && inMatch) {
         /* Highlight the typed portion */
@@ -960,22 +962,13 @@ function _wireTokenAutocomplete(textarea, palette, propId) {
       /* Mousedown so the click fires before textarea blur */
       btn.addEventListener('mousedown', e => {
         e.preventDefault();
-        insertToken(t.key);
+        if (t.key !== 'IDX' && t.key !== 'NAME') {
+          // Dynamic variables always open the conditional builder
+          openConditionalBuilder(t.key, t.label, btn);
+        } else {
+          insertToken(t.key);
+        }
       });
-
-      /* "if" button — only for dynamic (context) variables, not IDX/NAME */
-      if (t.key !== 'IDX' && t.key !== 'NAME') {
-        const ifBtn = document.createElement('button');
-        ifBtn.className = 'token-if-btn';
-        ifBtn.textContent = 'if';
-        ifBtn.title = 'Insert as conditional: shows a value only when ' + t.label + ' is selected';
-        ifBtn.addEventListener('mousedown', e => {
-          e.preventDefault();
-          e.stopPropagation();
-          openConditionalBuilder(t.key, t.label, ifBtn);
-        });
-        btn.appendChild(ifBtn);
-      }
 
       palette.appendChild(btn);
     });
