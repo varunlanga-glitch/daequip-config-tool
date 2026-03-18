@@ -243,9 +243,10 @@ function renderContext() {
     div.className = 'field';
 
     const sortedVals = [...m.vals].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-    const currentVal = getActiveContext()[m.key];
+    const currentVal = getActiveContext()[m.key] || '';
     const hasSelection = sortedVals.includes(currentVal);
-    const placeholder = hasSelection ? '' : `<option value="" disabled selected>— select —</option>`;
+    // Always keep "— select —" as a selectable option so the user can clear their choice
+    const placeholder = `<option value="" ${!hasSelection ? 'selected' : ''}>— select —</option>`;
     const options = sortedVals
       .map(v => `<option value="${v}" ${currentVal === v ? 'selected' : ''}>${v}</option>`)
       .join('');
