@@ -175,6 +175,8 @@ function _downloadBlob(content, mimeType, filename) {
 document.getElementById('btnSave').addEventListener('click',           saveCheckpoint);
 document.getElementById('btnExportInventor').addEventListener('click', exportInventor);
 document.getElementById('btnNewTab').addEventListener('click',         newTab);
+document.getElementById('btnPublish').addEventListener('click',        () => openPublishModal());
+document.getElementById('btnHistory').addEventListener('click',        () => openHistoryModal());
 
 /* ── Keyboard shortcuts ──────────────────────────────────── */
 document.addEventListener('keydown', e => {
