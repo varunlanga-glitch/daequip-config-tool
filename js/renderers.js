@@ -651,8 +651,9 @@ function renderRuleList() {
     const resolvedVal = resolveRule(currentRule, State.selectedPartId);
 
     const textarea = document.createElement('textarea');
-    textarea.className = 'rule-textarea';
-    textarea.value   = currentRule;
+    textarea.className    = 'rule-textarea';
+    textarea.value        = currentRule;
+    textarea.dataset.propId = pr.id;
 
     const preview = document.createElement('div');
     preview.className = 'rule-preview';
