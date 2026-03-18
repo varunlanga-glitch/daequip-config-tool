@@ -14,22 +14,22 @@
         "key": "PIN_OD",
         "label": "Pin OD",
         "vals": [
-          "45",
-          "50",
-          "55",
-          "60",
-          "65",
-          "70",
-          "75",
-          "80",
-          "85",
-          "90",
-          "95",
-          "100",
-          "110",
-          "120",
-          "130",
-          "140"
+          "45MM",
+          "50MM",
+          "55MM",
+          "60MM",
+          "65MM",
+          "70MM",
+          "75MM",
+          "80MM",
+          "85MM",
+          "90MM",
+          "95MM",
+          "100MM",
+          "110MM",
+          "120MM",
+          "130MM",
+          "140MM"
         ]
       },
       {
@@ -50,10 +50,7 @@
       {
         "key": "INDUCTION_HARDENED",
         "label": "Induction Hardened",
-        "vals": [
-          "Yes",
-          "No"
-        ]
+        "vals": []
       },
       {
         "key": "PIN_TYPE",
@@ -76,9 +73,11 @@
   },
   "context": {
     "cat_1773868048483_1": {
-      "PIN_OD": "140",
+      "PIN_OD": "100MM",
       "PIN_TYPE": "FLT",
-      "PIN_LENGTH": "10.000"
+      "PIN_LENGTH": "10.000",
+      "INDUCTION_HARDENED": "Yes",
+      "CROSS_HOLE": "1.250"
     }
   },
   "parts": {
