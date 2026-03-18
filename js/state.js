@@ -9,6 +9,7 @@ let State = {
   activeClassId:  "buckets",
   selectedPartId: null,
   activeRightTab: "parts",
+  dirty:          false,   // true when in-memory state differs from last save/load
 
   master:      { buckets: [] },
   context:     { buckets: {} },

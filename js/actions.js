@@ -4,6 +4,14 @@
 
 'use strict';
 
+/* ── Dirty flag ──────────────────────────────────────────── */
+function markDirty() {
+  State.dirty = true;
+  // scheduleAutosave is defined in io.js (loads after this file — resolved at runtime)
+  if (typeof scheduleAutosave === 'function') scheduleAutosave();
+  if (typeof _updateDirtyIndicator === 'function') _updateDirtyIndicator();
+}
+
 /* ── Context selector ────────────────────────────────────── */
 window.handleContextSelect = (key, val) => {
   if (val !== '__NEW__') {
@@ -21,6 +29,7 @@ window.handleContextSelect = (key, val) => {
       }
     }
 
+    markDirty();
     renderAll();
     return;
   }
@@ -108,8 +117,9 @@ window.addPart = (type = 'component') => {
     newLevel = 1;
   }
 
-  parts.splice(insertAt, 0, { id: newId, name: 'New Part', midx: null, level: newLevel });
+  parts.splice(insertAt, 0, { id: newId, name: 'New Part', midx: null, level: newLevel, enabled: true });
   State.selectedPartId = newId;
+  markDirty();
   renderAll();
 
   setTimeout(() => {
@@ -153,6 +163,7 @@ window.deletePart = id => {
     () => {
       State.parts[State.activeClassId] = getActiveParts().filter(p => p.id !== id);
       if (State.selectedPartId === id) State.selectedPartId = null;
+      markDirty();
       renderAll();
     }
   );
@@ -178,6 +189,7 @@ window.indentPart = id => {
 
   part.level = currentLvl + 1;
   part.midx  = null;
+  markDirty();
   renderAll();
 };
 
@@ -191,6 +203,7 @@ window.outdentPart = id => {
 
   part.level = (part.level || 0) - 1;
   part.midx  = null;
+  markDirty();
   renderAll();
 };
 
@@ -225,12 +238,46 @@ window.nestPart = (srcId, targetId) => {
   src.level = newLvl;
   src.midx  = null;
   parts.splice(insertAt, 0, src);
+  markDirty();
   renderAll();
 };
 window.reorderParts = orderedIds => {
   const parts   = getActiveParts();
   const byId    = Object.fromEntries(parts.map(p => [p.id, p]));
   State.parts[State.activeClassId] = orderedIds.map(id => byId[id]).filter(Boolean);
+  markDirty();
+  renderAll();
+};
+
+/** Duplicate a single part (and its rules) immediately below the original. */
+window.duplicatePart = id => {
+  const parts  = getActiveParts();
+  const srcIdx = parts.findIndex(p => p.id === id);
+  if (srcIdx === -1) return;
+  const src   = parts[srcIdx];
+  const newId = 'p' + Date.now();
+  const newPart = { ...src, id: newId, name: src.name + ' (Copy)', midx: null };
+  // Copy all rules for this part
+  const activeRules = getActiveRules();
+  if (activeRules[id]) activeRules[newId] = JSON.parse(JSON.stringify(activeRules[id]));
+  // Insert after the last descendant of the source
+  let insertAt = srcIdx + 1;
+  for (let j = srcIdx + 1; j < parts.length; j++) {
+    if ((parts[j].level || 0) > (src.level || 0)) insertAt = j + 1;
+    else break;
+  }
+  parts.splice(insertAt, 0, newPart);
+  State.selectedPartId = newId;
+  markDirty();
+  renderAll();
+};
+
+/** Toggle a part's enabled state — disabled parts are hidden from the grid but kept in the tree. */
+window.togglePartEnabled = id => {
+  const part = getActiveParts().find(p => p.id === id);
+  if (!part) return;
+  part.enabled = part.enabled === false;  // false → true, true/undefined → false
+  markDirty();
   renderAll();
 };
 
@@ -262,6 +309,7 @@ window.deleteVariable = k => {
     () => {
       State.master[State.activeClassId] = getActiveMaster().filter(m => m.key !== k);
       delete getActiveContext()[k];
+      markDirty();
       renderAll();
     }
   );
@@ -303,6 +351,7 @@ window.renameVariable = (oldKey, newLabel) => {
       });
     });
   }
+  markDirty();
   renderAll();
 };
 
@@ -338,6 +387,7 @@ window.addChip = (k, v) => {
   const master = getActiveMaster().find(m => m.key === k);
   if (master && !master.vals.includes(v.trim())) {
     master.vals.push(v.trim());
+    markDirty();
     renderAll();
   }
 };
@@ -349,13 +399,13 @@ window.addChips = (k, rawValue) => {
   const master = getActiveMaster().find(m => m.key === k);
   if (!master) return;
   const values = rawValue.split(',').map(v => v.trim()).filter(v => v && !master.vals.includes(v));
-  if (values.length) { master.vals.push(...values); renderAll(); }
+  if (values.length) { master.vals.push(...values); markDirty(); renderAll(); }
 };
 
 window.removeChip = (k, v) => {
   if (!_guardSection('config')) return;
   const m = getActiveMaster().find(x => x.key === k);
-  if (m) { m.vals = m.vals.filter(x => x !== v); renderAll(); }
+  if (m) { m.vals = m.vals.filter(x => x !== v); markDirty(); renderAll(); }
 };
 
 /* ── Properties (columns) ────────────────────────────────── */
@@ -367,6 +417,7 @@ window.addProp = () => {
   const hidden = getHiddenProps();
   const hi = hidden.indexOf(newProp.id);
   if (hi !== -1) hidden.splice(hi, 1);
+  markDirty();
   renderAll();
 };
 
@@ -376,6 +427,7 @@ window.togglePropVisibility = id => {
   const idx = hidden.indexOf(id);
   if (idx === -1) hidden.push(id);
   else hidden.splice(idx, 1);
+  markDirty();
   renderAll();
 };
 
@@ -390,6 +442,7 @@ window.deleteProp = id => {
       Object.keys(getActiveRules()).forEach(partId => {
         delete getActiveRules()[partId][id];
       });
+      markDirty();
       renderAll();
     }
   );
@@ -401,6 +454,7 @@ function updateRule(partId, propId, value) {
   const activeRules = getActiveRules();
   if (!activeRules[partId]) activeRules[partId] = {};
   activeRules[partId][propId] = value;
+  markDirty();
   renderGrid();
   if (event && event.target) {
     let el = event.target.nextElementSibling;
@@ -418,6 +472,7 @@ window.setRuleLiteral = (partId, propId, literalValue) => {
   const activeRules = getActiveRules();
   if (!activeRules[partId]) activeRules[partId] = {};
   activeRules[partId][propId] = literalValue;
+  markDirty();
   renderAll();
 };
 
@@ -505,7 +560,7 @@ window.deleteTab = id => {
  */
 window.renameActiveTab = newName => {
   const cls = State.productClasses.find(c => c.id === State.activeClassId);
-  if (cls && newName) { cls.name = newName; renderAll(); }
+  if (cls && newName) { cls.name = newName; markDirty(); renderAll(); }
 };
 
 /* ── Tab password lock ───────────────────────────────────── */

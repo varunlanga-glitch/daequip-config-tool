@@ -13,10 +13,8 @@
   <div class="topbar">
     <div class="tabs" id="tabs"></div>
     <button class="btn primary" id="btnNewTab">+ New Tab</button>
-    <button class="btn" id="btnSave"   title="Save checkpoint">💾 Save</button>
-    <button class="btn" id="btnLoad"   title="Load checkpoint">📂 Load</button>
+    <button class="btn" id="btnSave"   title="Save checkpoint (Ctrl+S)">💾 Save</button>
     <button class="btn" id="btnExportInventor" title="Export for Autodesk Inventor iProperties">🔩 Export Inventor</button>
-    <input type="file" id="fileInput" accept=".json" style="display:none" />
   </div>
 
   <!-- ── Three-panel layout ───────────────────────────── -->
@@ -35,6 +33,7 @@
       <div class="panel-header"><div id="productName">---</div></div>
       <div id="columnFilterBar" class="column-filter-bar" style="display:none"></div>
       <div class="panel-body" style="padding:0">
+        <div id="loadingIndicator" class="loading-indicator">Loading configuration…</div>
         <table id="mainGrid">
           <thead><tr id="gridHead"></tr></thead>
           <tbody id="gridBody"></tbody>

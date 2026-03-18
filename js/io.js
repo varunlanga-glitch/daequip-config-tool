@@ -11,45 +11,14 @@ function saveCheckpoint() {
 
   showPrompt('Save Checkpoint', 'Enter filename:', defaultName, fileName => {
     const safeName = fileName.replace(/[^a-z0-9_-]/gi, '_');
-    _downloadBlob(JSON.stringify(State, null, 2), 'application/json', `${safeName}.json`);
-    _downloadBlob(generateHTMLBackup(), 'text/html', `${safeName}_backup.html`);
+    // Exclude internal flags from the saved snapshot
+    const { dirty, ...saveState } = State;
+    _downloadBlob(JSON.stringify(saveState, null, 2), 'application/json', `${safeName}.json`);
+    State.dirty = false;
+    localStorage.removeItem('configurator_autosave');
+    _updateDirtyIndicator();
   });
 }
-
-/* ── Load checkpoint ─────────────────────────────────────── */
-function loadCheckpoint() {
-  document.getElementById('fileInput').click();
-}
-
-document.getElementById('fileInput').addEventListener('change', e => {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = event => {
-    try {
-      const loaded = JSON.parse(event.target.result);
-      showConfirm(
-        'Load Checkpoint',
-        'Load this checkpoint? Current data will be replaced.',
-        () => {
-          // Mutate State in-place — cannot reassign a binding from another script scope
-          Object.keys(State).forEach(k => delete State[k]);
-          Object.assign(State, loaded);
-          // Reset session-only unlock caches — loaded locks must re-authenticate
-          window._unlockedTabs     = new Set();
-          window._unlockedSections = new Set();
-          migrateState();
-          renderAll();
-        }
-      );
-    } catch (err) {
-      showConfirm('Error', 'Error loading file: ' + err.message, () => {});
-    }
-  };
-  reader.readAsText(file);
-  e.target.value = '';
-});
 
 /* ── CSV export ──────────────────────────────────────────── */
 function exportCSV() {
@@ -73,20 +42,61 @@ function exportCSV() {
   _downloadBlob(csv, 'text/csv', `${className}-export-${timestamp}.csv`);
 }
 
-/* ── HTML backup generator ───────────────────────────────── */
-function generateHTMLBackup() {
-  const stateScript = `
-<script id="saved-state">
-(function(){
-  var savedState=${JSON.stringify(State)};
-  if(typeof State!=='undefined'){
-    Object.keys(State).forEach(k => delete State[k]);
-    Object.assign(State,savedState);
-    if(typeof renderAll==='function') renderAll();
-  }
-})();
-<\/script>`;
-  return document.documentElement.outerHTML.replace('</body>', stateScript + '\n</body>');
+/* ── Dirty indicator ─────────────────────────────────────── */
+function _updateDirtyIndicator() {
+  const btn = document.getElementById('btnSave');
+  if (btn) btn.classList.toggle('btn-dirty', !!State.dirty);
+}
+
+/* ── Autosave to localStorage ────────────────────────────── */
+let _autosaveTimer = null;
+function scheduleAutosave() {
+  clearTimeout(_autosaveTimer);
+  _autosaveTimer = setTimeout(() => {
+    if (!State.dirty) return;
+    try {
+      const { dirty, ...saveState } = State;
+      localStorage.setItem('configurator_autosave', JSON.stringify({
+        timestamp: Date.now(),
+        state: saveState
+      }));
+    } catch(e) { /* storage full — silently skip */ }
+  }, 2000);
+}
+
+function _showAutosaveBanner() {
+  if (document.getElementById('autosaveBanner')) return;
+  const banner = document.createElement('div');
+  banner.id = 'autosaveBanner';
+  banner.className = 'autosave-banner';
+  banner.innerHTML = `
+    <span>⚠ You have unsaved changes from a previous session.</span>
+    <button class="btn btn-autosave-restore" id="btnAutosaveRestore">Restore</button>
+    <button class="btn btn-autosave-discard" id="btnAutosaveDiscard">Discard</button>`;
+  document.querySelector('.app').insertBefore(banner, document.querySelector('.main'));
+
+  document.getElementById('btnAutosaveRestore').onclick = () => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('configurator_autosave'));
+      if (saved?.state) {
+        Object.keys(State).forEach(k => delete State[k]);
+        Object.assign(State, saved.state);
+        window._unlockedTabs     = new Set();
+        window._unlockedSections = new Set();
+        migrateState();
+        State.dirty = true;
+        renderAll();
+        _updateDirtyIndicator();
+      }
+    } catch(e) {}
+    localStorage.removeItem('configurator_autosave');
+    banner.remove();
+  };
+
+  document.getElementById('btnAutosaveDiscard').onclick = () => {
+    localStorage.removeItem('configurator_autosave');
+    banner.remove();
+  };
 }
 
 /* ── Data migration ──────────────────────────────────────── */
@@ -111,6 +121,8 @@ function migrateState() {
           p.level = 0;
         }
       }
+      // v11: all parts default to enabled
+      if (p.enabled === undefined) p.enabled = true;
     });
   });
 }
@@ -125,12 +137,26 @@ function loadSeedData(url) {
     .then(data => {
       Object.assign(State, data);
       migrateState();
+      State.dirty = false;
       renderAll();
+      _finishLoad();
     })
     .catch(() => {
       // Seed file unavailable — use default State from state.js.
+      State.dirty = false;
       renderAll();
+      _finishLoad();
     });
+}
+
+function _finishLoad() {
+  // Remove loading indicator
+  const indicator = document.getElementById('loadingIndicator');
+  if (indicator) indicator.remove();
+  // Update dirty indicator (should be clean after load)
+  _updateDirtyIndicator();
+  // Show autosave restore banner if a previous session was interrupted
+  if (localStorage.getItem('configurator_autosave')) _showAutosaveBanner();
 }
 
 /* ── Internal download helper ────────────────────────────── */
@@ -146,9 +172,25 @@ function _downloadBlob(content, mimeType, filename) {
 
 /* ── Toolbar button wiring ───────────────────────────────── */
 document.getElementById('btnSave').addEventListener('click',           saveCheckpoint);
-document.getElementById('btnLoad').addEventListener('click',           loadCheckpoint);
 document.getElementById('btnExportInventor').addEventListener('click', exportInventor);
 document.getElementById('btnNewTab').addEventListener('click',         newTab);
+
+/* ── Keyboard shortcuts ──────────────────────────────────── */
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    saveCheckpoint();
+  }
+});
+
+/* ── Unsaved-changes warning on close/refresh ────────────── */
+window.addEventListener('beforeunload', e => {
+  if (State.dirty) {
+    e.preventDefault();
+    e.returnValue = '';   // triggers browser's "Leave site?" dialog
+  }
+});
+
 
 /* ── Inventor iProperties export ─────────────────────────── */
 

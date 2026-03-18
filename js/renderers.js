@@ -5,6 +5,7 @@
 'use strict';
 
 function renderAll() {
+  if (typeof _updateDirtyIndicator === 'function') _updateDirtyIndicator();
   renderTabs();
 
   // If active tab is locked, show overlay and skip content render
@@ -149,8 +150,8 @@ function renderTabs() {
     // Clone button (only if not locked)
     if (!locked) {
       const cloneBtn = document.createElement('span');
-      cloneBtn.innerHTML = '⎘';
-      cloneBtn.title = 'Clone this tab';
+      cloneBtn.innerHTML = _duplicateIcon(12);
+      cloneBtn.title = 'Duplicate this tab';
       cloneBtn.className = 'tab-action clone';
       cloneBtn.onclick = e => { e.stopPropagation(); cloneTab(c.id); };
       div.appendChild(cloneBtn);
@@ -243,6 +244,8 @@ function renderGrid() {
 
   body.innerHTML = '';
   parts.forEach((p, i) => {
+    if (p.enabled === false) return;  // disabled parts hidden from grid
+
     const tr = document.createElement('tr');
     if (p.id === State.selectedPartId) tr.classList.add('selected');
     if ((p.level || 0) > 0) tr.classList.add('row-child');
@@ -316,12 +319,14 @@ function renderPartList() {
 
   getActiveParts().forEach((p, i) => {
     const lvl = p.level || 0;
+    const isDisabled = p.enabled === false;
     const div = document.createElement('div');
     div.className = 'tree-item' +
       (p.id === State.selectedPartId ? ' selected' : '') +
-      (lvl > 0 ? ' tree-item-child' : '');
+      (lvl > 0 ? ' tree-item-child' : '') +
+      (isDisabled ? ' tree-item-disabled' : '');
     div.style.marginLeft = lvl > 0 ? (lvl * 22) + 'px' : '';
-    div.draggable = true;
+    div.draggable = !isDisabled;
     div.dataset.partId    = p.id;
     div.dataset.partIdx   = String(i);
     div.dataset.partLevel = String(lvl);
@@ -368,6 +373,20 @@ function renderPartList() {
     indentWrap.appendChild(outdentBtn);
     indentWrap.appendChild(indentBtn);
 
+    // Enable/disable toggle
+    const toggleBtn = document.createElement('button');
+    toggleBtn.className = 'btn part-toggle-btn' + (isDisabled ? ' part-toggle-off' : ' part-toggle-on');
+    toggleBtn.innerHTML = isDisabled ? _eyeClosedIcon() : _eyeOpenIcon();
+    toggleBtn.title = isDisabled ? 'Part disabled — click to include in assembly' : 'Part enabled — click to exclude from assembly';
+    toggleBtn.onclick = e => { e.stopPropagation(); togglePartEnabled(p.id); };
+
+    // Duplicate button
+    const dupBtn = document.createElement('button');
+    dupBtn.className = 'btn part-dup-btn';
+    dupBtn.innerHTML = _duplicateIcon(11);
+    dupBtn.title = 'Duplicate part';
+    dupBtn.onclick = e => { e.stopPropagation(); duplicatePart(p.id); };
+
     // Delete button
     const delBtn = document.createElement('button');
     delBtn.className = 'btn danger';
@@ -379,6 +398,8 @@ function renderPartList() {
     div.appendChild(idxBadge);
     div.appendChild(nodeName);
     div.appendChild(indentWrap);
+    div.appendChild(toggleBtn);
+    div.appendChild(dupBtn);
     div.appendChild(delBtn);
 
     div.onclick = e => {
@@ -511,7 +532,36 @@ function renderRuleList() {
     </div>`;
 
   if (!State.selectedPartId) {
-    container.innerHTML += "<div class='small' style='padding:20px'>Select a part from the Parts tab.</div>";
+    const parts = getActiveParts().filter(p => p.enabled !== false);
+    const props = getActiveProps();
+    if (!parts.length || !props.length) {
+      container.innerHTML += "<div class='small' style='padding:20px'>Select a part from the Parts tab.</div>";
+      return;
+    }
+    const idxList = calculateIndices();
+    const allParts = getActiveParts();
+    const rows = parts.map(p => {
+      const globalIdx = allParts.findIndex(ap => ap.id === p.id);
+      const idx = idxList[globalIdx] || '';
+      const rules = getActiveRules()[p.id] || {};
+      const cells = props.map(pr => {
+        const val = resolveRule(rules[pr.id], p.id);
+        return `<td class="rules-summary-cell" title="${escapeHtml(val)}">${escapeHtml(val)}</td>`;
+      }).join('');
+      return `<tr class="rules-summary-row" onclick="State.selectedPartId='${p.id}';renderAll();">
+        <td class="rules-summary-part"><span class="idx-badge" style="margin-right:5px">${idx}</span>${escapeHtml(p.name)}</td>
+        ${cells}
+      </tr>`;
+    }).join('');
+    const heads = props.map(pr => `<th>${escapeHtml(pr.name)}</th>`).join('');
+    container.innerHTML += `
+      <div style="overflow:auto;margin-top:8px">
+        <table class="rules-summary-table">
+          <thead><tr><th>Part</th>${heads}</tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+        <p class="small" style="padding:8px 4px;color:#aaa">Click a row to edit its rules.</p>
+      </div>`;
     return;
   }
 
@@ -526,15 +576,9 @@ function renderRuleList() {
     const header = document.createElement('div');
     header.className = 'rule-header';
 
-    // Label wrap with visibility dot
+    // Label wrap — visibility is controlled solely by the column filter bar
     const labelWrap = document.createElement('div');
     labelWrap.className = 'rule-label-wrap';
-
-    const isHidden = getHiddenProps().includes(pr.id);
-    const visBtn = document.createElement('button');
-    visBtn.className = 'col-vis-btn ' + (isHidden ? 'col-vis-hidden' : 'col-vis-shown');
-    visBtn.title     = isHidden ? 'Column hidden — click to show in grid' : 'Column visible — click to hide';
-    visBtn.onclick   = e => { e.stopPropagation(); togglePropVisibility(pr.id); };
 
     const labelSpan = document.createElement('span');
     labelSpan.className        = 'small';
@@ -543,7 +587,6 @@ function renderRuleList() {
     labelSpan.dataset.id       = pr.id;
     labelSpan.textContent      = pr.name;
 
-    labelWrap.appendChild(visBtn);
     labelWrap.appendChild(labelSpan);
 
     const delBtn = document.createElement('button');
@@ -782,10 +825,23 @@ function _wireTokenAutocomplete(textarea, palette, propId) {
   });
 }
 
-/* ── SVG icon helpers for copy button ───────────────────── */
+/* ── SVG icon helpers ────────────────────────────────────── */
 function _copyIcon() {
   return '<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
 }
 function _checkIcon() {
   return '<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+}
+/** Overlapping-squares duplicate icon (Figma/VS Code style). Size in px. */
+function _duplicateIcon(size) {
+  const s = size || 12;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+}
+/** Eye open — part is enabled and visible. */
+function _eyeOpenIcon() {
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+}
+/** Eye closed / slashed — part is disabled. */
+function _eyeClosedIcon() {
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
 }

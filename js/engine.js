@@ -17,6 +17,9 @@ function calculateIndices() {
   const prefixes = [];   // prefixes[level] = full index string of the last part at that level
 
   parts.forEach(p => {
+    // Disabled parts get no index and don't consume a counter slot
+    if (p.enabled === false) { results.push(''); return; }
+
     const level = Math.max(0, p.level || 0);
 
     // Ensure arrays are long enough
