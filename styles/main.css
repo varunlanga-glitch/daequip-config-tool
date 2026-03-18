@@ -980,6 +980,12 @@ tr:hover .cell-filepick-btn {
    REVIEW & EXPORT TAB — CHECKBOX MATRIX
    ════════════════════════════════════════════════════════════ */
 
+#imapReviewWrap {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
 .imap-review-scroll {
   flex: 1;
   overflow: auto;
