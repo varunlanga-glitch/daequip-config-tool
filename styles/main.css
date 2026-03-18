@@ -738,8 +738,8 @@ tbody tr.selected td:first-child {
    INVENTOR MAPPING MODAL
    ════════════════════════════════════════════════════════════ */
 .inventor-map-box {
-  width: min(92vw, 960px);
-  max-height: 85vh;
+  width: 96vw;
+  height: 92vh;
   padding: 0;
   overflow: hidden;
   display: flex;
@@ -919,7 +919,7 @@ tr:hover .cell-filepick-btn {
   margin-left: 6px;
   vertical-align: middle;
 }
-.imap-tab-panel { padding: 0; }
+.imap-tab-panel { padding: 0; flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 .imap-footer {
   padding: 12px 20px;
   border-top: 1px solid var(--stroke);
@@ -980,7 +980,7 @@ tr:hover .cell-filepick-btn {
    ════════════════════════════════════════════════════════════ */
 
 .imap-review-scroll {
-  max-height: min(50vh, 420px);
+  flex: 1;
   overflow: auto;
   padding: 0 20px 10px;
 }

@@ -492,7 +492,7 @@ function exportInventor() {
         The script will use the <strong>actual filename</strong> (not the generated one) to match
         the open document in Inventor — useful when the file was named differently.
       </p>
-      <div style="max-height:min(50vh,420px);overflow:auto;padding:0 20px 10px">
+      <div style="flex:1;overflow:auto;padding:0 20px 10px">
         <table class="imap-table" id="imapFileTable" style="table-layout:fixed;width:100%">
           <thead><tr><th style="width:45%">Generated Name</th><th style="width:55%">Linked Inventor File</th></tr></thead>
           <tbody>${fileRows}</tbody>
@@ -504,7 +504,7 @@ function exportInventor() {
       <p class="imap-filename-hint" style="margin:10px 20px 6px">
         Map each configurator column to its Inventor iProperty. The <strong>File Name</strong> column is used automatically to match documents.
       </p>
-      <div style="max-height:min(50vh,420px);overflow:auto;padding:0 20px 10px">
+      <div style="flex:1;overflow:auto;padding:0 20px 10px">
         <table class="imap-table">
           <thead><tr><th>Configurator Column</th><th>→ Inventor iProperty</th></tr></thead>
           <tbody>${propRows}</tbody>
