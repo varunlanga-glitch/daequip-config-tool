@@ -266,8 +266,17 @@ function openPublishModal() {
       status.textContent = 'Pushing category data…';
 
       try {
-        // 1. Push current category data
-        const meta = await _ghGetFile(token);
+        // 1. Push current category data (file may not exist yet for new categories)
+        let meta;
+        try {
+          meta = await _ghGetFile(token);
+        } catch(e) {
+          if (e.message === 'Not Found') {
+            meta = { sha: undefined };
+          } else {
+            throw e;
+          }
+        }
         await _ghPushFile(token, content, meta.sha, msg);
 
         // 2. Push categories.json if the list has changed
