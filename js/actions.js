@@ -399,15 +399,19 @@ window.addProp = () => {
   markDirty();
   renderAll();
 
-  // Auto-start inline rename on the new property's label span
+  // Auto-start inline rename on the column pill (always in DOM regardless of part selection)
   setTimeout(() => {
-    const el = document.querySelector(`[data-edit="propName"][data-id="${newProp.id}"]`);
-    if (!el) return;
+    const pill = document.querySelector(`[data-prop-id="${newProp.id}"]`);
+    if (!pill) return;
     const input = document.createElement('input');
-    input.value     = el.textContent.trim();
-    input.className = 'combo';
-    input.style.cssText = 'font-weight:bold;font-size:inherit;width:100%;box-sizing:border-box';
-    el.replaceWith(input);
+    input.value       = pill.textContent.trim();
+    input.placeholder = 'Column name…';
+    // Style to match the pill appearance
+    input.style.cssText = pill.style.cssText;
+    input.className     = pill.className;
+    input.style.width   = '110px';
+    input.style.cursor  = 'text';
+    pill.replaceWith(input);
     input.focus();
     input.select();
     const saveEdit = () => {

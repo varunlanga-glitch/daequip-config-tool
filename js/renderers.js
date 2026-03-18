@@ -114,7 +114,8 @@ function renderColumnFilter() {
     const pill = document.createElement('button');
     pill.className = 'col-pill ' + (isHidden ? 'col-pill-off' : 'col-pill-on');
     pill.textContent = p.name;
-    pill.title = isHidden ? 'Click to show column' : 'Click to hide column';
+    pill.title          = isHidden ? 'Click to show column' : 'Click to hide column';
+    pill.dataset.propId = p.id;
     pill.onclick = () => togglePropVisibility(p.id);
     bar.appendChild(pill);
   });
