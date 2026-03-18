@@ -158,6 +158,22 @@ thead th        {
 }
 thead th:last-child { border-right: none; }
 thead th.col-prop { width: 150px; min-width: 60px; }
+thead th.col-part-name {
+  width: 130px; min-width: 80px;
+  position: sticky; left: 0; z-index: 2;
+  background: var(--surface);
+  border-right: 2px solid rgba(0,0,0,0.08);
+}
+td.col-part-name-cell {
+  position: sticky; left: 0; z-index: 1;
+  background: #fafaf8;
+  border-right: 2px solid rgba(0,0,0,0.08);
+  white-space: nowrap;
+  max-width: 130px;
+  overflow: hidden; text-overflow: ellipsis;
+}
+tbody tr.selected td.col-part-name-cell { background: rgba(43,108,176,0.1); }
+tbody tr:hover td.col-part-name-cell    { background: #f2f1ee; }
 tbody td        {
   padding: 7px 10px; border-bottom: 1px solid rgba(0,0,0,0.04);
   border-right: 1px solid rgba(0,0,0,0.05);
