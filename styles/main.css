@@ -738,9 +738,10 @@ tbody tr.selected td:first-child {
    INVENTOR MAPPING MODAL
    ════════════════════════════════════════════════════════════ */
 .inventor-map-box {
-  width: 96vw;
-  height: 92vh;
-  padding: 0;
+  width: 96vw !important;
+  max-width: 96vw !important;
+  height: 90vh;
+  padding: 0 !important;
   overflow: hidden;
   display: flex;
   flex-direction: column;
