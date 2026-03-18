@@ -242,14 +242,18 @@ function renderContext() {
     div.className = 'field';
 
     const sortedVals = [...m.vals].sort((a, b) => a.localeCompare(b));
+    const currentVal = getActiveContext()[m.key];
+    const hasSelection = sortedVals.includes(currentVal);
+    const placeholder = hasSelection ? '' : `<option value="" disabled selected>— select —</option>`;
     const options = sortedVals
-      .map(v => `<option value="${v}" ${getActiveContext()[m.key] === v ? 'selected' : ''}>${v}</option>`)
+      .map(v => `<option value="${v}" ${currentVal === v ? 'selected' : ''}>${v}</option>`)
       .join('');
 
     div.innerHTML = `
       <div class="label"><span>${m.label}</span></div>
       <div class="combo">
         <select onchange="handleContextSelect('${m.key}', this.value)">
+          ${placeholder}
           ${options}
           <option value="__NEW__">+ Add New...</option>
         </select>

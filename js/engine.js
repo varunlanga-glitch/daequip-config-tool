@@ -48,6 +48,20 @@ function calculateIndices() {
   return results;
 }
 
+function _safeMathEval(expr) {
+  // Only allow digits, operators, dots, spaces — no identifiers that could escape
+  if (!/^[\d\s+\-*/.]+$/.test(expr)) return null;
+  try {
+    // eslint-disable-next-line no-new-func
+    const result = Function('"use strict"; return (' + expr + ')')();
+    if (typeof result === 'number' && isFinite(result)) {
+      // Round to 4 decimal places, strip trailing zeros
+      return parseFloat(result.toFixed(4)).toString();
+    }
+  } catch (e) { /* ignore */ }
+  return null;
+}
+
 function resolveRule(template, partId) {
   if (!template) return '';
   const parts   = getActiveParts();
@@ -65,6 +79,12 @@ function resolveRule(template, partId) {
   Object.keys(ctx).forEach(key => {
     const regex = new RegExp(`\\b${key}\\b`, 'g');
     s = s.replace(regex, ctx[key] || '');
+  });
+
+  // Evaluate math expressions wrapped in parentheses, e.g. (70/25.4) → "2.7559"
+  s = s.replace(/\(([^()]*)\)/g, (match, inner) => {
+    const val = _safeMathEval(inner.trim());
+    return val !== null ? val : match;
   });
 
   return s;
