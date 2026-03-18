@@ -1178,3 +1178,64 @@ tr:hover .cell-filepick-btn {
   max-width: 120px; overflow: hidden;
   text-overflow: ellipsis; white-space: nowrap;
 }
+
+/* ── GitHub publish / history ────────────────────────── */
+.btn-publish {
+  background: #1a7f37; border-color: #1a7f37; color: #fff;
+}
+.btn-publish:hover { background: #156d2e; border-color: #156d2e; }
+
+.gh-modal { max-width: 420px; }
+
+.gh-setup-hint {
+  margin: 8px 20px 4px; font-size: 12px; color: var(--muted); line-height: 1.5;
+}
+.gh-form {
+  padding: 12px 20px 16px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.gh-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.gh-input { width: 100%; }
+.gh-pin-input { letter-spacing: 4px; font-size: 16px; }
+.gh-pin-large { font-size: 22px; letter-spacing: 8px; text-align: center; }
+.gh-error  { font-size: 12px; color: #e74c3c; min-height: 16px; }
+.gh-status { font-size: 12px; color: var(--muted); min-height: 16px; }
+.gh-status-ok  { color: #1a7f37 !important; }
+.gh-status-err { color: #e74c3c !important; }
+.gh-reset-btn  { font-size: 11px; opacity: .55; margin-left: auto; }
+.gh-reset-btn:hover { opacity: 1; }
+
+/* History modal */
+.gh-history-box {
+  max-width: 540px; max-height: 80vh;
+  display: flex; flex-direction: column;
+}
+.gh-hist-list {
+  flex: 1; overflow-y: auto; padding: 4px 0;
+}
+.gh-hist-loading { padding: 20px; text-align: center; color: var(--muted); font-size: 13px; }
+.gh-hist-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--stroke);
+}
+.gh-hist-row:last-child { border-bottom: 0; }
+.gh-hist-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.gh-hist-msg  { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gh-hist-meta { font-size: 11px; color: var(--muted); }
+.gh-hist-meta code { font-family: var(--mono); font-size: 10px; background: rgba(0,0,0,.06); padding: 1px 4px; border-radius: 3px; }
+.gh-hist-current { font-size: 11px; font-weight: 700; color: #1a7f37; white-space: nowrap; }
+.gh-hist-load-btn { font-size: 11px; white-space: nowrap; }
+
+/* Toast notification */
+.gh-toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(12px);
+  background: #1a1a1a; color: #fff;
+  padding: 10px 20px; border-radius: 8px;
+  font-size: 13px; font-weight: 500;
+  box-shadow: 0 4px 16px rgba(0,0,0,.25);
+  opacity: 0; transition: opacity .25s, transform .25s;
+  pointer-events: none; z-index: 9999; white-space: nowrap;
+}
+.gh-toast-visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+.gh-toast-error   { background: #b91c1c; }
