@@ -288,7 +288,9 @@ function renderGrid() {
     return th;
   };
 
-  // Data columns only — Part column removed
+  // Part name column (sticky) + data columns
+  const partTh = makeHeaderCell('Part', 'col-part-name', '__part__');
+  head.appendChild(partTh);
   visProps.forEach(p => head.appendChild(makeHeaderCell(p.name, 'col-prop', p.id)));
 
   body.innerHTML = '';
@@ -298,6 +300,21 @@ function renderGrid() {
     const tr = document.createElement('tr');
     if (p.id === State.selectedPartId) tr.classList.add('selected');
     if ((p.level || 0) > 0) tr.classList.add('row-child');
+
+    // Sticky part-name cell
+    const nameTd = document.createElement('td');
+    nameTd.className = 'data-cell col-part-name-cell' + ((p.level || 0) > 0 ? ' name-cell-child' : '');
+    const nameWrap = document.createElement('div');
+    nameWrap.className = 'name-cell';
+    const idxSpan = document.createElement('span');
+    idxSpan.className   = 'inline-idx';
+    idxSpan.textContent = idxList[i] || '';
+    const nameSpan = document.createElement('span');
+    nameSpan.textContent = p.name;
+    nameWrap.appendChild(idxSpan);
+    nameWrap.appendChild(nameSpan);
+    nameTd.appendChild(nameWrap);
+    tr.appendChild(nameTd);
 
     // Data cells only — no row-header th
     const rules = getActiveRules()[p.id] || {};
