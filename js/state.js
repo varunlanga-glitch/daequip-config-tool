@@ -20,7 +20,8 @@ let State = {
   lockedTabs:       {},   // tabId → SHA-256 hash of PIN (hex string)
   lockedSections:   {},   // "tabId:rules" or "tabId:config" → SHA-256 hash
   inventorMaps:     {},   // tabId → { propId: iPropertyName, fileNamePropId: 'id' }
-  fileNameOverrides: {}   // tabId → { partId: actualFilename (no ext) }
+  fileNameOverrides: {},  // tabId → { partId: actualFilename (no ext) }
+  exportSelections:  {}   // tabId → { partId: { rename: bool, props: { propId: bool } } }
 };
 
 const getActiveParts   = () => State.parts[State.activeClassId]   || [];

@@ -111,6 +111,7 @@ function migrateState() {
   if (!State.lockedSections)   State.lockedSections    = {};
   if (!State.hiddenProps)      State.hiddenProps        = { buckets: [] };
   if (!State.fileNameOverrides) State.fileNameOverrides = {};
+  if (!State.exportSelections)  State.exportSelections  = {};
   Object.keys(State.parts || {}).forEach(classId => {
     (State.parts[classId] || []).forEach(p => {
       if (p.level === undefined) {
@@ -243,6 +244,183 @@ function _getInventorMap() {
 }
 window.getInventorMap = _getInventorMap;
 
+/* ── Export selections: per-part, per-property checkbox state ── */
+function _getExportSelections(parts, mappedPropIds) {
+  if (!State.exportSelections) State.exportSelections = {};
+  if (!State.exportSelections[State.activeClassId]) State.exportSelections[State.activeClassId] = {};
+  const sel = State.exportSelections[State.activeClassId];
+  parts.forEach(p => {
+    if (!sel[p.id]) sel[p.id] = { rename: true, props: {} };
+    mappedPropIds.forEach(pid => {
+      if (sel[p.id].props[pid] === undefined) sel[p.id].props[pid] = true;
+    });
+  });
+  return sel;
+}
+
+function _syncColAllCheckbox(wrap, col, parts, sel) {
+  const colCb = wrap.querySelector(`.imap-col-all[data-col="${col}"]`);
+  if (!colCb) return;
+  const values = parts.map(p => {
+    const ps = sel[p.id] || { rename: true, props: {} };
+    return col === '__rename__' ? ps.rename !== false : ps.props[col] !== false;
+  });
+  const allChecked  = values.every(Boolean);
+  const noneChecked = values.every(v => !v);
+  colCb.checked       = allChecked;
+  colCb.indeterminate = !allChecked && !noneChecked;
+}
+
+function _wireReviewCheckboxes(wrap, parts, sel, mappedProps) {
+  const updateBadge = () => {
+    let checked = 0, total = 0;
+    parts.forEach(p => {
+      const ps = sel[p.id] || { rename: true, props: {} };
+      total++; checked += ps.rename !== false ? 1 : 0;
+      mappedProps.forEach(mp => { total++; checked += ps.props[mp.id] !== false ? 1 : 0; });
+    });
+    const badge = document.getElementById('imapReviewCount');
+    if (badge) badge.textContent = checked + '/' + total;
+  };
+
+  wrap.querySelectorAll('.imap-row-cb').forEach(cb => {
+    cb.onchange = () => {
+      const { partid, col } = cb.dataset;
+      if (!sel[partid]) sel[partid] = { rename: true, props: {} };
+      if (col === '__rename__') { sel[partid].rename = cb.checked; }
+      else                      { sel[partid].props[col] = cb.checked; }
+      _syncColAllCheckbox(wrap, col, parts, sel);
+      updateBadge();
+    };
+  });
+
+  wrap.querySelectorAll('.imap-col-all').forEach(colCb => {
+    colCb.onchange = () => {
+      const col = colCb.dataset.col;
+      wrap.querySelectorAll(`.imap-row-cb[data-col="${col}"]`).forEach(rowCb => {
+        rowCb.checked = colCb.checked;
+        const { partid } = rowCb.dataset;
+        if (!sel[partid]) sel[partid] = { rename: true, props: {} };
+        if (col === '__rename__') { sel[partid].rename = colCb.checked; }
+        else                      { sel[partid].props[col] = colCb.checked; }
+      });
+      updateBadge();
+    };
+  });
+}
+
+function _renderReviewTab(parts, fileColId, mapping, overrides) {
+  const mappedProps = getActiveProps().filter(p => p.id !== fileColId && mapping[p.id]);
+  const mappedPropIds = mappedProps.map(p => p.id);
+  const sel = _getExportSelections(parts, mappedPropIds);
+  const rules = getActiveRules();
+
+  const wrap = document.getElementById('imapReviewWrap');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+
+  // Badge
+  let checked = 0, total = 0;
+  parts.forEach(p => {
+    const ps = sel[p.id] || { rename: true, props: {} };
+    total++; checked += ps.rename !== false ? 1 : 0;
+    mappedProps.forEach(mp => { total++; checked += ps.props[mp.id] !== false ? 1 : 0; });
+  });
+  const badge = document.getElementById('imapReviewCount');
+  if (badge) badge.textContent = checked + '/' + total;
+
+  // Build table
+  const table = document.createElement('table');
+  table.className = 'imap-review-table';
+
+  // THEAD
+  const thead = document.createElement('thead');
+  const headerRow = document.createElement('tr');
+
+  const cornerTh = document.createElement('th');
+  cornerTh.className = 'imap-review-corner';
+  cornerTh.textContent = 'Part / New Name';
+  headerRow.appendChild(cornerTh);
+
+  // Rename column header
+  const renameTh = document.createElement('th');
+  renameTh.className = 'imap-review-colhead';
+  const renameAllCb = document.createElement('input');
+  renameAllCb.type = 'checkbox'; renameAllCb.className = 'imap-col-all'; renameAllCb.dataset.col = '__rename__';
+  renameAllCb.checked = parts.every(p => (sel[p.id] || {}).rename !== false);
+  renameTh.appendChild(renameAllCb);
+  const renameSpan = document.createElement('span'); renameSpan.textContent = 'Rename File?';
+  renameTh.appendChild(renameSpan);
+  headerRow.appendChild(renameTh);
+
+  // iProperty column headers
+  mappedProps.forEach(mp => {
+    const th = document.createElement('th');
+    th.className = 'imap-review-colhead';
+    const allCb = document.createElement('input');
+    allCb.type = 'checkbox'; allCb.className = 'imap-col-all'; allCb.dataset.col = mp.id;
+    allCb.checked = parts.every(p => (sel[p.id] || { props: {} }).props[mp.id] !== false);
+    th.appendChild(allCb);
+    const lbl = document.createElement('span'); lbl.textContent = mapping[mp.id]; lbl.title = mp.name;
+    th.appendChild(lbl);
+    headerRow.appendChild(th);
+  });
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  // TBODY
+  const tbody = document.createElement('tbody');
+  parts.forEach(p => {
+    const partRules = rules[p.id] || {};
+    const generatedName = resolveRule(partRules[fileColId], p.id) || p.name;
+    const currentName   = overrides[p.id] || generatedName;
+    const partSel = sel[p.id] || { rename: true, props: {} };
+
+    const tr = document.createElement('tr');
+    tr.dataset.partid = p.id;
+
+    // Row header
+    const rowHead = document.createElement('td');
+    rowHead.className = 'imap-review-rowhead';
+    rowHead.innerHTML =
+      `<span class="imap-review-partname">${p.name}</span>` +
+      `<span class="imap-review-newname" title="Current: ${currentName}">${generatedName}</span>`;
+    tr.appendChild(rowHead);
+
+    // Rename cell
+    const renameTd = document.createElement('td');
+    renameTd.className = 'imap-review-cell';
+    const renameCb = document.createElement('input');
+    renameCb.type = 'checkbox'; renameCb.className = 'imap-row-cb';
+    renameCb.dataset.partid = p.id; renameCb.dataset.col = '__rename__';
+    renameCb.checked = partSel.rename !== false;
+    renameTd.appendChild(renameCb);
+    tr.appendChild(renameTd);
+
+    // iProperty cells
+    mappedProps.forEach(mp => {
+      const td = document.createElement('td');
+      td.className = 'imap-review-cell';
+      const cb = document.createElement('input');
+      cb.type = 'checkbox'; cb.className = 'imap-row-cb';
+      cb.dataset.partid = p.id; cb.dataset.col = mp.id;
+      cb.checked = partSel.props[mp.id] !== false;
+      td.appendChild(cb);
+      tr.appendChild(td);
+    });
+
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+
+  const scrollDiv = document.createElement('div');
+  scrollDiv.className = 'imap-review-scroll';
+  scrollDiv.appendChild(table);
+  wrap.appendChild(scrollDiv);
+
+  _wireReviewCheckboxes(wrap, parts, sel, mappedProps);
+}
+
 function exportInventor() {
   const map    = _getInventorMap();
   const props  = getActiveProps();
@@ -305,6 +483,7 @@ function exportInventor() {
     <div class="imap-tabs">
       <button class="imap-tab active" data-itab="files">File Name Linking <span class="imap-link-count" id="imapLinkCount">${Object.keys(overrides).length}/${parts.length}</span></button>
       <button class="imap-tab" data-itab="props">iProperty Mapping</button>
+      <button class="imap-tab" data-itab="review">Review &amp; Export <span class="imap-review-count" id="imapReviewCount"></span></button>
     </div>
 
     <div class="imap-tab-panel" id="itab-files">
@@ -333,10 +512,17 @@ function exportInventor() {
       </div>
     </div>
 
+    <div class="imap-tab-panel" id="itab-review" style="display:none">
+      <p class="imap-filename-hint" style="margin:10px 20px 6px">
+        Uncheck anything you don't want touched. <strong>Rename File?</strong> controls whether the file gets renamed in Inventor. Uncheck an iProperty to leave it as-is.
+      </p>
+      <div id="imapReviewWrap"></div>
+    </div>
+
     <div class="confirm-buttons imap-footer">
       <button class="btn btn-cancel">Cancel</button>
       <button class="btn" id="imapBtnPreview">👁 Preview CSV</button>
-      <button class="btn btn-confirm" id="imapBtnExport">⬇ Download Files</button>
+      <button class="btn btn-confirm" id="imapBtnExport" disabled>⬇ Download Files</button>
     </div>`;
 
   overlay.appendChild(box);
@@ -345,10 +531,19 @@ function exportInventor() {
   // ── Tab switching ──
   box.querySelectorAll('.imap-tab').forEach(tab => {
     tab.onclick = () => {
+      // If switching to Review, collect current mapping first
+      if (tab.dataset.itab === 'review') {
+        const { fileColId: fc, mapping } = collectMap();
+        map.mapping = mapping;
+        _renderReviewTab(parts, fc, mapping, overrides);
+      }
       box.querySelectorAll('.imap-tab').forEach(t => t.classList.remove('active'));
       box.querySelectorAll('.imap-tab-panel').forEach(p => p.style.display = 'none');
       tab.classList.add('active');
       document.getElementById('itab-' + tab.dataset.itab).style.display = '';
+      // Enable Download only on Review tab
+      const exportBtn = document.getElementById('imapBtnExport');
+      if (exportBtn) exportBtn.disabled = tab.dataset.itab !== 'review';
     };
   });
 
@@ -438,7 +633,8 @@ function exportInventor() {
     const { fileColId: fc, mapping } = collectMap();
     map.mapping = mapping;
 
-    const csv = _buildInventorCSV(fc, mapping);
+    const exportSel = (State.exportSelections || {})[State.activeClassId] || {};
+    const csv = _buildInventorCSV(fc, mapping, exportSel);
     const ilogic = _buildILogicScript();
 
     const timestamp = new Date().toISOString().replace(/[:.]/g,'-').slice(0,-5);
@@ -459,11 +655,12 @@ function _clearFileLink(partId, row, overrides, updateLinkCount) {
   updateLinkCount();
 }
 
-function _buildInventorCSV(fileColId, mapping) {
+function _buildInventorCSV(fileColId, mapping, selections) {
   const parts   = getActiveParts();
   const props   = getActiveProps();
   const otherProps = props.filter(p => p.id !== fileColId && mapping[p.id]);
   const overrides  = ((State.fileNameOverrides || {})[State.activeClassId]) || {};
+  const sel = selections || {};
 
   const header = [
     '"FileName"',       // current/placeholder filename — used to match open document
@@ -472,16 +669,21 @@ function _buildInventorCSV(fileColId, mapping) {
   ].join(',');
 
   const rows = parts.map(p => {
-    const rules        = getActiveRules()[p.id] || {};
+    const rules         = getActiveRules()[p.id] || {};
     const generatedName = resolveRule(rules[fileColId], p.id) || '';
-    // Use linked actual filename (placeholder) if set, otherwise same as generated
-    const currentName  = overrides[p.id] || generatedName;
+    const currentName   = overrides[p.id] || generatedName;
+    const partSel       = sel[p.id] || { rename: true, props: {} };
+
+    // If rename is unchecked, NewFileName === FileName → iLogic rename branch is a no-op
+    const newFileName = partSel.rename !== false ? generatedName : currentName;
+
     const cells = [
-      `"${currentName}"`,         // FileName — what to match in Inventor (current/placeholder name)
-      `"${generatedName}"`,       // NewFileName — what to rename it to
+      `"${currentName}"`,   // FileName — what to match in Inventor
+      `"${newFileName}"`,   // NewFileName — rename target (same as current when unchecked)
       ...otherProps.map(pr => {
+        if (partSel.props[pr.id] === false) return '""'; // unchecked → empty, iLogic skips
         const val = resolveRule(rules[pr.id], p.id);
-        return `"${val || '-'}"`;  // empty → hyphen to satisfy mandatory iProperty checks
+        return `"${val || '-'}"`;
       })
     ];
     return cells.join(',');
