@@ -1,3 +1,14 @@
 [
-  { "id": "buckets", "label": "Buckets", "file": "data/buckets_1.json", "icon": "🪣" }
+  {
+    "id": "buckets",
+    "label": "Buckets",
+    "file": "data/buckets_1.json",
+    "icon": "🪣"
+  },
+  {
+    "id": "cat_1773868048483",
+    "label": "Hardware",
+    "file": "data/cat_1773868048483.json",
+    "icon": "📁"
+  }
 ]
