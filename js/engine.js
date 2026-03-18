@@ -49,6 +49,9 @@ function calculateIndices() {
 }
 
 function _safeMathEval(expr) {
+  // Strip unit suffixes from numbers (e.g. "100MM" → "100", "5IN" → "5")
+  // This allows (PIN_OD/25.4) to work even when PIN_OD = "100MM"
+  expr = expr.replace(/(\d+(?:\.\d+)?)\s*[a-zA-Z]+/g, '$1');
   // Only allow digits, operators, dots, spaces — no identifiers that could escape
   if (!/^[\d\s+\-*/.]+$/.test(expr)) return null;
   try {
