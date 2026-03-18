@@ -396,17 +396,60 @@ window.addProp = () => {
   const hidden = getHiddenProps();
   const hi = hidden.indexOf(newProp.id);
   if (hi !== -1) hidden.splice(hi, 1);
+
+  // Auto-select first part so the rule items appear in the right panel
+  if (!State.selectedPartId) {
+    const first = getActiveParts().find(p => p.enabled !== false);
+    if (first) State.selectedPartId = first.id;
+  }
+
   markDirty();
   renderAll();
 
-  // Auto-start inline rename on the column pill (always in DOM regardless of part selection)
   setTimeout(() => {
+    // ── Preferred: inline-edit name in the rule item (right panel) ──
+    const nameEl = document.querySelector(`[data-edit="propName"][data-id="${newProp.id}"]`);
+    if (nameEl) {
+      const input = document.createElement('input');
+      input.value     = nameEl.textContent.trim();
+      input.className = nameEl.className;
+      input.style.cssText = 'font-weight:bold;font-size:inherit;min-width:80px;width:100%;box-sizing:border-box';
+      nameEl.replaceWith(input);
+      input.focus();
+      input.select();
+
+      const commitName = () => {
+        const val = input.value.trim();
+        if (val) { const p = getActiveProps().find(p => p.id === newProp.id); if (p) p.name = val; }
+        markDirty();
+      };
+
+      const goToTextarea = () => {
+        renderAll();
+        setTimeout(() => {
+          document.querySelector(`textarea[data-prop-id="${newProp.id}"]`)?.focus();
+        }, 30);
+      };
+
+      input.onblur    = () => { commitName(); renderAll(); };
+      input.onkeydown = e => {
+        if (e.key === 'Escape') { renderAll(); return; }
+        if (e.key === 'Enter' || e.key === 'Tab') {
+          e.preventDefault();
+          input.onblur = null;
+          commitName();
+          goToTextarea();
+        }
+      };
+      return;
+    }
+
+    // ── Fallback: pill in COLUMNS bar (no parts at all) ──
     const pill = document.querySelector(`[data-prop-id="${newProp.id}"]`);
     if (!pill) return;
     const input = document.createElement('input');
     input.value       = pill.textContent.trim();
     input.placeholder = 'Column name…';
-    // Style to match the pill appearance
     input.style.cssText = pill.style.cssText;
     input.className     = pill.className;
     input.style.width   = '110px';
@@ -421,7 +464,7 @@ window.addProp = () => {
     };
     input.onblur    = saveEdit;
     input.onkeydown = e => {
-      if (e.key === 'Enter') saveEdit();
+      if (e.key === 'Enter') { e.preventDefault(); input.onblur = null; saveEdit(); }
       if (e.key === 'Escape') renderAll();
     };
   }, 50);
