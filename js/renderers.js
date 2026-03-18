@@ -798,6 +798,23 @@ function _wireTokenAutocomplete(textarea, palette, propId) {
     renderPalette('');
   };
 
+  /* Insert a conditional snippet {KEY?} with cursor placed before closing } */
+  const insertConditional = key => {
+    const pos    = textarea.selectionStart;
+    const before = textarea.value.substring(0, pos);
+    const after  = textarea.value.substring(pos);
+    const word   = getCurrentWord();
+    const snippet  = '{' + key + '?}';
+    const newBefore = before.substring(0, before.length - word.length) + snippet;
+    textarea.value  = newBefore + after;
+    // Position cursor before the closing }
+    const cursorPos = newBefore.length - 1;
+    textarea.setSelectionRange(cursorPos, cursorPos);
+    textarea.dispatchEvent(new Event('input'));
+    textarea.focus();
+    palette.style.display = 'none';
+  };
+
   /* True when the token key appears as a whole word in the current formula */
   const isUsed = (formula, key) =>
     new RegExp('\\b' + key + '\\b').test(formula);
@@ -859,6 +876,20 @@ function _wireTokenAutocomplete(textarea, palette, propId) {
         e.preventDefault();
         insertToken(t.key);
       });
+
+      /* "if" button — only for dynamic (context) variables, not IDX/NAME */
+      if (t.key !== 'IDX' && t.key !== 'NAME') {
+        const ifBtn = document.createElement('button');
+        ifBtn.className = 'token-if-btn';
+        ifBtn.textContent = 'if';
+        ifBtn.title = 'Insert as conditional: shows a value only when ' + t.label + ' is selected';
+        ifBtn.addEventListener('mousedown', e => {
+          e.preventDefault();
+          e.stopPropagation();
+          insertConditional(t.key);
+        });
+        btn.appendChild(ifBtn);
+      }
 
       palette.appendChild(btn);
     });
