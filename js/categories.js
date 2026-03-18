@@ -25,7 +25,7 @@ const _CAT_CONFIG = 'data/categories.json';
 function _defaultCategoryState(cat) {
   const tabId = cat.id + '_1';
   return {
-    productClasses:    [{ id: tabId, name: cat.label }],
+    productClasses:    [{ id: tabId, name: 'Tab 1' }],
     activeClassId:     tabId,
     selectedPartId:    null,
     activeRightTab:    'parts',
@@ -66,7 +66,7 @@ function _setBtnVisibility(inWorkspace) {
     if (el) el.style.display = show ? '' : 'none';
   };
   _s('btnHome',           inWorkspace);
-  _s('btnNewTab',         false);        // always hidden — new tabs created in workspace
+  _s('btnNewTab',         inWorkspace);
   _s('btnSave',           inWorkspace);
   _s('btnExportInventor', inWorkspace);
   _s('btnPublish',        true);         // always visible
