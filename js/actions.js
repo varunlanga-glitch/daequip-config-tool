@@ -36,61 +36,40 @@ window.handleContextSelect = (key, val) => {
 
   // Adding a new value mutates Config — block if Config is locked
   if (!_guardSection('config')) {
-    // Revert the select to its previous value
     renderAll();
     return;
   }
 
   const masterVar = getActiveMaster().find(m => m.key === key);
-  const tempId    = 'temp_' + Date.now();
 
-  masterVar.vals.push(tempId);
-  getActiveContext()[key] = tempId;
-  switchRightTab('config');
+  // Replace the dropdown with an inline text input directly in the left panel
+  const sel = document.querySelector(`[data-ctx-key="${key}"]`);
+  if (!sel) { renderAll(); return; }
 
-  setTimeout(() => {
-    const configContainer = document.getElementById('tab-config');
-    configContainer.querySelectorAll('.rule-item').forEach(item => {
-      const labelSpan = item.querySelector('[data-edit="configLabel"]');
-      if (labelSpan?.dataset.id !== key) return;
+  const comboDiv = sel.closest('.combo');
+  const input = document.createElement('input');
+  input.type        = 'text';
+  input.className   = 'combo';
+  input.placeholder = 'New value, press Enter…';
+  input.style.cssText = 'width:100%;box-sizing:border-box;';
+  comboDiv.replaceWith(input);
+  input.focus();
 
-      item.querySelectorAll('.chip').forEach(chip => {
-        const text = chip.childNodes[0]?.textContent?.trim();
-        if (text !== tempId) return;
+  const saveEdit = () => {
+    const newValue = input.value.trim();
+    if (newValue) {
+      masterVar.vals.push(newValue);
+      getActiveContext()[key] = newValue;
+      markDirty();
+    }
+    renderAll();
+  };
 
-        const input = document.createElement('input');
-        input.value       = '';
-        input.placeholder = 'Enter value...';
-        input.style.cssText = 'width:100px;padding:2px 6px;border:1px solid var(--accent);border-radius:4px;font-size:11px;outline:none';
-        chip.childNodes[0].replaceWith(input);
-        input.focus();
-
-        const saveEdit = () => {
-          const newValue = input.value.trim();
-          if (newValue) {
-            const idx = masterVar.vals.indexOf(tempId);
-            if (idx !== -1) masterVar.vals[idx] = newValue;
-            if (getActiveContext()[key] === tempId) getActiveContext()[key] = newValue;
-          } else {
-            masterVar.vals = masterVar.vals.filter(v => v !== tempId);
-            getActiveContext()[key] = masterVar.vals[0] || '';
-          }
-          renderAll();
-        };
-
-        input.onblur    = saveEdit;
-        input.onkeydown = e => {
-          if (e.key === 'Enter')  { e.preventDefault(); saveEdit(); }
-          if (e.key === 'Escape') {
-            e.preventDefault();
-            masterVar.vals = masterVar.vals.filter(v => v !== tempId);
-            getActiveContext()[key] = masterVar.vals[0] || '';
-            renderAll();
-          }
-        };
-      });
-    });
-  }, 50);
+  input.onblur    = saveEdit;
+  input.onkeydown = e => {
+    if (e.key === 'Enter')  { e.preventDefault(); saveEdit(); }
+    if (e.key === 'Escape') { e.preventDefault(); renderAll(); }
+  };
 };
 
 /* ── Parts ───────────────────────────────────────────────── */
@@ -419,6 +398,29 @@ window.addProp = () => {
   if (hi !== -1) hidden.splice(hi, 1);
   markDirty();
   renderAll();
+
+  // Auto-start inline rename on the new property's label span
+  setTimeout(() => {
+    const el = document.querySelector(`[data-edit="propName"][data-id="${newProp.id}"]`);
+    if (!el) return;
+    const input = document.createElement('input');
+    input.value     = el.textContent.trim();
+    input.className = 'combo';
+    input.style.cssText = 'font-weight:bold;font-size:inherit;width:100%;box-sizing:border-box';
+    el.replaceWith(input);
+    input.focus();
+    input.select();
+    const saveEdit = () => {
+      const val = input.value.trim();
+      if (val) { const p = getActiveProps().find(p => p.id === newProp.id); if (p) p.name = val; }
+      renderAll();
+    };
+    input.onblur    = saveEdit;
+    input.onkeydown = e => {
+      if (e.key === 'Enter') saveEdit();
+      if (e.key === 'Escape') renderAll();
+    };
+  }, 50);
 };
 
 window.togglePropVisibility = id => {
