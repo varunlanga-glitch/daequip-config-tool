@@ -410,19 +410,20 @@ window.addChipsRange = (k, start, end, step) => {
   const master = getActiveMaster().find(m => m.key === k);
   if (!master || step <= 0 || start > end) return;
 
-  // Detect decimal places from step to format output consistently
+  // Detect decimal places from step, capped at 3
   const stepStr  = step.toString();
-  const decimals = stepStr.includes('.') ? stepStr.split('.')[1].length : 0;
+  const rawDecimals = stepStr.includes('.') ? stepStr.split('.')[1].length : 0;
+  const decimals = Math.min(rawDecimals, 3);
 
   // Integer arithmetic prevents floating-point drift (e.g. 0.1 + 0.2 ≠ 0.3)
-  const factor = Math.pow(10, decimals);
+  const factor = Math.pow(10, Math.max(rawDecimals, decimals));
   const iStart = Math.round(start * factor);
   const iEnd   = Math.round(end   * factor);
   const iStep  = Math.round(step  * factor);
 
   const values = [];
   for (let v = iStart; v <= iEnd; v += iStep) {
-    const formatted = (v / factor).toFixed(decimals);
+    const formatted = normalizeChipVal((v / factor).toString());
     if (!master.vals.includes(formatted)) values.push(formatted);
   }
   if (values.length) { master.vals.push(...values); markDirty(); renderAll(); }
