@@ -251,6 +251,7 @@ function renderContext() {
     input.placeholder  = '— select —';
     input.autocomplete = 'off';
     input.spellcheck   = false;
+    input.dataset.ctxKey = m.key;
 
     const dropdown = document.createElement('div');
     dropdown.className    = 'combo-dropdown';
