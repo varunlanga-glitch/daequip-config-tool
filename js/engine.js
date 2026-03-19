@@ -103,7 +103,10 @@ function resolveRule(template, partId) {
       // Allow an optional alpha-only unit suffix immediately after the key
       // (e.g. PIN_ODmm → 45mm) but stop if the next char is _ or a digit,
       // which would indicate a longer identifier rather than a unit suffix.
-      const regex = new RegExp(`\\b${escaped}([a-zA-Z]*)(?![_\\d])`, 'g');
+      // Trailing \b naturally allows a unit suffix (e.g. PIN_ODMM → 50MM)
+      // while still refusing to match inside a longer identifier (PIN_OD_MAX),
+      // because _ is a word char so \b won't fire between OD and _MAX.
+      const regex = new RegExp(`\\b${escaped}([a-zA-Z]*)\\b`, 'g');
       s = s.replace(regex, (_, unit) => (ctx[key] || '') + unit);
     });
 
