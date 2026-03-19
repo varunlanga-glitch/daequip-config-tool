@@ -1141,14 +1141,21 @@ function _wireTokenAutocomplete(textarea, palette, propId) {
     });
     pop.appendChild(insertBtn);
 
-    // Position below the if-button
+    // Position near the if-button, flipping above if it would overflow the viewport
     document.body.appendChild(pop);
-    const rect = ifBtnEl.getBoundingClientRect();
-    const popW = 280;
+    const rect   = ifBtnEl.getBoundingClientRect();
+    const popW   = 280;
+    const popH   = pop.offsetHeight;
     let left = rect.left;
     if (left + popW > window.innerWidth - 8) left = window.innerWidth - popW - 8;
+    if (left < 8) left = 8;
+    // Flip above the button when not enough space below
+    const spaceBelow = window.innerHeight - rect.bottom - 8;
+    const top = spaceBelow >= popH
+      ? rect.bottom + 6
+      : Math.max(8, rect.top - popH - 6);
     pop.style.left = left + 'px';
-    pop.style.top  = (rect.bottom + 6) + 'px';
+    pop.style.top  = top + 'px';
 
     outputInput.focus();
 
