@@ -15,7 +15,7 @@
   ],
   "activeClassId": "tab1773944324382",
   "selectedPartId": "p1773869852653",
-  "activeRightTab": "config",
+  "activeRightTab": "rules",
   "master": {
     "cat_1773868048483_1": [
       {
@@ -531,27 +531,27 @@
         "key": "COLLAR_OD_IN",
         "label": "Collar OD (IN)",
         "vals": [
-          "2",
+          "2.000",
           "2.250",
           "2.500",
           "2.750",
-          "3",
+          "3.000",
           "3.250",
           "3.500",
           "3.750",
-          "4",
+          "4.000",
           "4.250",
           "4.500",
           "4.750",
-          "5",
+          "5.000",
           "5.250",
           "5.500",
           "5.750",
-          "6",
+          "6.000",
           "6.250",
           "6.500",
           "6.750",
-          "7"
+          "7.000"
         ]
       },
       {
@@ -567,7 +567,7 @@
           "1.813",
           "1.875",
           "1.938",
-          "2",
+          "2.000",
           "2.063",
           "2.125",
           "2.188",
@@ -583,7 +583,7 @@
           "2.813",
           "2.875",
           "2.938",
-          "3",
+          "3.000",
           "3.063",
           "3.125",
           "3.188",
@@ -599,7 +599,7 @@
           "3.813",
           "3.875",
           "3.938",
-          "4",
+          "4.000",
           "4.063",
           "4.125",
           "4.188",
@@ -615,7 +615,7 @@
           "4.813",
           "4.875",
           "4.938",
-          "5"
+          "5.000"
         ]
       },
       {
@@ -731,7 +731,8 @@
       "COLLAR_OD_IN": "2.000",
       "COLLAR_ID_IN": "1.525",
       "COLLAR_LENGTH_IN": "2.813",
-      "HOLE_DIAMETER": "0.375"
+      "HOLE_DIAMETER": "0.125",
+      "OFFSET": "YES"
     }
   },
   "parts": {
@@ -925,8 +926,9 @@
       },
       "p1773869852653": {
         "f1773869896995": "COLLAR-{PIN_OD?PIN_OD}",
-        "f1773869904615": "",
-        "f1773869932699": "{COLLAR_OD_IN?COLLAR_OD_IN OD} X {COLLAR_ID_IN?COLLAR_ID_IN ID} X {COLLAR_LENGTH_IN?COLLAR_LENGTH_IN LG} - {HOLE_DIAMETER?HOLE_DIAMETER HOLE} {OFFSET?- OFFST}"
+        "f1773869904615": "{COLLAR_OD_IN?COLLAR_OD_IN OD} X {COLLAR_ID_IN?COLLAR_ID_IN ID} X {COLLAR_LENGTH_IN?COLLAR_LENGTH_IN LG}",
+        "f1773869932699": "",
+        "f1773869927490": "{HOLE_DIAMETER?HOLE_DIAMETER HOLE -} {OFFSET?OFFST}"
       },
       "p1773869860795": {
         "f1773869896995": "PIN-{COLLAR_OD_IN?PIN_ODMM}",
