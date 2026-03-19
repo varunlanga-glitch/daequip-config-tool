@@ -639,7 +639,7 @@ window.deleteTab = id => {
     return;
   }
   const tabName = State.productClasses.find(c => c.id === id)?.name;
-  showConfirm(
+  const doDelete = () => showConfirm(
     'Delete Tab',
     `Delete tab "${tabName}"? All data in this tab will be lost.`,
     () => {
@@ -669,6 +669,11 @@ window.deleteTab = id => {
       renderAll();
     }
   );
+  if (typeof window._requireDeletePin === 'function') {
+    window._requireDeletePin(`Delete Tab "${tabName}"`, doDelete);
+  } else {
+    doDelete();
+  }
 };
 
 /**
@@ -682,9 +687,36 @@ window.renameActiveTab = newName => {
 
 /* ── Tab password lock ───────────────────────────────────── */
 
-async function _sha256hex(text) {
+async function _sha256hex(text) {  // kept for legacy hash migration
   const buf  = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function _pbkdf2Hex(pin, saltHex) {
+  const keyMat = await crypto.subtle.importKey(
+    'raw', new TextEncoder().encode(pin), 'PBKDF2', false, ['deriveBits']
+  );
+  const salt = new Uint8Array(saltHex.match(/.{2}/g).map(b => parseInt(b, 16)));
+  const bits = await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', hash: 'SHA-256', salt, iterations: 100_000 },
+    keyMat, 256
+  );
+  return Array.from(new Uint8Array(bits)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function _hashPinV2(pin) {
+  const saltBytes = crypto.getRandomValues(new Uint8Array(16));
+  const saltHex   = Array.from(saltBytes).map(b => b.toString(16).padStart(2, '0')).join('');
+  return 'v2:' + saltHex + ':' + await _pbkdf2Hex(pin, saltHex);
+}
+
+async function _verifyPinLocal(pin, stored) {
+  if (!stored) return false;
+  if (stored.startsWith('v2:')) {
+    const parts = stored.split(':');
+    return parts[2] === await _pbkdf2Hex(pin, parts[1]);
+  }
+  return stored === await _sha256hex(pin); // legacy
 }
 
 /**
@@ -699,7 +731,7 @@ window.lockTab = id => {
         return;
       }
       if (!State.lockedTabs) State.lockedTabs = {};
-      State.lockedTabs[id] = await _sha256hex(pin1);
+      State.lockedTabs[id] = await _hashPinV2(pin1);
       // Track unlocked session state (in-memory only, not persisted)
       if (!window._unlockedTabs) window._unlockedTabs = new Set();
       window._unlockedTabs.delete(id);
@@ -714,8 +746,7 @@ window.lockTab = id => {
 window.unlockTab = (id, onSuccess) => {
   showPrompt('Unlock Tab', 'Enter PIN to unlock:', '', async pin => {
     if (!pin) return;
-    const hash = await _sha256hex(pin);
-    if (hash === (State.lockedTabs || {})[id]) {
+    if (await _verifyPinLocal(pin, (State.lockedTabs || {})[id])) {
       if (!window._unlockedTabs) window._unlockedTabs = new Set();
       window._unlockedTabs.add(id);
       if (onSuccess) onSuccess();
@@ -729,8 +760,7 @@ window.unlockTab = (id, onSuccess) => {
 window.removeTabLock = id => {
   showPrompt('Remove Lock', 'Enter current PIN to remove lock:', '', async pin => {
     if (!pin) return;
-    const hash = await _sha256hex(pin);
-    if (hash === (State.lockedTabs || {})[id]) {
+    if (await _verifyPinLocal(pin, (State.lockedTabs || {})[id])) {
       delete State.lockedTabs[id];
       if (window._unlockedTabs) window._unlockedTabs.delete(id);
       renderAll();
@@ -760,7 +790,7 @@ window.lockSection = section => {
         return;
       }
       if (!State.lockedSections) State.lockedSections = {};
-      State.lockedSections[_sectionKey(section)] = await _sha256hex(pin1);
+      State.lockedSections[_sectionKey(section)] = await _hashPinV2(pin1);
       if (!window._unlockedSections) window._unlockedSections = new Set();
       window._unlockedSections.delete(_sectionKey(section));
       renderAll();
@@ -771,8 +801,7 @@ window.lockSection = section => {
 window.unlockSection = (section, onSuccess) => {
   showPrompt(`Unlock ${section}`, 'Enter PIN to unlock:', '', async pin => {
     if (!pin) return;
-    const hash = await _sha256hex(pin);
-    if (hash === (State.lockedSections || {})[_sectionKey(section)]) {
+    if (await _verifyPinLocal(pin, (State.lockedSections || {})[_sectionKey(section)])) {
       if (!window._unlockedSections) window._unlockedSections = new Set();
       window._unlockedSections.add(_sectionKey(section));
       if (onSuccess) onSuccess();
@@ -786,8 +815,7 @@ window.unlockSection = (section, onSuccess) => {
 window.removeSectionLock = section => {
   showPrompt(`Remove ${section} Lock`, 'Enter current PIN to remove lock:', '', async pin => {
     if (!pin) return;
-    const hash = await _sha256hex(pin);
-    if (hash === (State.lockedSections || {})[_sectionKey(section)]) {
+    if (await _verifyPinLocal(pin, (State.lockedSections || {})[_sectionKey(section)])) {
       delete State.lockedSections[_sectionKey(section)];
       if (window._unlockedSections) window._unlockedSections.delete(_sectionKey(section));
       renderAll();

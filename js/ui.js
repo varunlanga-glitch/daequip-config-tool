@@ -11,22 +11,37 @@ function showConfirm(title, message, onConfirm) {
 
   const box = document.createElement('div');
   box.className = 'confirm-box';
-  box.innerHTML = `
-    <div class="confirm-title">${title}</div>
-    <div class="confirm-message">${message}</div>
-    <div class="confirm-buttons">
-      <button class="btn btn-cancel">Cancel</button>
-      <button class="btn btn-confirm">Delete</button>
-    </div>`;
 
+  const titleEl = document.createElement('div');
+  titleEl.className = 'confirm-title';
+  titleEl.textContent = title;
+
+  const msgEl = document.createElement('div');
+  msgEl.className = 'confirm-message';
+  msgEl.textContent = message;
+
+  const btns = document.createElement('div');
+  btns.className = 'confirm-buttons';
+  const cancelBtn = document.createElement('button');
+  cancelBtn.className = 'btn btn-cancel';
+  cancelBtn.textContent = 'Cancel';
+  const confirmBtn = document.createElement('button');
+  confirmBtn.className = 'btn btn-confirm';
+  confirmBtn.textContent = 'Delete';
+  btns.appendChild(cancelBtn);
+  btns.appendChild(confirmBtn);
+
+  box.appendChild(titleEl);
+  box.appendChild(msgEl);
+  box.appendChild(btns);
   overlay.appendChild(box);
   document.body.appendChild(overlay);
 
   const close = () => overlay.remove();
-  box.querySelector('.btn-cancel').onclick  = close;
-  box.querySelector('.btn-confirm').onclick = () => { onConfirm(); close(); };
+  cancelBtn.onclick  = close;
+  confirmBtn.onclick = () => { onConfirm(); close(); };
   overlay.onclick = e => { if (e.target === overlay) close(); };
-  setTimeout(() => box.querySelector('.btn-confirm').focus(), 10);
+  setTimeout(() => confirmBtn.focus(), 10);
 }
 
 /* ── Prompt dialog ───────────────────────────────────────── */
@@ -36,27 +51,48 @@ function showPrompt(title, message, defaultValue, onConfirm) {
 
   const box = document.createElement('div');
   box.className = 'confirm-box';
-  box.innerHTML = `
-    <div class="confirm-title">${title}</div>
-    <div class="confirm-message">${message}</div>
-    <input type="text" class="combo" value="${defaultValue}" style="margin-bottom:16px">
-    <div class="confirm-buttons">
-      <button class="btn btn-cancel">Cancel</button>
-      <button class="btn btn-confirm" style="background:var(--accent);border-color:var(--accent);color:white">Save</button>
-    </div>`;
 
+  const titleEl = document.createElement('div');
+  titleEl.className = 'confirm-title';
+  titleEl.textContent = title;
+
+  const msgEl = document.createElement('div');
+  msgEl.className = 'confirm-message';
+  msgEl.textContent = message;
+
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.className = 'combo';
+  input.value = defaultValue;
+  input.style.marginBottom = '16px';
+
+  const btns = document.createElement('div');
+  btns.className = 'confirm-buttons';
+  const cancelBtn = document.createElement('button');
+  cancelBtn.className = 'btn btn-cancel';
+  cancelBtn.textContent = 'Cancel';
+  const saveBtn = document.createElement('button');
+  saveBtn.className = 'btn btn-confirm';
+  saveBtn.style.cssText = 'background:var(--accent);border-color:var(--accent);color:white';
+  saveBtn.textContent = 'Save';
+  btns.appendChild(cancelBtn);
+  btns.appendChild(saveBtn);
+
+  box.appendChild(titleEl);
+  box.appendChild(msgEl);
+  box.appendChild(input);
+  box.appendChild(btns);
   overlay.appendChild(box);
   document.body.appendChild(overlay);
 
-  const input = box.querySelector('input');
   const close = () => overlay.remove();
   const save  = () => {
     const value = input.value.trim();
     if (value) { onConfirm(value); close(); }
   };
 
-  box.querySelector('.btn-cancel').onclick  = close;
-  box.querySelector('.btn-confirm').onclick = save;
+  cancelBtn.onclick = close;
+  saveBtn.onclick   = save;
   input.onkeydown = e => {
     if (e.key === 'Enter')  save();
     if (e.key === 'Escape') close();

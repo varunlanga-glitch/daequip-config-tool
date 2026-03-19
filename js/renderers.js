@@ -53,13 +53,27 @@ function _renderLockedOverlay() {
     if (centerBody) centerBody.appendChild(overlay);
   }
   const name = State.productClasses.find(c => c.id === State.activeClassId)?.name || '';
-  overlay.innerHTML = `
-    <div class="lock-overlay-content">
-      <div class="lock-icon">🔒</div>
-      <div class="lock-title">${name} is locked</div>
-      <p class="lock-desc">This tab is protected by a PIN.</p>
-      <button class="btn primary" onclick="unlockTab('${State.activeClassId}', null)">Unlock</button>
-    </div>`;
+  overlay.innerHTML = '';
+  const content = document.createElement('div');
+  content.className = 'lock-overlay-content';
+  const lockIcon = document.createElement('div');
+  lockIcon.className = 'lock-icon';
+  lockIcon.textContent = '🔒';
+  const lockTitle = document.createElement('div');
+  lockTitle.className = 'lock-title';
+  lockTitle.textContent = name + ' is locked';
+  const lockDesc = document.createElement('p');
+  lockDesc.className = 'lock-desc';
+  lockDesc.textContent = 'This tab is protected by a PIN.';
+  const unlockBtn = document.createElement('button');
+  unlockBtn.className = 'btn primary';
+  unlockBtn.textContent = 'Unlock';
+  unlockBtn.onclick = () => unlockTab(State.activeClassId, null);
+  content.appendChild(lockIcon);
+  content.appendChild(lockTitle);
+  content.appendChild(lockDesc);
+  content.appendChild(unlockBtn);
+  overlay.appendChild(content);
 }
 
 function _clearLockedOverlay() {
@@ -122,114 +136,87 @@ function renderColumnFilter() {
   });
 }
 
-/* ── Product-class tab bar ───────────────────────────────── */
+/* ── Product-class tab bar (dropdown) ───────────────────── */
 function renderTabs() {
   const container = document.getElementById('tabs');
   container.innerHTML = '';
 
+  const activeCls = State.productClasses.find(c => c.id === State.activeClassId);
+  const locked    = isTabLocked(State.activeClassId);
+  const hasLock   = !!(State.lockedTabs || {})[State.activeClassId];
+
+  // Dropdown select
+  const select = document.createElement('select');
+  select.className = 'tab-select';
   State.productClasses.forEach(c => {
-    const locked   = isTabLocked(c.id);
-    const hasLock  = !!(State.lockedTabs || {})[c.id];
-    const isActive = c.id === State.activeClassId;
-
-    const div = document.createElement('div');
-    div.className = `tab ${isActive ? 'active' : ''} ${locked ? 'tab-locked' : ''}`;
-
-    const nameSpan = document.createElement('span');
-    nameSpan.className = 'tab-name';
-    nameSpan.textContent = c.name;
-    div.appendChild(nameSpan);
-
-    // Actions wrapper — pushed to the right via margin-left:auto
-    const actions = document.createElement('span');
-    actions.className = 'tab-actions';
-
-    // Edit/rename button (only on active unlocked tab)
-    if (isActive && !locked) {
-      const editBtn = document.createElement('span');
-      editBtn.className = 'tab-action edit';
-      editBtn.title = 'Rename tab';
-      editBtn.innerHTML = '✏️';
-      editBtn.onclick = e => {
-        e.stopPropagation();
-        nameSpan.contentEditable = 'true';
-        nameSpan.focus();
-        // Select all text
-        const range = document.createRange();
-        range.selectNodeContents(nameSpan);
-        const sel = window.getSelection();
-        sel.removeAllRanges(); sel.addRange(range);
-        const finish = () => {
-          nameSpan.contentEditable = 'false';
-          const newName = nameSpan.textContent.trim();
-          if (newName && newName !== c.name) { renameActiveTab(newName); }
-          else { nameSpan.textContent = c.name; }
-        };
-        nameSpan.onblur = finish;
-        nameSpan.onkeydown = ev => {
-          if (ev.key === 'Enter')  { ev.preventDefault(); nameSpan.blur(); }
-          if (ev.key === 'Escape') { nameSpan.textContent = c.name; nameSpan.blur(); }
-        };
-      };
-      actions.appendChild(editBtn);
-    }
-
-    // Lock/unlock icon
-    const lockBtn = document.createElement('span');
-    lockBtn.className = 'tab-action lock';
-    lockBtn.title     = hasLock ? (locked ? 'Unlock tab' : 'Remove lock') : 'Lock tab with PIN';
-    lockBtn.innerHTML = hasLock ? (locked ? '🔒' : '🔓') : '🔐';
-    lockBtn.onclick   = e => {
-      e.stopPropagation();
-      if (!hasLock) {
-        lockTab(c.id);
-      } else if (locked) {
-        unlockTab(c.id, null);
-      } else {
-        removeTabLock(c.id);
-      }
-    };
-    actions.appendChild(lockBtn);
-
-    // Clone button (only if not locked)
-    if (!locked) {
-      const cloneBtn = document.createElement('span');
-      cloneBtn.innerHTML = _duplicateIcon(12);
-      cloneBtn.title = 'Duplicate this tab';
-      cloneBtn.className = 'tab-action clone';
-      cloneBtn.onclick = e => { e.stopPropagation(); cloneTab(c.id); };
-      actions.appendChild(cloneBtn);
-    }
-
-    // Close button (only when >1 tab and not locked)
-    if (State.productClasses.length > 1 && !locked) {
-      const closeBtn = document.createElement('span');
-      closeBtn.innerHTML = '&times;';
-      closeBtn.className = 'tab-action close';
-      closeBtn.onclick = e => { e.stopPropagation(); deleteTab(c.id); };
-      actions.appendChild(closeBtn);
-    }
-
-    div.appendChild(actions);
-
-    div.onclick = e => {
-      if (e.target === div || e.target === nameSpan) {
-        if (locked) {
-          unlockTab(c.id, null);
-          return;
-        }
-        State.activeClassId  = c.id;
+    const opt = document.createElement('option');
+    opt.value = c.id;
+    opt.textContent = c.name + (isTabLocked(c.id) ? ' 🔒' : '');
+    opt.selected = c.id === State.activeClassId;
+    select.appendChild(opt);
+  });
+  select.onchange = () => {
+    const chosen = State.productClasses.find(c => c.id === select.value);
+    if (!chosen) return;
+    if (isTabLocked(chosen.id)) {
+      select.value = State.activeClassId; // revert visual selection
+      unlockTab(chosen.id, () => {
+        State.activeClassId  = chosen.id;
         State.selectedPartId = null;
         renderAll();
-      }
-    };
+      });
+      return;
+    }
+    State.activeClassId  = chosen.id;
+    State.selectedPartId = null;
+    renderAll();
+  };
+  container.appendChild(select);
 
-    container.appendChild(div);
-  });
+  // Rename button (active unlocked tab only)
+  if (!locked) {
+    const editBtn = document.createElement('button');
+    editBtn.className = 'btn tab-act-btn';
+    editBtn.title = 'Rename tab';
+    editBtn.textContent = '✏️';
+    editBtn.onclick = () => startProductNameEdit();
+    container.appendChild(editBtn);
+  }
 
-  // Center header: editable tab name
+  // Lock/unlock button
+  const lockBtn = document.createElement('button');
+  lockBtn.className = 'btn tab-act-btn';
+  lockBtn.title   = hasLock ? (locked ? 'Unlock tab' : 'Remove lock') : 'Lock tab with PIN';
+  lockBtn.textContent = hasLock ? (locked ? '🔒' : '🔓') : '🔐';
+  lockBtn.onclick = () => {
+    if (!hasLock)    lockTab(State.activeClassId);
+    else if (locked) unlockTab(State.activeClassId, null);
+    else             removeTabLock(State.activeClassId);
+  };
+  container.appendChild(lockBtn);
+
+  // Clone button (active unlocked tab only)
+  if (!locked) {
+    const cloneBtn = document.createElement('button');
+    cloneBtn.className = 'btn tab-act-btn';
+    cloneBtn.title = 'Duplicate tab';
+    cloneBtn.innerHTML = _duplicateIcon(13);
+    cloneBtn.onclick = () => cloneTab(State.activeClassId);
+    container.appendChild(cloneBtn);
+  }
+
+  // Delete button (only when >1 tab and not locked)
+  if (State.productClasses.length > 1 && !locked) {
+    const delBtn = document.createElement('button');
+    delBtn.className = 'btn tab-act-btn tab-act-del';
+    delBtn.title = 'Delete tab';
+    delBtn.textContent = '✕';
+    delBtn.onclick = () => deleteTab(State.activeClassId);
+    container.appendChild(delBtn);
+  }
+
+  // Center header
   const productNameEl = document.getElementById('productName');
-  const activeCls = State.productClasses.find(c => c.id === State.activeClassId);
   productNameEl.textContent = activeCls?.name || '---';
   productNameEl.title = 'Click to rename this tab';
 }
