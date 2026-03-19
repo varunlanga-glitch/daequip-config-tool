@@ -11,7 +11,7 @@
   ],
   "activeClassId": "tab1773940149410",
   "selectedPartId": "p1773869852653",
-  "activeRightTab": "config",
+  "activeRightTab": "rules",
   "master": {
     "cat_1773868048483_1": [
       {
@@ -708,7 +708,8 @@
       "BUSHING_LENGTH_IN": "12.1875",
       "PIN_OD": "35",
       "BUSHING_OD_IN": "2.000",
-      "BUSHING_ID_IN": "1.525"
+      "BUSHING_ID_IN": "1.525",
+      "GREASE_GROOVE_LENGTH": "0.375"
     }
   },
   "parts": {
@@ -840,7 +841,7 @@
       "p1773869852653": {
         "f1773869896995": "BUSHING-{BUSHING_OD_IN?BUSHING_OD_IN}MM",
         "f1773869904615": "",
-        "f1773869932699": ""
+        "f1773869932699": "{BUSHING_OD_IN?BUSHING_OD_IN OD} X {BUSHING_ID_IN?BUSHING_ID_IN ID} X {BUSHING_LENGTH_IN?BUSHING_LENGTH_IN LG} - {GREASE_GROOVE_LENGTH?GG - GREASE_GROOVE_LENGTH}"
       },
       "p1773869860795": {
         "f1773869896995": "PIN-{BUSHING_OD_IN?PIN_ODMM}",
