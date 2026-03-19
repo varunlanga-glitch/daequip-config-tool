@@ -24,16 +24,36 @@ const _ghCatCfgApi   = () => `https://api.github.com/repos/${_GH_OWNER}/${_GH_RE
 const _TOKEN_KEY = 'gh_pat';
 const _PIN_KEY   = 'gh_pin_hash';
 
-/* ── PIN helpers ──────────────────────────────────────── */
+/* ── PIN helpers (PBKDF2 with salt; falls back to legacy SHA-256) ── */
+async function _pbkdf2HexGh(pin, saltHex) {
+  const keyMat = await crypto.subtle.importKey(
+    'raw', new TextEncoder().encode(pin), 'PBKDF2', false, ['deriveBits']
+  );
+  const salt = new Uint8Array(saltHex.match(/.{2}/g).map(b => parseInt(b, 16)));
+  const bits = await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', hash: 'SHA-256', salt, iterations: 100_000 },
+    keyMat, 256
+  );
+  return Array.from(new Uint8Array(bits)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 async function _hashPin(pin) {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pin));
-  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  const saltBytes = crypto.getRandomValues(new Uint8Array(16));
+  const saltHex   = Array.from(saltBytes).map(b => b.toString(16).padStart(2, '0')).join('');
+  return 'v2:' + saltHex + ':' + await _pbkdf2HexGh(pin, saltHex);
 }
 
 async function _checkPin(pin) {
   const stored = localStorage.getItem(_PIN_KEY);
   if (!stored) return false;
-  return stored === await _hashPin(pin);
+  if (stored.startsWith('v2:')) {
+    const parts = stored.split(':');
+    return parts[2] === await _pbkdf2HexGh(pin, parts[1]);
+  }
+  // Legacy: plain SHA-256
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pin));
+  const legacyHash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  return stored === legacyHash;
 }
 
 /* ── GitHub API helpers ───────────────────────────────── */
@@ -158,6 +178,7 @@ function _openSetupModal(onDone) {
 
     localStorage.setItem(_TOKEN_KEY, token);
     localStorage.setItem(_PIN_KEY, await _hashPin(pin));
+    window._ghSessionToken = token;
     overlay.remove();
     onDone(token);
   };
@@ -170,7 +191,7 @@ function _openPinModal(actionLabel, onCorrect) {
   overlay.style.cssText = 'z-index:2000';
   overlay.innerHTML = `
     <div class="confirm-box gh-modal" style="max-width:300px">
-      <div class="confirm-title">${actionLabel}</div>
+      <div class="confirm-title gh-pin-modal-title"></div>
       <div class="gh-form" style="align-items:center">
         <input id="ghPinIn" type="password" inputmode="numeric" maxlength="8"
           class="combo gh-input gh-pin-input gh-pin-large"
@@ -183,6 +204,7 @@ function _openPinModal(actionLabel, onCorrect) {
         <button class="btn gh-reset-btn" id="ghPinReset" title="Reset token &amp; PIN">Reset</button>
       </div>
     </div>`;
+  overlay.querySelector('.gh-pin-modal-title').textContent = actionLabel;
   document.body.appendChild(overlay);
 
   const inp  = overlay.querySelector('#ghPinIn');
@@ -194,7 +216,7 @@ function _openPinModal(actionLabel, onCorrect) {
     if (!pin) { err.textContent = 'Enter your PIN.'; return; }
     if (await _checkPin(pin)) {
       overlay.remove();
-      onCorrect(localStorage.getItem(_TOKEN_KEY));
+      onCorrect();
     } else {
       err.textContent = 'Incorrect PIN.';
       inp.value = '';
@@ -208,6 +230,7 @@ function _openPinModal(actionLabel, onCorrect) {
   overlay.querySelector('#ghPinReset').onclick  = () => {
     localStorage.removeItem(_TOKEN_KEY);
     localStorage.removeItem(_PIN_KEY);
+    window._ghSessionToken = null;
     overlay.remove();
     openPublishModal();
   };
@@ -267,6 +290,7 @@ function _openTokenOnlyModal(onDone) {
       return;
     }
     localStorage.setItem(_TOKEN_KEY, token);
+    window._ghSessionToken = token;
     overlay.remove();
     onDone(token);
   };
@@ -274,22 +298,38 @@ function _openTokenOnlyModal(onDone) {
 
 /* ── Auth gate: setup if needed, otherwise PIN ────────── */
 function _withAuth(label, onToken) {
-  const hasToken = !!localStorage.getItem(_TOKEN_KEY);
-  const hasPin   = !!localStorage.getItem(_PIN_KEY);
+  // Use session-cached token as fallback when localStorage was cleared mid-session
+  const storedToken = localStorage.getItem(_TOKEN_KEY) || window._ghSessionToken || null;
+  const hasPin      = !!localStorage.getItem(_PIN_KEY);
+  const hasToken    = !!storedToken;
+
+  const done = token => {
+    if (token) window._ghSessionToken = token;
+    onToken(token);
+  };
+
   if (!hasToken && !hasPin) {
     // First time or fully cleared — full setup
-    _openSetupModal(onToken);
+    _openSetupModal(done);
   } else if (!hasToken && hasPin) {
     // Token was cleared but PIN hash survived — just re-ask for token
-    _openTokenOnlyModal(onToken);
+    _openTokenOnlyModal(done);
   } else if (hasToken && !hasPin) {
     // Unusual: token exists but no PIN — full reset to keep them in sync
     localStorage.removeItem(_TOKEN_KEY);
-    _openSetupModal(onToken);
+    window._ghSessionToken = null;
+    _openSetupModal(done);
   } else {
-    _openPinModal(label, onToken);
+    _openPinModal(label, () => done(storedToken));
   }
 }
+
+/* ── PIN-gate for destructive actions (delete tab/workspace) ── */
+window._requireDeletePin = function(label, onApproved) {
+  const hasPin = !!localStorage.getItem(_PIN_KEY);
+  if (!hasPin) { onApproved(); return; }
+  _openPinModal(label, onApproved);
+};
 
 /* ── Publish modal ────────────────────────────────────── */
 function openPublishModal() {
@@ -418,9 +458,16 @@ function openHistoryModal() {
 
       const info = document.createElement('div');
       info.className = 'gh-hist-info';
-      info.innerHTML =
-        `<span class="gh-hist-msg" title="${msg}">${isLatest ? '⭐ ' : ''}${msg}</span>` +
-        `<span class="gh-hist-meta">${dateStr} &nbsp;·&nbsp; <code>${sha.slice(0, 7)}</code></span>`;
+      const msgSpan = document.createElement('span');
+      msgSpan.className = 'gh-hist-msg';
+      msgSpan.title = msg;
+      if (isLatest) msgSpan.appendChild(document.createTextNode('⭐ '));
+      msgSpan.appendChild(document.createTextNode(msg));
+      const metaSpan = document.createElement('span');
+      metaSpan.className = 'gh-hist-meta';
+      metaSpan.innerHTML = escapeHtml(dateStr) + ' &nbsp;·&nbsp; <code>' + escapeHtml(sha.slice(0, 7)) + '</code>';
+      info.appendChild(msgSpan);
+      info.appendChild(metaSpan);
       row.appendChild(info);
 
       if (isLatest) {
@@ -433,16 +480,23 @@ function openHistoryModal() {
         btn.className = 'btn gh-hist-load-btn';
         btn.textContent = '⏪ Load this';
         btn.onclick = () => {
-          overlay.remove();
           _withAuth('🔒 Enter PIN to Revert', async token => {
+            overlay.remove();
             const spinner = document.createElement('div');
             spinner.className = 'confirm-overlay';
             spinner.style.cssText = 'z-index:2100';
-            spinner.innerHTML = `
-              <div class="confirm-box gh-modal" style="max-width:280px;text-align:center;padding:28px 20px">
-                <div style="font-size:15px;margin-bottom:8px">Loading version…</div>
-                <div style="font-size:12px;color:var(--muted)">${sha.slice(0,7)} — ${msg}</div>
-              </div>`;
+            const spinnerBox = document.createElement('div');
+            spinnerBox.className = 'confirm-box gh-modal';
+            spinnerBox.style.cssText = 'max-width:280px;text-align:center;padding:28px 20px';
+            const spinnerMsg = document.createElement('div');
+            spinnerMsg.style.cssText = 'font-size:15px;margin-bottom:8px';
+            spinnerMsg.textContent = 'Loading version…';
+            const spinnerMeta = document.createElement('div');
+            spinnerMeta.style.cssText = 'font-size:12px;color:var(--muted)';
+            spinnerMeta.textContent = sha.slice(0, 7) + ' — ' + msg;
+            spinnerBox.appendChild(spinnerMsg);
+            spinnerBox.appendChild(spinnerMeta);
+            spinner.appendChild(spinnerBox);
             document.body.appendChild(spinner);
 
             try {
@@ -475,6 +529,11 @@ function openHistoryModal() {
       listEl.appendChild(row);
     });
   }).catch(e => {
-    listEl.innerHTML = `<div class="gh-hist-loading" style="color:#e74c3c">Error: ${e.message}</div>`;
+    const errEl = document.createElement('div');
+    errEl.className = 'gh-hist-loading';
+    errEl.style.color = '#e74c3c';
+    errEl.textContent = 'Error: ' + e.message;
+    listEl.innerHTML = '';
+    listEl.appendChild(errEl);
   });
 }

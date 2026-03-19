@@ -313,7 +313,7 @@ function _renameCategory(cat, nameEl) {
 /* ── Delete a category from the nav ────────────────────── */
 function _deleteCategory(cat) {
   if (window._categories.length <= 1) return;
-  showConfirm(
+  const doDelete = () => showConfirm(
     `Remove "${cat.label}"?`,
     'This removes it from the nav. The data file on GitHub is not deleted.',
     () => {
@@ -324,6 +324,11 @@ function _deleteCategory(cat) {
       renderHomeScreen();
     }
   );
+  if (typeof window._requireDeletePin === 'function') {
+    window._requireDeletePin(`Delete Workspace "${cat.label}"`, doDelete);
+  } else {
+    doDelete();
+  }
 }
 
 /* ── Add a new category ────────────────────────────────── */
