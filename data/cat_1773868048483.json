@@ -6,30 +6,35 @@
     }
   ],
   "activeClassId": "cat_1773868048483_1",
-  "selectedPartId": "p1773869852653",
-  "activeRightTab": "config",
+  "selectedPartId": "p1773869885948",
+  "activeRightTab": "rules",
   "master": {
     "cat_1773868048483_1": [
       {
         "key": "PIN_OD",
         "label": "Pin OD",
         "vals": [
-          "45MM",
-          "50MM",
-          "55MM",
-          "60MM",
-          "65MM",
-          "70MM",
-          "75MM",
-          "80MM",
-          "85MM",
-          "90MM",
-          "95MM",
-          "100MM",
-          "110MM",
-          "120MM",
-          "130MM",
-          "140MM"
+          "40",
+          "45",
+          "50",
+          "55",
+          "60",
+          "65",
+          "70",
+          "75",
+          "80",
+          "85",
+          "90",
+          "95",
+          "100",
+          "105",
+          "110",
+          "115",
+          "120",
+          "125",
+          "130",
+          "135",
+          "140"
         ]
       },
       {
@@ -385,7 +390,8 @@
       "BOLTSIZE": "0.500",
       "TAP_QTY_NO_OF_HOLES": "1",
       "PIN_LENGTH_IN": "15.875",
-      "PIN_OD": "100MM"
+      "PIN_OD": "45",
+      "PIN_ID_MM": "25"
     }
   },
   "parts": {
@@ -448,22 +454,22 @@
     "cat_1773868048483_1": {
       "p1773869885948": {
         "f1773869896995": "PIN-{PIN_OD?PIN_OD}",
-        "f1773869904615": "PIN_TYPE - (PIN_OD/25.4) X PIN_LENGTH_IN",
+        "f1773869904615": "PIN_TYPE - ({PIN_OD?PIN_OD}/25.4) X PIN_LENGTH_IN",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
       },
       "p1773869852653": {
-        "f1773869896995": "PIN-PIN_OD-GA",
-        "f1773869904615": "PIN_TYPE - (PIN_OD/25.4) X PIN_LENGTH_IN",
+        "f1773869896995": "PIN-{PIN_OD?PIN_ODMM}-GA",
+        "f1773869904615": "PIN_TYPE - ({PIN_OD?PIN_OD}/25.4) X PIN_LENGTH_IN",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
       },
       "p1773869860795": {
-        "f1773869896995": "PIN-{PIN_OD?PIN_OD}",
-        "f1773869904615": "{PIN_TYPE?PIN_TYPE - (PIN_OD/25.4) X PIN_LENGTH_IN}",
+        "f1773869896995": "PIN-{PIN_OD?PIN_ODMM}",
+        "f1773869904615": "PIN_TYPE - ({PIN_OD?PIN_OD}/25.4) X PIN_LENGTH_IN",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
       },
       "p1773869871318": {
-        "f1773869896995": "PIN-PIN_OD-WLDT",
-        "f1773869904615": "PIN_TYPE - (PIN_OD/25.4) X PIN_LENGTH_IN",
+        "f1773869896995": "PIN-PIN_ODMM-WLDT",
+        "f1773869904615": "PIN_TYPE - ({PIN_OD?PIN_OD}/25.4) X PIN_LENGTH_IN",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
       },
       "p1773874552887": {
