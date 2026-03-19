@@ -7,7 +7,7 @@
   ],
   "activeClassId": "cat_1773868048483_1",
   "selectedPartId": "p1773869871318",
-  "activeRightTab": "parts",
+  "activeRightTab": "config",
   "master": {
     "cat_1773868048483_1": [
       {
@@ -34,7 +34,9 @@
           "125",
           "130",
           "135",
-          "140"
+          "140",
+          "30",
+          "35"
         ]
       },
       {
@@ -389,9 +391,9 @@
       "INDUCTION_HARDENED": "Yes",
       "BOLTSIZE": "0.500",
       "TAP_QTY_NO_OF_HOLES": "1",
-      "PIN_LENGTH_IN": "15.875",
       "PIN_OD": "45",
-      "PIN_ID_MM": "25"
+      "PIN_ID_MM": "25",
+      "PIN_LENGTH_IN": "12.1875"
     }
   },
   "parts": {
