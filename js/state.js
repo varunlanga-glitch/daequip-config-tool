@@ -19,6 +19,7 @@ let State = {
   hiddenProps: { buckets: [] },
   lockedTabs:       {},   // tabId → SHA-256 hash of PIN (hex string)
   lockedSections:   {},   // "tabId:rules" or "tabId:config" → SHA-256 hash
+  fileNameRules:     {},  // tabId → { partId: templateString } — dedicated file name rule
   inventorMaps:     {},   // tabId → { propId: iPropertyName, fileNamePropId: 'id' }
   fileNameOverrides: {},  // tabId → { partId: actualFilename (no ext) }
   exportSelections:  {}   // tabId → { partId: { rename: bool, props: { propId: bool } } }
@@ -32,6 +33,12 @@ const getActiveMaster  = () => State.master[State.activeClassId]  || [];
 const getActiveRules = () => {
   if (!State.rules[State.activeClassId]) State.rules[State.activeClassId] = {};
   return State.rules[State.activeClassId];
+};
+
+const getActiveFileNameRules = () => {
+  if (!State.fileNameRules) State.fileNameRules = {};
+  if (!State.fileNameRules[State.activeClassId]) State.fileNameRules[State.activeClassId] = {};
+  return State.fileNameRules[State.activeClassId];
 };
 
 const getHiddenProps = () => {

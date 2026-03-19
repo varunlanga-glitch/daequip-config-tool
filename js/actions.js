@@ -526,6 +526,15 @@ window.deleteProp = id => {
   );
 };
 
+/* ── File name rule update ───────────────────────────────── */
+window.updateFileNameRule = function(partId, value) {
+  if (!_guardSection('rules')) return;
+  const fnRules = getActiveFileNameRules();
+  fnRules[partId] = value;
+  markDirty();
+  renderGrid();
+};
+
 /* ── Rule update ─────────────────────────────────────────── */
 function updateRule(partId, propId, value) {
   if (!_guardSection('rules')) return;
@@ -565,6 +574,8 @@ window.newTab = () => {
   State.props[id]       = [];
   State.rules[id]       = {};
   State.hiddenProps[id] = [];
+  if (!State.fileNameRules) State.fileNameRules = {};
+  State.fileNameRules[id] = {};
   // New tabs start unlocked — no lock entries needed
   if (!State.lockedTabs)     State.lockedTabs     = {};
   if (!State.lockedSections) State.lockedSections = {};
@@ -580,11 +591,13 @@ window.cloneTab = sourceId => {
   const newId   = 'tab' + Date.now();
   const newName = sourceTab.name + ' (Copy)';
   State.productClasses.push({ id: newId, name: newName });
-  State.master[newId]      = JSON.parse(JSON.stringify(State.master[sourceId]  || []));
-  State.context[newId]     = JSON.parse(JSON.stringify(State.context[sourceId] || {}));
-  State.parts[newId]       = JSON.parse(JSON.stringify(State.parts[sourceId]   || []));
-  State.props[newId]       = JSON.parse(JSON.stringify(State.props[sourceId]   || []));
-  State.rules[newId]       = JSON.parse(JSON.stringify(State.rules[sourceId]   || {}));
+  State.master[newId]      = JSON.parse(JSON.stringify(State.master[sourceId]       || []));
+  State.context[newId]     = JSON.parse(JSON.stringify(State.context[sourceId]      || {}));
+  State.parts[newId]       = JSON.parse(JSON.stringify(State.parts[sourceId]        || []));
+  State.props[newId]       = JSON.parse(JSON.stringify(State.props[sourceId]        || []));
+  State.rules[newId]       = JSON.parse(JSON.stringify(State.rules[sourceId]        || {}));
+  if (!State.fileNameRules) State.fileNameRules = {};
+  State.fileNameRules[newId] = JSON.parse(JSON.stringify((State.fileNameRules || {})[sourceId] || {}));
   State.hiddenProps[newId] = JSON.parse(JSON.stringify((State.hiddenProps || {})[sourceId] || []));
   // Clones are always unlocked — never inherit the source tab's locks
   if (!State.lockedTabs)     State.lockedTabs     = {};
@@ -611,7 +624,8 @@ window.deleteTab = id => {
       delete State.parts[id];
       delete State.props[id];
       delete State.rules[id];
-      if (State.hiddenProps) delete State.hiddenProps[id];
+      if (State.hiddenProps)    delete State.hiddenProps[id];
+      if (State.fileNameRules)  delete State.fileNameRules[id];
       // Clean up lock data for deleted tab
       if (State.lockedTabs)     delete State.lockedTabs[id];
       if (State.lockedSections) {
