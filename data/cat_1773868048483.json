@@ -2,7 +2,7 @@
   "productClasses": [
     {
       "id": "cat_1773868048483_1",
-      "name": "Pins"
+      "name": "Pins (Metric)"
     },
     {
       "id": "tab1773940149410",
@@ -27,11 +27,15 @@
     {
       "id": "tab1773949603891",
       "name": "Ring Plate"
+    },
+    {
+      "id": "tab1773951378462",
+      "name": "Pins (Imperial)"
     }
   ],
-  "activeClassId": "tab1773949603891",
-  "selectedPartId": "p1773950595058",
-  "activeRightTab": "parts",
+  "activeClassId": "tab1773951378462",
+  "selectedPartId": "p1773869885948",
+  "activeRightTab": "rules",
   "master": {
     "cat_1773868048483_1": [
       {
@@ -2711,6 +2715,344 @@
           "No"
         ]
       }
+    ],
+    "tab1773951378462": [
+      {
+        "key": "PIN_OD_IN",
+        "label": "Pin OD (in)",
+        "vals": [
+          "1.000",
+          "1.250",
+          "1.375",
+          "1.500",
+          "1.625",
+          "1.750",
+          "1.875",
+          "2.000",
+          "2.250",
+          "2.500",
+          "2.750",
+          "3.000"
+        ]
+      },
+      {
+        "key": "PIN_LENGTH_IN",
+        "label": "Pin Length (in)",
+        "vals": [
+          "6.000",
+          "6.063",
+          "6.125",
+          "6.188",
+          "6.250",
+          "6.313",
+          "6.375",
+          "6.438",
+          "6.500",
+          "6.563",
+          "6.625",
+          "6.688",
+          "6.750",
+          "6.813",
+          "6.875",
+          "6.938",
+          "7.000",
+          "7.063",
+          "7.125",
+          "7.188",
+          "7.250",
+          "7.313",
+          "7.375",
+          "7.438",
+          "7.500",
+          "7.563",
+          "7.625",
+          "7.688",
+          "7.750",
+          "7.813",
+          "7.875",
+          "7.938",
+          "8.000",
+          "8.063",
+          "8.125",
+          "8.188",
+          "8.250",
+          "8.313",
+          "8.375",
+          "8.438",
+          "8.500",
+          "8.563",
+          "8.625",
+          "8.688",
+          "8.750",
+          "8.813",
+          "8.875",
+          "8.938",
+          "9.000",
+          "9.063",
+          "9.125",
+          "9.188",
+          "9.250",
+          "9.313",
+          "9.375",
+          "9.438",
+          "9.500",
+          "9.563",
+          "9.625",
+          "9.688",
+          "9.750",
+          "9.813",
+          "9.875",
+          "9.938",
+          "10.000",
+          "10.063",
+          "10.125",
+          "10.188",
+          "10.250",
+          "10.313",
+          "10.375",
+          "10.438",
+          "10.500",
+          "10.563",
+          "10.625",
+          "10.688",
+          "10.750",
+          "10.813",
+          "10.875",
+          "10.938",
+          "11.000",
+          "11.063",
+          "11.125",
+          "11.188",
+          "11.250",
+          "11.313",
+          "11.375",
+          "11.438",
+          "11.500",
+          "11.563",
+          "11.625",
+          "11.688",
+          "11.750",
+          "11.813",
+          "11.875",
+          "11.938",
+          "12.000",
+          "12.063",
+          "12.125",
+          "12.188",
+          "12.250",
+          "12.313",
+          "12.375",
+          "12.438",
+          "12.500",
+          "12.563",
+          "12.625",
+          "12.688",
+          "12.750",
+          "12.813",
+          "12.875",
+          "12.938",
+          "13.000",
+          "13.063",
+          "13.125",
+          "13.188",
+          "13.250",
+          "13.313",
+          "13.375",
+          "13.438",
+          "13.500",
+          "13.563",
+          "13.625",
+          "13.688",
+          "13.750",
+          "13.813",
+          "13.875",
+          "13.938",
+          "14.000",
+          "14.063",
+          "14.125",
+          "14.188",
+          "14.250",
+          "14.313",
+          "14.375",
+          "14.438",
+          "14.500",
+          "14.563",
+          "14.625",
+          "14.688",
+          "14.750",
+          "14.813",
+          "14.875",
+          "14.938",
+          "15.000",
+          "15.063",
+          "15.125",
+          "15.188",
+          "15.250",
+          "15.313",
+          "15.375",
+          "15.438",
+          "15.500",
+          "15.563",
+          "15.625",
+          "15.688",
+          "15.750",
+          "15.813",
+          "15.875",
+          "15.938",
+          "16.000",
+          "16.063",
+          "16.125",
+          "16.188",
+          "16.250",
+          "16.313",
+          "16.375",
+          "16.438",
+          "16.500",
+          "16.563",
+          "16.625",
+          "16.688",
+          "16.750",
+          "16.813",
+          "16.875",
+          "16.938",
+          "17.000",
+          "17.063",
+          "17.125",
+          "17.188",
+          "17.250",
+          "17.313",
+          "17.375",
+          "17.438",
+          "17.500",
+          "17.563",
+          "17.625",
+          "17.688",
+          "17.750",
+          "17.813",
+          "17.875",
+          "17.938",
+          "18.000",
+          "18.063",
+          "18.125",
+          "18.188",
+          "18.250",
+          "18.313",
+          "18.375",
+          "18.438",
+          "18.500",
+          "18.563",
+          "18.625",
+          "18.688",
+          "18.750",
+          "18.813",
+          "18.875",
+          "18.938",
+          "19.000",
+          "19.063",
+          "19.125",
+          "19.188",
+          "19.250",
+          "19.313",
+          "19.375",
+          "19.438",
+          "19.500",
+          "19.563",
+          "19.625",
+          "19.688",
+          "19.750",
+          "19.813",
+          "19.875",
+          "19.938",
+          "20.000"
+        ]
+      },
+      {
+        "key": "INDUCTION_HARDENED",
+        "label": "Induction Hardened",
+        "vals": [
+          "Yes"
+        ]
+      },
+      {
+        "key": "PIN_TYPE",
+        "label": "Pin Type",
+        "vals": [
+          "FLT",
+          "FXD"
+        ]
+      },
+      {
+        "key": "CROSS_HOLE",
+        "label": "Cross Hole",
+        "vals": [
+          "1.500",
+          "1.063",
+          "1.250"
+        ]
+      },
+      {
+        "key": "TAP_QTY_NO_OF_HOLES",
+        "label": "Tap Qty (No. of holes)",
+        "vals": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ]
+      },
+      {
+        "key": "BOLTSIZE",
+        "label": "Bolt-Size",
+        "vals": [
+          "0.125",
+          "0.188",
+          "0.250",
+          "0.313",
+          "0.375",
+          "0.438",
+          "0.500",
+          "0.563",
+          "0.625",
+          "0.688",
+          "0.750",
+          "0.813",
+          "0.875",
+          "0.938",
+          "1.000",
+          "1.063",
+          "1.125",
+          "1.188",
+          "1.250",
+          "1.313",
+          "1.375",
+          "1.438",
+          "1.500",
+          "1.563",
+          "1.625",
+          "1.688",
+          "1.750",
+          "1.813",
+          "1.875",
+          "1.938",
+          "2.000",
+          "2.063",
+          "2.125",
+          "2.188",
+          "2.250",
+          "2.313",
+          "2.375",
+          "2.438",
+          "2.500",
+          "2.563",
+          "2.625",
+          "2.688",
+          "2.750",
+          "2.813",
+          "2.875",
+          "2.938",
+          "3.000"
+        ]
+      }
     ]
   },
   "context": {
@@ -2760,6 +3102,15 @@
       "PIN_OD_MM": "45",
       "RING_OD_IN": "2.250",
       "RING_THICKNESSIN": "0.563"
+    },
+    "tab1773951378462": {
+      "PIN_TYPE": "FLT",
+      "CROSS_HOLE": "1.250",
+      "BOLTSIZE": "0.500",
+      "TAP_QTY_NO_OF_HOLES": "1",
+      "PIN_LENGTH_IN": "12.1875",
+      "INDUCTION_HARDENED": "Yes",
+      "PIN_OD_IN": "1.375"
     }
   },
   "parts": {
@@ -2866,6 +3217,36 @@
         "midx": null,
         "level": 1,
         "enabled": false
+      }
+    ],
+    "tab1773951378462": [
+      {
+        "id": "p1773869852653",
+        "name": "Pin GA",
+        "midx": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1773869860795",
+        "name": "Pin",
+        "midx": null,
+        "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1773869871318",
+        "name": "Pin Wldt",
+        "midx": "01",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1773869885948",
+        "name": "Pin",
+        "midx": null,
+        "level": 1,
+        "enabled": true
       }
     ]
   },
@@ -3007,29 +3388,51 @@
         "id": "f1773869937461",
         "name": "Specs 2"
       }
+    ],
+    "tab1773951378462": [
+      {
+        "id": "f1773869896995",
+        "name": "Description"
+      },
+      {
+        "id": "f1773869904615",
+        "name": "Features 1"
+      },
+      {
+        "id": "f1773869927490",
+        "name": "Features 2"
+      },
+      {
+        "id": "f1773869932699",
+        "name": "Specs 1"
+      },
+      {
+        "id": "f1773869937461",
+        "name": "Specs 2"
+      }
     ]
   },
   "rules": {
     "cat_1773868048483_1": {
       "p1773869885948": {
-        "f1773869896995": "PIN-{PIN_OD_MM?PIN_ODMM}",
-        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) X PIN_LENGTH_IN",
-        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+        "f1773869896995": "PIN-{PIN_OD_MM?PIN_OD_MMMM}",
+        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) OD X PIN_LENGTH_IN LG",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?- CROSS HOLE  CROSS_HOLE -} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
       },
       "p1773869852653": {
-        "f1773869896995": "PIN-{PIN_OD_MM?PIN_ODMM}-GA",
-        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) X PIN_LENGTH_IN",
-        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+        "f1773869896995": "PIN-{PIN_OD_MM?PIN_OD_MMMM}-GA",
+        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) OD X PIN_LENGTH_IN LG",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?- CROSS HOLE  CROSS_HOLE -} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
       },
       "p1773869860795": {
-        "f1773869896995": "PIN-{PIN_OD_MM?PIN_ODMM}",
-        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) X PIN_LENGTH_IN",
-        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+        "f1773869896995": "PIN-{PIN_OD_MM?PIN_OD_MMMM}",
+        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) OD X PIN_LENGTH_IN LG",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?- CROSS HOLE  CROSS_HOLE -} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
       },
       "p1773869871318": {
-        "f1773869896995": "PIN-PIN_ODMM-WLDT",
-        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) X PIN_LENGTH_IN",
-        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+        "f1773869896995": "PIN-{PIN_OD_MM?PIN_OD_MMMM}-WLDT",
+        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) OD X PIN_LENGTH_IN LG",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?- CROSS HOLE  CROSS_HOLE -} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
       },
       "p1773874552887": {
         "f1773869896995": "PIN-PIN_OD_MM-WLDT",
@@ -3224,6 +3627,38 @@
         "f1773869932699": "{RING_OD_IN?RING_OD_IN OD} {RING_ID_IN?X RING_ID_IN ID} {RING_THICKNESSIN?X RING_THICKNESSIN THK}",
         "f1773869937461": "{MACHINING_ON_ID?NO MACHINING ON ID}"
       }
+    },
+    "tab1773951378462": {
+      "p1773869885948": {
+        "f1773869896995": "PIN-{PIN_OD_IN?PIN_OD_MMMM}",
+        "f1773869904615": "PIN_TYPE - {PIN_OD_IN?PIN_OD_IN} OD X PIN_LENGTH_IN LG",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?- CROSS HOLE  CROSS_HOLE -} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+      },
+      "p1773869852653": {
+        "f1773869896995": "PIN-{PIN_OD_IN?PIN_OD_ININ}",
+        "f1773869904615": "PIN_TYPE - {PIN_OD_IN?PIN_OD_IN} OD X PIN_LENGTH_IN LG",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?- CROSS HOLE  CROSS_HOLE -} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+      },
+      "p1773869860795": {
+        "f1773869896995": "PIN-{PIN_OD_IN?PIN_OD_MMMM}",
+        "f1773869904615": "PIN_TYPE - {PIN_OD_IN?PIN_OD_IN} OD X PIN_LENGTH_IN LG",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?- CROSS HOLE  CROSS_HOLE -} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+      },
+      "p1773869871318": {
+        "f1773869896995": "PIN-{PIN_OD_IN?PIN_OD_MMMM}-WLDT",
+        "f1773869904615": "PIN_TYPE - {PIN_OD_IN?PIN_OD_IN} OD X PIN_LENGTH_IN LG",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?- CROSS HOLE  CROSS_HOLE -} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+      },
+      "p1773874552887": {
+        "f1773869896995": "PIN-PIN_OD_IN-WLDT",
+        "f1773869904615": "PIN_TYPE - (PIN_OD_IN/25.4) X PIN_LENGTH_IN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES}"
+      },
+      "p1773874553970": {
+        "f1773869896995": "PIN",
+        "f1773869904615": "PIN_TYPE - (PIN_OD_IN/25.4) X PIN_LENGTH_IN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES}"
+      }
     }
   },
   "hiddenProps": {
@@ -3233,7 +3668,8 @@
     "tab1773945410693": [],
     "tab1773948764358": [],
     "tab1773949221785": [],
-    "tab1773949603891": []
+    "tab1773949603891": [],
+    "tab1773951378462": []
   },
   "lockedTabs": {},
   "lockedSections": {},
@@ -3295,6 +3731,12 @@
       "p1773869871318": "PA-0{PIN_OD_MM?PIN_OD_MM}MM-{RING_THICKNESSIN?RING_THICKNESSIN}-IDX",
       "p1773869885948": "PN-0{PIN_OD_MM?PIN_OD_MM}MM-{RING_THICKNESSIN?RING_THICKNESSIN}-IDX",
       "p1773950595058": "RPL-0{PIN_OD_MM?PIN_OD_MM}MM-{RING_THICKNESSIN?RING_THICKNESSIN}-IDX"
+    },
+    "tab1773951378462": {
+      "p1773869852653": "PA-0{PIN_OD_IN?PIN_OD_IN}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
+      "p1773869860795": "PN-0{PIN_OD_IN?PIN_OD_IN}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
+      "p1773869871318": "PA-0{PIN_OD_IN?PIN_OD_IN}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
+      "p1773869885948": "PN-0{PIN_OD_IN?PIN_OD_IN}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX"
     }
   }
 }
