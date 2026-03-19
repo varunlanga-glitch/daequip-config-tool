@@ -293,8 +293,7 @@
         "key": "INDUCTION_HARDENED",
         "label": "Induction Hardened",
         "vals": [
-          "Yes",
-          "No"
+          "Yes"
         ]
       },
       {
@@ -313,11 +312,6 @@
           "1.063",
           "1.250"
         ]
-      },
-      {
-        "key": "DRILL",
-        "label": "Drill",
-        "vals": []
       },
       {
         "key": "TAP_QTY_NO_OF_HOLES",
@@ -388,12 +382,12 @@
     "cat_1773868048483_1": {
       "PIN_TYPE": "FLT",
       "CROSS_HOLE": "1.250",
-      "INDUCTION_HARDENED": "Yes",
       "BOLTSIZE": "0.500",
       "TAP_QTY_NO_OF_HOLES": "1",
       "PIN_OD": "45",
       "PIN_ID_MM": "25",
-      "PIN_LENGTH_IN": "12.1875"
+      "PIN_LENGTH_IN": "12.1875",
+      "INDUCTION_HARDENED": "Yes"
     }
   },
   "parts": {
