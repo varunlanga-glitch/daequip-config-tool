@@ -121,7 +121,14 @@ function migrateState() {
   // Normalize all stored numeric vals: pad/round to 3 decimal places
   Object.keys(State.master || {}).forEach(classId => {
     (State.master[classId] || []).forEach(m => {
-      m.vals = m.vals.map(v => typeof v === 'string' ? window.normalizeChipVal(v) : v);
+      const isDecimalVar = m.vals.some(v => typeof v === 'string' && /\./.test(v));
+      m.vals = m.vals.map(v => {
+        if (typeof v !== 'string') return v;
+        const normalized = window.normalizeChipVal(v);
+        return (isDecimalVar && /^-?\d+$/.test(normalized))
+          ? parseFloat(normalized).toFixed(3)
+          : normalized;
+      });
     });
   });
 
