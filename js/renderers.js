@@ -854,6 +854,10 @@ function renderRuleList() {
     textarea.placeholder    = 'e.g. PN-PIN_ODMM-PIN_LENGTH_IN-01-01';
     textarea.dataset.propId = '__filename__';
 
+    const INVALID_FN_CHARS = /[/\\:*?"<>|]/g;
+    const _fnWarn = fn => fn && INVALID_FN_CHARS.test(fn)
+      ? ' ⚠ contains invalid filename characters' : '';
+
     const preview = document.createElement('div');
     preview.className = 'rule-preview';
 
@@ -866,22 +870,30 @@ function renderRuleList() {
     previewCount.textContent = resolvedFn.length;
     previewCount.title       = resolvedFn.length + ' characters';
 
+    const warnBadge = document.createElement('span');
+    warnBadge.className = 'fn-warn-badge';
+    warnBadge.title     = 'Characters like / \\ : * ? " < > | are not allowed in Windows filenames';
+    warnBadge.textContent = _fnWarn(resolvedFn);
+
     preview.appendChild(previewText);
     if (resolvedFn) preview.appendChild(previewCount);
+    preview.appendChild(warnBadge);
 
     textarea.oninput = function() {
       updateFileNameRule(State.selectedPartId, this.value);
       const resolved = resolveFileNameRule(State.selectedPartId);
       const txt = preview.querySelector('.rule-preview-text');
       const cnt = preview.querySelector('.rule-preview-count');
+      const wrn = preview.querySelector('.fn-warn-badge');
       if (txt) txt.textContent = resolved;
       if (cnt) { cnt.textContent = resolved.length; cnt.style.display = resolved ? '' : 'none'; }
       else if (resolved) {
         const newCnt = document.createElement('span');
         newCnt.className = 'rule-preview-count';
         newCnt.textContent = resolved.length;
-        preview.appendChild(newCnt);
+        preview.insertBefore(newCnt, wrn);
       }
+      if (wrn) wrn.textContent = _fnWarn(resolved);
     };
 
     const palette = document.createElement('div');

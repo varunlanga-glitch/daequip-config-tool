@@ -22,9 +22,15 @@ function saveCheckpoint() {
 
 /* ── CSV export ──────────────────────────────────────────── */
 function exportCSV() {
-  const props   = getActiveProps();
-  const parts   = getActiveParts();
-  const idxList = calculateIndices();
+  const props       = getActiveProps();
+  const allParts    = getActiveParts();
+  const allIdxList  = calculateIndices();
+  // Exclude disabled parts from the export (they're hidden in the grid too)
+  const parts   = [];
+  const idxList = [];
+  allParts.forEach((p, i) => {
+    if (p.enabled !== false) { parts.push(p); idxList.push(allIdxList[i]); }
+  });
 
   let csv = 'IDX,Part Name,' + props.map(p => `"${p.name}"`).join(',') + '\n';
   parts.forEach((p, i) => {
@@ -386,7 +392,7 @@ function _renderReviewTab(parts, mapping, overrides) {
   // TBODY
   const tbody = document.createElement('tbody');
   parts.forEach(p => {
-    const generatedName = p.name;
+    const generatedName = resolveFileNameRule(p.id) || p.name;
     const currentName   = overrides[p.id] || generatedName;
     const partSel = sel[p.id] || { rename: true, props: {} };
 
@@ -438,7 +444,7 @@ function _renderReviewTab(parts, mapping, overrides) {
 function exportInventor() {
   const map    = _getInventorMap();
   const props  = getActiveProps();
-  const parts  = getActiveParts();
+  const parts  = getActiveParts().filter(p => p.enabled !== false);
 
   // Per-part file overrides: partId → actual filename (no ext), set via file picker
   if (!State.fileNameOverrides) State.fileNameOverrides = {};
@@ -636,7 +642,8 @@ function exportInventor() {
 
   box.querySelector('#imapBtnPreview').onclick = () => {
     const { mapping } = collectMap();
-    const csv = _buildInventorCSV(mapping);
+    const exportSel = (State.exportSelections || {})[State.activeClassId] || {};
+    const csv = _buildInventorCSV(mapping, exportSel);
     const w = window.open('', '_blank');
     w.document.write(`<pre style="font-family:monospace;font-size:12px;padding:20px">${csv.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre>`);
   };
@@ -668,7 +675,7 @@ function _clearFileLink(partId, row, overrides, updateLinkCount) {
 }
 
 function _buildInventorCSV(mapping, selections) {
-  const parts   = getActiveParts();
+  const parts   = getActiveParts().filter(p => p.enabled !== false);
   const props   = getActiveProps();
   const otherProps = props.filter(p => mapping[p.id]);
   const overrides  = ((State.fileNameOverrides || {})[State.activeClassId]) || {};
@@ -693,7 +700,8 @@ function _buildInventorCSV(mapping, selections) {
       `"${newFileName}"`,   // NewFileName — rename target (same as current when unchecked)
       ...otherProps.map(pr => {
         if (partSel.props[pr.id] === false) return '""'; // unchecked → empty, iLogic skips
-        const val = resolveRule(rules[pr.id], p.id);
+        const partRules = getActiveRules()[p.id] || {};
+        const val = resolveRule(partRules[pr.id], p.id);
         return `"${val || '-'}"`;
       })
     ];

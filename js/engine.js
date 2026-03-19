@@ -109,7 +109,8 @@ function resolveRule(template, partId) {
       // variable (e.g. 0PIN_OD → 045) while still rejecting a leading letter
       // that would mean a longer name (MPIN_OD must not match PIN_OD).
       const regex = new RegExp(`(?<![a-zA-Z_])${escaped}([a-zA-Z]*)\\b`, 'g');
-      s = s.replace(regex, (_, unit) => (ctx[key] || '') + unit);
+      // If the context value is empty, emit nothing — don't append a bare unit suffix
+      s = s.replace(regex, (_, unit) => ctx[key] ? ctx[key] + unit : '');
     });
 
   // Evaluate math expressions wrapped in parentheses, e.g. (70/25.4) → "2.7559"
