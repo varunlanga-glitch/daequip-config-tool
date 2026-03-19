@@ -6,10 +6,14 @@
     },
     {
       "id": "tab1773940149410",
-      "name": "Bushings"
+      "name": "Bushings (Metric)"
+    },
+    {
+      "id": "tab1773944324382",
+      "name": "Collars (Metric)"
     }
   ],
-  "activeClassId": "tab1773940149410",
+  "activeClassId": "tab1773944324382",
   "selectedPartId": "p1773869852653",
   "activeRightTab": "rules",
   "master": {
@@ -419,9 +423,6 @@
         "key": "BUSHING_LENGTH_IN",
         "label": "Bushing Length (in)",
         "vals": [
-          "0.563",
-          "0.625",
-          "0.688",
           "0.750",
           "0.813",
           "0.875",
@@ -505,6 +506,128 @@
           "2.000"
         ]
       }
+    ],
+    "tab1773944324382": [
+      {
+        "key": "PIN_OD",
+        "label": "PIN OD",
+        "vals": [
+          "20",
+          "25",
+          "30",
+          "35",
+          "40",
+          "45",
+          "50",
+          "55",
+          "60",
+          "65",
+          "70",
+          "75",
+          "80"
+        ]
+      },
+      {
+        "key": "COLLAR_OD_IN",
+        "label": "Collar OD (IN)",
+        "vals": [
+          "2.000"
+        ]
+      },
+      {
+        "key": "COLLAR_ID_IN",
+        "label": "Collar ID (IN)",
+        "vals": [
+          "1.525"
+        ]
+      },
+      {
+        "key": "COLLAR_LENGTH_IN",
+        "label": "Collar Length (in)",
+        "vals": [
+          "0.750",
+          "0.813",
+          "0.875",
+          "0.938",
+          "1.000",
+          "1.063",
+          "1.125",
+          "1.188",
+          "1.250",
+          "1.313",
+          "1.375",
+          "1.438",
+          "1.500",
+          "1.563",
+          "1.625",
+          "1.688",
+          "1.750",
+          "1.813",
+          "1.875",
+          "1.938",
+          "2.000",
+          "2.063",
+          "2.125",
+          "2.188",
+          "2.250",
+          "2.313",
+          "2.375",
+          "2.438",
+          "2.500",
+          "2.563",
+          "2.625",
+          "2.688",
+          "2.750",
+          "2.813",
+          "2.875",
+          "2.938",
+          "3.000"
+        ]
+      },
+      {
+        "key": "HOLE_DIAMETER",
+        "label": "Hole Diameter",
+        "vals": [
+          "0.125",
+          "0.188",
+          "0.375",
+          "0.313",
+          "0.500",
+          "0.438",
+          "0.563",
+          "0.625",
+          "0.688",
+          "0.250",
+          "0.750",
+          "0.813",
+          "0.875",
+          "0.938",
+          "1.000",
+          "1.063",
+          "1.125",
+          "1.188",
+          "1.250",
+          "1.313",
+          "1.375",
+          "1.438",
+          "1.500",
+          "1.563",
+          "1.625",
+          "1.688",
+          "1.750",
+          "1.813",
+          "1.875",
+          "1.938",
+          "2.000"
+        ]
+      },
+      {
+        "key": "OFFSET",
+        "label": "OFFSET",
+        "vals": [
+          "YES"
+        ]
+      }
     ]
   },
   "context": {
@@ -525,6 +648,13 @@
       "BUSHING_OD_IN": "2.000",
       "BUSHING_ID_IN": "1.525",
       "GREASE_GROOVE_LENGTH": "0.375"
+    },
+    "tab1773944324382": {
+      "PIN_OD": "35",
+      "COLLAR_OD_IN": "2.000",
+      "COLLAR_ID_IN": "1.525",
+      "COLLAR_LENGTH_IN": "2.813",
+      "HOLE_DIAMETER": "0.375"
     }
   },
   "parts": {
@@ -566,6 +696,15 @@
         "level": 0,
         "enabled": true
       }
+    ],
+    "tab1773944324382": [
+      {
+        "id": "p1773869852653",
+        "name": "Pin GA",
+        "midx": null,
+        "level": 0,
+        "enabled": true
+      }
     ]
   },
   "props": {
@@ -592,6 +731,28 @@
       }
     ],
     "tab1773940149410": [
+      {
+        "id": "f1773869896995",
+        "name": "Description"
+      },
+      {
+        "id": "f1773869904615",
+        "name": "Features 1"
+      },
+      {
+        "id": "f1773869927490",
+        "name": "Features 2"
+      },
+      {
+        "id": "f1773869932699",
+        "name": "Specs 1"
+      },
+      {
+        "id": "f1773869937461",
+        "name": "Specs 2"
+      }
+    ],
+    "tab1773944324382": [
       {
         "id": "f1773869896995",
         "name": "Description"
@@ -678,11 +839,44 @@
         "f1773869904615": "PIN_TYPE - (BUSHING_OD_IN/25.4) X BUSHING_LENGTH_IN",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES}"
       }
+    },
+    "tab1773944324382": {
+      "p1773869885948": {
+        "f1773869896995": "PIN-{COLLAR_OD_IN?PIN_ODMM}",
+        "f1773869904615": "PIN_TYPE - ({COLLAR_OD_IN?COLLAR_OD_IN}/25.4) X COLLAR_LENGTH_IN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+      },
+      "p1773869852653": {
+        "f1773869896995": "COLLAR-{PIN_OD?PIN_OD}",
+        "f1773869904615": "",
+        "f1773869932699": "{COLLAR_OD_IN?COLLAR_OD_IN OD} X {COLLAR_ID_IN?COLLAR_ID_IN ID} X {COLLAR_LENGTH_IN?COLLAR_LENGTH_IN LG} - {HOLE_DIAMETER?HOLE_DIAMETER HOLE} {OFFSET?- OFFST}"
+      },
+      "p1773869860795": {
+        "f1773869896995": "PIN-{COLLAR_OD_IN?PIN_ODMM}",
+        "f1773869904615": "PIN_TYPE - ({COLLAR_OD_IN?COLLAR_OD_IN}/25.4) X COLLAR_LENGTH_IN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+      },
+      "p1773869871318": {
+        "f1773869896995": "PIN-PIN_ODMM-WLDT",
+        "f1773869904615": "PIN_TYPE - ({COLLAR_OD_IN?COLLAR_OD_IN}/25.4) X COLLAR_LENGTH_IN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+      },
+      "p1773874552887": {
+        "f1773869896995": "PIN-COLLAR_OD_IN-WLDT",
+        "f1773869904615": "PIN_TYPE - (COLLAR_OD_IN/25.4) X COLLAR_LENGTH_IN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES}"
+      },
+      "p1773874553970": {
+        "f1773869896995": "PIN",
+        "f1773869904615": "PIN_TYPE - (COLLAR_OD_IN/25.4) X COLLAR_LENGTH_IN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES}"
+      }
     }
   },
   "hiddenProps": {
     "cat_1773868048483_1": [],
-    "tab1773940149410": []
+    "tab1773940149410": [],
+    "tab1773944324382": []
   },
   "lockedTabs": {},
   "lockedSections": {},
@@ -711,6 +905,12 @@
     },
     "tab1773940149410": {
       "p1773869852653": "BU-{PIN_OD?0PIN_ODMM}-{BUSHING_LENGTH_IN?BUSHING_LENGTH_IN}-IDX",
+      "p1773869860795": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
+      "p1773869871318": "PA-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
+      "p1773869885948": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX"
+    },
+    "tab1773944324382": {
+      "p1773869852653": "CLR-{PIN_OD?0PIN_ODMM}-IDX",
       "p1773869860795": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
       "p1773869871318": "PA-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
       "p1773869885948": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX"
