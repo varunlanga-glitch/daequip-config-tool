@@ -33,9 +33,9 @@
       "name": "Pins (Imperial)"
     }
   ],
-  "activeClassId": "tab1773951378462",
+  "activeClassId": "cat_1773868048483_1",
   "selectedPartId": "p1773869885948",
-  "activeRightTab": "rules",
+  "activeRightTab": "config",
   "master": {
     "cat_1773868048483_1": [
       {
@@ -318,18 +318,25 @@
         ]
       },
       {
-        "key": "INDUCTION_HARDENED",
-        "label": "Induction Hardened",
-        "vals": [
-          "Yes"
-        ]
-      },
-      {
         "key": "PIN_TYPE",
         "label": "Pin Type",
         "vals": [
           "FLT",
           "FXD"
+        ]
+      },
+      {
+        "key": "NOMINAL_PIN_OD_IN",
+        "label": "Nominal Pin OD (in)",
+        "vals": [
+          "2.000"
+        ]
+      },
+      {
+        "key": "INDUCTION_HARDENED",
+        "label": "Induction Hardened",
+        "vals": [
+          "Yes"
         ]
       },
       {
@@ -3064,7 +3071,8 @@
       "PIN_ID_MM": "25",
       "PIN_LENGTH_IN": "12.1875",
       "PIN_OD_MM": "45",
-      "INDUCTION_HARDENED": "Yes"
+      "INDUCTION_HARDENED": "Yes",
+      "NOMINAL_PIN_OD_IN": "2.000"
     },
     "tab1773940149410": {
       "INDUCTION_HARDENED": "Yes",
@@ -3416,22 +3424,22 @@
     "cat_1773868048483_1": {
       "p1773869885948": {
         "f1773869896995": "PIN-{PIN_OD_MM?PIN_OD_MMMM}",
-        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) OD X PIN_LENGTH_IN LG",
+        "f1773869904615": "PIN_TYPE - {NOMINAL_PIN_OD_IN?NOMINAL_PIN_OD_IN OD} {PIN_LENGTH_IN?X PIN_LENGTH_IN LG}",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?- CROSS HOLE  CROSS_HOLE -} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
       },
       "p1773869852653": {
         "f1773869896995": "PIN-{PIN_OD_MM?PIN_OD_MMMM}-GA",
-        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) OD X PIN_LENGTH_IN LG",
+        "f1773869904615": "PIN_TYPE - {NOMINAL_PIN_OD_IN?NOMINAL_PIN_OD_IN OD} {PIN_LENGTH_IN?X PIN_LENGTH_IN LG}",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?- CROSS HOLE  CROSS_HOLE -} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
       },
       "p1773869860795": {
         "f1773869896995": "PIN-{PIN_OD_MM?PIN_OD_MMMM}",
-        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) OD X PIN_LENGTH_IN LG",
+        "f1773869904615": "PIN_TYPE - {NOMINAL_PIN_OD_IN?NOMINAL_PIN_OD_IN OD} {PIN_LENGTH_IN?X PIN_LENGTH_IN LG}",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?- CROSS HOLE  CROSS_HOLE -} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
       },
       "p1773869871318": {
         "f1773869896995": "PIN-{PIN_OD_MM?PIN_OD_MMMM}-WLDT",
-        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) OD X PIN_LENGTH_IN LG",
+        "f1773869904615": "PIN_TYPE - {NOMINAL_PIN_OD_IN?NOMINAL_PIN_OD_IN OD} {PIN_LENGTH_IN?X PIN_LENGTH_IN LG}",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?- CROSS HOLE  CROSS_HOLE -} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
       },
       "p1773874552887": {
