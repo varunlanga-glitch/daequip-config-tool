@@ -6,8 +6,8 @@
     }
   ],
   "activeClassId": "cat_1773868048483_1",
-  "selectedPartId": "p1773869885948",
-  "activeRightTab": "rules",
+  "selectedPartId": "p1773869852653",
+  "activeRightTab": "parts",
   "master": {
     "cat_1773868048483_1": [
       {
@@ -413,7 +413,7 @@
       {
         "id": "p1773869871318",
         "name": "Pin Wldt",
-        "midx": null,
+        "midx": "01",
         "level": 0,
         "enabled": true
       },
@@ -504,5 +504,13 @@
   "fileNameOverrides": {
     "cat_1773868048483_1": {}
   },
-  "exportSelections": {}
+  "exportSelections": {},
+  "fileNameRules": {
+    "cat_1773868048483_1": {
+      "p1773869852653": "PA-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
+      "p1773869860795": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
+      "p1773869871318": "PA-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
+      "p1773869885948": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX"
+    }
+  }
 }
