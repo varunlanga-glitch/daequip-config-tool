@@ -390,7 +390,7 @@ window.addChip = (k, v) => {
 // then format any decimal number to exactly 3 decimal places.
 window.normalizeChipVal = s => {
   let v = s.replace(/^(-?)\.(\d)/, '$10.$2');   // .25 → 0.25
-  if (/^-?\d+\.\d*$/.test(v)) v = parseFloat(v).toFixed(3);
+  if (/^-?\d+(\.\d*)?$/.test(v)) v = parseFloat(v).toFixed(3);
   return v;
 };
 
