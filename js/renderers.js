@@ -110,15 +110,6 @@ function renderColumnFilter() {
   lbl.className = 'filter-label'; lbl.textContent = 'COLUMNS:';
   bar.appendChild(lbl);
 
-  // Special File Name pill (uses '__filename__' sentinel in hiddenProps)
-  const fnHidden = hidden.includes('__filename__');
-  const fnPill = document.createElement('button');
-  fnPill.className    = 'col-pill col-pill-filename ' + (fnHidden ? 'col-pill-off' : 'col-pill-on');
-  fnPill.textContent  = 'File Name';
-  fnPill.title        = fnHidden ? 'Click to show File Name column' : 'Click to hide File Name column';
-  fnPill.onclick      = () => togglePropVisibility('__filename__');
-  bar.appendChild(fnPill);
-
   props.forEach(p => {
     const isHidden = hidden.includes(p.id);
     const pill = document.createElement('button');
@@ -393,11 +384,9 @@ function renderGrid() {
     return th;
   };
 
-  // Part name column (sticky) + optional File Name column + data columns
-  const partTh = makeHeaderCell('Part', 'col-part-name', '__part__');
+  // File Name sticky first column + data columns
+  const partTh = makeHeaderCell('File Name', 'col-part-name col-filename-header', '__part__');
   head.appendChild(partTh);
-  const fnVisible = !getHiddenProps().includes('__filename__');
-  if (fnVisible) head.appendChild(makeHeaderCell('File Name', 'col-prop col-filename-header', '__filename__'));
   visProps.forEach(p => head.appendChild(makeHeaderCell(p.name, 'col-prop', p.id)));
 
   body.innerHTML = '';
@@ -408,48 +397,23 @@ function renderGrid() {
     if (p.id === State.selectedPartId) tr.classList.add('selected');
     if ((p.level || 0) > 0) tr.classList.add('row-child');
 
-    // Sticky part-name cell
+    // Sticky File Name cell (replaces Part column)
+    const fnVal  = resolveFileNameRule(p.id);
     const nameTd = document.createElement('td');
-    nameTd.className = 'data-cell col-part-name-cell' + ((p.level || 0) > 0 ? ' name-cell-child' : '');
+    nameTd.className = 'data-cell col-part-name-cell col-filename-cell' + ((p.level || 0) > 0 ? ' name-cell-child' : '');
+    nameTd.title     = fnVal;
     const nameWrap = document.createElement('div');
     nameWrap.className = 'name-cell';
     const idxSpan = document.createElement('span');
     idxSpan.className   = 'inline-idx';
     idxSpan.textContent = idxList[i] || '';
-    const nameSpan = document.createElement('span');
-    nameSpan.textContent = p.name;
+    const fnSpan = document.createElement('span');
+    fnSpan.className   = 'cell-text';
+    fnSpan.textContent = fnVal;
     nameWrap.appendChild(idxSpan);
-    nameWrap.appendChild(nameSpan);
+    nameWrap.appendChild(fnSpan);
     nameTd.appendChild(nameWrap);
     tr.appendChild(nameTd);
-
-    // File Name cell (only when column is visible)
-    if (fnVisible) {
-      const fnVal = resolveFileNameRule(p.id);
-      const fnTd  = document.createElement('td');
-      fnTd.className = 'data-cell col-filename-cell';
-      fnTd.title     = fnVal;
-      const fnSpan = document.createElement('span');
-      fnSpan.className   = 'cell-text';
-      fnSpan.textContent = fnVal;
-      fnTd.appendChild(fnSpan);
-      if (fnVal) {
-        const copyBtn = document.createElement('button');
-        copyBtn.className = 'cell-copy-btn';
-        copyBtn.title     = 'Copy';
-        copyBtn.setAttribute('aria-label', 'Copy file name');
-        copyBtn.innerHTML = _copyIcon();
-        copyBtn.addEventListener('click', e => {
-          e.stopPropagation();
-          navigator.clipboard.writeText(fnVal).then(() => {
-            copyBtn.innerHTML = _checkIcon();
-            setTimeout(() => { copyBtn.innerHTML = _copyIcon(); }, 1200);
-          });
-        });
-        fnTd.appendChild(copyBtn);
-      }
-      tr.appendChild(fnTd);
-    }
 
     // Data cells only — no row-header th
     const rules = getActiveRules()[p.id] || {};
