@@ -386,17 +386,21 @@ window.addChip = (k, v) => {
 };
 
 /* Comma-separated batch add */
+// Normalize a numeric string: prepend 0 to bare decimals (.25 → 0.25),
+// then format any decimal number to exactly 3 decimal places.
+window.normalizeChipVal = s => {
+  let v = s.replace(/^(-?)\.(\d)/, '$10.$2');   // .25 → 0.25
+  if (/^-?\d+\.\d*$/.test(v)) v = parseFloat(v).toFixed(3);
+  return v;
+};
+
 window.addChips = (k, rawValue) => {
   if (!_guardSection('config')) return;
   if (!rawValue?.trim()) return;
   const master = getActiveMaster().find(m => m.key === k);
   if (!master) return;
-  const values = rawValue.split(',').map(v => {
-    const s = v.trim();
-    // Round numbers with 4+ decimal places down to 3
-    const m = s.match(/^(-?\d+\.\d{4,})$/);
-    return m ? parseFloat(parseFloat(s).toFixed(3)).toString() : s;
-  }).filter(v => v && !master.vals.includes(v));
+  const values = rawValue.split(',').map(v => normalizeChipVal(v.trim()))
+    .filter(v => v && !master.vals.includes(v));
   if (values.length) { master.vals.push(...values); markDirty(); renderAll(); }
 };
 

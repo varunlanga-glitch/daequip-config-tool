@@ -118,13 +118,10 @@ function migrateState() {
   if (!State.fileNameRules)     State.fileNameRules     = {};
   if (!State.fileNameOverrides) State.fileNameOverrides = {};
   if (!State.exportSelections)  State.exportSelections  = {};
-  // Round any stored numeric values with 4+ decimal places down to 3
+  // Normalize all stored numeric vals: pad/round to 3 decimal places
   Object.keys(State.master || {}).forEach(classId => {
     (State.master[classId] || []).forEach(m => {
-      m.vals = m.vals.map(v => {
-        const match = typeof v === 'string' && v.match(/^(-?\d+\.\d{4,})$/);
-        return match ? parseFloat(parseFloat(v).toFixed(3)).toString() : v;
-      });
+      m.vals = m.vals.map(v => typeof v === 'string' ? window.normalizeChipVal(v) : v);
     });
   });
 
