@@ -213,11 +213,78 @@ function _openPinModal(actionLabel, onCorrect) {
   };
 }
 
+/* ── Token-only re-entry modal (PIN already known) ────── */
+function _openTokenOnlyModal(onDone) {
+  const overlay = document.createElement('div');
+  overlay.className = 'confirm-overlay';
+  overlay.style.cssText = 'z-index:2000';
+  overlay.innerHTML = `
+    <div class="confirm-box gh-modal">
+      <div class="confirm-title">☁ Re-enter GitHub Token</div>
+      <p class="gh-setup-hint">
+        Your token was cleared (browser data reset). Re-enter it once —
+        your PIN is still saved, so you won't need to change it.
+      </p>
+      <div class="gh-form">
+        <label class="gh-label">GitHub Personal Access Token</label>
+        <input id="ghRetokenInput" type="password" class="combo gh-input"
+          placeholder="github_pat_…" autocomplete="off" spellcheck="false">
+        <div id="ghRetokenErr" class="gh-error"></div>
+      </div>
+      <div class="confirm-buttons">
+        <button class="btn btn-cancel" id="ghRetokenCancel">Cancel</button>
+        <button class="btn gh-reset-btn" id="ghRetokenFull" title="Reset everything and re-run full setup">Full Reset</button>
+        <button class="btn btn-confirm" id="ghRetokenSave">Save &amp; Continue</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+
+  const err  = overlay.querySelector('#ghRetokenErr');
+  const save = overlay.querySelector('#ghRetokenSave');
+  overlay.querySelector('#ghRetokenInput').focus();
+
+  overlay.querySelector('#ghRetokenCancel').onclick = () => overlay.remove();
+  overlay.querySelector('#ghRetokenFull').onclick = () => {
+    localStorage.removeItem(_TOKEN_KEY);
+    localStorage.removeItem(_PIN_KEY);
+    overlay.remove();
+    _openSetupModal(onDone);
+  };
+
+  save.onclick = async () => {
+    const token = overlay.querySelector('#ghRetokenInput').value.trim();
+    if (!token) { err.textContent = 'Token is required.'; return; }
+    save.disabled = true;
+    err.style.color = 'var(--muted)';
+    err.textContent = 'Verifying token…';
+    try {
+      const verifyApi = `https://api.github.com/repos/${_GH_OWNER}/${_GH_REPO}/contents/data/categories.json`;
+      await _ghGetFile(token, verifyApi);
+    } catch(e) {
+      err.style.color = '#e74c3c';
+      err.textContent = 'Token check failed — ensure it has Contents: Read & Write.';
+      save.disabled = false;
+      return;
+    }
+    localStorage.setItem(_TOKEN_KEY, token);
+    overlay.remove();
+    onDone(token);
+  };
+}
+
 /* ── Auth gate: setup if needed, otherwise PIN ────────── */
 function _withAuth(label, onToken) {
   const hasToken = !!localStorage.getItem(_TOKEN_KEY);
   const hasPin   = !!localStorage.getItem(_PIN_KEY);
-  if (!hasToken || !hasPin) {
+  if (!hasToken && !hasPin) {
+    // First time or fully cleared — full setup
+    _openSetupModal(onToken);
+  } else if (!hasToken && hasPin) {
+    // Token was cleared but PIN hash survived — just re-ask for token
+    _openTokenOnlyModal(onToken);
+  } else if (hasToken && !hasPin) {
+    // Unusual: token exists but no PIN — full reset to keep them in sync
+    localStorage.removeItem(_TOKEN_KEY);
     _openSetupModal(onToken);
   } else {
     _openPinModal(label, onToken);
