@@ -848,7 +848,7 @@ Sub Main()
     Next
 
     ' ── 4. Scan folder recursively for .ipt and .iam files ───
-    Dim allFiles() As String = Directory.GetFiles(baseFolder, "*.*", SearchOption.AllDirectories)
+    Dim allFiles() As String = System.IO.Directory.GetFiles(baseFolder, "*.*", System.IO.SearchOption.AllDirectories)
     Dim matchedFiles As New List(Of String)()
     For Each f As String In allFiles
         Dim ext As String = System.IO.Path.GetExtension(f).ToLowerInvariant()
