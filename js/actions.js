@@ -61,10 +61,20 @@ window.handleContextSelect = (key, val) => {
   input.focus();
 
   const saveEdit = () => {
-    const newValue = input.value.trim();
-    if (newValue) {
-      masterVar.vals.push(newValue);
+    const raw = input.value.trim();
+    if (raw) {
+      const newValue = normalizeChipVal(raw);
+      if (!masterVar.vals.includes(newValue)) masterVar.vals.push(newValue);
       getActiveContext()[key] = newValue;
+      // Run the same CLASS → CLASS_NO auto-derivation as the non-new path
+      if (key === 'CLASS') {
+        const digits = newValue.replace(/[^0-9]/g, '');
+        const classNoVar = getActiveMaster().find(m => m.key === 'CLASS_NO');
+        if (classNoVar && digits) {
+          if (!classNoVar.vals.includes(digits)) classNoVar.vals.push(digits);
+          getActiveContext()['CLASS_NO'] = digits;
+        }
+      }
       markDirty();
     }
     renderAll();
@@ -89,6 +99,10 @@ window.addPart = (type = 'component') => {
     const selIdx   = parts.findIndex(p => p.id === State.selectedPartId);
     const selLevel = selIdx >= 0 ? (parts[selIdx].level || 0) : 0;
     newLevel = selLevel + 1;
+    if (newLevel > 4) {
+      _showToast('Cannot nest deeper — maximum 4 levels of nesting allowed.');
+      return;
+    }
 
     // Insert after the last descendant of the selected part
     insertAt = selIdx + 1;
@@ -165,11 +179,17 @@ window.indentPart = id => {
 
   const part       = parts[idx];
   const currentLvl = part.level || 0;
-  if (currentLvl >= 4) return;  // reasonable max depth
+  if (currentLvl >= 4) {
+    _showToast('Maximum nesting depth (4 levels) reached.');
+    return;
+  }
 
-  // The part above must exist at level <= currentLvl for indenting to make sense
+  // The part above must exist at level >= currentLvl for indenting to make sense
   const above = parts[idx - 1];
-  if (!above || (above.level || 0) < currentLvl) return;
+  if (!above || (above.level || 0) < currentLvl) {
+    _showToast('Cannot indent — no valid parent above this part.');
+    return;
+  }
 
   part.level = currentLvl + 1;
   part.midx  = null;
@@ -205,6 +225,21 @@ window.nestPart = (srcId, targetId) => {
   const src    = parts[srcIdx];
   const target = parts[tgtIdx];
   const newLvl = (target.level || 0) + 1;
+
+  if (newLvl > 4) {
+    _showToast('Cannot nest deeper — maximum 4 levels of nesting allowed.');
+    return;
+  }
+
+  // Prevent nesting a parent under one of its own descendants
+  const srcLevel = src.level || 0;
+  for (let j = srcIdx + 1; j < parts.length; j++) {
+    if ((parts[j].level || 0) <= srcLevel) break;
+    if (parts[j].id === targetId) {
+      showConfirm('Cannot Nest', 'Cannot move a part inside one of its own sub-components.', () => {});
+      return;
+    }
+  }
 
   // Remove source from its current position
   parts.splice(srcIdx, 1);
@@ -287,12 +322,36 @@ window.addVariable = () => {
 window.deleteVariable = k => {
   if (!_guardSection('config')) return;
   const master = getActiveMaster().find(m => m.key === k);
+
+  // Count how many rule templates reference this key so the user knows the impact
+  const kEscaped = k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const kRegex   = new RegExp(`\\b${kEscaped}\\b`);
+  let refCount = 0;
+  Object.values(getActiveRules()).forEach(partRules =>
+    Object.values(partRules).forEach(formula => { if (kRegex.test(formula)) refCount++; })
+  );
+  Object.values(getActiveFileNameRules()).forEach(formula => {
+    if (kRegex.test(formula)) refCount++;
+  });
+
+  const refNote = refCount > 0
+    ? ` It is referenced in ${refCount} rule formula${refCount !== 1 ? 's' : ''} — those references will become blank.`
+    : '';
+
   showConfirm(
     'Delete Variable',
-    `Delete "${master?.label || k}"? This will remove it from the context.`,
+    `Delete "${master?.label || k}"?${refNote}`,
     () => {
       State.master[State.activeClassId] = getActiveMaster().filter(m => m.key !== k);
       delete getActiveContext()[k];
+      // Clear stale tokens from every rule template
+      const clearToken = formula =>
+        typeof formula === 'string' ? formula.replace(new RegExp(`\\b${kEscaped}\\b`, 'g'), '') : formula;
+      Object.values(getActiveRules()).forEach(partRules => {
+        Object.keys(partRules).forEach(pid => { partRules[pid] = clearToken(partRules[pid]); });
+      });
+      const fnRules = getActiveFileNameRules();
+      Object.keys(fnRules).forEach(pid => { fnRules[pid] = clearToken(fnRules[pid]); });
       markDirty();
       renderAll();
     }
@@ -311,8 +370,15 @@ window.renameVariable = (oldKey, newLabel) => {
   if (!master) return;
 
   const newKey = newLabel.toUpperCase().replace(/\s+/g, '_').replace(/[^A-Z0-9_]/g, '');
-  const collision = getActiveMaster().some(m => m.key === newKey && m.key !== oldKey);
-  const finalKey  = collision ? newKey + '_' + Date.now() : newKey;
+  if (!newKey) {
+    showConfirm('Invalid Name', 'Label must contain at least one letter or number.', () => {});
+    return;
+  }
+  let finalKey = newKey;
+  let suffix = 2;
+  while (getActiveMaster().some(m => m.key === finalKey && m.key !== oldKey)) {
+    finalKey = newKey + '_' + suffix++;
+  }
 
   master.label = newLabel;
 
@@ -426,13 +492,27 @@ window.addChipsRange = (k, start, end, step) => {
   const iEnd   = Math.round(end   * factor);
   const iStep  = Math.round(step  * factor);
 
-  const values = [];
-  for (let v = iStart; v <= iEnd; v += iStep) {
-    const raw = (v / factor).toString();
-    const formatted = decimals > 0 ? parseFloat(raw).toFixed(3) : normalizeChipVal(raw);
-    if (!master.vals.includes(formatted)) values.push(formatted);
+  const estimatedCount = iStep > 0 ? Math.floor((iEnd - iStart) / iStep) + 1 : 0;
+
+  const doAdd = () => {
+    const values = [];
+    for (let v = iStart; v <= iEnd; v += iStep) {
+      const raw = (v / factor).toString();
+      const formatted = decimals > 0 ? parseFloat(raw).toFixed(3) : normalizeChipVal(raw);
+      if (!master.vals.includes(formatted)) values.push(formatted);
+    }
+    if (values.length) { master.vals.push(...values); markDirty(); renderAll(); }
+  };
+
+  if (estimatedCount > 500) {
+    showConfirm(
+      'Large Range',
+      `This will add up to ${estimatedCount.toLocaleString()} values. Continue?`,
+      doAdd
+    );
+  } else {
+    doAdd();
   }
-  if (values.length) { master.vals.push(...values); markDirty(); renderAll(); }
 };
 
 window.removeChip = (k, v) => {
@@ -568,11 +648,6 @@ function updateRule(partId, propId, value) {
   activeRules[partId][propId] = value;
   markDirty();
   renderGrid();
-  if (event && event.target) {
-    let el = event.target.nextElementSibling;
-    if (el && el.classList.contains('token-palette')) el = el.nextElementSibling;
-    if (el && el.classList.contains('rule-preview')) el.textContent = resolveRule(value, partId);
-  }
 }
 
 /**
@@ -624,6 +699,10 @@ window.cloneTab = sourceId => {
   if (!State.fileNameRules) State.fileNameRules = {};
   State.fileNameRules[newId] = JSON.parse(JSON.stringify((State.fileNameRules || {})[sourceId] || {}));
   State.hiddenProps[newId] = JSON.parse(JSON.stringify((State.hiddenProps || {})[sourceId] || []));
+  if (!State.inventorMaps)    State.inventorMaps    = {};
+  State.inventorMaps[newId]    = JSON.parse(JSON.stringify((State.inventorMaps    || {})[sourceId] || {}));
+  if (!State.exportSelections) State.exportSelections = {};
+  State.exportSelections[newId] = JSON.parse(JSON.stringify((State.exportSelections || {})[sourceId] || {}));
   // Clones are always unlocked — never inherit the source tab's locks
   if (!State.lockedTabs)     State.lockedTabs     = {};
   if (!State.lockedSections) State.lockedSections = {};

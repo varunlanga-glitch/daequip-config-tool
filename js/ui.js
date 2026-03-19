@@ -368,6 +368,16 @@ function initPartsDragDrop() {
   });
 }
 
+/* ── Toast notification (non-blocking, auto-dismiss) ─────── */
+function _showToast(msg, duration = 2500) {
+  const t = document.createElement('div');
+  t.className = 'toast-msg';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), duration);
+}
+window._showToast = _showToast;
+
 function _clearDropIndicator() {
   document.querySelectorAll('.drop-before, .drop-after, .drop-nest').forEach(el => {
     el.classList.remove('drop-before', 'drop-after', 'drop-nest');

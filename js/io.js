@@ -22,9 +22,15 @@ function saveCheckpoint() {
 
 /* ── CSV export ──────────────────────────────────────────── */
 function exportCSV() {
-  const props   = getActiveProps();
-  const parts   = getActiveParts();
-  const idxList = calculateIndices();
+  const props       = getActiveProps();
+  const allParts    = getActiveParts();
+  const allIdxList  = calculateIndices();
+  // Exclude disabled parts from the export (they're hidden in the grid too)
+  const parts   = [];
+  const idxList = [];
+  allParts.forEach((p, i) => {
+    if (p.enabled !== false) { parts.push(p); idxList.push(allIdxList[i]); }
+  });
 
   let csv = 'IDX,Part Name,' + props.map(p => `"${p.name}"`).join(',') + '\n';
   parts.forEach((p, i) => {
@@ -668,7 +674,7 @@ function _clearFileLink(partId, row, overrides, updateLinkCount) {
 }
 
 function _buildInventorCSV(mapping, selections) {
-  const parts   = getActiveParts();
+  const parts   = getActiveParts().filter(p => p.enabled !== false);
   const props   = getActiveProps();
   const otherProps = props.filter(p => mapping[p.id]);
   const overrides  = ((State.fileNameOverrides || {})[State.activeClassId]) || {};
@@ -693,7 +699,8 @@ function _buildInventorCSV(mapping, selections) {
       `"${newFileName}"`,   // NewFileName — rename target (same as current when unchecked)
       ...otherProps.map(pr => {
         if (partSel.props[pr.id] === false) return '""'; // unchecked → empty, iLogic skips
-        const val = resolveRule(rules[pr.id], p.id);
+        const partRules = getActiveRules()[p.id] || {};
+        const val = resolveRule(partRules[pr.id], p.id);
         return `"${val || '-'}"`;
       })
     ];
