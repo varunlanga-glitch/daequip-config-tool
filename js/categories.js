@@ -121,8 +121,8 @@ function renderHomeScreen() {
   heading.textContent = 'Select a workspace';
   screen.appendChild(heading);
 
-  const grid = document.createElement('div');
-  grid.className = 'home-grid';
+  const list = document.createElement('div');
+  list.className = 'home-list';
 
   window._categories.forEach(cat => {
     const cached    = window._categoryStates[cat.id];
@@ -132,93 +132,88 @@ function renderHomeScreen() {
       : null;
     const hasDirty  = !!(window._categoryDirty[cat.id]);
 
-    const card = document.createElement('div');
-    card.className = 'home-card';
-    card.tabIndex  = 0;
-    card.setAttribute('role', 'button');
-    card.setAttribute('aria-label', `Open ${cat.label} workspace`);
-
-    // Icon
-    const iconEl = document.createElement('span');
-    iconEl.className = 'home-card-icon';
-    iconEl.textContent = cat.icon || '📁';
-    card.appendChild(iconEl);
+    const row = document.createElement('div');
+    row.className = 'home-row';
+    row.tabIndex  = 0;
+    row.setAttribute('role', 'button');
+    row.setAttribute('aria-label', `Open ${cat.label} workspace`);
 
     // Name (editable inline on rename)
     const nameEl = document.createElement('div');
-    nameEl.className = 'home-card-name';
+    nameEl.className = 'home-row-name';
     nameEl.textContent = cat.label;
-    card.appendChild(nameEl);
+    row.appendChild(nameEl);
 
-    // Meta: tab/part counts (only if we've loaded it at least once)
+    // Spacer
+    const spacer = document.createElement('div');
+    spacer.className = 'home-row-spacer';
+    row.appendChild(spacer);
+
+    // Meta: tab/part counts
     const metaEl = document.createElement('div');
-    metaEl.className = 'home-card-meta';
+    metaEl.className = 'home-row-meta';
     if (tabCount !== null) {
       metaEl.textContent =
         `${tabCount} tab${tabCount !== 1 ? 's' : ''} · ` +
         `${partCount} part${partCount !== 1 ? 's' : ''}`;
     } else {
-      metaEl.textContent = 'Click to load';
-      metaEl.classList.add('home-card-meta-unloaded');
+      metaEl.textContent = 'Not yet loaded';
+      metaEl.classList.add('home-row-meta-unloaded');
     }
-    card.appendChild(metaEl);
+    row.appendChild(metaEl);
 
     // Unsaved-changes dot
     if (hasDirty) {
       const dot = document.createElement('span');
-      dot.className = 'home-card-dirty';
+      dot.className = 'home-row-dirty';
       dot.title = 'Unpublished changes';
       dot.textContent = '●';
-      card.appendChild(dot);
+      row.appendChild(dot);
     }
 
-    // Hover action bar
+    // Actions (visible on hover)
     const actions = document.createElement('div');
-    actions.className = 'home-card-actions';
+    actions.className = 'home-row-actions';
 
-    // Rename
     const renBtn = document.createElement('button');
-    renBtn.className = 'btn home-card-btn';
+    renBtn.className = 'btn home-row-btn';
     renBtn.title = 'Rename';
-    renBtn.textContent = '✏️';
+    renBtn.textContent = 'Rename';
     renBtn.onclick = e => { e.stopPropagation(); _renameCategory(cat, nameEl); };
     actions.appendChild(renBtn);
 
-    // Delete (only when multiple categories exist)
     if (window._categories.length > 1) {
       const delBtn = document.createElement('button');
-      delBtn.className = 'btn home-card-btn home-card-delete-btn';
+      delBtn.className = 'btn home-row-btn home-row-delete-btn';
       delBtn.title = 'Remove from nav (data file on GitHub is not deleted)';
       delBtn.innerHTML = '&times;';
       delBtn.onclick = e => { e.stopPropagation(); _deleteCategory(cat); };
       actions.appendChild(delBtn);
     }
 
-    card.appendChild(actions);
+    row.appendChild(actions);
 
-    card.onclick   = () => enterCategory(cat);
-    card.onkeydown = e => {
+    row.onclick   = () => enterCategory(cat);
+    row.onkeydown = e => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); enterCategory(cat); }
     };
 
-    grid.appendChild(card);
+    list.appendChild(row);
   });
 
-  // + New Category card
-  const addCard = document.createElement('div');
-  addCard.className = 'home-card home-card-add';
-  addCard.tabIndex  = 0;
-  addCard.setAttribute('role', 'button');
-  addCard.innerHTML =
-    '<div class="home-card-add-icon">+</div>' +
-    '<div class="home-card-add-label">New Category</div>';
-  addCard.onclick   = _addCategoryPrompt;
-  addCard.onkeydown = e => {
+  // + Add new category row
+  const addRow = document.createElement('div');
+  addRow.className = 'home-row home-row-add';
+  addRow.tabIndex  = 0;
+  addRow.setAttribute('role', 'button');
+  addRow.innerHTML = '<span class="home-row-add-label">+ Add new category</span>';
+  addRow.onclick   = _addCategoryPrompt;
+  addRow.onkeydown = e => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); _addCategoryPrompt(); }
   };
-  grid.appendChild(addCard);
+  list.appendChild(addRow);
 
-  screen.appendChild(grid);
+  screen.appendChild(list);
 }
 
 /* ── Enter a category workspace ────────────────────────── */

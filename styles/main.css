@@ -11,7 +11,8 @@
   --danger: #b91c1c;
   --stroke: rgba(0,0,0,0.12);
   --mono:   ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
-  --sans:   system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  --sans:   "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  --serif:  "Cormorant Garamond", Georgia, serif;
   --child-indent: 22px;
   --child-bar-color: rgba(43,108,176,0.35);
 }
@@ -21,10 +22,19 @@
 body {
   margin: 0;
   font-family: var(--sans);
+  font-size: 13.5px;
+  line-height: 1.5;
+  font-feature-settings: "cv02","cv03","cv04","cv11";
+  -webkit-font-smoothing: antialiased;
   background: var(--bg);
   color: var(--text);
   height: 100vh;
   overflow: hidden;
+}
+
+h1, h2, h3 {
+  font-family: var(--serif);
+  letter-spacing: .01em;
 }
 
 /* ── Layout ─────────────────────────────────────────────── */
@@ -875,6 +885,7 @@ tr:hover .cell-char-badge { opacity: 1; }
   opacity: 0.4;
 }
 .lock-title {
+  font-family: var(--serif);
   font-size: 18px;
   font-weight: 700;
   color: var(--text);
@@ -1438,152 +1449,137 @@ tr:hover .cell-filepick-btn {
 .home-screen {
   flex: 1;
   overflow-y: auto;
-  padding: 32px 40px 48px;
+  padding: 48px 56px 64px;
   background: var(--bg);
 }
 
 .home-heading {
-  margin: 0 0 24px;
-  font-size: 18px;
+  margin: 0 0 28px;
+  font-family: var(--serif);
+  font-size: 26px;
   font-weight: 700;
-  color: var(--muted);
-  letter-spacing: .03em;
-  text-transform: uppercase;
+  color: var(--text);
+  letter-spacing: .02em;
 }
 
-.home-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 240px));
-  gap: 16px;
-}
-
-/* Category card */
-.home-card {
-  position: relative;
-  background: var(--panel);
+/* Workspace list */
+.home-list {
+  max-width: 680px;
   border: 1px solid var(--stroke);
-  border-radius: 12px;
-  padding: 20px 18px 14px;
+  border-radius: 10px;
+  background: var(--panel);
+  overflow: hidden;
+}
+
+.home-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--stroke);
   cursor: pointer;
   user-select: none;
-  transition: box-shadow .15s, transform .1s, border-color .15s;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-height: 130px;
+  transition: background .12s;
 }
-.home-card:hover {
-  box-shadow: 0 4px 18px rgba(0,0,0,.12);
-  border-color: var(--accent);
-  transform: translateY(-2px);
+.home-row:last-child {
+  border-bottom: none;
 }
-.home-card:focus-visible {
+.home-row:hover {
+  background: rgba(43,108,176,.04);
+}
+.home-row:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  outline-offset: -2px;
 }
 
-.home-card-icon {
-  font-size: 28px;
-  line-height: 1;
-  display: block;
-}
-.home-card-name {
-  font-size: 15px;
-  font-weight: 700;
+.home-row-name {
+  font-size: 14px;
+  font-weight: 600;
   color: var(--text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 120px;
 }
-.home-card-meta {
-  font-size: 11px;
+.home-row-spacer {
+  flex: 1;
+}
+.home-row-meta {
+  font-size: 12px;
   color: var(--muted);
-  margin-top: 2px;
+  white-space: nowrap;
 }
-.home-card-meta-unloaded {
+.home-row-meta-unloaded {
   font-style: italic;
-  opacity: .7;
+  opacity: .6;
 }
 
 /* Unpublished dot */
-.home-card-dirty {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  font-size: 10px;
+.home-row-dirty {
+  font-size: 9px;
   color: #e67e22;
-  title: 'Unpublished changes';
+  flex-shrink: 0;
 }
 
-/* Action bar — visible on hover only */
-.home-card-actions {
+/* Actions — visible on hover only */
+.home-row-actions {
   display: flex;
-  gap: 4px;
-  margin-top: auto;
-  padding-top: 10px;
+  gap: 6px;
   opacity: 0;
-  transition: opacity .15s;
+  transition: opacity .12s;
+  flex-shrink: 0;
 }
-.home-card:hover .home-card-actions,
-.home-card:focus-within .home-card-actions {
+.home-row:hover .home-row-actions,
+.home-row:focus-within .home-row-actions {
   opacity: 1;
 }
-.home-card-btn {
+.home-row-btn {
   font-size: 12px;
-  padding: 3px 7px;
+  padding: 3px 10px;
   border-radius: 5px;
 }
-.home-card-delete-btn {
-  font-size: 14px;
+.home-row-delete-btn {
+  font-size: 15px;
   font-weight: 700;
   color: var(--danger);
   border-color: transparent;
   background: transparent;
-  margin-left: auto;
 }
-.home-card-delete-btn:hover {
+.home-row-delete-btn:hover {
   background: rgba(185,28,28,.08);
   border-color: var(--danger);
 }
+
+/* Rename input */
 .home-card-rename-input {
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 600;
   width: 100%;
   padding: 2px 4px;
 }
 
-/* + New Category card */
-.home-card-add {
-  border-style: dashed;
-  border-color: rgba(0,0,0,.2);
-  background: transparent;
-  align-items: center;
-  justify-content: center;
+/* + Add new category row */
+.home-row-add {
   color: var(--muted);
-  gap: 8px;
+  justify-content: flex-start;
 }
-.home-card-add:hover {
-  border-color: var(--accent);
+.home-row-add:hover {
   color: var(--accent);
   background: rgba(43,108,176,.04);
 }
-.home-card-add-icon {
-  font-size: 28px;
-  font-weight: 300;
-  line-height: 1;
-}
-.home-card-add-label {
+.home-row-add-label {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* App title in tabs slot (home screen) */
 .app-title {
-  font-size: 15px;
+  font-family: var(--serif);
+  font-size: 17px;
   font-weight: 700;
   color: var(--text);
   padding: 0 4px;
-  letter-spacing: .01em;
+  letter-spacing: .02em;
 }
 
 /* Daequip logo in topbar */
