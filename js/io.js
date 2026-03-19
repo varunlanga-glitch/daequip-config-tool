@@ -772,7 +772,6 @@ function _buildILogicScript() {
 
 Imports System.Collections.Generic
 Imports System.Windows.Forms
-Imports System.IO
 
 Module BuiltInProps
     Public ReadOnly SummaryProps As New HashSet(Of String)(StringComparer.OrdinalIgnoreCase) From {
@@ -811,7 +810,7 @@ Sub Main()
     Dim baseFolder As String = folderDlg.SelectedPath
 
     ' ── 3. Parse CSV ─────────────────────────────────────────
-    Dim allLines() As String = File.ReadAllLines(csvPath)
+    Dim allLines() As String = System.IO.File.ReadAllLines(csvPath)
     If allLines.Length < 2 Then MsgBox("CSV appears empty.") : Exit Sub
 
     Dim headers() As String = SplitCSVRow(allLines(0))
@@ -844,7 +843,7 @@ Sub Main()
             props(kvp.Key) = If(cellVal = "", "-", cellVal)
         Next
         csvRows(fname) = props
-        Dim noExt As String = Path.GetFileNameWithoutExtension(fname)
+        Dim noExt As String = System.IO.Path.GetFileNameWithoutExtension(fname)
         If Not csvRows.ContainsKey(noExt) Then csvRows(noExt) = props
     Next
 
@@ -852,9 +851,9 @@ Sub Main()
     Dim allFiles() As String = Directory.GetFiles(baseFolder, "*.*", SearchOption.AllDirectories)
     Dim matchedFiles As New List(Of String)()
     For Each f As String In allFiles
-        Dim ext As String = Path.GetExtension(f).ToLowerInvariant()
+        Dim ext As String = System.IO.Path.GetExtension(f).ToLowerInvariant()
         If ext <> ".ipt" AndAlso ext <> ".iam" Then Continue For
-        Dim nameNoExt As String = Path.GetFileNameWithoutExtension(f)
+        Dim nameNoExt As String = System.IO.Path.GetFileNameWithoutExtension(f)
         If csvRows.ContainsKey(nameNoExt) OrElse csvRows.ContainsKey(nameNoExt.ToUpperInvariant()) Then
             matchedFiles.Add(f)
         End If
@@ -869,7 +868,7 @@ Sub Main()
     ' ── 5. Diagnostic popup ──────────────────────────────────
     Dim diagText As String = "Found " & matchedFiles.Count & " matching file(s) to process:" & vbNewLine & vbNewLine
     For Each f As String In matchedFiles
-        Dim nameNoExt As String = Path.GetFileNameWithoutExtension(f)
+        Dim nameNoExt As String = System.IO.Path.GetFileNameWithoutExtension(f)
         Dim dict As Dictionary(Of String, String) = Nothing
         If csvRows.ContainsKey(nameNoExt) Then dict = csvRows(nameNoExt)
         Dim newName As String = If(dict IsNot Nothing AndAlso dict.ContainsKey("NewFileName"), dict("NewFileName"), "")
@@ -890,8 +889,8 @@ Sub Main()
     Dim errors  As New List(Of String)()
 
     For Each filePath As String In matchedFiles
-        Dim nameNoExt As String = Path.GetFileNameWithoutExtension(filePath)
-        Dim docExt    As String = Path.GetExtension(filePath).ToLowerInvariant()
+        Dim nameNoExt As String = System.IO.Path.GetFileNameWithoutExtension(filePath)
+        Dim docExt    As String = System.IO.Path.GetExtension(filePath).ToLowerInvariant()
         Dim dict As Dictionary(Of String, String) = Nothing
         If csvRows.ContainsKey(nameNoExt) Then
             dict = csvRows(nameNoExt)
@@ -922,8 +921,8 @@ Sub Main()
             Dim newBaseName As String = ""
             If dict.ContainsKey("NewFileName") Then newBaseName = dict("NewFileName")
             If newBaseName <> "" AndAlso newBaseName <> "-" Then
-                Dim folder  As String = Path.GetDirectoryName(filePath)
-                Dim newPath As String = Path.Combine(folder, newBaseName & docExt)
+                Dim folder  As String = System.IO.Path.GetDirectoryName(filePath)
+                Dim newPath As String = System.IO.Path.Combine(folder, newBaseName & docExt)
                 If String.Compare(newPath, filePath, StringComparison.OrdinalIgnoreCase) <> 0 Then
                     doc.SaveAs(newPath, False)
                 Else
