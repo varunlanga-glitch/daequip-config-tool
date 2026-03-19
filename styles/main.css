@@ -309,7 +309,9 @@ tbody tr.row-child .inline-idx { opacity: 0.6; font-size: 9px; }
 /* ── Rule items ──────────────────────────────────────────── */
 .rule-item    { border: 1px solid var(--stroke); border-radius: 8px; padding: 10px; margin-bottom: 12px; background: #fdfdfd; }
 .rule-item--filename { background: #f0f6ff; border-color: #b8d4f0; }
-.rule-header  { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.rule-header  { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 8px; }
+.sep-toggle-label { display: flex; align-items: center; gap: 3px; font-size: 10px; color: #888; white-space: nowrap; cursor: pointer; user-select: none; }
+.sep-toggle-label input { margin: 0; cursor: pointer; }
 .rule-preview { margin-top: 6px; padding: 6px 10px; border-radius: 6px; background: #f5f2eb; font-family: var(--mono); font-size: 11px; color: #444; }
 .rule-label-hint { font-size: 10px; font-weight: 400; color: #888; font-style: italic; }
 
