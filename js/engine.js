@@ -58,8 +58,10 @@ function _safeMathEval(expr) {
     // eslint-disable-next-line no-new-func
     const result = Function('"use strict"; return (' + expr + ')')();
     if (typeof result === 'number' && isFinite(result)) {
-      // Round to 4 decimal places, strip trailing zeros
-      return parseFloat(result.toFixed(4)).toString();
+      // Round to 3 decimal places, round-half-up (≥0.0005 rounds away from zero),
+      // then strip trailing zeros via parseFloat
+      const rounded = Math.round(result * 1000) / 1000;
+      return parseFloat(rounded.toFixed(3)).toString();
     }
   } catch (e) { /* ignore */ }
   return null;
