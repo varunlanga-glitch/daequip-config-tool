@@ -243,23 +243,117 @@ function renderContext() {
     div.className = 'field';
 
     const sortedVals = [...m.vals].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-    const currentVal = getActiveContext()[m.key] || '';
-    const hasSelection = sortedVals.includes(currentVal);
-    // Always keep "— select —" as a selectable option so the user can clear their choice
-    const placeholder = `<option value="" ${!hasSelection ? 'selected' : ''}>— select —</option>`;
-    const options = sortedVals
-      .map(v => `<option value="${v}" ${currentVal === v ? 'selected' : ''}>${v}</option>`)
-      .join('');
+    let currentVal = getActiveContext()[m.key] || '';
 
-    div.innerHTML = `
-      <div class="label"><span>${m.label}</span></div>
-      <div class="combo">
-        <select data-ctx-key="${m.key}" onchange="handleContextSelect('${m.key}', this.value)">
-          ${placeholder}
-          ${options}
-          <option value="__NEW__">+ Add New...</option>
-        </select>
-      </div>`;
+    // Label row
+    const labelDiv = document.createElement('div');
+    labelDiv.className = 'label';
+    labelDiv.innerHTML = `<span>${m.label}</span>`;
+
+    // Searchable combobox
+    const comboWrap = document.createElement('div');
+    comboWrap.className = 'combo combo-searchable';
+
+    const input = document.createElement('input');
+    input.type         = 'text';
+    input.className    = 'combo-input';
+    input.value        = currentVal;
+    input.placeholder  = '— select —';
+    input.autocomplete = 'off';
+    input.spellcheck   = false;
+
+    const dropdown = document.createElement('div');
+    dropdown.className    = 'combo-dropdown';
+    dropdown.style.display = 'none';
+
+    let focusedIdx = -1;
+
+    const getOptions = () => [...dropdown.querySelectorAll('.combo-option')];
+
+    const renderDropdown = (filter = '') => {
+      dropdown.innerHTML = '';
+      focusedIdx = -1;
+      const f = filter.trim().toLowerCase();
+
+      // "— clear —" only if something is selected
+      if (currentVal) {
+        const clearOpt = document.createElement('div');
+        clearOpt.className   = 'combo-option combo-option-clear';
+        clearOpt.textContent = '— clear selection —';
+        clearOpt.onmousedown = e => { e.preventDefault(); pick(''); };
+        dropdown.appendChild(clearOpt);
+      }
+
+      const matches = f ? sortedVals.filter(v => v.toLowerCase().includes(f)) : sortedVals;
+      matches.forEach(v => {
+        const opt = document.createElement('div');
+        opt.className   = 'combo-option' + (v === currentVal ? ' combo-option-selected' : '');
+        opt.textContent = v;
+        opt.dataset.val = v;
+        opt.onmousedown = e => { e.preventDefault(); pick(v); };
+        dropdown.appendChild(opt);
+      });
+
+      // Scroll current selection into view
+      const sel = dropdown.querySelector('.combo-option-selected');
+      if (sel) sel.scrollIntoView({ block: 'nearest' });
+
+      const addOpt = document.createElement('div');
+      addOpt.className   = 'combo-option combo-option-add';
+      addOpt.textContent = '+ Add New…';
+      addOpt.onmousedown = e => { e.preventDefault(); handleContextSelect(m.key, '__NEW__'); dropdown.style.display = 'none'; };
+      dropdown.appendChild(addOpt);
+    };
+
+    const pick = v => {
+      currentVal = v;
+      input.value = v;
+      dropdown.style.display = 'none';
+      handleContextSelect(m.key, v);
+    };
+
+    input.onfocus = () => {
+      input.select();
+      renderDropdown('');
+      dropdown.style.display = '';
+    };
+    input.oninput = () => {
+      renderDropdown(input.value);
+      dropdown.style.display = '';
+    };
+    input.onblur = () => setTimeout(() => {
+      dropdown.style.display = 'none';
+      input.value = currentVal;  // revert any half-typed text
+    }, 160);
+
+    input.onkeydown = e => {
+      const opts = getOptions().filter(o => !o.classList.contains('combo-option-clear') && !o.classList.contains('combo-option-add'));
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        focusedIdx = Math.min(focusedIdx + 1, opts.length - 1);
+        opts.forEach((o, i) => o.classList.toggle('combo-focused', i === focusedIdx));
+        opts[focusedIdx]?.scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        focusedIdx = Math.max(focusedIdx - 1, 0);
+        opts.forEach((o, i) => o.classList.toggle('combo-focused', i === focusedIdx));
+        opts[focusedIdx]?.scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        const focused = dropdown.querySelector('.combo-focused');
+        if (focused) focused.dispatchEvent(new MouseEvent('mousedown'));
+        else if (opts.length === 1) opts[0].dispatchEvent(new MouseEvent('mousedown'));
+      } else if (e.key === 'Escape') {
+        dropdown.style.display = 'none';
+        input.value = currentVal;
+        input.blur();
+      }
+    };
+
+    comboWrap.appendChild(input);
+    comboWrap.appendChild(dropdown);
+    div.appendChild(labelDiv);
+    div.appendChild(comboWrap);
     body.appendChild(div);
   });
 }
@@ -542,11 +636,13 @@ function renderConfigList() {
     header.appendChild(labelWrap);
     header.appendChild(btnContainer);
 
+    const CHIP_COLLAPSE = 14;   // show this many chips before collapsing
     const chipsDiv = document.createElement('div');
     chipsDiv.className = 'chips-wrap';
-    m.vals.forEach(v => {
+    m.vals.forEach((v, vi) => {
       const chip = document.createElement('span');
       chip.className = 'chip';
+      if (m.vals.length > CHIP_COLLAPSE && vi >= CHIP_COLLAPSE) chip.classList.add('chip-hidden');
       chip.appendChild(document.createTextNode(v + ' '));
       const closeSpan = document.createElement('span');
       closeSpan.className = 'close';
@@ -555,6 +651,21 @@ function renderConfigList() {
       chip.appendChild(closeSpan);
       chipsDiv.appendChild(chip);
     });
+
+    // Collapse toggle (only when list is long)
+    let chipsExpanded = false;
+    const chipToggle = document.createElement('button');
+    if (m.vals.length > CHIP_COLLAPSE) {
+      chipToggle.className   = 'btn chip-toggle-btn';
+      chipToggle.textContent = `Show all ${m.vals.length} ▾`;
+      chipToggle.onclick = () => {
+        chipsExpanded = !chipsExpanded;
+        chipsDiv.querySelectorAll('.chip-hidden').forEach(c => c.style.display = chipsExpanded ? '' : 'none');
+        chipToggle.textContent = chipsExpanded ? 'Show less ▴' : `Show all ${m.vals.length} ▾`;
+      };
+      // Start collapsed
+      chipsDiv.querySelectorAll('.chip-hidden').forEach(c => c.style.display = 'none');
+    }
 
     // Add-values row: supports comma-separated input
     const addRow = document.createElement('div');
@@ -647,6 +758,7 @@ function renderConfigList() {
 
     div.appendChild(header);
     div.appendChild(chipsDiv);
+    if (m.vals.length > CHIP_COLLAPSE) div.appendChild(chipToggle);
     div.appendChild(addRow);
     div.appendChild(rangePanel);
     container.appendChild(div);
