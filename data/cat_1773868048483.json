@@ -23,16 +23,20 @@
     {
       "id": "tab1773949221785",
       "name": "Sweeps"
+    },
+    {
+      "id": "tab1773949603891",
+      "name": "Ring Plate"
     }
   ],
-  "activeClassId": "tab1773949221785",
-  "selectedPartId": "p1773949237960",
-  "activeRightTab": "rules",
+  "activeClassId": "tab1773949603891",
+  "selectedPartId": "p1773950595058",
+  "activeRightTab": "parts",
   "master": {
     "cat_1773868048483_1": [
       {
-        "key": "PIN_OD",
-        "label": "Pin OD",
+        "key": "PIN_OD_MM",
+        "label": "Pin OD (mm)",
         "vals": [
           "40",
           "45",
@@ -2407,6 +2411,306 @@
           "50.000"
         ]
       }
+    ],
+    "tab1773949603891": [
+      {
+        "key": "PIN_OD_MM",
+        "label": "Pin OD (mm)",
+        "vals": [
+          "40",
+          "45",
+          "50",
+          "55",
+          "60",
+          "65",
+          "70",
+          "75",
+          "80",
+          "85",
+          "90",
+          "95",
+          "100",
+          "105",
+          "110",
+          "115",
+          "120",
+          "125",
+          "130",
+          "135",
+          "140",
+          "30",
+          "35"
+        ]
+      },
+      {
+        "key": "RING_THICKNESSIN",
+        "label": "Ring Thickness(in)",
+        "vals": [
+          "0.500",
+          "0.563",
+          "0.625",
+          "0.688",
+          "0.750",
+          "0.813",
+          "0.875",
+          "0.938",
+          "1.000",
+          "1.063",
+          "1.125",
+          "1.188",
+          "1.250",
+          "1.313",
+          "1.375",
+          "1.438",
+          "1.500",
+          "1.563",
+          "1.625",
+          "1.688",
+          "1.750",
+          "1.813",
+          "1.875",
+          "1.938",
+          "2.000",
+          "2.063",
+          "2.125",
+          "2.188",
+          "2.250",
+          "2.313",
+          "2.375",
+          "2.438",
+          "2.500",
+          "2.563",
+          "2.625",
+          "2.688",
+          "2.750",
+          "2.813",
+          "2.875",
+          "2.938",
+          "3.000",
+          "3.063",
+          "3.125",
+          "3.188",
+          "3.250",
+          "3.313",
+          "3.375",
+          "3.438",
+          "3.500",
+          "3.563",
+          "3.625",
+          "3.688",
+          "3.750",
+          "3.813",
+          "3.875",
+          "3.938",
+          "4.000"
+        ]
+      },
+      {
+        "key": "RING_ID_IN",
+        "label": "Ring ID (in)",
+        "vals": [
+          "1.000",
+          "1.031",
+          "1.062",
+          "1.093",
+          "1.124",
+          "1.155",
+          "1.186",
+          "1.217",
+          "1.248",
+          "1.279",
+          "1.310",
+          "1.341",
+          "1.372",
+          "1.403",
+          "1.434",
+          "1.465",
+          "1.496",
+          "1.527",
+          "1.558",
+          "1.589",
+          "1.620",
+          "1.651",
+          "1.682",
+          "1.713",
+          "1.744",
+          "1.775",
+          "1.806",
+          "1.837",
+          "1.868",
+          "1.899",
+          "1.930",
+          "1.961",
+          "1.992",
+          "2.023",
+          "2.054",
+          "2.085",
+          "2.116",
+          "2.147",
+          "2.178",
+          "2.209",
+          "2.240",
+          "2.271",
+          "2.302",
+          "2.333",
+          "2.364",
+          "2.395",
+          "2.426",
+          "2.457",
+          "2.488",
+          "2.519",
+          "2.550",
+          "2.581",
+          "2.612",
+          "2.643",
+          "2.674",
+          "2.705",
+          "2.736",
+          "2.767",
+          "2.798",
+          "2.829",
+          "2.860",
+          "2.891",
+          "2.922",
+          "2.953",
+          "2.984",
+          "3.015",
+          "3.046",
+          "3.077",
+          "3.108",
+          "3.139",
+          "3.170",
+          "3.201",
+          "3.232",
+          "3.263",
+          "3.294",
+          "3.325",
+          "3.356",
+          "3.387",
+          "3.418",
+          "3.449",
+          "3.480",
+          "3.511",
+          "3.542",
+          "3.573",
+          "3.604",
+          "3.635",
+          "3.666",
+          "3.697",
+          "3.728",
+          "3.759",
+          "3.790",
+          "3.821",
+          "3.852",
+          "3.883",
+          "3.914",
+          "3.945",
+          "3.976",
+          "4.007",
+          "4.038",
+          "4.069",
+          "4.100",
+          "4.131",
+          "4.162",
+          "4.193",
+          "4.224",
+          "4.255",
+          "4.286",
+          "4.317",
+          "4.348",
+          "4.379",
+          "4.410",
+          "4.441",
+          "4.472",
+          "4.503",
+          "4.534",
+          "4.565",
+          "4.596",
+          "4.627",
+          "4.658",
+          "4.689",
+          "4.720",
+          "4.751",
+          "4.782",
+          "4.813",
+          "4.844",
+          "4.875",
+          "4.906",
+          "4.937",
+          "4.968",
+          "4.999"
+        ]
+      },
+      {
+        "key": "RING_OD_IN",
+        "label": "Ring OD (in)",
+        "vals": [
+          "2.000",
+          "2.125",
+          "2.250",
+          "2.375",
+          "2.500",
+          "2.625",
+          "2.750",
+          "2.875",
+          "3.000",
+          "3.125",
+          "3.250",
+          "3.375",
+          "3.500",
+          "3.625",
+          "3.750",
+          "3.875",
+          "4.000",
+          "4.125",
+          "4.250",
+          "4.375",
+          "4.500",
+          "4.625",
+          "4.750",
+          "4.875",
+          "5.000",
+          "5.125",
+          "5.250",
+          "5.375",
+          "5.500",
+          "5.625",
+          "5.750",
+          "5.875",
+          "6.000",
+          "6.125",
+          "6.250",
+          "6.375",
+          "6.500",
+          "6.625",
+          "6.750",
+          "6.875",
+          "7.000",
+          "7.125",
+          "7.250",
+          "7.375",
+          "7.500",
+          "7.625",
+          "7.750",
+          "7.875",
+          "8.000",
+          "8.125",
+          "8.250",
+          "8.375",
+          "8.500",
+          "8.625",
+          "8.750",
+          "8.875",
+          "9.000"
+        ]
+      },
+      {
+        "key": "MACHINING_ON_ID",
+        "label": "Machining on ID",
+        "vals": [
+          "No"
+        ]
+      }
     ]
   },
   "context": {
@@ -2415,10 +2719,10 @@
       "CROSS_HOLE": "1.250",
       "BOLTSIZE": "0.500",
       "TAP_QTY_NO_OF_HOLES": "1",
-      "PIN_OD": "45",
       "PIN_ID_MM": "25",
       "PIN_LENGTH_IN": "12.1875",
-      "INDUCTION_HARDENED": "Yes"
+      "INDUCTION_HARDENED": "Yes",
+      "PIN_OD_MM": "45"
     },
     "tab1773940149410": {
       "INDUCTION_HARDENED": "Yes",
@@ -2450,6 +2754,12 @@
     "tab1773949221785": {
       "RADIUS_1": "5.000",
       "RADIUS_2": "5.125"
+    },
+    "tab1773949603891": {
+      "RING_ID_IN": "1.093",
+      "PIN_OD_MM": "45",
+      "RING_OD_IN": "2.250",
+      "RING_THICKNESSIN": "0.563"
     }
   },
   "parts": {
@@ -2540,6 +2850,22 @@
         "midx": null,
         "level": 0,
         "enabled": true
+      }
+    ],
+    "tab1773949603891": [
+      {
+        "id": "p1773869852653",
+        "name": "RPL-045MM-0.563-01",
+        "midx": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1773950595058",
+        "name": "Pin GA (Copy)",
+        "midx": null,
+        "level": 1,
+        "enabled": false
       }
     ]
   },
@@ -2659,38 +2985,60 @@
         "id": "f1773949229015",
         "name": "Description"
       }
+    ],
+    "tab1773949603891": [
+      {
+        "id": "f1773869896995",
+        "name": "Description"
+      },
+      {
+        "id": "f1773869904615",
+        "name": "Features 1"
+      },
+      {
+        "id": "f1773869927490",
+        "name": "Features 2"
+      },
+      {
+        "id": "f1773869932699",
+        "name": "Specs 1"
+      },
+      {
+        "id": "f1773869937461",
+        "name": "Specs 2"
+      }
     ]
   },
   "rules": {
     "cat_1773868048483_1": {
       "p1773869885948": {
-        "f1773869896995": "PIN-{PIN_OD?PIN_ODMM}",
-        "f1773869904615": "PIN_TYPE - ({PIN_OD?PIN_OD}/25.4) X PIN_LENGTH_IN",
+        "f1773869896995": "PIN-{PIN_OD_MM?PIN_ODMM}",
+        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) X PIN_LENGTH_IN",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
       },
       "p1773869852653": {
-        "f1773869896995": "PIN-{PIN_OD?PIN_ODMM}-GA",
-        "f1773869904615": "PIN_TYPE - ({PIN_OD?PIN_OD}/25.4) X PIN_LENGTH_IN",
+        "f1773869896995": "PIN-{PIN_OD_MM?PIN_ODMM}-GA",
+        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) X PIN_LENGTH_IN",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
       },
       "p1773869860795": {
-        "f1773869896995": "PIN-{PIN_OD?PIN_ODMM}",
-        "f1773869904615": "PIN_TYPE - ({PIN_OD?PIN_OD}/25.4) X PIN_LENGTH_IN",
+        "f1773869896995": "PIN-{PIN_OD_MM?PIN_ODMM}",
+        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) X PIN_LENGTH_IN",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
       },
       "p1773869871318": {
         "f1773869896995": "PIN-PIN_ODMM-WLDT",
-        "f1773869904615": "PIN_TYPE - ({PIN_OD?PIN_OD}/25.4) X PIN_LENGTH_IN",
+        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) X PIN_LENGTH_IN",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
       },
       "p1773874552887": {
-        "f1773869896995": "PIN-PIN_OD-WLDT",
-        "f1773869904615": "PIN_TYPE - (PIN_OD/25.4) X PIN_LENGTH_IN",
+        "f1773869896995": "PIN-PIN_OD_MM-WLDT",
+        "f1773869904615": "PIN_TYPE - (PIN_OD_MM/25.4) X PIN_LENGTH_IN",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES}"
       },
       "p1773874553970": {
         "f1773869896995": "PIN",
-        "f1773869904615": "PIN_TYPE - (PIN_OD/25.4) X PIN_LENGTH_IN",
+        "f1773869904615": "PIN_TYPE - (PIN_OD_MM/25.4) X PIN_LENGTH_IN",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES}"
       }
     },
@@ -2837,6 +3185,45 @@
       "p1773949237960": {
         "f1773949229015": "SWEEP PL - {RADIUS_1?R RADIUS_1} {RADIUS_2?- R RADIUS_2}"
       }
+    },
+    "tab1773949603891": {
+      "p1773869885948": {
+        "f1773869896995": "PIN-{PIN_OD_MM?PIN_ODMM}",
+        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) X RING_THICKNESSIN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+      },
+      "p1773869852653": {
+        "f1773869896995": "RING PL-MC",
+        "f1773869904615": "",
+        "f1773869932699": "{RING_OD_IN?RING_OD_IN OD} {RING_ID_IN?X RING_ID_IN ID} {RING_THICKNESSIN?X RING_THICKNESSIN THK}",
+        "f1773869937461": "{MACHINING_ON_ID?NO MACHINING ON ID}"
+      },
+      "p1773869860795": {
+        "f1773869896995": "PIN-{PIN_OD_MM?PIN_ODMM}",
+        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) X RING_THICKNESSIN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+      },
+      "p1773869871318": {
+        "f1773869896995": "PIN-PIN_ODMM-WLDT",
+        "f1773869904615": "PIN_TYPE - ({PIN_OD_MM?PIN_OD_MM}/25.4) X RING_THICKNESSIN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+      },
+      "p1773874552887": {
+        "f1773869896995": "PIN-PIN_OD_MM-WLDT",
+        "f1773869904615": "PIN_TYPE - (PIN_OD_MM/25.4) X RING_THICKNESSIN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES}"
+      },
+      "p1773874553970": {
+        "f1773869896995": "PIN",
+        "f1773869904615": "PIN_TYPE - (PIN_OD_MM/25.4) X RING_THICKNESSIN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES}"
+      },
+      "p1773950595058": {
+        "f1773869896995": "RING PL-MC",
+        "f1773869904615": "",
+        "f1773869932699": "{RING_OD_IN?RING_OD_IN OD} {RING_ID_IN?X RING_ID_IN ID} {RING_THICKNESSIN?X RING_THICKNESSIN THK}",
+        "f1773869937461": "{MACHINING_ON_ID?NO MACHINING ON ID}"
+      }
     }
   },
   "hiddenProps": {
@@ -2845,7 +3232,8 @@
     "tab1773944324382": [],
     "tab1773945410693": [],
     "tab1773948764358": [],
-    "tab1773949221785": []
+    "tab1773949221785": [],
+    "tab1773949603891": []
   },
   "lockedTabs": {},
   "lockedSections": {},
@@ -2867,10 +3255,10 @@
   "exportSelections": {},
   "fileNameRules": {
     "cat_1773868048483_1": {
-      "p1773869852653": "PA-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
-      "p1773869860795": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
-      "p1773869871318": "PA-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
-      "p1773869885948": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX"
+      "p1773869852653": "PA-0{PIN_OD_MM?PIN_OD_MM}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
+      "p1773869860795": "PN-0{PIN_OD_MM?PIN_OD_MM}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
+      "p1773869871318": "PA-0{PIN_OD_MM?PIN_OD_MM}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
+      "p1773869885948": "PN-0{PIN_OD_MM?PIN_OD_MM}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX"
     },
     "tab1773940149410": {
       "p1773869852653": "BU-{PIN_OD?0PIN_ODMM}-{BUSHING_LENGTH_IN?BUSHING_LENGTH_IN}-IDX",
@@ -2900,6 +3288,13 @@
     },
     "tab1773949221785": {
       "p1773949237960": "SWEEP-{RADIUS_1?RAD-RADIUS_1}{RADIUS_2?-RADIUS_2}-IDX"
+    },
+    "tab1773949603891": {
+      "p1773869852653": "RPL-0{PIN_OD_MM?PIN_OD_MM}MM-{RING_THICKNESSIN?RING_THICKNESSIN}-IDX",
+      "p1773869860795": "PN-0{PIN_OD_MM?PIN_OD_MM}MM-{RING_THICKNESSIN?RING_THICKNESSIN}-IDX",
+      "p1773869871318": "PA-0{PIN_OD_MM?PIN_OD_MM}MM-{RING_THICKNESSIN?RING_THICKNESSIN}-IDX",
+      "p1773869885948": "PN-0{PIN_OD_MM?PIN_OD_MM}MM-{RING_THICKNESSIN?RING_THICKNESSIN}-IDX",
+      "p1773950595058": "RPL-0{PIN_OD_MM?PIN_OD_MM}MM-{RING_THICKNESSIN?RING_THICKNESSIN}-IDX"
     }
   }
 }
