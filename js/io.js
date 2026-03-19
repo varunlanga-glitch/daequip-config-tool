@@ -234,8 +234,10 @@ function _downloadBlob(content, mimeType, filename) {
   const a    = document.createElement('a');
   a.href     = url;
   a.download = filename;
+  document.body.appendChild(a);
   a.click();
-  URL.revokeObjectURL(url);
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 100);
 }
 
 /* ── Toolbar button wiring ───────────────────────────────── */
@@ -306,6 +308,15 @@ function _getInventorMap() {
   return State.inventorMaps[State.activeClassId];
 }
 window.getInventorMap = _getInventorMap;
+
+function _getInventorBaseFolder() {
+  if (!State.inventorBaseFolders) return '';
+  return State.inventorBaseFolders[State.activeClassId] || '';
+}
+function _setInventorBaseFolder(path) {
+  if (!State.inventorBaseFolders) State.inventorBaseFolders = {};
+  State.inventorBaseFolders[State.activeClassId] = path;
+}
 
 /* ── Export selections: per-part, per-property checkbox state ── */
 function _getExportSelections(parts, mappedPropIds) {
@@ -551,6 +562,10 @@ function exportInventor() {
         The script will use the <strong>actual filename</strong> (not the generated one) to match
         the open document in Inventor — useful when the file was named differently.
       </p>
+      <div class="imap-basefolder-row">
+        <label class="imap-basefolder-label" for="imapBaseFolder">Base Folder <span class="imap-basefolder-hint">(optional — bakes the path into the iLogic script, skipping the folder prompt)</span></label>
+        <input id="imapBaseFolder" class="imap-basefolder-input" type="text" placeholder="e.g.  C:\\Daequip\\PN-120MM" value="${(_getInventorBaseFolder()||'').replace(/"/g,'&quot;')}">
+      </div>
       <div style="flex:1;overflow:auto;padding:0 20px 10px">
         <table class="imap-table" id="imapFileTable" style="table-layout:fixed;width:100%">
           <thead><tr><th style="width:45%">Generated Name</th><th style="width:55%">Linked Inventor File</th></tr></thead>
@@ -581,7 +596,7 @@ function exportInventor() {
     <div class="confirm-buttons imap-footer">
       <button class="btn btn-cancel">Cancel</button>
       <button class="btn" id="imapBtnPreview">👁 Preview CSV</button>
-      <button class="btn btn-confirm" id="imapBtnExport" disabled>⬇ Download Files</button>
+      <button class="btn btn-confirm" id="imapBtnExport" data-reviewed="0">⬇ Download Files</button>
     </div>`;
 
   overlay.appendChild(box);
@@ -600,9 +615,12 @@ function exportInventor() {
       box.querySelectorAll('.imap-tab-panel').forEach(p => p.style.display = 'none');
       tab.classList.add('active');
       document.getElementById('itab-' + tab.dataset.itab).style.display = '';
-      // Enable Download only on Review tab
+      // Mark Download as reviewed once the Review tab has been visited
       const exportBtn = document.getElementById('imapBtnExport');
-      if (exportBtn) exportBtn.disabled = tab.dataset.itab !== 'review';
+      if (exportBtn && tab.dataset.itab === 'review') {
+        exportBtn.dataset.reviewed = '1';
+        exportBtn.classList.remove('btn-locked');
+      }
     };
   });
 
@@ -624,20 +642,15 @@ function exportInventor() {
       const partId = btn.dataset.partid;
       try {
         let name = '';
-        if (window.showOpenFilePicker) {
-          const [fh] = await window.showOpenFilePicker({
-            types: [{ description: 'Inventor Files', accept: { 'application/octet-stream': ['.ipt','.iam','.idw','.dwg','.ipn'] } }],
-            multiple: false
-          });
-          name = fh.name.replace(/\.[^.]+$/, '');
-        } else {
-          await new Promise(res => {
-            const inp = document.createElement('input');
-            inp.type = 'file'; inp.accept = '.ipt,.iam,.idw,.dwg,.ipn';
-            inp.onchange = () => { name = inp.files[0]?.name.replace(/\.[^.]+$/, '') || ''; res(); };
-            inp.click();
-          });
-        }
+        await new Promise(res => {
+          const inp = document.createElement('input');
+          inp.type = 'file'; inp.accept = '.ipt,.iam,.idw,.dwg,.ipn';
+          inp.onchange = () => { name = inp.files[0]?.name.replace(/\.[^.]+$/, '') || ''; res(); };
+          inp.oncancel = () => res();
+          document.body.appendChild(inp);
+          inp.click();
+          document.body.removeChild(inp);
+        });
         if (!name) return;
         overrides[partId] = name;
         // Update the row UI
@@ -681,6 +694,9 @@ function exportInventor() {
     return { mapping: m };
   };
 
+  // Persist base folder on every keystroke
+  box.querySelector('#imapBaseFolder').oninput = e => _setInventorBaseFolder(e.target.value.trim());
+
   box.querySelector('#imapBtnPreview').onclick = () => {
     const { mapping } = collectMap();
     const exportSel = (State.exportSelections || {})[State.activeClassId] || {};
@@ -690,6 +706,25 @@ function exportInventor() {
   };
 
   box.querySelector('#imapBtnExport').onclick = () => {
+    const exportBtn = document.getElementById('imapBtnExport');
+    if (exportBtn?.dataset.reviewed !== '1') {
+      // Guide user to Review tab first
+      const reviewTab = box.querySelector('.imap-tab[data-itab="review"]');
+      if (reviewTab) reviewTab.click();
+      // Flash a hint banner
+      let hint = box.querySelector('.imap-review-hint');
+      if (!hint) {
+        hint = document.createElement('div');
+        hint.className = 'imap-review-hint';
+        hint.textContent = 'Please review and confirm which files and properties to export, then click Download.';
+        const wrap = document.getElementById('imapReviewWrap');
+        wrap?.parentElement?.insertBefore(hint, wrap);
+      }
+      hint.style.display = 'block';
+      setTimeout(() => { if (hint) hint.style.display = 'none'; }, 4000);
+      return;
+    }
+
     const { mapping } = collectMap();
     map.mapping = mapping;
 
@@ -785,6 +820,15 @@ Module BuiltInProps
     Public ReadOnly StatusProps As New HashSet(Of String)(StringComparer.OrdinalIgnoreCase) From {
         "Checked By", "Date Checked", "Eng Approved By", "Eng Approved Date",
         "Mfg Approved By", "Mfg Approved Date"
+    }
+    ' All Daequip custom iProperties that MUST exist on every template file.
+    ' These are pre-created on open so that embedded rules (e.g. "iProperty Check")
+    ' never fail with "Cannot find a property named X".
+    Public ReadOnly RequiredCustomProps As String() = {
+        "Class", "Hook-Up", "Size",
+        "Features 1", "Features 2",
+        "Specs 1", "Specs 2",
+        "Machine", "Process", "Legacy"
     }
     Public Function GetTab(propName As String) As String
         If SummaryProps.Contains(propName) Then Return "Summary"
@@ -907,38 +951,76 @@ Sub Main()
 
         Dim doc As Inventor.Document = Nothing
         Try
-            ' Open the file (invisible open for speed, then activate for iLogic)
-            doc = ThisApplication.Documents.Open(filePath, True)
-            doc.Activate()
+            ' Suppress all Inventor/iLogic error dialogs while we work on this file.
+            ' This prevents "iProperty Check" or other embedded rules from showing
+            ' error popups when the file is opened before we've created missing properties.
+            ThisApplication.SilentOperation = True
 
-            ' ── Write iProperties from CSV columns ───────────
+            doc = ThisApplication.Documents.Open(filePath, False)
+
+            ' ── STEP A: Proactively create ALL required Custom iProperties ──
+            ' We create every property from RequiredCustomProps (the full Daequip set)
+            ' BEFORE any save fires, so embedded rules like "iProperty Check" never
+            ' fail with "Cannot find a property named X".
+            Dim customPropSet As PropertySet = Nothing
+            Try : customPropSet = doc.PropertySets.Item("Inventor User Defined Properties") : Catch : End Try
+
+            If customPropSet IsNot Nothing Then
+                ' Build a set of existing custom property names (case-insensitive)
+                Dim existingCustom As New HashSet(Of String)(StringComparer.OrdinalIgnoreCase)
+                For Each existProp As [Property] In customPropSet
+                    existingCustom.Add(existProp.DisplayName)
+                Next
+
+                ' 1. Ensure every required Daequip custom property exists (value "-" if new)
+                For Each reqName As String In BuiltInProps.RequiredCustomProps
+                    If Not existingCustom.Contains(reqName) Then
+                        Try : customPropSet.Add("-", reqName) : Catch : End Try
+                        existingCustom.Add(reqName)
+                    End If
+                Next
+
+                ' 2. Also pre-create any additional custom props coming from the CSV
+                For Each kvp In dict
+                    If kvp.Key.Equals("FileName",    StringComparison.OrdinalIgnoreCase) Then Continue For
+                    If kvp.Key.Equals("NewFileName", StringComparison.OrdinalIgnoreCase) Then Continue For
+                    If BuiltInProps.GetTab(kvp.Key) <> "Custom" Then Continue For
+                    If Not existingCustom.Contains(kvp.Key) Then
+                        Dim initVal As String = If(kvp.Value.Trim() = "", "-", kvp.Value.Trim())
+                        Try : customPropSet.Add(initVal, kvp.Key) : Catch : End Try
+                        existingCustom.Add(kvp.Key)
+                    End If
+                Next
+            End If
+
+            ' ── STEP B: Write all iProperty values ───────────
             For Each kvp In dict
                 If kvp.Key.Equals("FileName",    StringComparison.OrdinalIgnoreCase) Then Continue For
                 If kvp.Key.Equals("NewFileName", StringComparison.OrdinalIgnoreCase) Then Continue For
 
-                ' Skip empty values (unchecked in review) — don't touch that property
                 Dim cellValue As String = kvp.Value.Trim()
-                If cellValue = "" Then Continue For
-
-                ' Ensure no truly blank value gets written — use "-" as placeholder
-                If cellValue = "" OrElse cellValue = " " Then cellValue = "-"
+                If cellValue = "" Then Continue For   ' unchecked in review — skip
+                If cellValue = " " Then cellValue = "-"
 
                 Dim tab As String = BuiltInProps.GetTab(kvp.Key)
                 Try
                     iProperties.Value(tab, kvp.Key) = cellValue
                 Catch
-                    ' Property doesn't exist on this file — create it if custom
-                    If tab = "Custom" Then
+                    ' Fallback: write via PropertySets directly
+                    If customPropSet IsNot Nothing Then
                         Try
-                            doc.PropertySets.Item("Inventor User Defined Properties").Add(cellValue, kvp.Key)
-                        Catch
-                            ' Could not create — skip silently
-                        End Try
+                            For Each p As [Property] In customPropSet
+                                If p.DisplayName.Equals(kvp.Key, StringComparison.OrdinalIgnoreCase) Then
+                                    p.Value = cellValue
+                                    Exit For
+                                End If
+                            Next
+                        Catch : End Try
                     End If
                 End Try
             Next
 
-            ' ── Rename: SaveAs to new name in same folder ────
+            ' ── STEP C: Save / SaveAs ────────────────────────
             Dim newBaseName As String = ""
             If dict.ContainsKey("NewFileName") Then newBaseName = dict("NewFileName")
             If newBaseName <> "" AndAlso newBaseName <> "-" Then
@@ -954,9 +1036,11 @@ Sub Main()
             End If
 
             doc.Close(True)
+            ThisApplication.SilentOperation = False
             updated += 1
 
         Catch ex As Exception
+            ThisApplication.SilentOperation = False
             If doc IsNot Nothing Then
                 Try : doc.Close(False) : Catch : End Try
             End If
@@ -966,8 +1050,7 @@ Sub Main()
                 "Possible causes:" & vbNewLine & _
                 "  • File is checked into Vault — check it out first" & vbNewLine & _
                 "  • Target filename already exists on disk" & vbNewLine & _
-                "  • File is read-only" & vbNewLine & _
-                "  • An iProperty doesn't exist on this old file" & vbNewLine & vbNewLine & _
+                "  • File is read-only" & vbNewLine & vbNewLine & _
                 "Skip this file and continue?", MsgBoxStyle.YesNo, "Error")
             If res = MsgBoxResult.No Then Exit For
             skipped += 1
