@@ -11,7 +11,7 @@
   ],
   "activeClassId": "tab1773940149410",
   "selectedPartId": "p1773869852653",
-  "activeRightTab": "rules",
+  "activeRightTab": "config",
   "master": {
     "cat_1773868048483_1": [
       {
@@ -384,7 +384,7 @@
     "tab1773940149410": [
       {
         "key": "PIN_OD",
-        "label": "Pin OD",
+        "label": "PIN OD",
         "vals": [
           "20",
           "25",
@@ -404,12 +404,16 @@
       {
         "key": "BUSHING_OD_IN",
         "label": "Bushing OD (IN)",
-        "vals": []
+        "vals": [
+          "2.000"
+        ]
       },
       {
         "key": "BUSHING_ID_IN",
         "label": "Bushing ID (IN)",
-        "vals": []
+        "vals": [
+          "1.525"
+        ]
       },
       {
         "key": "BUSHING_LENGTH_IN",
@@ -702,8 +706,9 @@
     "tab1773940149410": {
       "INDUCTION_HARDENED": "Yes",
       "BUSHING_LENGTH_IN": "12.1875",
-      "PIN_OD": "25",
-      "BUSHING_OD_IN": "45"
+      "PIN_OD": "35",
+      "BUSHING_OD_IN": "2.000",
+      "BUSHING_ID_IN": "1.525"
     }
   },
   "parts": {
@@ -833,7 +838,7 @@
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
       },
       "p1773869852653": {
-        "f1773869896995": "BUSHING-{PIN_OD?PIN_ODMM}",
+        "f1773869896995": "BUSHING-{BUSHING_OD_IN?BUSHING_OD_IN}MM",
         "f1773869904615": "",
         "f1773869932699": ""
       },
@@ -889,7 +894,7 @@
       "p1773869885948": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX"
     },
     "tab1773940149410": {
-      "p1773869852653": "BU-{PIN_OD?0PIN_ODMM}-{BUSHING_LENGTH_IN?BUSHING_LENGTH_IN}-IDX",
+      "p1773869852653": "BU-0{BUSHING_ID_MM?BUSHING_ID_MM}MM-{BUSHING_LENGTH_IN?BUSHING_LENGTH_IN}-IDX",
       "p1773869860795": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
       "p1773869871318": "PA-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
       "p1773869885948": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX"
