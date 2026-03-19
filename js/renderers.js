@@ -109,6 +109,7 @@ function renderColumnFilter() {
   const lbl = document.createElement('span');
   lbl.className = 'filter-label'; lbl.textContent = 'COLUMNS:';
   bar.appendChild(lbl);
+
   props.forEach(p => {
     const isHidden = hidden.includes(p.id);
     const pill = document.createElement('button');
@@ -383,8 +384,8 @@ function renderGrid() {
     return th;
   };
 
-  // Part name column (sticky) + data columns
-  const partTh = makeHeaderCell('Part', 'col-part-name', '__part__');
+  // File Name sticky first column + data columns
+  const partTh = makeHeaderCell('File Name', 'col-part-name col-filename-header', '__part__');
   head.appendChild(partTh);
   visProps.forEach(p => head.appendChild(makeHeaderCell(p.name, 'col-prop', p.id)));
 
@@ -396,18 +397,21 @@ function renderGrid() {
     if (p.id === State.selectedPartId) tr.classList.add('selected');
     if ((p.level || 0) > 0) tr.classList.add('row-child');
 
-    // Sticky part-name cell
+    // Sticky File Name cell (replaces Part column)
+    const fnVal  = resolveFileNameRule(p.id);
     const nameTd = document.createElement('td');
-    nameTd.className = 'data-cell col-part-name-cell' + ((p.level || 0) > 0 ? ' name-cell-child' : '');
+    nameTd.className = 'data-cell col-part-name-cell col-filename-cell' + ((p.level || 0) > 0 ? ' name-cell-child' : '');
+    nameTd.title     = fnVal;
     const nameWrap = document.createElement('div');
     nameWrap.className = 'name-cell';
     const idxSpan = document.createElement('span');
     idxSpan.className   = 'inline-idx';
     idxSpan.textContent = idxList[i] || '';
-    const nameSpan = document.createElement('span');
-    nameSpan.textContent = p.name;
+    const fnSpan = document.createElement('span');
+    fnSpan.className   = 'cell-text';
+    fnSpan.textContent = fnVal;
     nameWrap.appendChild(idxSpan);
-    nameWrap.appendChild(nameSpan);
+    nameWrap.appendChild(fnSpan);
     nameTd.appendChild(nameWrap);
     tr.appendChild(nameTd);
 

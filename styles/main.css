@@ -546,6 +546,10 @@ tr:hover .cell-copy-btn {
   text-decoration: line-through;
 }
 .col-pill-off:hover { background: #e0ddd6; color: #777; text-decoration: none; }
+.col-pill-filename.col-pill-on  { background: rgba(30,120,80,.10); border-color: rgba(30,120,80,.5); color: #1a7a50; }
+.col-pill-filename.col-pill-on:hover { background: rgba(30,120,80,.20); }
+.col-filename-header { color: #1a7a50; }
+.col-filename-cell   { font-family: var(--mono); font-size: 11px; color: #1a7a50; }
 
 /* ════════════════════════════════════════════════════════════
    CENTRE GRID: row-header (replaces standalone Part Name col)
