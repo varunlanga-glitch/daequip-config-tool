@@ -94,10 +94,18 @@ function resolveRule(template, partId) {
     return BLANK_VALUES.includes(val) ? '' : output;
   });
 
-  Object.keys(ctx).forEach(key => {
-    const regex = new RegExp(`\\b${key}\\b`, 'g');
-    s = s.replace(regex, ctx[key] || '');
-  });
+  // Sort longest-first so a shorter key (e.g. PIN_OD) doesn't match inside
+  // a longer one (e.g. PIN_OD_MAX) before it gets its own chance to substitute.
+  Object.keys(ctx)
+    .sort((a, b) => b.length - a.length)
+    .forEach(key => {
+      const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      // Allow an optional alpha-only unit suffix immediately after the key
+      // (e.g. PIN_ODmm → 45mm) but stop if the next char is _ or a digit,
+      // which would indicate a longer identifier rather than a unit suffix.
+      const regex = new RegExp(`\\b${escaped}([a-zA-Z]*)(?![_\\d])`, 'g');
+      s = s.replace(regex, (_, unit) => (ctx[key] || '') + unit);
+    });
 
   // Evaluate math expressions wrapped in parentheses, e.g. (70/25.4) → "2.7559"
   s = s.replace(/\(([^()]*)\)/g, (match, inner) => {
