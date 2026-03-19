@@ -391,7 +391,12 @@ window.addChips = (k, rawValue) => {
   if (!rawValue?.trim()) return;
   const master = getActiveMaster().find(m => m.key === k);
   if (!master) return;
-  const values = rawValue.split(',').map(v => v.trim()).filter(v => v && !master.vals.includes(v));
+  const values = rawValue.split(',').map(v => {
+    const s = v.trim();
+    // Round numbers with 4+ decimal places down to 3
+    const m = s.match(/^(-?\d+\.\d{4,})$/);
+    return m ? parseFloat(parseFloat(s).toFixed(3)).toString() : s;
+  }).filter(v => v && !master.vals.includes(v));
   if (values.length) { master.vals.push(...values); markDirty(); renderAll(); }
 };
 
