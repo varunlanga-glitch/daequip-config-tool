@@ -103,12 +103,12 @@ function resolveRule(template, partId) {
     .forEach(key => {
       const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       // Allow an optional alpha-only unit suffix immediately after the key
-      // (e.g. PIN_ODmm → 45mm) but stop if the next char is _ or a digit,
-      // which would indicate a longer identifier rather than a unit suffix.
-      // Trailing \b naturally allows a unit suffix (e.g. PIN_ODMM → 50MM)
-      // while still refusing to match inside a longer identifier (PIN_OD_MAX),
-      // because _ is a word char so \b won't fire between OD and _MAX.
-      const regex = new RegExp(`\\b${escaped}([a-zA-Z]*)\\b`, 'g');
+      // (e.g. PIN_ODmm → 45mm) but stop if the next char is _ which would
+      // indicate a longer identifier (PIN_OD_MAX).
+      // Negative lookbehind (?<![a-zA-Z_]) lets digits sit directly before a
+      // variable (e.g. 0PIN_OD → 045) while still rejecting a leading letter
+      // that would mean a longer name (MPIN_OD must not match PIN_OD).
+      const regex = new RegExp(`(?<![a-zA-Z_])${escaped}([a-zA-Z]*)\\b`, 'g');
       s = s.replace(regex, (_, unit) => (ctx[key] || '') + unit);
     });
 
