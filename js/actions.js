@@ -324,7 +324,7 @@ window.renameVariable = (oldKey, newLabel) => {
       ctx[finalKey] = ctx[oldKey];
       delete ctx[oldKey];
     }
-    // Migrate rule templates that reference the old token
+    // Migrate iProperty rule templates that reference the old token
     Object.values(getActiveRules()).forEach(partRules => {
       Object.keys(partRules).forEach(propId => {
         if (typeof partRules[propId] === 'string') {
@@ -333,6 +333,15 @@ window.renameVariable = (oldKey, newLabel) => {
           );
         }
       });
+    });
+    // Migrate file name rule templates that reference the old token
+    const fnRules = getActiveFileNameRules();
+    Object.keys(fnRules).forEach(partId => {
+      if (typeof fnRules[partId] === 'string') {
+        fnRules[partId] = fnRules[partId].replace(
+          new RegExp(`\\b${oldKey}\\b`, 'g'), finalKey
+        );
+      }
     });
   }
   markDirty();
