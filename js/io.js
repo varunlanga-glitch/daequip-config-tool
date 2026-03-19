@@ -115,6 +115,7 @@ function migrateState() {
   if (!State.lockedTabs)        State.lockedTabs        = {};
   if (!State.lockedSections)   State.lockedSections    = {};
   if (!State.hiddenProps)      State.hiddenProps        = { buckets: [] };
+  if (!State.fileNameRules)     State.fileNameRules     = {};
   if (!State.fileNameOverrides) State.fileNameOverrides = {};
   if (!State.exportSelections)  State.exportSelections  = {};
   Object.keys(State.parts || {}).forEach(classId => {
@@ -459,7 +460,7 @@ function exportInventor() {
 
   // ── File name linking — part name → linked actual file ──
   const fileRows = parts.map(p => {
-    const generated = p.name;
+    const generated = resolveFileNameRule(p.id) || p.name;
     const linked   = overrides[p.id] || '';
     const hasLink  = !!linked;
     return `<tr data-partid="${p.id}">
@@ -666,7 +667,7 @@ function _buildInventorCSV(mapping, selections) {
   ].join(',');
 
   const rows = parts.map(p => {
-    const generatedName = p.name;
+    const generatedName = resolveFileNameRule(p.id) || p.name;
     const currentName   = overrides[p.id] || generatedName;
     const partSel       = sel[p.id] || { rename: true, props: {} };
 

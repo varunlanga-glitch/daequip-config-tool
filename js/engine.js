@@ -121,6 +121,17 @@ function resolveRule(template, partId) {
   return s;
 }
 
+/**
+ * Resolves the file name rule template for a given part.
+ * Returns the generated string, or '' if no template is set.
+ */
+function resolveFileNameRule(partId) {
+  const fnRules = getActiveFileNameRules();
+  const template = fnRules[partId] || '';
+  return template ? resolveRule(template, partId) : '';
+}
+window.resolveFileNameRule = resolveFileNameRule;
+
 function moveItem(arr, index, dir) {
   if (index + dir < 0 || index + dir >= arr.length) return;
   [arr[index], arr[index + dir]] = [arr[index + dir], arr[index]];

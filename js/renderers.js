@@ -817,6 +817,81 @@ function renderRuleList() {
   if (!activeRules[State.selectedPartId]) activeRules[State.selectedPartId] = {};
   const rules = activeRules[State.selectedPartId];
 
+  // ── File Name rule (special, always-present, no delete button) ──
+  {
+    const fnRules     = getActiveFileNameRules();
+    const currentFn   = fnRules[State.selectedPartId] || '';
+    const resolvedFn  = resolveFileNameRule(State.selectedPartId);
+
+    const div = document.createElement('div');
+    div.className = 'rule-item rule-item--filename';
+
+    const header = document.createElement('div');
+    header.className = 'rule-header';
+
+    const labelWrap = document.createElement('div');
+    labelWrap.className = 'rule-label-wrap';
+
+    const labelSpan = document.createElement('span');
+    labelSpan.className   = 'small';
+    labelSpan.style.fontWeight = 'bold';
+    labelSpan.textContent = 'File Name';
+
+    const hint = document.createElement('span');
+    hint.className   = 'rule-label-hint';
+    hint.textContent = 'Inventor file name — used for Export';
+
+    labelWrap.appendChild(labelSpan);
+    labelWrap.appendChild(hint);
+    header.appendChild(labelWrap);
+
+    const textarea = document.createElement('textarea');
+    textarea.className      = 'rule-textarea';
+    textarea.value          = currentFn;
+    textarea.placeholder    = 'e.g. PN-PIN_ODMM-PIN_LENGTH_IN-01-01';
+    textarea.dataset.propId = '__filename__';
+
+    const preview = document.createElement('div');
+    preview.className = 'rule-preview';
+
+    const previewText = document.createElement('span');
+    previewText.className   = 'rule-preview-text';
+    previewText.textContent = resolvedFn;
+
+    const previewCount = document.createElement('span');
+    previewCount.className   = 'rule-preview-count';
+    previewCount.textContent = resolvedFn.length;
+    previewCount.title       = resolvedFn.length + ' characters';
+
+    preview.appendChild(previewText);
+    if (resolvedFn) preview.appendChild(previewCount);
+
+    textarea.oninput = function() {
+      updateFileNameRule(State.selectedPartId, this.value);
+      const resolved = resolveFileNameRule(State.selectedPartId);
+      const txt = preview.querySelector('.rule-preview-text');
+      const cnt = preview.querySelector('.rule-preview-count');
+      if (txt) txt.textContent = resolved;
+      if (cnt) { cnt.textContent = resolved.length; cnt.style.display = resolved ? '' : 'none'; }
+      else if (resolved) {
+        const newCnt = document.createElement('span');
+        newCnt.className = 'rule-preview-count';
+        newCnt.textContent = resolved.length;
+        preview.appendChild(newCnt);
+      }
+    };
+
+    const palette = document.createElement('div');
+    palette.className = 'token-palette';
+    _wireTokenAutocomplete(textarea, palette, '__filename__');
+
+    div.appendChild(header);
+    div.appendChild(textarea);
+    div.appendChild(palette);
+    div.appendChild(preview);
+    container.appendChild(div);
+  }
+
   getActiveProps().forEach(pr => {
     const div = document.createElement('div');
     div.className = 'rule-item';
