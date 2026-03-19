@@ -6,7 +6,7 @@
     }
   ],
   "activeClassId": "cat_1773868048483_1",
-  "selectedPartId": "p1773869852653",
+  "selectedPartId": "p1773869871318",
   "activeRightTab": "parts",
   "master": {
     "cat_1773868048483_1": [
@@ -397,29 +397,29 @@
   "parts": {
     "cat_1773868048483_1": [
       {
-        "id": "p1773869860795",
-        "name": "Pin",
+        "id": "p1773869852653",
+        "name": "Pin GA",
         "midx": null,
         "level": 0,
         "enabled": true
       },
       {
-        "id": "p1773869852653",
-        "name": "Pin GA",
+        "id": "p1773869860795",
+        "name": "Pin",
         "midx": null,
         "level": 1,
         "enabled": true
       },
       {
-        "id": "p1773869885948",
-        "name": "Pin",
+        "id": "p1773869871318",
+        "name": "Pin Wldt",
         "midx": "01",
         "level": 0,
         "enabled": true
       },
       {
-        "id": "p1773869871318",
-        "name": "Pin Wldt",
+        "id": "p1773869885948",
+        "name": "Pin",
         "midx": null,
         "level": 1,
         "enabled": true
