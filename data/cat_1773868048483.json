@@ -18,7 +18,7 @@
     }
   ],
   "activeClassId": "tab1773945410693",
-  "selectedPartId": "p1773869852653",
+  "selectedPartId": "p1773945765042",
   "activeRightTab": "rules",
   "master": {
     "cat_1773868048483_1": [
@@ -727,7 +727,17 @@
           "65",
           "70",
           "75",
-          "80"
+          "80",
+          "85",
+          "90",
+          "95",
+          "100",
+          "105",
+          "110",
+          "115",
+          "120",
+          "125",
+          "130"
         ]
       },
       {
@@ -1164,7 +1174,8 @@
       "p1773869860795": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
       "p1773869871318": "PA-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
       "p1773869885948": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
-      "p1773945632279": "SP-{PIN_OD?PIN_ODMM}-IDX"
+      "p1773945632279": "SP-{PIN_OD?PIN_ODMM}-IDX",
+      "p1773945765042": "SP-{PIN_OD?PIN_ODMM}-IDX"
     }
   }
 }
