@@ -138,6 +138,47 @@ function migrateState() {
     });
   });
 
+  // Migrate timestamp-suffixed variable keys (e.g. MY_VAR_1773958139276 → MY_VAR).
+  // Old code used Date.now() for collision suffixes; new code uses _2/_3 etc.
+  const _TS_SUFFIX = /_\d{10,}$/;
+  Object.keys(State.master || {}).forEach(classId => {
+    const master = State.master[classId] || [];
+    master.forEach(m => {
+      const isTimestampSuffix = _TS_SUFFIX.test(m.key);
+      const isRawVar = /^VAR\d{10,}$/.test(m.key);
+      if (!isTimestampSuffix && !isRawVar) return;
+
+      const base = isRawVar
+        ? (m.label || '').toUpperCase().replace(/\s+/g, '_').replace(/[^A-Z0-9_]/g, '')
+        : m.key.replace(_TS_SUFFIX, '');
+      if (!base) return;
+
+      let finalKey = base, s = 2;
+      while (master.some(x => x !== m && x.key === finalKey)) finalKey = base + '_' + s++;
+      if (finalKey === m.key) return;
+
+      const oldKey = m.key;
+      m.key = finalKey;
+
+      // Migrate context value
+      const ctx = State.context[classId] || {};
+      if (ctx[oldKey] !== undefined) { ctx[finalKey] = ctx[oldKey]; delete ctx[oldKey]; }
+
+      // Migrate rule templates
+      const esc = oldKey.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const re  = new RegExp(`\\b${esc}\\b`, 'g');
+      Object.values(State.rules[classId] || {}).forEach(partRules =>
+        Object.keys(partRules).forEach(pid => {
+          if (typeof partRules[pid] === 'string') partRules[pid] = partRules[pid].replace(re, finalKey);
+        })
+      );
+      const fnR = (State.fileNameRules || {})[classId] || {};
+      Object.keys(fnR).forEach(pid => {
+        if (typeof fnR[pid] === 'string') fnR[pid] = fnR[pid].replace(re, finalKey);
+      });
+    });
+  });
+
   Object.keys(State.parts || {}).forEach(classId => {
     (State.parts[classId] || []).forEach(p => {
       if (p.level === undefined) {

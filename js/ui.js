@@ -176,11 +176,13 @@ document.body.addEventListener('dblclick', e => {
 
   const saveEdit = () => {
     const val = input.value.trim();
+    let changed = false;
     if (val) {
-      if (type === 'partName') { const p = getActiveParts().find(p => p.id === id); if (p) p.name = val; }
-      if (type === 'partIdx')  { const p = getActiveParts().find(p => p.id === id); if (p) p.midx = val; }
-      if (type === 'propName') { const p = getActiveProps().find(p => p.id === id);  if (p) p.name = val; }
+      if (type === 'partName') { const p = getActiveParts().find(p => p.id === id); if (p && p.name !== val) { p.name = val; changed = true; } }
+      if (type === 'partIdx')  { const p = getActiveParts().find(p => p.id === id); if (p && p.midx !== val) { p.midx = val; changed = true; } }
+      if (type === 'propName') { const p = getActiveProps().find(p => p.id === id);  if (p && p.name !== val) { p.name = val; changed = true; } }
     }
+    if (changed) markDirty();
     renderAll();
   };
 
