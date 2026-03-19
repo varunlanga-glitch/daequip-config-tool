@@ -577,9 +577,78 @@ function renderConfigList() {
     addRow.appendChild(input);
     addRow.appendChild(addBtn);
 
+    // Range generator button
+    const rangeBtn = document.createElement('button');
+    rangeBtn.className   = 'btn chip-range-btn';
+    rangeBtn.textContent = 'Range…';
+    rangeBtn.title       = 'Generate a sequence of numbers (e.g. 10 to 15 in steps of 0.125)';
+    addRow.appendChild(rangeBtn);
+
+    // Inline range panel (hidden by default)
+    const rangePanel = document.createElement('div');
+    rangePanel.className    = 'chip-range-panel';
+    rangePanel.style.display = 'none';
+    rangePanel.innerHTML = `
+      <label class="rng-label">From
+        <input type="number" class="chip-range-input rng-start" step="any" placeholder="e.g. 10">
+      </label>
+      <label class="rng-label">To
+        <input type="number" class="chip-range-input rng-end" step="any" placeholder="e.g. 15">
+      </label>
+      <label class="rng-label">Step
+        <input type="number" class="chip-range-input rng-step" step="any" placeholder="e.g. 0.125">
+        <span class="chip-range-presets">
+          <button class="btn chip-range-preset" data-v="0.031" title="1/32 inch">1/32</button>
+          <button class="btn chip-range-preset" data-v="0.063" title="1/16 inch">1/16</button>
+          <button class="btn chip-range-preset" data-v="0.125" title="1/8 inch">1/8</button>
+          <button class="btn chip-range-preset" data-v="0.250" title="1/4 inch">1/4</button>
+          <button class="btn chip-range-preset" data-v="0.500" title="1/2 inch">1/2</button>
+          <button class="btn chip-range-preset" data-v="1" title="1 inch">1</button>
+        </span>
+      </label>
+      <div class="chip-range-preview"></div>
+      <button class="btn primary chip-range-generate">Generate</button>`;
+
+    rangeBtn.onclick = () => {
+      const open = rangePanel.style.display !== 'none';
+      rangePanel.style.display = open ? 'none' : '';
+      if (!open) rangePanel.querySelector('.rng-start').focus();
+    };
+
+    rangePanel.querySelectorAll('.chip-range-preset').forEach(p => {
+      p.onclick = () => {
+        rangePanel.querySelector('.rng-step').value = p.dataset.v;
+        updateRangePreview();
+      };
+    });
+
+    const updateRangePreview = () => {
+      const start = parseFloat(rangePanel.querySelector('.rng-start').value);
+      const end   = parseFloat(rangePanel.querySelector('.rng-end').value);
+      const step  = parseFloat(rangePanel.querySelector('.rng-step').value);
+      const prev  = rangePanel.querySelector('.chip-range-preview');
+      if (isNaN(start) || isNaN(end) || isNaN(step) || step <= 0 || start > end) {
+        prev.textContent = '';
+        return;
+      }
+      const count = Math.floor(Math.round((end - start) / step)) + 1;
+      prev.textContent = `→ ${count} value${count !== 1 ? 's' : ''} will be added`;
+    };
+    rangePanel.querySelectorAll('.chip-range-input').forEach(i => i.addEventListener('input', updateRangePreview));
+
+    rangePanel.querySelector('.chip-range-generate').onclick = () => {
+      const start = parseFloat(rangePanel.querySelector('.rng-start').value);
+      const end   = parseFloat(rangePanel.querySelector('.rng-end').value);
+      const step  = parseFloat(rangePanel.querySelector('.rng-step').value);
+      if (isNaN(start) || isNaN(end) || isNaN(step) || step <= 0 || start > end) return;
+      addChipsRange(m.key, start, end, step);
+      rangePanel.style.display = 'none';
+    };
+
     div.appendChild(header);
     div.appendChild(chipsDiv);
     div.appendChild(addRow);
+    div.appendChild(rangePanel);
     container.appendChild(div);
   });
 }
