@@ -1580,6 +1580,23 @@ tr:hover .cell-filepick-btn {
   letter-spacing: .01em;
 }
 
+/* Daequip logo in topbar */
+.topbar-logo-link {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  opacity: 0.75;
+  transition: opacity .15s;
+}
+.topbar-logo-link:hover { opacity: 1; }
+.topbar-logo {
+  height: 28px;
+  width: auto;
+  display: block;
+  /* White logo → visible on light topbar background */
+  filter: invert(1) brightness(0);
+}
+
 /* ← Home button */
 .btn-back-home {
   white-space: nowrap;
