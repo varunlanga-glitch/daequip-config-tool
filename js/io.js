@@ -118,6 +118,13 @@ function migrateState() {
   if (!State.fileNameRules)     State.fileNameRules     = {};
   if (!State.fileNameOverrides) State.fileNameOverrides = {};
   if (!State.exportSelections)  State.exportSelections  = {};
+  // Normalize all stored numeric vals: pad/round to 3 decimal places
+  Object.keys(State.master || {}).forEach(classId => {
+    (State.master[classId] || []).forEach(m => {
+      m.vals = m.vals.map(v => typeof v === 'string' ? window.normalizeChipVal(v) : v);
+    });
+  });
+
   Object.keys(State.parts || {}).forEach(classId => {
     (State.parts[classId] || []).forEach(p => {
       if (p.level === undefined) {
