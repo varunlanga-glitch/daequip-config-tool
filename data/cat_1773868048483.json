@@ -15,10 +15,14 @@
     {
       "id": "tab1773945410693",
       "name": "Shims (Metric)"
+    },
+    {
+      "id": "tab1773948764358",
+      "name": "Spacers (Metric)"
     }
   ],
-  "activeClassId": "tab1773945410693",
-  "selectedPartId": "p1773945765042",
+  "activeClassId": "tab1773948764358",
+  "selectedPartId": "p1773869852653",
   "activeRightTab": "rules",
   "master": {
     "cat_1773868048483_1": [
@@ -788,6 +792,161 @@
           "25"
         ]
       }
+    ],
+    "tab1773948764358": [
+      {
+        "key": "PIN_OD",
+        "label": "Pin OD",
+        "vals": [
+          "20",
+          "25",
+          "30",
+          "35",
+          "40",
+          "45",
+          "50",
+          "55",
+          "60",
+          "65",
+          "70",
+          "75",
+          "80"
+        ]
+      },
+      {
+        "key": "SPACER_OD_IN",
+        "label": "Spacer OD (IN)",
+        "vals": [
+          "2.000",
+          "2.250",
+          "2.500",
+          "2.750",
+          "3.000",
+          "3.250",
+          "3.500",
+          "3.750",
+          "4.000",
+          "4.250",
+          "4.500",
+          "4.750",
+          "5.000",
+          "5.250",
+          "5.500",
+          "5.750",
+          "6.000",
+          "6.250",
+          "6.500",
+          "6.750",
+          "7.000"
+        ]
+      },
+      {
+        "key": "SPACER_ID_IN",
+        "label": "Spacer ID (IN)",
+        "vals": [
+          "1.525",
+          "1.500",
+          "1.563",
+          "1.625",
+          "1.688",
+          "1.750",
+          "1.813",
+          "1.875",
+          "1.938",
+          "2.000",
+          "2.063",
+          "2.125",
+          "2.188",
+          "2.250",
+          "2.313",
+          "2.375",
+          "2.438",
+          "2.500",
+          "2.563",
+          "2.625",
+          "2.688",
+          "2.750",
+          "2.813",
+          "2.875",
+          "2.938",
+          "3.000",
+          "3.063",
+          "3.125",
+          "3.188",
+          "3.250",
+          "3.313",
+          "3.375",
+          "3.438",
+          "3.500",
+          "3.563",
+          "3.625",
+          "3.688",
+          "3.750",
+          "3.813",
+          "3.875",
+          "3.938",
+          "4.000",
+          "4.063",
+          "4.125",
+          "4.188",
+          "4.250",
+          "4.313",
+          "4.375",
+          "4.438",
+          "4.500",
+          "4.563",
+          "4.625",
+          "4.688",
+          "4.750",
+          "4.813",
+          "4.875",
+          "4.938",
+          "5.000"
+        ]
+      },
+      {
+        "key": "SPACER_LENGTH_IN",
+        "label": "Spacer Length (in)",
+        "vals": [
+          "0.750",
+          "0.813",
+          "0.875",
+          "0.938",
+          "1.000",
+          "1.063",
+          "1.125",
+          "1.188",
+          "1.250",
+          "1.313",
+          "1.375",
+          "1.438",
+          "1.500",
+          "1.563",
+          "1.625",
+          "1.688",
+          "1.750",
+          "1.813",
+          "1.875",
+          "1.938",
+          "2.000",
+          "2.063",
+          "2.125",
+          "2.188",
+          "2.250",
+          "2.313",
+          "2.375",
+          "2.438",
+          "2.500",
+          "2.563",
+          "2.625",
+          "2.688",
+          "2.750",
+          "2.813",
+          "2.875",
+          "2.938",
+          "3.000"
+        ]
+      }
     ]
   },
   "context": {
@@ -821,6 +980,12 @@
       "PIN_OD": "35",
       "GAUGE_1": "9",
       "GAUGE_2": "9"
+    },
+    "tab1773948764358": {
+      "PIN_OD": "35",
+      "SPACER_OD_IN": "2.000",
+      "SPACER_ID_IN": "1.525",
+      "SPACER_LENGTH_IN": "1.000"
     }
   },
   "parts": {
@@ -894,6 +1059,15 @@
         "level": 1,
         "enabled": true
       }
+    ],
+    "tab1773948764358": [
+      {
+        "id": "p1773869852653",
+        "name": "Pin GA",
+        "midx": null,
+        "level": 0,
+        "enabled": true
+      }
     ]
   },
   "props": {
@@ -964,6 +1138,28 @@
       }
     ],
     "tab1773945410693": [
+      {
+        "id": "f1773869896995",
+        "name": "Description"
+      },
+      {
+        "id": "f1773869904615",
+        "name": "Features 1"
+      },
+      {
+        "id": "f1773869927490",
+        "name": "Features 2"
+      },
+      {
+        "id": "f1773869932699",
+        "name": "Specs 1"
+      },
+      {
+        "id": "f1773869937461",
+        "name": "Specs 2"
+      }
+    ],
+    "tab1773948764358": [
       {
         "id": "f1773869896995",
         "name": "Description"
@@ -1124,13 +1320,47 @@
         "f1773869896995": "SHIM PL",
         "f1773869904615": "{PIN_OD?PIN_ODMM}{GAUGE_2?-GAUGE_2Ga}"
       }
+    },
+    "tab1773948764358": {
+      "p1773869885948": {
+        "f1773869896995": "PIN-{SPACER_OD_IN?PIN_ODMM}",
+        "f1773869904615": "PIN_TYPE - ({SPACER_OD_IN?SPACER_OD_IN}/25.4) X SPACER_LENGTH_IN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+      },
+      "p1773869852653": {
+        "f1773869896995": "SPACER PL-{PIN_OD?PIN_ODMM}",
+        "f1773869904615": "{SPACER_OD_IN?SPACER_OD_IN OD} X {SPACER_ID_IN?SPACER_ID_IN ID} X {SPACER_LENGTH_IN?SPACER_LENGTH_IN THK}",
+        "f1773869932699": "{HOLE_DIAMETER?HOLE_DIAMETER HOLE -} {OFFSET?OFFST}",
+        "f1773869927490": ""
+      },
+      "p1773869860795": {
+        "f1773869896995": "PIN-{SPACER_OD_IN?PIN_ODMM}",
+        "f1773869904615": "PIN_TYPE - ({SPACER_OD_IN?SPACER_OD_IN}/25.4) X SPACER_LENGTH_IN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+      },
+      "p1773869871318": {
+        "f1773869896995": "PIN-PIN_ODMM-WLDT",
+        "f1773869904615": "PIN_TYPE - ({SPACER_OD_IN?SPACER_OD_IN}/25.4) X SPACER_LENGTH_IN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+      },
+      "p1773874552887": {
+        "f1773869896995": "PIN-SPACER_OD_IN-WLDT",
+        "f1773869904615": "PIN_TYPE - (SPACER_OD_IN/25.4) X SPACER_LENGTH_IN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES}"
+      },
+      "p1773874553970": {
+        "f1773869896995": "PIN",
+        "f1773869904615": "PIN_TYPE - (SPACER_OD_IN/25.4) X SPACER_LENGTH_IN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES}"
+      }
     }
   },
   "hiddenProps": {
     "cat_1773868048483_1": [],
     "tab1773940149410": [],
     "tab1773944324382": [],
-    "tab1773945410693": []
+    "tab1773945410693": [],
+    "tab1773948764358": []
   },
   "lockedTabs": {},
   "lockedSections": {},
@@ -1176,6 +1406,12 @@
       "p1773869885948": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
       "p1773945632279": "SP-{PIN_OD?PIN_ODMM}-IDX",
       "p1773945765042": "SP-{PIN_OD?PIN_ODMM}-IDX"
+    },
+    "tab1773948764358": {
+      "p1773869852653": "SPCR-{PIN_OD?0PIN_ODMM}-{SPACER_OD_IN?SPACER_OD_IN}-{SPACER_LENGTH_IN?SPACER_LENGTH_IN}-IDX",
+      "p1773869860795": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
+      "p1773869871318": "PA-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
+      "p1773869885948": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX"
     }
   }
 }
