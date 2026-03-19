@@ -392,7 +392,7 @@ function _renderReviewTab(parts, mapping, overrides) {
   // TBODY
   const tbody = document.createElement('tbody');
   parts.forEach(p => {
-    const generatedName = p.name;
+    const generatedName = resolveFileNameRule(p.id) || p.name;
     const currentName   = overrides[p.id] || generatedName;
     const partSel = sel[p.id] || { rename: true, props: {} };
 
@@ -444,7 +444,7 @@ function _renderReviewTab(parts, mapping, overrides) {
 function exportInventor() {
   const map    = _getInventorMap();
   const props  = getActiveProps();
-  const parts  = getActiveParts();
+  const parts  = getActiveParts().filter(p => p.enabled !== false);
 
   // Per-part file overrides: partId → actual filename (no ext), set via file picker
   if (!State.fileNameOverrides) State.fileNameOverrides = {};
@@ -642,7 +642,8 @@ function exportInventor() {
 
   box.querySelector('#imapBtnPreview').onclick = () => {
     const { mapping } = collectMap();
-    const csv = _buildInventorCSV(mapping);
+    const exportSel = (State.exportSelections || {})[State.activeClassId] || {};
+    const csv = _buildInventorCSV(mapping, exportSel);
     const w = window.open('', '_blank');
     w.document.write(`<pre style="font-family:monospace;font-size:12px;padding:20px">${csv.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre>`);
   };
