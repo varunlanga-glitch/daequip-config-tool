@@ -1066,7 +1066,6 @@ function _wireTokenAutocomplete(textarea, palette, propId) {
     const existing = document.getElementById('cond-popover');
     if (existing) existing.remove();
 
-    const tokens = getTokens();
     const pop = document.createElement('div');
     pop.id = 'cond-popover';
     pop.className = 'cond-popover';
@@ -1077,35 +1076,12 @@ function _wireTokenAutocomplete(textarea, palette, propId) {
     title.innerHTML = 'When <strong>' + escapeHtml(label) + '</strong> is set, show:';
     pop.appendChild(title);
 
-    // Output text input
+    // Output text input — pre-filled with the variable's own key as the default output
     const outputInput = document.createElement('input');
     outputInput.type = 'text';
     outputInput.className = 'cond-popover-input';
-    outputInput.placeholder = 'e.g. CROSS HOLE - CROSS_HOLE';
+    outputInput.value = key;
     pop.appendChild(outputInput);
-
-    // Mini token pills so user can insert variable values into the output
-    const miniPills = document.createElement('div');
-    miniPills.className = 'cond-popover-pills';
-    tokens.forEach(t => {
-      const p = document.createElement('button');
-      p.className = 'token-pill token-new cond-mini-pill';
-      p.textContent = t.key;
-      p.title = 'Insert ' + t.label + ' value into the output';
-      p.addEventListener('mousedown', e => {
-        e.preventDefault();
-        const s = outputInput.selectionStart;
-        const e2 = outputInput.selectionEnd;
-        const v = outputInput.value;
-        outputInput.value = v.substring(0, s) + t.key + v.substring(e2);
-        const pos = s + t.key.length;
-        outputInput.setSelectionRange(pos, pos);
-        outputInput.focus();
-        updatePreview();
-      });
-      miniPills.appendChild(p);
-    });
-    pop.appendChild(miniPills);
 
     // Live preview
     const previewEl = document.createElement('div');
@@ -1141,16 +1117,24 @@ function _wireTokenAutocomplete(textarea, palette, propId) {
     });
     pop.appendChild(insertBtn);
 
-    // Position below the if-button
+    // Position near the if-button, flipping above if it would overflow the viewport
     document.body.appendChild(pop);
-    const rect = ifBtnEl.getBoundingClientRect();
-    const popW = 280;
+    const rect   = ifBtnEl.getBoundingClientRect();
+    const popW   = 280;
+    const popH   = pop.offsetHeight;
     let left = rect.left;
     if (left + popW > window.innerWidth - 8) left = window.innerWidth - popW - 8;
+    if (left < 8) left = 8;
+    // Flip above the button when not enough space below
+    const spaceBelow = window.innerHeight - rect.bottom - 8;
+    const top = spaceBelow >= popH
+      ? rect.bottom + 6
+      : Math.max(8, rect.top - popH - 6);
     pop.style.left = left + 'px';
-    pop.style.top  = (rect.bottom + 6) + 'px';
+    pop.style.top  = top + 'px';
 
     outputInput.focus();
+    outputInput.select();
 
     // Dismiss on outside click
     const dismiss = ev => {
