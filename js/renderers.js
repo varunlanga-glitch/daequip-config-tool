@@ -643,7 +643,8 @@ function renderConfigList() {
     const CHIP_COLLAPSE = 14;   // show this many chips before collapsing
     const chipsDiv = document.createElement('div');
     chipsDiv.className = 'chips-wrap';
-    m.vals.forEach((v, vi) => {
+    const sortedChipVals = [...m.vals].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    sortedChipVals.forEach((v, vi) => {
       const chip = document.createElement('span');
       chip.className = 'chip';
       if (m.vals.length > CHIP_COLLAPSE && vi >= CHIP_COLLAPSE) chip.classList.add('chip-hidden');
