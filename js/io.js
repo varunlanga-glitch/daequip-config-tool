@@ -626,14 +626,14 @@ function exportInventor() {
         let name = '';
         if (window.showOpenFilePicker) {
           const [fh] = await window.showOpenFilePicker({
-            types: [{ description: 'Inventor Files', accept: { 'application/octet-stream': ['.ipt','.iam','.idw'] } }],
+            types: [{ description: 'Inventor Files', accept: { 'application/octet-stream': ['.ipt','.iam','.idw','.dwg','.ipn'] } }],
             multiple: false
           });
           name = fh.name.replace(/\.[^.]+$/, '');
         } else {
           await new Promise(res => {
             const inp = document.createElement('input');
-            inp.type = 'file'; inp.accept = '.ipt,.iam,.idw';
+            inp.type = 'file'; inp.accept = '.ipt,.iam,.idw,.dwg,.ipn';
             inp.onchange = () => { name = inp.files[0]?.name.replace(/\.[^.]+$/, '') || ''; res(); };
             inp.click();
           });
@@ -763,8 +763,8 @@ function _buildILogicScript() {
 ' WORKFLOW:
 '   1. In iLogic Browser > External Rules > add this file > right-click > Run
 '   2. Browse to the CSV exported from Configurator Pro
-'   3. Browse to the base folder containing your placeholder .ipt/.iam files
-'   4. Script finds all files recursively, processes them automatically
+'   3. Browse to the base folder containing your placeholder Inventor files
+'   4. Script finds all .ipt, .iam, .dwg, .idw, and .ipn files recursively
 '   5. No need to open files manually — script opens, updates, renames and closes each one
 '
 ' Vault users: ensure files are Checked Out before running.
@@ -847,12 +847,16 @@ Sub Main()
         If Not csvRows.ContainsKey(noExt) Then csvRows(noExt) = props
     Next
 
-    ' ── 4. Scan folder recursively for .ipt and .iam files ───
+    ' ── 4. Scan folder recursively for Inventor files ────────
+    ' Match .ipt, .iam (primary) plus related .dwg, .idw, .ipn files
+    Dim inventorExts As New HashSet(Of String)(StringComparer.OrdinalIgnoreCase) From {
+        ".ipt", ".iam", ".dwg", ".idw", ".ipn"
+    }
     Dim allFiles() As String = System.IO.Directory.GetFiles(baseFolder, "*.*", System.IO.SearchOption.AllDirectories)
     Dim matchedFiles As New List(Of String)()
     For Each f As String In allFiles
         Dim ext As String = System.IO.Path.GetExtension(f).ToLowerInvariant()
-        If ext <> ".ipt" AndAlso ext <> ".iam" Then Continue For
+        If Not inventorExts.Contains(ext) Then Continue For
         Dim nameNoExt As String = System.IO.Path.GetFileNameWithoutExtension(f)
         If csvRows.ContainsKey(nameNoExt) OrElse csvRows.ContainsKey(nameNoExt.ToUpperInvariant()) Then
             matchedFiles.Add(f)
@@ -869,13 +873,15 @@ Sub Main()
     Dim diagText As String = "Found " & matchedFiles.Count & " matching file(s) to process:" & vbNewLine & vbNewLine
     For Each f As String In matchedFiles
         Dim nameNoExt As String = System.IO.Path.GetFileNameWithoutExtension(f)
+        Dim fExt As String = System.IO.Path.GetExtension(f).ToLowerInvariant()
         Dim dict As Dictionary(Of String, String) = Nothing
         If csvRows.ContainsKey(nameNoExt) Then dict = csvRows(nameNoExt)
         Dim newName As String = If(dict IsNot Nothing AndAlso dict.ContainsKey("NewFileName"), dict("NewFileName"), "")
-        Dim arrow As String = If(newName <> "" AndAlso Not newName.Equals(nameNoExt, StringComparison.OrdinalIgnoreCase), "  =>  " & newName, "  (no rename)")
-        diagText &= "  " & nameNoExt & arrow & vbNewLine
+        Dim arrow As String = If(newName <> "" AndAlso Not newName.Equals(nameNoExt, StringComparison.OrdinalIgnoreCase), "  =>  " & newName & fExt, "  (no rename)")
+        diagText &= "  " & nameNoExt & fExt & arrow & vbNewLine
     Next
     diagText &= vbNewLine & "Each file will be opened, iProperties written, renamed, then closed." & vbNewLine
+    diagText &= "Includes related .dwg, .idw, and .ipn files." & vbNewLine
     diagText &= "Blank property values will be written as ""-""." & vbNewLine & vbNewLine
     diagText &= "WARNING: Vault users — ensure files are Checked Out first." & vbNewLine & vbNewLine
     diagText &= "Proceed?"
@@ -909,11 +915,26 @@ Sub Main()
             For Each kvp In dict
                 If kvp.Key.Equals("FileName",    StringComparison.OrdinalIgnoreCase) Then Continue For
                 If kvp.Key.Equals("NewFileName", StringComparison.OrdinalIgnoreCase) Then Continue For
+
+                ' Skip empty values (unchecked in review) — don't touch that property
+                Dim cellValue As String = kvp.Value.Trim()
+                If cellValue = "" Then Continue For
+
+                ' Ensure no truly blank value gets written — use "-" as placeholder
+                If cellValue = "" OrElse cellValue = " " Then cellValue = "-"
+
                 Dim tab As String = BuiltInProps.GetTab(kvp.Key)
                 Try
-                    iProperties.Value(tab, kvp.Key) = kvp.Value
+                    iProperties.Value(tab, kvp.Key) = cellValue
                 Catch
-                    ' Skip properties that fail silently
+                    ' Property doesn't exist on this file — create it if custom
+                    If tab = "Custom" Then
+                        Try
+                            doc.PropertySets.Item("Inventor User Defined Properties").Add(cellValue, kvp.Key)
+                        Catch
+                            ' Could not create — skip silently
+                        End Try
+                    End If
                 End Try
             Next
 
@@ -939,13 +960,14 @@ Sub Main()
             If doc IsNot Nothing Then
                 Try : doc.Close(False) : Catch : End Try
             End If
-            errors.Add(nameNoExt & " — " & ex.Message)
-            Dim res As MsgBoxResult = MsgBox("Error processing: " & nameNoExt & vbNewLine & vbNewLine & _
+            errors.Add(nameNoExt & docExt & " — " & ex.Message)
+            Dim res As MsgBoxResult = MsgBox("Error processing: " & nameNoExt & docExt & vbNewLine & vbNewLine & _
                 "Error: " & ex.Message & vbNewLine & vbNewLine & _
                 "Possible causes:" & vbNewLine & _
                 "  • File is checked into Vault — check it out first" & vbNewLine & _
                 "  • Target filename already exists on disk" & vbNewLine & _
-                "  • File is read-only" & vbNewLine & vbNewLine & _
+                "  • File is read-only" & vbNewLine & _
+                "  • An iProperty doesn't exist on this old file" & vbNewLine & vbNewLine & _
                 "Skip this file and continue?", MsgBoxStyle.YesNo, "Error")
             If res = MsgBoxResult.No Then Exit For
             skipped += 1
