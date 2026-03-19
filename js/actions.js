@@ -399,8 +399,13 @@ window.addChips = (k, rawValue) => {
   if (!rawValue?.trim()) return;
   const master = getActiveMaster().find(m => m.key === k);
   if (!master) return;
-  const values = rawValue.split(',').map(v => normalizeChipVal(v.trim()))
-    .filter(v => v && !master.vals.includes(v));
+  const isDecimalVar = master.vals.some(v => /\./.test(v));
+  const values = rawValue.split(',').map(v => {
+    const normalized = normalizeChipVal(v.trim());
+    return (isDecimalVar && /^-?\d+$/.test(normalized))
+      ? parseFloat(normalized).toFixed(3)
+      : normalized;
+  }).filter(v => v && !master.vals.includes(v));
   if (values.length) { master.vals.push(...values); markDirty(); renderAll(); }
 };
 
@@ -423,7 +428,8 @@ window.addChipsRange = (k, start, end, step) => {
 
   const values = [];
   for (let v = iStart; v <= iEnd; v += iStep) {
-    const formatted = normalizeChipVal((v / factor).toString());
+    const raw = (v / factor).toString();
+    const formatted = decimals > 0 ? parseFloat(raw).toFixed(3) : normalizeChipVal(raw);
     if (!master.vals.includes(formatted)) values.push(formatted);
   }
   if (values.length) { master.vals.push(...values); markDirty(); renderAll(); }
