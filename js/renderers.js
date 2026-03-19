@@ -145,16 +145,18 @@ function renderTabs() {
   const locked    = isTabLocked(State.activeClassId);
   const hasLock   = !!(State.lockedTabs || {})[State.activeClassId];
 
-  // Dropdown select
+  // Dropdown select (alpha-sorted display; underlying array order unchanged)
   const select = document.createElement('select');
   select.className = 'tab-select';
-  State.productClasses.forEach(c => {
-    const opt = document.createElement('option');
-    opt.value = c.id;
-    opt.textContent = c.name + (isTabLocked(c.id) ? ' 🔒' : '');
-    opt.selected = c.id === State.activeClassId;
-    select.appendChild(opt);
-  });
+  [...State.productClasses]
+    .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }))
+    .forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.id;
+      opt.textContent = c.name + (isTabLocked(c.id) ? ' 🔒' : '');
+      opt.selected = c.id === State.activeClassId;
+      select.appendChild(opt);
+    });
   select.onchange = () => {
     const chosen = State.productClasses.find(c => c.id === select.value);
     if (!chosen) return;
@@ -405,8 +407,17 @@ function renderGrid() {
     // Data cells only — no row-header th
     const rules = getActiveRules()[p.id] || {};
 
-    visProps.forEach(pr => {
-      const val = resolveRule(rules[pr.id], p.id);
+    // Pre-resolve all values so separator columns can inspect their neighbours
+    const resolvedVals = {};
+    visProps.forEach(pr2 => { resolvedVals[pr2.id] = resolveRule(rules[pr2.id], p.id); });
+
+    visProps.forEach((pr, pi) => {
+      // Separator column: hide when the next non-separator visible column is empty
+      let val = resolvedVals[pr.id];
+      if (pr.separator) {
+        const nextReal = visProps.slice(pi + 1).find(p2 => !p2.separator);
+        if (!nextReal || !resolvedVals[nextReal.id]) val = '';
+      }
       const td  = document.createElement('td');
       td.className = 'data-cell';
       td.title     = val;
@@ -904,12 +915,23 @@ function renderRuleList() {
 
     labelWrap.appendChild(labelSpan);
 
+    const sepLabel = document.createElement('label');
+    sepLabel.className = 'sep-toggle-label';
+    sepLabel.title = 'Separator column — hides when the next column has no value';
+    const sepCheck = document.createElement('input');
+    sepCheck.type    = 'checkbox';
+    sepCheck.checked = !!pr.separator;
+    sepCheck.onchange = () => { pr.separator = sepCheck.checked; markDirty(); renderGrid(); };
+    sepLabel.appendChild(sepCheck);
+    sepLabel.appendChild(document.createTextNode(' sep'));
+
     const delBtn = document.createElement('button');
     delBtn.className = 'btn danger';
     delBtn.innerHTML = '&times;';
     delBtn.onclick   = e => { e.stopPropagation(); deleteProp(pr.id); };
 
     header.appendChild(labelWrap);
+    header.appendChild(sepLabel);
     header.appendChild(delBtn);
 
     const currentRule = rules[pr.id] || '';
