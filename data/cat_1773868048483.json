@@ -11,9 +11,13 @@
     {
       "id": "tab1773944324382",
       "name": "Collars (Metric)"
+    },
+    {
+      "id": "tab1773945410693",
+      "name": "Shims (Metric)"
     }
   ],
-  "activeClassId": "tab1773944324382",
+  "activeClassId": "tab1773945410693",
   "selectedPartId": "p1773869852653",
   "activeRightTab": "rules",
   "master": {
@@ -705,6 +709,75 @@
           "YES"
         ]
       }
+    ],
+    "tab1773945410693": [
+      {
+        "key": "PIN_OD",
+        "label": "PIN OD",
+        "vals": [
+          "20",
+          "25",
+          "30",
+          "35",
+          "40",
+          "45",
+          "50",
+          "55",
+          "60",
+          "65",
+          "70",
+          "75",
+          "80"
+        ]
+      },
+      {
+        "key": "GAUGE_1",
+        "label": "Gauge 1",
+        "vals": [
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "20",
+          "21",
+          "22",
+          "23",
+          "24",
+          "25"
+        ]
+      },
+      {
+        "key": "GAUGE_2",
+        "label": "Gauge 2",
+        "vals": [
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "20",
+          "21",
+          "22",
+          "23",
+          "24",
+          "25"
+        ]
+      }
     ]
   },
   "context": {
@@ -733,6 +806,11 @@
       "COLLAR_LENGTH_IN": "2.813",
       "HOLE_DIAMETER": "0.125",
       "OFFSET": "YES"
+    },
+    "tab1773945410693": {
+      "PIN_OD": "35",
+      "GAUGE_1": "9",
+      "GAUGE_2": "9"
     }
   },
   "parts": {
@@ -783,6 +861,29 @@
         "level": 0,
         "enabled": true
       }
+    ],
+    "tab1773945410693": [
+      {
+        "id": "p1773869852653",
+        "name": "Pin GA",
+        "midx": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1773945632279",
+        "name": "SP",
+        "midx": null,
+        "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1773945765042",
+        "name": "SP (Copy)",
+        "midx": null,
+        "level": 1,
+        "enabled": true
+      }
     ]
   },
   "props": {
@@ -831,6 +932,28 @@
       }
     ],
     "tab1773944324382": [
+      {
+        "id": "f1773869896995",
+        "name": "Description"
+      },
+      {
+        "id": "f1773869904615",
+        "name": "Features 1"
+      },
+      {
+        "id": "f1773869927490",
+        "name": "Features 2"
+      },
+      {
+        "id": "f1773869932699",
+        "name": "Specs 1"
+      },
+      {
+        "id": "f1773869937461",
+        "name": "Specs 2"
+      }
+    ],
+    "tab1773945410693": [
       {
         "id": "f1773869896995",
         "name": "Description"
@@ -950,12 +1073,54 @@
         "f1773869904615": "PIN_TYPE - (COLLAR_OD_IN/25.4) X COLLAR_LENGTH_IN",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES}"
       }
+    },
+    "tab1773945410693": {
+      "p1773869885948": {
+        "f1773869896995": "PIN-{GAUGE_1?PIN_ODMM}",
+        "f1773869904615": "PIN_TYPE - ({GAUGE_1?GAUGE_1}/25.4) X COLLAR_LENGTH_IN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+      },
+      "p1773869852653": {
+        "f1773869896995": "SHIM ASSEMBLY",
+        "f1773869904615": "{PIN_OD?PIN_ODMM}-SHIM PKG",
+        "f1773869932699": "",
+        "f1773869927490": ""
+      },
+      "p1773869860795": {
+        "f1773869896995": "PIN-{GAUGE_1?PIN_ODMM}",
+        "f1773869904615": "PIN_TYPE - ({GAUGE_1?GAUGE_1}/25.4) X COLLAR_LENGTH_IN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+      },
+      "p1773869871318": {
+        "f1773869896995": "PIN-PIN_ODMM-WLDT",
+        "f1773869904615": "PIN_TYPE - ({GAUGE_1?GAUGE_1}/25.4) X COLLAR_LENGTH_IN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES} X {BOLTSIZE?BOLTSIZE}"
+      },
+      "p1773874552887": {
+        "f1773869896995": "PIN-GAUGE_1-WLDT",
+        "f1773869904615": "PIN_TYPE - (GAUGE_1/25.4) X COLLAR_LENGTH_IN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES}"
+      },
+      "p1773874553970": {
+        "f1773869896995": "PIN",
+        "f1773869904615": "PIN_TYPE - (GAUGE_1/25.4) X COLLAR_LENGTH_IN",
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED - TAP_QTY_NO_OF_HOLES}"
+      },
+      "p1773945632279": {
+        "f1773869896995": "SHIM PL",
+        "f1773869904615": "{PIN_OD?PIN_ODMM}-{GAUGE_1?GAUGE_1Ga}"
+      },
+      "p1773945765042": {
+        "f1773869896995": "SHIM PL",
+        "f1773869904615": "{PIN_OD?PIN_ODMM}{GAUGE_2?-GAUGE_2Ga}"
+      }
     }
   },
   "hiddenProps": {
     "cat_1773868048483_1": [],
     "tab1773940149410": [],
-    "tab1773944324382": []
+    "tab1773944324382": [],
+    "tab1773945410693": []
   },
   "lockedTabs": {},
   "lockedSections": {},
@@ -993,6 +1158,13 @@
       "p1773869860795": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
       "p1773869871318": "PA-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
       "p1773869885948": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX"
+    },
+    "tab1773945410693": {
+      "p1773869852653": "SP-{PIN_OD?0PIN_ODMM}-IDX",
+      "p1773869860795": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
+      "p1773869871318": "PA-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
+      "p1773869885948": "PN-0{PIN_OD?PIN_OD}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
+      "p1773945632279": "SP-{PIN_OD?PIN_ODMM}-IDX"
     }
   }
 }
