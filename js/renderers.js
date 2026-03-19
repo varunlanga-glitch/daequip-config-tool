@@ -512,7 +512,7 @@ function renderPartList() {
     nodeName.className    = 'node-name';
     nodeName.dataset.edit = 'partName';
     nodeName.dataset.id   = p.id;
-    nodeName.textContent  = p.name;
+    nodeName.textContent  = resolveFileNameRule(p.id) || p.name;
     nodeName.id           = `part-name-${p.id}`;
 
     // Indent / outdent buttons
