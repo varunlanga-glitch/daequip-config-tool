@@ -1020,7 +1020,7 @@ ${bakedFolder
     Next
     diagText &= vbNewLine & "Each file will be opened, iProperties written, renamed, then closed." & vbNewLine
     diagText &= "Includes related .dwg, .idw, and .ipn files." & vbNewLine
-    diagText &= "Blank property values will be written as ""-""." & vbNewLine & vbNewLine
+    diagText &= "Properties with no value in the CSV ("-") will be left unchanged." & vbNewLine & vbNewLine
     diagText &= "WARNING: Vault users — ensure files are Checked Out first." & vbNewLine & vbNewLine
     diagText &= "Proceed?"
 
@@ -1107,7 +1107,7 @@ ${bakedFolder
 
                 Dim cellValue As String = kvp.Value.Trim()
                 If cellValue = "" Then Continue For   ' unchecked in review — skip
-                If cellValue = " " Then cellValue = "-"
+                If cellValue = "-" Then Continue For  ' no value — preserve existing property
 
                 Dim tab As String = BuiltInProps.GetTab(kvp.Key)
                 If tab = "Custom" Then
