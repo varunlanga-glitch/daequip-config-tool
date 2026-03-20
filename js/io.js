@@ -887,12 +887,38 @@ Module DialogDismisser
                     prev = hwnd
                     Dim sb As New System.Text.StringBuilder(512)
                     GetWindowText(hwnd, sb, 512)
-                    ' Only dismiss dialogs raised by the iLogic engine (title format:
-                    ' "Error on line N in rule: …").  Leave all other dialogs alone.
-                    If sb.ToString().StartsWith("Error on line") Then
+                    Dim title As String = sb.ToString()
+                    ' Auto-dismiss iLogic engine error dialogs ("Error on line N in rule: …")
+                    If title.StartsWith("Error on line") Then
                         Dim hwndOk As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "OK")
                         If hwndOk <> IntPtr.Zero Then
                             SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
+                        End If
+                    End If
+                    ' Auto-dismiss "Update Styles" prompt — click "Yes to All" to update
+                    ' all styles from the library; fall back to "OK" if label differs.
+                    If title = "Update Styles" Then
+                        Dim hwndYesAll As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "Yes to All")
+                        If hwndYesAll <> IntPtr.Zero Then
+                            SendMessage(hwndYesAll, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
+                        Else
+                            Dim hwndOk As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "OK")
+                            If hwndOk <> IntPtr.Zero Then
+                                SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
+                            End If
+                        End If
+                    End If
+                    ' Auto-dismiss "Purge Styles" dialog — click "Purge All" to remove
+                    ' every unused style, then fall back to "OK" if the button label differs.
+                    If title = "Purge Styles" Then
+                        Dim hwndPurgeAll As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "Purge All")
+                        If hwndPurgeAll <> IntPtr.Zero Then
+                            SendMessage(hwndPurgeAll, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
+                        Else
+                            Dim hwndOk As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "OK")
+                            If hwndOk <> IntPtr.Zero Then
+                                SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
+                            End If
                         End If
                     End If
                 Loop
@@ -1137,11 +1163,12 @@ ${bakedFolder
             End If
 
             ' 2. Change lighting to "Default Lights" — models only.
-            '    DisplaySettings may not exist for invisible docs; Catch handles it.
-            If isModel Then
-                Try
-                    doc.DisplaySettings.ActiveLightingStyle = "Default Lights"
-                Catch : End Try
+            '    Cast to the concrete type so DisplaySettings is resolved via the
+            '    correct COM interface (same pattern as StylesManager above).
+            If docExt = ".ipt" Then
+                Try : DirectCast(doc, PartDocument).DisplaySettings.ActiveLightingStyle = "Default Lights" : Catch : End Try
+            ElseIf docExt = ".iam" Then
+                Try : DirectCast(doc, AssemblyDocument).DisplaySettings.ActiveLightingStyle = "Default Lights" : Catch : End Try
             End If
 
             ' 3. Update Copied Properties — drawings only.
