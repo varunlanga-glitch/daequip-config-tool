@@ -1027,7 +1027,7 @@ ${bakedFolder
             ' error popups when the file is opened before we've created missing properties.
             ThisApplication.SilentOperation = True
 
-            doc = ThisApplication.Documents.Open(filePath, False)
+            doc = ThisApplication.Documents.Open(filePath, True)
 
             ' ── STEP A: Proactively create ALL required Custom iProperties ──
             ' We create every property from RequiredCustomProps (the full Daequip set)
