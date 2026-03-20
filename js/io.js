@@ -887,12 +887,20 @@ Module DialogDismisser
                     prev = hwnd
                     Dim sb As New System.Text.StringBuilder(512)
                     GetWindowText(hwnd, sb, 512)
-                    ' Only dismiss dialogs raised by the iLogic engine (title format:
-                    ' "Error on line N in rule: …").  Leave all other dialogs alone.
-                    If sb.ToString().StartsWith("Error on line") Then
+                    Dim title As String = sb.ToString()
+                    ' Auto-dismiss iLogic engine error dialogs ("Error on line N in rule: …")
+                    If title.StartsWith("Error on line") Then
                         Dim hwndOk As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "OK")
                         If hwndOk <> IntPtr.Zero Then
                             SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
+                        End If
+                    End If
+                    ' Auto-dismiss "Update Styles" prompt — click "Yes to All" so styles
+                    ' are refreshed from the library; the script then purges unused ones.
+                    If title = "Update Styles" Then
+                        Dim hwndYes As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "Yes to All")
+                        If hwndYes <> IntPtr.Zero Then
+                            SendMessage(hwndYes, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
                         End If
                     End If
                 Loop
