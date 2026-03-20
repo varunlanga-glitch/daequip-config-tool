@@ -1357,16 +1357,19 @@ Sub Main()
                     End If
                 Next
                 If targetStyle IsNot Nothing Then
+                    ' Always ensure the style is local before assigning.
+                    ' Assigning a library-only style silently does nothing — no exception.
+                    ' ConvertToLocal() throws if already local/cached, so we catch that and
+                    ' use the original reference in that case.
                     Try
-                        ' Try direct assignment first (works if style is local/cached)
-                        typedDoc.ActiveLightingStyle = targetStyle
+                        targetStyle = targetStyle.ConvertToLocal()
                     Catch
-                        Try
-                            ' Style is library-only — convert to a local cached copy then set
-                            typedDoc.ActiveLightingStyle = targetStyle.ConvertToLocal()
-                        Catch ex2 As Exception
-                            MsgBox("Daequip-UpdateStyles: could not set Default Lights — " & ex2.Message)
-                        End Try
+                        ' Already local or cached — use as-is
+                    End Try
+                    Try
+                        typedDoc.ActiveLightingStyle = targetStyle
+                    Catch ex2 As Exception
+                        MsgBox("Daequip-UpdateStyles: could not set Default Lights — " & ex2.Message)
                     End Try
                 Else
                     MsgBox("Daequip-UpdateStyles: 'Default Lights' not found in LightingStyles.")
