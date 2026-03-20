@@ -1340,21 +1340,15 @@ Sub Main()
                 styMgr.PurgeStyles(True)
             Catch : End Try
             StyleDismisser.Stop()
-            ' Switch active lighting style to "Default Lights"
-            ' ActiveLightingStyle is the correct setter on the typed document object.
+            ' Switch active lighting style to "Default Lights".
+            ' LightingStyles lives on the typed document, not on StylesManager.
             Try
-                Dim defaultLights As Object = Nothing
-                For Each ls As Object In styMgr.LightingStyles
-                    If ls.Name.Equals("Default Lights", StringComparison.OrdinalIgnoreCase) Then
-                        defaultLights = ls : Exit For
-                    End If
-                Next
-                If defaultLights IsNot Nothing Then
-                    If ext = ".ipt" Then
-                        DirectCast(doc, PartDocument).ActiveLightingStyle = defaultLights
-                    Else
-                        DirectCast(doc, AssemblyDocument).ActiveLightingStyle = defaultLights
-                    End If
+                If ext = ".ipt" Then
+                    Dim oPart As PartDocument = DirectCast(doc, PartDocument)
+                    oPart.ActiveLightingStyle = oPart.LightingStyles.Item("Default Lights")
+                Else
+                    Dim oAssy As AssemblyDocument = DirectCast(doc, AssemblyDocument)
+                    oAssy.ActiveLightingStyle = oAssy.LightingStyles.Item("Default Lights")
                 End If
             Catch : End Try
         End If
