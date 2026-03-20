@@ -1340,10 +1340,10 @@ Sub Main()
                 styMgr.PurgeStyles(True)
             Catch : End Try
             StyleDismisser.Stop()
-            ' Switch active lighting style to "Default Light"
+            ' Switch active lighting style to "Default Lights"
             Try
                 For Each ls As Object In styMgr.LightingStyles
-                    If ls.Name.Equals("Default Light", StringComparison.OrdinalIgnoreCase) Then
+                    If ls.Name.Equals("Default Lights", StringComparison.OrdinalIgnoreCase) Then
                         ls.Activate() : Exit For
                     End If
                 Next
