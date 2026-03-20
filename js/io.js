@@ -1235,81 +1235,88 @@ Imports System.Threading
 Imports System.Runtime.InteropServices
 Imports System.Text
 
-' ── Win32 helpers for dialog dismissal ───────────────────
-<DllImport("user32.dll", CharSet:=CharSet.Auto)>
-Private Shared Function FindWindowEx(parent As IntPtr, after As IntPtr, cls As String, title As String) As IntPtr
-End Function
-<DllImport("user32.dll", CharSet:=CharSet.Auto)>
-Private Shared Function SendMessage(hwnd As IntPtr, msg As Integer, wParam As IntPtr, lParam As IntPtr) As IntPtr
-End Function
-<DllImport("user32.dll", CharSet:=CharSet.Auto)>
-Private Shared Function GetWindowText(hwnd As IntPtr, sb As StringBuilder, max As Integer) As Integer
-End Function
-<DllImport("user32.dll")>
-Private Shared Function EnumChildWindows(parent As IntPtr, callback As EnumChildProc, lParam As IntPtr) As Boolean
-End Function
-Private Delegate Function EnumChildProc(hwnd As IntPtr, lParam As IntPtr) As Boolean
-
-Private Const BM_CLICK As Integer = &HF5
-Private Const WM_GETTEXT As Integer = &HD
-
-Private Shared Function GetText(hwnd As IntPtr) As String
-    Dim sb As New StringBuilder(256)
-    GetWindowText(hwnd, sb, sb.Capacity)
-    Return sb.ToString()
-End Function
-
-Private Shared Function FindChildByText(parent As IntPtr, text As String) As IntPtr
-    Dim found As IntPtr = IntPtr.Zero
-    EnumChildWindows(parent, Function(hwnd As IntPtr, lp As IntPtr) As Boolean
-        If GetText(hwnd).Equals(text, StringComparison.OrdinalIgnoreCase) Then
-            found = hwnd : Return False
-        End If
-        Return True
-    End Function, IntPtr.Zero)
-    Return found
-End Function
-
-Private Shared Function FindTopWindow(title As String) As IntPtr
-    Dim hwnd As IntPtr = IntPtr.Zero
-    Do
-        hwnd = FindWindowEx(IntPtr.Zero, hwnd, Nothing, title)
-        If hwnd <> IntPtr.Zero Then Return hwnd
-    Loop While hwnd <> IntPtr.Zero
-    Return IntPtr.Zero
-End Function
-
 ' ── Background thread: auto-click style dialogs ──────────
-Private Shared _dismissRunning As Boolean = False
+' Wrapped in a Module so DllImport attributes and Private members
+' are valid (iLogic treats top-level code as a namespace scope).
+Module StyleDismisser
+    <DllImport("user32.dll", SetLastError:=True, CharSet:=CharSet.Unicode)>
+    Private Function FindWindowEx(hWndParent As IntPtr, hWndChildAfter As IntPtr, lpszClass As String, lpszWindow As String) As IntPtr
+    End Function
 
-Private Shared Sub DismissStyleDialogs()
-    Dim deadline As DateTime = DateTime.Now.AddSeconds(20)
-    Do While _dismissRunning AndAlso DateTime.Now < deadline
-        Thread.Sleep(250)
-        ' "Update Styles" — click Yes to All, then OK
-        Dim hw As IntPtr = FindTopWindow("Update Styles")
-        If hw <> IntPtr.Zero Then
-            Dim btnYes As IntPtr = FindChildByText(hw, "Yes to All")
-            If btnYes <> IntPtr.Zero Then
-                SendMessage(btnYes, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
-                Thread.Sleep(300)
-            End If
-            Dim btnOk As IntPtr = FindChildByText(hw, "OK")
-            If btnOk <> IntPtr.Zero Then SendMessage(btnOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
-        End If
-        ' "Purge Styles" — click Purge All (or OK)
-        hw = FindTopWindow("Purge Styles")
-        If hw <> IntPtr.Zero Then
-            Dim btnAll As IntPtr = FindChildByText(hw, "Purge All")
-            If btnAll <> IntPtr.Zero Then
-                SendMessage(btnAll, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
-            Else
+    <DllImport("user32.dll", SetLastError:=True, CharSet:=CharSet.Unicode)>
+    Private Function GetWindowText(hWnd As IntPtr, lpString As StringBuilder, nMaxCount As Integer) As Integer
+    End Function
+
+    <DllImport("user32.dll", SetLastError:=True)>
+    Private Function SendMessage(hWnd As IntPtr, Msg As UInteger, wParam As IntPtr, lParam As IntPtr) As IntPtr
+    End Function
+
+    Private Const BM_CLICK As UInteger = &HF5
+    Private _running As Boolean = False
+
+    ' Recursively search all child windows for one whose title matches text.
+    ' Uses FindWindowEx enumeration instead of EnumChildWindows+delegate so
+    ' no delegate type declaration is needed at namespace scope.
+    Private Function FindChildByText(parent As IntPtr, text As String) As IntPtr
+        Dim child As IntPtr = IntPtr.Zero
+        Do
+            child = FindWindowEx(parent, child, Nothing, Nothing)
+            If child = IntPtr.Zero Then Exit Do
+            Dim sb As New StringBuilder(256)
+            GetWindowText(child, sb, 256)
+            If sb.ToString().Trim().Equals(text, StringComparison.OrdinalIgnoreCase) Then Return child
+            Dim deep As IntPtr = FindChildByText(child, text)
+            If deep <> IntPtr.Zero Then Return deep
+        Loop
+        Return IntPtr.Zero
+    End Function
+
+    Private Function FindTopWindow(title As String) As IntPtr
+        Dim hwnd As IntPtr = IntPtr.Zero
+        hwnd = FindWindowEx(IntPtr.Zero, IntPtr.Zero, Nothing, title)
+        Return hwnd
+    End Function
+
+    Public Sub Start()
+        _running = True
+        Dim t As New Thread(AddressOf PollLoop)
+        t.IsBackground = True
+        t.Start()
+    End Sub
+
+    Public Sub [Stop]()
+        _running = False
+    End Sub
+
+    Private Sub PollLoop()
+        Dim deadline As DateTime = DateTime.Now.AddSeconds(20)
+        Do While _running AndAlso DateTime.Now < deadline
+            Thread.Sleep(250)
+            ' "Update Styles" — click Yes to All, then OK
+            Dim hw As IntPtr = FindTopWindow("Update Styles")
+            If hw <> IntPtr.Zero Then
+                Dim btnYes As IntPtr = FindChildByText(hw, "Yes to All")
+                If btnYes <> IntPtr.Zero Then
+                    SendMessage(btnYes, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
+                    Thread.Sleep(300)
+                End If
                 Dim btnOk As IntPtr = FindChildByText(hw, "OK")
                 If btnOk <> IntPtr.Zero Then SendMessage(btnOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
             End If
-        End If
-    Loop
-End Sub
+            ' "Purge Styles" — click Purge All (or OK)
+            hw = FindTopWindow("Purge Styles")
+            If hw <> IntPtr.Zero Then
+                Dim btnAll As IntPtr = FindChildByText(hw, "Purge All")
+                If btnAll <> IntPtr.Zero Then
+                    SendMessage(btnAll, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
+                Else
+                    Dim btnOk As IntPtr = FindChildByText(hw, "OK")
+                    If btnOk <> IntPtr.Zero Then SendMessage(btnOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
+                End If
+            End If
+        Loop
+    End Sub
+End Module
 
 ' ── Main ─────────────────────────────────────────────────
 Sub Main()
@@ -1327,15 +1334,12 @@ Sub Main()
             Try : styMgr = DirectCast(doc, AssemblyDocument).StylesManager : Catch : End Try
         End If
         If styMgr IsNot Nothing Then
-            _dismissRunning = True
-            Dim t As New Thread(AddressOf DismissStyleDialogs)
-            t.IsBackground = True
-            t.Start()
+            StyleDismisser.Start()
             Try
                 styMgr.UpdateStyles()
                 styMgr.PurgeStyles(True)
             Catch : End Try
-            _dismissRunning = False
+            StyleDismisser.Stop()
         End If
 
     ElseIf ext = ".dwg" OrElse ext = ".idw" Then
