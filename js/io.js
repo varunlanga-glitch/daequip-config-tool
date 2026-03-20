@@ -1020,7 +1020,7 @@ ${bakedFolder
     Next
     diagText &= vbNewLine & "Each file will be opened, iProperties written, renamed, then closed." & vbNewLine
     diagText &= "Includes related .dwg, .idw, and .ipn files." & vbNewLine
-    diagText &= "Properties with no value in the CSV ("-") will be left unchanged." & vbNewLine & vbNewLine
+    diagText &= "Properties with no value in the CSV (""-"") will be left unchanged." & vbNewLine & vbNewLine
     diagText &= "WARNING: Vault users — ensure files are Checked Out first." & vbNewLine & vbNewLine
     diagText &= "Proceed?"
 
