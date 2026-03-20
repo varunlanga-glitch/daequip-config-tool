@@ -851,15 +851,15 @@ End Module
 ' dialog every 200 ms so the batch does not stall waiting for user input.
 Module DialogDismisser
     <DllImport("user32.dll", SetLastError:=True, CharSet:=CharSet.Unicode)>
-    Private Shared Function FindWindowEx(hWndParent As IntPtr, hWndChildAfter As IntPtr, lpszClass As String, lpszWindow As String) As IntPtr
+    Private Function FindWindowEx(hWndParent As IntPtr, hWndChildAfter As IntPtr, lpszClass As String, lpszWindow As String) As IntPtr
     End Function
 
     <DllImport("user32.dll", SetLastError:=True, CharSet:=CharSet.Unicode)>
-    Private Shared Function GetWindowText(hWnd As IntPtr, lpString As System.Text.StringBuilder, nMaxCount As Integer) As Integer
+    Private Function GetWindowText(hWnd As IntPtr, lpString As System.Text.StringBuilder, nMaxCount As Integer) As Integer
     End Function
 
     <DllImport("user32.dll", SetLastError:=True)>
-    Private Shared Function SendMessage(hWnd As IntPtr, Msg As UInteger, wParam As IntPtr, lParam As IntPtr) As IntPtr
+    Private Function SendMessage(hWnd As IntPtr, Msg As UInteger, wParam As IntPtr, lParam As IntPtr) As IntPtr
     End Function
 
     Private Const BM_CLICK As UInteger = &HF5
