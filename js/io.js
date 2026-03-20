@@ -895,17 +895,21 @@ Module DialogDismisser
                             SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
                         End If
                     End If
-                    ' Auto-dismiss "Update Styles" prompt — click "Yes to All" to update
-                    ' all styles from the library; fall back to "OK" if label differs.
+                    ' Auto-dismiss "Update Styles" prompt.
+                    ' This dialog has TWO steps: "Yes to All" toggles every checkbox
+                    ' in the list to "Yes", then "OK" actually closes the dialog and
+                    ' applies the updates.  We must click BOTH in sequence.
                     If title = "Update Styles" Then
+                        ' Step 1 — tick all checkboxes
                         Dim hwndYesAll As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "Yes to All")
                         If hwndYesAll <> IntPtr.Zero Then
                             SendMessage(hwndYesAll, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
-                        Else
-                            Dim hwndOk As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "OK")
-                            If hwndOk <> IntPtr.Zero Then
-                                SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
-                            End If
+                            Thread.Sleep(100)   ' brief pause so the list updates
+                        End If
+                        ' Step 2 — close the dialog
+                        Dim hwndOk As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "OK")
+                        If hwndOk <> IntPtr.Zero Then
+                            SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
                         End If
                     End If
                     ' Auto-dismiss "Purge Styles" dialog — click "Purge All" to remove
