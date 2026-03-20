@@ -1341,23 +1341,35 @@ Sub Main()
             Catch : End Try
             StyleDismisser.Stop()
             ' Switch active lighting style to "Default Lights".
-            ' LightingStyles lives on the typed document, not on StylesManager.
+            ' StyleLocation tells us if a style is local, cached, or library-only.
+            ' Library-only styles cannot be set as active — ConvertToLocal() is needed first.
             Try
-                Dim typedDoc As Object = If(ext = ".ipt",
-                    DirectCast(doc, PartDocument),
-                    DirectCast(doc, AssemblyDocument))
-                Dim found As Boolean = False
-                Dim available As String = ""
+                Dim typedDoc As Object = Nothing
+                If ext = ".ipt" Then
+                    typedDoc = DirectCast(doc, PartDocument)
+                Else
+                    typedDoc = DirectCast(doc, AssemblyDocument)
+                End If
+                Dim targetStyle As Object = Nothing
                 For Each ls As Object In typedDoc.LightingStyles
-                    available &= ls.Name & ", "
                     If ls.Name.Equals("Default Lights", StringComparison.OrdinalIgnoreCase) Then
-                        typedDoc.ActiveLightingStyle = ls
-                        found = True
-                        Exit For
+                        targetStyle = ls : Exit For
                     End If
                 Next
-                If Not found Then
-                    MsgBox("Daequip-UpdateStyles: 'Default Lights' not found." & vbNewLine & "Available: " & available)
+                If targetStyle IsNot Nothing Then
+                    Try
+                        ' Try direct assignment first (works if style is local/cached)
+                        typedDoc.ActiveLightingStyle = targetStyle
+                    Catch
+                        Try
+                            ' Style is library-only — convert to a local cached copy then set
+                            typedDoc.ActiveLightingStyle = targetStyle.ConvertToLocal()
+                        Catch ex2 As Exception
+                            MsgBox("Daequip-UpdateStyles: could not set Default Lights — " & ex2.Message)
+                        End Try
+                    End Try
+                Else
+                    MsgBox("Daequip-UpdateStyles: 'Default Lights' not found in LightingStyles.")
                 End If
             Catch ex As Exception
                 MsgBox("Daequip-UpdateStyles lighting error: " & ex.Message)
