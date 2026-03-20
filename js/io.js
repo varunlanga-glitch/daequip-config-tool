@@ -903,11 +903,17 @@ Module DialogDismisser
                             SendMessage(hwndYes, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
                         End If
                     End If
-                    ' Auto-dismiss "Purge Styles" confirmation — click "OK".
+                    ' Auto-dismiss "Purge Styles" dialog — click "Purge All" to remove
+                    ' every unused style, then fall back to "OK" if the button label differs.
                     If title = "Purge Styles" Then
-                        Dim hwndOk As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "OK")
-                        If hwndOk <> IntPtr.Zero Then
-                            SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
+                        Dim hwndPurgeAll As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "Purge All")
+                        If hwndPurgeAll <> IntPtr.Zero Then
+                            SendMessage(hwndPurgeAll, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
+                        Else
+                            Dim hwndOk As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "OK")
+                            If hwndOk <> IntPtr.Zero Then
+                                SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
+                            End If
                         End If
                     End If
                 Loop
