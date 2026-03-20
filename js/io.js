@@ -956,13 +956,11 @@ ${bakedFolder
         Dim doc As Inventor.Document = Nothing
         Try
             ' Suppress all Inventor/iLogic error dialogs while we work on this file.
-            ' SilentOperation suppresses Inventor's own UI; RuleIgnoreExceptions suppresses
-            ' iLogic embedded-rule error dialogs (e.g. "Sort Parts-List" in .dwg files).
+            ' This prevents "iProperty Check" or other embedded rules from showing
+            ' error popups when the file is opened before we've created missing properties.
             ThisApplication.SilentOperation = True
-            iLogicVb.RuleIgnoreExceptions = True
 
             doc = ThisApplication.Documents.Open(filePath, False)
-            iLogicVb.RuleIgnoreExceptions = False
 
             ' ── STEP A: Proactively create ALL required Custom iProperties ──
             ' We create every property from RequiredCustomProps (the full Daequip set)
@@ -1108,7 +1106,6 @@ ${bakedFolder
 
         Catch ex As Exception
             ThisApplication.SilentOperation = False
-            iLogicVb.RuleIgnoreExceptions = False
             If doc IsNot Nothing Then
                 Try : doc.Close(False) : Catch : End Try
             End If
