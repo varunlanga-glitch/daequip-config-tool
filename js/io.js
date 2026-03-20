@@ -865,6 +865,26 @@ Module DialogDismisser
     Private Const BM_CLICK As UInteger = &HF5
     Private _running As Boolean = False
 
+    ''' <summary>
+    ''' Recursively search all descendants of <paramref name="parent"/> for a window
+    ''' whose title exactly matches <paramref name="text"/>, regardless of window class.
+    ''' FindWindowEx with a literal "Button" class silently misses Inventor dialogs that
+    ''' use custom WPF / DevExpress controls instead of the standard Win32 Button class.
+    ''' </summary>
+    Private Function FindChildByText(parent As IntPtr, text As String) As IntPtr
+        Dim child As IntPtr = IntPtr.Zero
+        Do
+            child = FindWindowEx(parent, child, Nothing, Nothing)
+            If child = IntPtr.Zero Then Exit Do
+            Dim sb As New System.Text.StringBuilder(256)
+            GetWindowText(child, sb, 256)
+            If sb.ToString().Trim() = text Then Return child
+            Dim deep As IntPtr = FindChildByText(child, text)
+            If deep <> IntPtr.Zero Then Return deep
+        Loop
+        Return IntPtr.Zero
+    End Function
+
     Public Sub Start()
         _running = True
         Dim t As New Thread(AddressOf PollLoop)
@@ -894,7 +914,7 @@ Module DialogDismisser
                     Dim title As String = sb.ToString()
                     ' Auto-dismiss iLogic engine error dialogs ("Error on line N in rule: …")
                     If title.StartsWith("Error on line") Then
-                        Dim hwndOk As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "OK")
+                        Dim hwndOk As IntPtr = FindChildByText(hwnd, "OK")
                         If hwndOk <> IntPtr.Zero Then
                             SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
                         End If
@@ -903,15 +923,18 @@ Module DialogDismisser
                     ' This dialog has TWO steps: "Yes to All" toggles every checkbox
                     ' in the list to "Yes", then "OK" actually closes the dialog and
                     ' applies the updates.  We must click BOTH in sequence.
+                    ' FindChildByText is used instead of FindWindowEx(..., "Button", ...)
+                    ' because Inventor renders these dialogs with custom WPF/DevExpress
+                    ' controls whose window class is NOT the standard Win32 "Button".
                     If title = "Update Styles" Then
                         ' Step 1 — tick all checkboxes
-                        Dim hwndYesAll As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "Yes to All")
+                        Dim hwndYesAll As IntPtr = FindChildByText(hwnd, "Yes to All")
                         If hwndYesAll <> IntPtr.Zero Then
                             SendMessage(hwndYesAll, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
-                            Thread.Sleep(100)   ' brief pause so the list updates
+                            Thread.Sleep(150)   ' brief pause so the list updates
                         End If
                         ' Step 2 — close the dialog
-                        Dim hwndOk As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "OK")
+                        Dim hwndOk As IntPtr = FindChildByText(hwnd, "OK")
                         If hwndOk <> IntPtr.Zero Then
                             SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
                         End If
@@ -919,11 +942,11 @@ Module DialogDismisser
                     ' Auto-dismiss "Purge Styles" dialog — click "Purge All" to remove
                     ' every unused style, then fall back to "OK" if the button label differs.
                     If title = "Purge Styles" Then
-                        Dim hwndPurgeAll As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "Purge All")
+                        Dim hwndPurgeAll As IntPtr = FindChildByText(hwnd, "Purge All")
                         If hwndPurgeAll <> IntPtr.Zero Then
                             SendMessage(hwndPurgeAll, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
                         Else
-                            Dim hwndOk As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "OK")
+                            Dim hwndOk As IntPtr = FindChildByText(hwnd, "OK")
                             If hwndOk <> IntPtr.Zero Then
                                 SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
                             End If
