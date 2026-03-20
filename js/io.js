@@ -807,6 +807,8 @@ function _buildILogicScript() {
 ' ============================================================
 
 Imports System.Collections.Generic
+Imports System.Runtime.InteropServices
+Imports System.Threading
 Imports System.Windows.Forms
 
 Module BuiltInProps
@@ -837,6 +839,67 @@ Module BuiltInProps
         If StatusProps.Contains(propName)  Then Return "Status"
         Return "Custom"
     End Function
+End Module
+
+' ── Auto-dismiss iLogic rule error dialogs ────────────────────────────────────
+' When documents are opened programmatically from within an iLogic script,
+' embedded auto-run rules fire with iLogicVb.Document pointing to the OUTER
+' script's context, not the newly opened document.  Rules like "Sort Parts-List"
+' then fail trying to cast that (wrong) document to DrawingDocument.
+' ThisApplication.SilentOperation does NOT suppress iLogic engine error dialogs.
+' This module spawns a background thread that finds and clicks OK on any such
+' dialog every 200 ms so the batch does not stall waiting for user input.
+Module DialogDismisser
+    <DllImport("user32.dll", SetLastError:=True, CharSet:=CharSet.Unicode)>
+    Private Shared Function FindWindowEx(hWndParent As IntPtr, hWndChildAfter As IntPtr, lpszClass As String, lpszWindow As String) As IntPtr
+    End Function
+
+    <DllImport("user32.dll", SetLastError:=True, CharSet:=CharSet.Unicode)>
+    Private Shared Function GetWindowText(hWnd As IntPtr, lpString As System.Text.StringBuilder, nMaxCount As Integer) As Integer
+    End Function
+
+    <DllImport("user32.dll", SetLastError:=True)>
+    Private Shared Function SendMessage(hWnd As IntPtr, Msg As UInteger, wParam As IntPtr, lParam As IntPtr) As IntPtr
+    End Function
+
+    Private Const BM_CLICK As UInteger = &HF5
+    Private _running As Boolean = False
+
+    Public Sub Start()
+        _running = True
+        Dim t As New Thread(AddressOf PollLoop)
+        t.IsBackground = True
+        t.Start()
+    End Sub
+
+    Public Sub [Stop]()
+        _running = False
+    End Sub
+
+    Private Sub PollLoop()
+        Do While _running
+            Thread.Sleep(200)
+            Try
+                Dim prev As IntPtr = IntPtr.Zero
+                Do
+                    Dim hwnd As IntPtr = FindWindowEx(IntPtr.Zero, prev, "#32770", Nothing)
+                    If hwnd = IntPtr.Zero Then Exit Do
+                    prev = hwnd
+                    Dim sb As New System.Text.StringBuilder(512)
+                    GetWindowText(hwnd, sb, 512)
+                    ' Only dismiss dialogs raised by the iLogic engine (title format:
+                    ' "Error on line N in rule: …").  Leave all other dialogs alone.
+                    If sb.ToString().StartsWith("Error on line") Then
+                        Dim hwndOk As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "OK")
+                        If hwndOk <> IntPtr.Zero Then
+                            SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
+                        End If
+                    End If
+                Loop
+            Catch
+            End Try
+        Loop
+    End Sub
 End Module
 
 Sub Main()
@@ -941,6 +1004,10 @@ ${bakedFolder
     Dim updated As Integer = 0
     Dim skipped As Integer = 0
     Dim errors  As New List(Of String)()
+
+    ' Suppress iLogic embedded-rule error dialogs during batch processing.
+    DialogDismisser.Start()
+    Try
 
     For Each filePath As String In matchedFiles
         Dim nameNoExt As String = System.IO.Path.GetFileNameWithoutExtension(filePath)
@@ -1121,6 +1188,10 @@ ${bakedFolder
             skipped += 1
         End Try
     Next
+
+    Finally
+        DialogDismisser.Stop()
+    End Try
 
     ' ── 7. Summary ───────────────────────────────────────────
     Dim summary As String = "Complete!" & vbNewLine & vbNewLine & _
