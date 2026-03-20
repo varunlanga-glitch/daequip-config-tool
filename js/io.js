@@ -1342,24 +1342,40 @@ Sub Main()
             End If
             StyleDismisser.Start()
             Try : styMgr.UpdateStyles() : Catch : End Try
-            ' Set "Default Lights" as the active lighting style BEFORE purging.
-            ' PurgeStyles removes unused local styles — if "Default Lights" is not
-            ' active yet it gets purged and becomes unfindable afterward.
-            ' ConvertToLocal() is needed unless the style is already purely local
-            ' (kLocalStyleLocation = 51202); it throws in that case, so we catch and
-            ' fall back to the original reference.
+            ' ── Lighting diagnostic ──────────────────────────────────────────
+            Dim diagLines As New System.Collections.Generic.List(Of String)
+            diagLines.Add("Before purge — active: " & typedDoc.ActiveLightingStyle.Name)
             Try
                 Dim targetStyle As Object = Nothing
                 For Each ls As Object In typedDoc.LightingStyles
+                    diagLines.Add("  style: " & ls.Name & " loc=" & ls.StyleLocation)
                     If ls.Name.Equals("Default Lights", StringComparison.OrdinalIgnoreCase) Then
                         targetStyle = ls : Exit For
                     End If
                 Next
-                If targetStyle IsNot Nothing Then
-                    Try : targetStyle = targetStyle.ConvertToLocal() : Catch : End Try
-                    typedDoc.ActiveLightingStyle = targetStyle
+                If targetStyle Is Nothing Then
+                    diagLines.Add("DEFAULT LIGHTS NOT FOUND")
+                Else
+                    diagLines.Add("Found loc=" & targetStyle.StyleLocation)
+                    Dim convertErr As String = ""
+                    Try
+                        targetStyle = targetStyle.ConvertToLocal()
+                        diagLines.Add("ConvertToLocal OK, new loc=" & targetStyle.StyleLocation)
+                    Catch ex As Exception
+                        convertErr = ex.Message
+                        diagLines.Add("ConvertToLocal threw: " & convertErr)
+                    End Try
+                    Try
+                        typedDoc.ActiveLightingStyle = targetStyle
+                        diagLines.Add("Assign OK — active now: " & typedDoc.ActiveLightingStyle.Name)
+                    Catch ex As Exception
+                        diagLines.Add("Assign threw: " & ex.Message)
+                    End Try
                 End If
-            Catch : End Try
+            Catch ex As Exception
+                diagLines.Add("Outer error: " & ex.Message)
+            End Try
+            MsgBox(String.Join(vbNewLine, diagLines.ToArray()))
             Try : styMgr.PurgeStyles(True) : Catch : End Try
             StyleDismisser.Stop()
         End If
