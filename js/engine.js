@@ -96,6 +96,15 @@ function resolveRule(template, partId) {
     return BLANK_VALUES.includes(val) ? '' : output;
   });
 
+  // {VAR#N} → zero-pad numeric context variable VAR to at least N digits.
+  // e.g. {NOMINAL_PIN_OD_MM#3} with value 80 → "080", with 120 → "120".
+  // Processed before variable substitution so varName is still a key, not a value.
+  s = s.replace(/\{([^{}#?=:]+)#(\d+)\}/g, (match, varName, width) => {
+    const raw = (ctx[varName.trim()] || '').trim().replace(/[^\d]/g, '');
+    if (!raw) return '';
+    return raw.padStart(parseInt(width, 10), '0');
+  });
+
   // Sort longest-first so a shorter key (e.g. PIN_OD) doesn't match inside
   // a longer one (e.g. PIN_OD_MAX) before it gets its own chance to substitute.
   Object.keys(ctx)
