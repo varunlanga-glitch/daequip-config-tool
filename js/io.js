@@ -1048,6 +1048,32 @@ ${bakedFolder
                 End If
             Next
 
+            ' ── STEP D: Style maintenance ────────────────────
+            Dim isModel As Boolean = docExt = ".ipt" OrElse docExt = ".iam"
+            Dim isDwg   As Boolean = docExt = ".dwg" OrElse docExt = ".idw"
+
+            ' 1. Update styles from the Inventor Styles Library
+            Try : doc.StylesManager.UpdateStyles() : Catch : End Try
+
+            ' 2. Change lighting to "Default Lights" — models only.
+            '    DisplaySettings may not exist for invisible docs; Catch handles it.
+            If isModel Then
+                Try
+                    doc.DisplaySettings.ActiveLightingStyle = "Default Lights"
+                Catch : End Try
+            End If
+
+            ' 3. Purge unused styles (True = include sub-styles)
+            Try : doc.StylesManager.PurgeStyles(True) : Catch : End Try
+
+            ' 4. Update Copied Properties — drawings only.
+            '    Syncs iProperties from the referenced model into the drawing document.
+            If isDwg Then
+                Try
+                    DirectCast(doc, DrawingDocument).UpdateCopiedProperties()
+                Catch : End Try
+            End If
+
             ' ── STEP C: Save / SaveAs ────────────────────────
             Dim newBaseName As String = ""
             If dict.ContainsKey("NewFileName") Then newBaseName = dict("NewFileName")
