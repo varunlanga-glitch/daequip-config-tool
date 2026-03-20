@@ -895,12 +895,17 @@ Module DialogDismisser
                             SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
                         End If
                     End If
-                    ' Auto-dismiss "Update Styles" prompt — click "Yes to All" so styles
-                    ' are refreshed from the library; the script then purges unused ones.
+                    ' Auto-dismiss "Update Styles" prompt — click "Yes to All" to update
+                    ' all styles from the library; fall back to "OK" if label differs.
                     If title = "Update Styles" Then
-                        Dim hwndYes As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "Yes to All")
-                        If hwndYes <> IntPtr.Zero Then
-                            SendMessage(hwndYes, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
+                        Dim hwndYesAll As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "Yes to All")
+                        If hwndYesAll <> IntPtr.Zero Then
+                            SendMessage(hwndYesAll, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
+                        Else
+                            Dim hwndOk As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "OK")
+                            If hwndOk <> IntPtr.Zero Then
+                                SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
+                            End If
                         End If
                     End If
                     ' Auto-dismiss "Purge Styles" dialog — click "Purge All" to remove
@@ -1158,11 +1163,12 @@ ${bakedFolder
             End If
 
             ' 2. Change lighting to "Default Lights" — models only.
-            '    DisplaySettings may not exist for invisible docs; Catch handles it.
-            If isModel Then
-                Try
-                    doc.DisplaySettings.ActiveLightingStyle = "Default Lights"
-                Catch : End Try
+            '    Cast to the concrete type so DisplaySettings is resolved via the
+            '    correct COM interface (same pattern as StylesManager above).
+            If docExt = ".ipt" Then
+                Try : DirectCast(doc, PartDocument).DisplaySettings.ActiveLightingStyle = "Default Lights" : Catch : End Try
+            ElseIf docExt = ".iam" Then
+                Try : DirectCast(doc, AssemblyDocument).DisplaySettings.ActiveLightingStyle = "Default Lights" : Catch : End Try
             End If
 
             ' 3. Update Copied Properties — drawings only.
