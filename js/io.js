@@ -1345,9 +1345,9 @@ Sub Main()
             ' Set "Default Lights" as the active lighting style BEFORE purging.
             ' PurgeStyles removes unused local styles — if "Default Lights" is not
             ' active yet it gets purged and becomes unfindable afterward.
-            ' After UpdateStyles() the style exists locally (kBothStyleLocation or
-            ' kLocalStyleLocation) so we can set it directly.  Only call
-            ' ConvertToLocal() if it is still library-only (kLibraryStyleLocation = 51203).
+            ' ConvertToLocal() is needed unless the style is already purely local
+            ' (kLocalStyleLocation = 51202); it throws in that case, so we catch and
+            ' fall back to the original reference.
             Try
                 Dim targetStyle As Object = Nothing
                 For Each ls As Object In typedDoc.LightingStyles
@@ -1356,9 +1356,7 @@ Sub Main()
                     End If
                 Next
                 If targetStyle IsNot Nothing Then
-                    If targetStyle.StyleLocation = 51203 Then
-                        targetStyle = targetStyle.ConvertToLocal()
-                    End If
+                    Try : targetStyle = targetStyle.ConvertToLocal() : Catch : End Try
                     typedDoc.ActiveLightingStyle = targetStyle
                 End If
             Catch : End Try
