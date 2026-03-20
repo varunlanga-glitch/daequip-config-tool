@@ -1334,22 +1334,21 @@ Sub Main()
             Try : styMgr = DirectCast(doc, AssemblyDocument).StylesManager : Catch : End Try
         End If
         If styMgr IsNot Nothing Then
+            Dim typedDoc As Object = Nothing
+            If ext = ".ipt" Then
+                typedDoc = DirectCast(doc, PartDocument)
+            Else
+                typedDoc = DirectCast(doc, AssemblyDocument)
+            End If
             StyleDismisser.Start()
+            Try : styMgr.UpdateStyles() : Catch : End Try
+            ' Set "Default Lights" as the active lighting style BEFORE purging.
+            ' PurgeStyles removes unused local styles — if "Default Lights" is not
+            ' active yet it gets purged and becomes unfindable afterward.
+            ' After UpdateStyles() the style exists locally (kBothStyleLocation or
+            ' kLocalStyleLocation) so we can set it directly.  Only call
+            ' ConvertToLocal() if it is still library-only (kLibraryStyleLocation = 51203).
             Try
-                styMgr.UpdateStyles()
-                styMgr.PurgeStyles(True)
-            Catch : End Try
-            StyleDismisser.Stop()
-            ' Switch active lighting style to "Default Lights".
-            ' StyleLocation tells us if a style is local, cached, or library-only.
-            ' Library-only styles cannot be set as active — ConvertToLocal() is needed first.
-            Try
-                Dim typedDoc As Object = Nothing
-                If ext = ".ipt" Then
-                    typedDoc = DirectCast(doc, PartDocument)
-                Else
-                    typedDoc = DirectCast(doc, AssemblyDocument)
-                End If
                 Dim targetStyle As Object = Nothing
                 For Each ls As Object In typedDoc.LightingStyles
                     If ls.Name.Equals("Default Lights", StringComparison.OrdinalIgnoreCase) Then
@@ -1357,26 +1356,14 @@ Sub Main()
                     End If
                 Next
                 If targetStyle IsNot Nothing Then
-                    ' Always ensure the style is local before assigning.
-                    ' Assigning a library-only style silently does nothing — no exception.
-                    ' ConvertToLocal() throws if already local/cached, so we catch that and
-                    ' use the original reference in that case.
-                    Try
+                    If targetStyle.StyleLocation = 51203 Then
                         targetStyle = targetStyle.ConvertToLocal()
-                    Catch
-                        ' Already local or cached — use as-is
-                    End Try
-                    Try
-                        typedDoc.ActiveLightingStyle = targetStyle
-                    Catch ex2 As Exception
-                        MsgBox("Daequip-UpdateStyles: could not set Default Lights — " & ex2.Message)
-                    End Try
-                Else
-                    MsgBox("Daequip-UpdateStyles: 'Default Lights' not found in LightingStyles.")
+                    End If
+                    typedDoc.ActiveLightingStyle = targetStyle
                 End If
-            Catch ex As Exception
-                MsgBox("Daequip-UpdateStyles lighting error: " & ex.Message)
-            End Try
+            Catch : End Try
+            Try : styMgr.PurgeStyles(True) : Catch : End Try
+            StyleDismisser.Stop()
         End If
 
     ElseIf ext = ".dwg" OrElse ext = ".idw" Then
