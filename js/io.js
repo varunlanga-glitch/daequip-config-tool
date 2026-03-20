@@ -997,17 +997,16 @@ ${bakedFolder
                 Next
             End If
 
-            ' Get PropertySets for all built-in tabs so we write to THIS doc, not
-            ' the iLogic "active" document (iProperties shorthand targets the wrong doc
-            ' when files are opened in the background with visible=False).
-            Dim summaryPS As PropertySet = Nothing
-            Dim projectPS As PropertySet = Nothing
-            Dim statusPS  As PropertySet = Nothing
-            Try : summaryPS = doc.PropertySets.Item("Inventor Summary Information")          : Catch : End Try
-            Try : projectPS = doc.PropertySets.Item("Inventor Document Summary Information") : Catch : End Try
-            Try : statusPS  = doc.PropertySets.Item("Design Tracking Properties")            : Catch : End Try
-
             ' ── STEP B: Write all iProperty values ───────────
+            ' We avoid iProperties.Value() (which targets the active doc) and write
+            ' directly to doc.PropertySets.
+            '
+            ' For custom properties: look only in the user-defined PropertySet.
+            ' For built-in properties: search ALL PropertySets by both DisplayName and
+            ' Name — Inventor stores properties like "Description" in "Design Tracking
+            ' Properties" while others live in "Inventor Summary Information" etc., and
+            ' the set that contains each property can vary by file type and Inventor
+            ' version. Searching all sets avoids having to hard-code the mapping.
             For Each kvp In dict
                 If kvp.Key.Equals("FileName",    StringComparison.OrdinalIgnoreCase) Then Continue For
                 If kvp.Key.Equals("NewFileName", StringComparison.OrdinalIgnoreCase) Then Continue For
@@ -1017,22 +1016,35 @@ ${bakedFolder
                 If cellValue = " " Then cellValue = "-"
 
                 Dim tab As String = BuiltInProps.GetTab(kvp.Key)
-                Dim targetPS As PropertySet = Nothing
-                Select Case tab
-                    Case "Summary" : targetPS = summaryPS
-                    Case "Project" : targetPS = projectPS
-                    Case "Status"  : targetPS = statusPS
-                    Case Else      : targetPS = customPropSet  ' Custom / user-defined
-                End Select
-                If targetPS IsNot Nothing Then
-                    Try
-                        For Each p As [Property] In targetPS
-                            If p.DisplayName.Equals(kvp.Key, StringComparison.OrdinalIgnoreCase) Then
-                                p.Value = cellValue
-                                Exit For
-                            End If
-                        Next
-                    Catch : End Try
+                If tab = "Custom" Then
+                    ' Custom properties — look only in the user-defined PropertySet.
+                    If customPropSet IsNot Nothing Then
+                        Try
+                            For Each p As [Property] In customPropSet
+                                If p.DisplayName.Equals(kvp.Key, StringComparison.OrdinalIgnoreCase) Then
+                                    p.Value = cellValue : Exit For
+                                End If
+                            Next
+                        Catch : End Try
+                    End If
+                Else
+                    ' Built-in property — scan every PropertySet except the custom one,
+                    ' matching on DisplayName first, then internal Name as a fallback.
+                    Dim written As Boolean = False
+                    For Each ps As PropertySet In doc.PropertySets
+                        If written Then Exit For
+                        If ps Is customPropSet Then Continue For  ' skip user-defined set
+                        Try
+                            For Each p As [Property] In ps
+                                If p.DisplayName.Equals(kvp.Key, StringComparison.OrdinalIgnoreCase) OrElse
+                                   p.Name.Equals(kvp.Key, StringComparison.OrdinalIgnoreCase) Then
+                                    p.Value = cellValue
+                                    written = True
+                                    Exit For
+                                End If
+                            Next
+                        Catch : End Try
+                    Next
                 End If
             Next
 
