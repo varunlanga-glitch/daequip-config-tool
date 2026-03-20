@@ -595,6 +595,7 @@ function exportInventor() {
 
     <div class="confirm-buttons imap-footer">
       <button class="btn btn-cancel">Cancel</button>
+      <button class="btn" id="imapBtnStyleRule" title="Download a standalone iLogic rule to embed in your template files — updates &amp; purges styles silently on open">⬇ Style Updater Rule</button>
       <button class="btn" id="imapBtnPreview">👁 Preview CSV</button>
       <button class="btn btn-confirm" id="imapBtnExport" data-reviewed="0">⬇ Download Files</button>
     </div>`;
@@ -682,6 +683,8 @@ function exportInventor() {
   const close = () => overlay.remove();
   overlay.onclick = e => { if (e.target === overlay) close(); };
   box.querySelector('.btn-cancel').onclick = close;
+  box.querySelector('#imapBtnStyleRule').onclick = () =>
+    _downloadBlob(_buildStyleUpdaterRule(), 'text/plain', 'Daequip-UpdateStyles.iLogicVb');
 
   const collectMap = () => {
     const m = {};
@@ -919,39 +922,6 @@ Module DialogDismisser
                             SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
                         End If
                     End If
-                    ' Auto-dismiss "Update Styles" prompt.
-                    ' This dialog has TWO steps: "Yes to All" toggles every checkbox
-                    ' in the list to "Yes", then "OK" actually closes the dialog and
-                    ' applies the updates.  We must click BOTH in sequence.
-                    ' FindChildByText is used instead of FindWindowEx(..., "Button", ...)
-                    ' because Inventor renders these dialogs with custom WPF/DevExpress
-                    ' controls whose window class is NOT the standard Win32 "Button".
-                    If title = "Update Styles" Then
-                        ' Step 1 — tick all checkboxes
-                        Dim hwndYesAll As IntPtr = FindChildByText(hwnd, "Yes to All")
-                        If hwndYesAll <> IntPtr.Zero Then
-                            SendMessage(hwndYesAll, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
-                            Thread.Sleep(150)   ' brief pause so the list updates
-                        End If
-                        ' Step 2 — close the dialog
-                        Dim hwndOk As IntPtr = FindChildByText(hwnd, "OK")
-                        If hwndOk <> IntPtr.Zero Then
-                            SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
-                        End If
-                    End If
-                    ' Auto-dismiss "Purge Styles" dialog — click "Purge All" to remove
-                    ' every unused style, then fall back to "OK" if the button label differs.
-                    If title = "Purge Styles" Then
-                        Dim hwndPurgeAll As IntPtr = FindChildByText(hwnd, "Purge All")
-                        If hwndPurgeAll <> IntPtr.Zero Then
-                            SendMessage(hwndPurgeAll, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
-                        Else
-                            Dim hwndOk As IntPtr = FindChildByText(hwnd, "OK")
-                            If hwndOk <> IntPtr.Zero Then
-                                SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
-                            End If
-                        End If
-                    End If
                 Loop
             Catch
             End Try
@@ -1172,44 +1142,6 @@ ${bakedFolder
                 End If
             Next
 
-            ' ── STEP D: Style maintenance ────────────────────
-            Dim isModel As Boolean = docExt = ".ipt" OrElse docExt = ".iam"
-            Dim isDwg   As Boolean = docExt = ".dwg" OrElse docExt = ".idw"
-
-            ' 1. Update + purge styles via the concrete document type.
-            '    StylesManager is NOT on the base Inventor.Document interface —
-            '    casting to the specific type avoids a silent COM E_NOINTERFACE failure.
-            Dim styMgr As Object = Nothing
-            If docExt = ".ipt" Then
-                Try : styMgr = DirectCast(doc, PartDocument).StylesManager : Catch : End Try
-            ElseIf docExt = ".iam" Then
-                Try : styMgr = DirectCast(doc, AssemblyDocument).StylesManager : Catch : End Try
-            ElseIf isDwg Then
-                Try : styMgr = DirectCast(doc, DrawingDocument).StylesManager : Catch : End Try
-            End If ' .ipn presentation files have no StylesManager — skip
-
-            If styMgr IsNot Nothing Then
-                Try : styMgr.UpdateStyles() : Catch : End Try
-                Try : styMgr.PurgeStyles(True) : Catch : End Try
-            End If
-
-            ' 2. Change lighting to "Default Lights" — models only.
-            '    Cast to the concrete type so DisplaySettings is resolved via the
-            '    correct COM interface (same pattern as StylesManager above).
-            If docExt = ".ipt" Then
-                Try : DirectCast(doc, PartDocument).DisplaySettings.ActiveLightingStyle = "Default Lights" : Catch : End Try
-            ElseIf docExt = ".iam" Then
-                Try : DirectCast(doc, AssemblyDocument).DisplaySettings.ActiveLightingStyle = "Default Lights" : Catch : End Try
-            End If
-
-            ' 3. Update Copied Properties — drawings only.
-            '    Syncs iProperties from the referenced model into the drawing document.
-            If isDwg Then
-                Try
-                    DirectCast(doc, DrawingDocument).UpdateCopiedProperties()
-                Catch : End Try
-            End If
-
             ' ── STEP C: Save / SaveAs ────────────────────────
             Dim newBaseName As String = ""
             If dict.ContainsKey("NewFileName") Then newBaseName = dict("NewFileName")
@@ -1281,5 +1213,53 @@ Function SplitCSVRow(line As String) As String()
     result.Add(current.ToString())
     Return result.ToArray()
 End Function
+`
+}
+
+function _buildStyleUpdaterRule() {
+  return `' ============================================================
+' Inventor iLogic Rule — Update & Purge Styles
+' Generated by Configurator Pro
+'
+' PURPOSE:
+'   Keep each document's styles in sync with the Daequip style library
+'   automatically, with no interactive prompts.
+'
+' SETUP (do this once per template file):
+'   1. Open the template .ipt / .iam / .dwg in Inventor
+'   2. iLogic Browser > External Rules > add this file
+'   3. Right-click the rule > Properties > set Trigger: "Open Document"
+'   4. Save the template
+'
+'   The rule will then fire silently every time the file is opened,
+'   keeping styles current without any "Update Styles?" prompt.
+'   You can also run it manually: right-click the rule > Run
+' ============================================================
+
+Sub Main()
+    Dim doc As Inventor.Document = ThisDoc.Document
+    Dim ext As String = System.IO.Path.GetExtension(doc.FullFileName).ToLowerInvariant()
+
+    Dim styMgr As Object = Nothing
+    If ext = ".ipt" Then
+        Try : styMgr = DirectCast(doc, PartDocument).StylesManager : Catch : End Try
+    ElseIf ext = ".iam" Then
+        Try : styMgr = DirectCast(doc, AssemblyDocument).StylesManager : Catch : End Try
+    ElseIf ext = ".dwg" OrElse ext = ".idw" Then
+        Try : styMgr = DirectCast(doc, DrawingDocument).StylesManager : Catch : End Try
+    End If
+
+    If styMgr Is Nothing Then Exit Sub
+
+    ' SilentOperation suppresses the interactive "Update Styles?" dialog
+    ' so the rule can run unattended on every open.
+    ThisApplication.SilentOperation = True
+    Try
+        styMgr.UpdateStyles()
+        styMgr.PurgeStyles(True)
+    Finally
+        ThisApplication.SilentOperation = False
+    End Try
+End Sub
 `
 }
