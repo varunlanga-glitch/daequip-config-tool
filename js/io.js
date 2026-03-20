@@ -882,7 +882,11 @@ Module DialogDismisser
             Try
                 Dim prev As IntPtr = IntPtr.Zero
                 Do
-                    Dim hwnd As IntPtr = FindWindowEx(IntPtr.Zero, prev, "#32770", Nothing)
+                    ' Pass Nothing for class so we enumerate ALL top-level windows.
+                    ' Inventor renders "Update Styles" / "Purge Styles" with a custom
+                    ' window class, not the standard #32770 dialog class, so filtering
+                    ' by "#32770" silently skips them.
+                    Dim hwnd As IntPtr = FindWindowEx(IntPtr.Zero, prev, Nothing, Nothing)
                     If hwnd = IntPtr.Zero Then Exit Do
                     prev = hwnd
                     Dim sb As New System.Text.StringBuilder(512)
