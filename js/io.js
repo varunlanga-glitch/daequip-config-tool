@@ -1340,6 +1340,14 @@ Sub Main()
                 styMgr.PurgeStyles(True)
             Catch : End Try
             StyleDismisser.Stop()
+            ' Switch active lighting style to "Default Light"
+            Try
+                For Each ls As Object In styMgr.LightingStyles
+                    If ls.Name.Equals("Default Light", StringComparison.OrdinalIgnoreCase) Then
+                        ls.Activate() : Exit For
+                    End If
+                Next
+            Catch : End Try
         End If
 
     ElseIf ext = ".dwg" OrElse ext = ".idw" Then
