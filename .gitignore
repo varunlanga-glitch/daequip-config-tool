@@ -1,3 +1,8 @@
+# CHM documentation artifacts
+admapi_28_0.zip
+admapi_chm/
+admapi_extracted/
+
 # wrangler files
 .wrangler
 .dev.vars*
