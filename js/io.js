@@ -903,6 +903,13 @@ Module DialogDismisser
                             SendMessage(hwndYes, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
                         End If
                     End If
+                    ' Auto-dismiss "Purge Styles" confirmation — click "OK".
+                    If title = "Purge Styles" Then
+                        Dim hwndOk As IntPtr = FindWindowEx(hwnd, IntPtr.Zero, "Button", "OK")
+                        If hwndOk <> IntPtr.Zero Then
+                            SendMessage(hwndOk, BM_CLICK, IntPtr.Zero, IntPtr.Zero)
+                        End If
+                    End If
                 Loop
             Catch
             End Try
