@@ -33,7 +33,7 @@
       "name": "Pins (Imperial)"
     }
   ],
-  "activeClassId": "tab1773951378462",
+  "activeClassId": "cat_1773868048483_1",
   "selectedPartId": "p1773869885948",
   "activeRightTab": "rules",
   "master": {
@@ -3401,8 +3401,8 @@
   },
   "context": {
     "cat_1773868048483_1": {
-      "PIN_TYPE": "FLT",
-      "PIN_LENGTH_IN": "37.125",
+      "PIN_TYPE": "FXD",
+      "PIN_LENGTH_IN": "37.500",
       "INDUCTION_HARDENED": "Yes",
       "ACTUAL_PIN_OD_IN": "3.934",
       "NOMINAL_PIN_OD_MM": "100"
@@ -4040,7 +4040,9 @@
   "fileNameOverrides": {
     "cat_1773868048483_1": {
       "p1773869852653": "PA-100MM-30.0000-01",
-      "p1773869860795": "PN-100MM-30.0000-01-01"
+      "p1773869860795": "PN-100MM-30.0000-01-01",
+      "p1773869871318": "PA-100MM-30.0000-01",
+      "p1773869885948": "PN-100MM-30.0000-01-01"
     }
   },
   "exportSelections": {
@@ -4056,6 +4058,26 @@
         }
       },
       "p1773869860795": {
+        "rename": false,
+        "props": {
+          "f1773869896995": true,
+          "f1773869904615": true,
+          "f1773869927490": false,
+          "f1773869932699": true,
+          "f1773869937461": false
+        }
+      },
+      "p1773869871318": {
+        "rename": false,
+        "props": {
+          "f1773869896995": true,
+          "f1773869904615": true,
+          "f1773869927490": false,
+          "f1773869932699": true,
+          "f1773869937461": false
+        }
+      },
+      "p1773869885948": {
         "rename": false,
         "props": {
           "f1773869896995": true,
