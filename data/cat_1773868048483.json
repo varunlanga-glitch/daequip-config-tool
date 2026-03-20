@@ -35,7 +35,7 @@
   ],
   "activeClassId": "cat_1773868048483_1",
   "selectedPartId": "p1773869871318",
-  "activeRightTab": "rules",
+  "activeRightTab": "parts",
   "master": {
     "cat_1773868048483_1": [
       {
@@ -3403,12 +3403,11 @@
   },
   "context": {
     "cat_1773868048483_1": {
-      "PIN_TYPE": "FXD",
-      "PIN_LENGTH_IN": "37.500",
+      "PIN_TYPE": "FLT",
+      "PIN_LENGTH_IN": "41.750",
       "INDUCTION_HARDENED": "Yes",
       "ACTUAL_PIN_OD_IN": "3.934",
-      "NOMINAL_PIN_OD_MM": "100",
-      "CROSS_HOLE": "0.813"
+      "NOMINAL_PIN_OD_MM": "100"
     },
     "tab1773940149410": {
       "INDUCTION_HARDENED": "Yes",
@@ -3463,7 +3462,7 @@
       {
         "id": "p1773869852653",
         "name": "Pin GA",
-        "midx": null,
+        "midx": "01",
         "level": 0,
         "enabled": true
       },
@@ -3479,14 +3478,14 @@
         "name": "Pin Wldt",
         "midx": "01",
         "level": 0,
-        "enabled": true
+        "enabled": false
       },
       {
         "id": "p1773869885948",
         "name": "Pin",
         "midx": null,
         "level": 1,
-        "enabled": true
+        "enabled": false
       }
     ],
     "tab1773940149410": [
@@ -4042,8 +4041,8 @@
   },
   "fileNameOverrides": {
     "cat_1773868048483_1": {
-      "p1773869852653": "PA-100MM-37.5000-01",
-      "p1773869860795": "PN-100MM-37.5000-01-01",
+      "p1773869852653": "PA-100MM-41.7500-01",
+      "p1773869860795": "PN-100MM-41.7500-01-01",
       "p1773869871318": "PA-100MM-30.0000-01",
       "p1773869885948": "PN-100MM-30.0000-01-01"
     }
