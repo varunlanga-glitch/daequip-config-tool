@@ -1341,12 +1341,21 @@ Sub Main()
             Catch : End Try
             StyleDismisser.Stop()
             ' Switch active lighting style to "Default Lights"
+            ' ActiveLightingStyle is the correct setter on the typed document object.
             Try
+                Dim defaultLights As Object = Nothing
                 For Each ls As Object In styMgr.LightingStyles
                     If ls.Name.Equals("Default Lights", StringComparison.OrdinalIgnoreCase) Then
-                        ls.Activate() : Exit For
+                        defaultLights = ls : Exit For
                     End If
                 Next
+                If defaultLights IsNot Nothing Then
+                    If ext = ".ipt" Then
+                        DirectCast(doc, PartDocument).ActiveLightingStyle = defaultLights
+                    Else
+                        DirectCast(doc, AssemblyDocument).ActiveLightingStyle = defaultLights
+                    End If
+                End If
             Catch : End Try
         End If
 
