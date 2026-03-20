@@ -1343,14 +1343,25 @@ Sub Main()
             ' Switch active lighting style to "Default Lights".
             ' LightingStyles lives on the typed document, not on StylesManager.
             Try
-                If ext = ".ipt" Then
-                    Dim oPart As PartDocument = DirectCast(doc, PartDocument)
-                    oPart.ActiveLightingStyle = oPart.LightingStyles.Item("Default Lights")
-                Else
-                    Dim oAssy As AssemblyDocument = DirectCast(doc, AssemblyDocument)
-                    oAssy.ActiveLightingStyle = oAssy.LightingStyles.Item("Default Lights")
+                Dim typedDoc As Object = If(ext = ".ipt",
+                    DirectCast(doc, PartDocument),
+                    DirectCast(doc, AssemblyDocument))
+                Dim found As Boolean = False
+                Dim available As String = ""
+                For Each ls As Object In typedDoc.LightingStyles
+                    available &= ls.Name & ", "
+                    If ls.Name.Equals("Default Lights", StringComparison.OrdinalIgnoreCase) Then
+                        typedDoc.ActiveLightingStyle = ls
+                        found = True
+                        Exit For
+                    End If
+                Next
+                If Not found Then
+                    MsgBox("Daequip-UpdateStyles: 'Default Lights' not found." & vbNewLine & "Available: " & available)
                 End If
-            Catch : End Try
+            Catch ex As Exception
+                MsgBox("Daequip-UpdateStyles lighting error: " & ex.Message)
+            End Try
         End If
 
     ElseIf ext = ".dwg" OrElse ext = ".idw" Then
