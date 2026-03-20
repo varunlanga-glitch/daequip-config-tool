@@ -1340,23 +1340,40 @@ Sub Main()
                 styMgr.PurgeStyles(True)
             Catch : End Try
             StyleDismisser.Stop()
-            ' Switch active lighting style to "Default Lights"
-            ' ActiveLightingStyle is the correct setter on the typed document object.
+            ' Switch active lighting style to "Default Lights".
+            ' StyleLocation tells us if a style is local, cached, or library-only.
+            ' Library-only styles cannot be set as active — ConvertToLocal() is needed first.
             Try
-                Dim defaultLights As Object = Nothing
-                For Each ls As Object In styMgr.LightingStyles
+                Dim typedDoc As Object = Nothing
+                If ext = ".ipt" Then
+                    typedDoc = DirectCast(doc, PartDocument)
+                Else
+                    typedDoc = DirectCast(doc, AssemblyDocument)
+                End If
+                Dim targetStyle As Object = Nothing
+                For Each ls As Object In typedDoc.LightingStyles
                     If ls.Name.Equals("Default Lights", StringComparison.OrdinalIgnoreCase) Then
-                        defaultLights = ls : Exit For
+                        targetStyle = ls : Exit For
                     End If
                 Next
-                If defaultLights IsNot Nothing Then
-                    If ext = ".ipt" Then
-                        DirectCast(doc, PartDocument).ActiveLightingStyle = defaultLights
-                    Else
-                        DirectCast(doc, AssemblyDocument).ActiveLightingStyle = defaultLights
-                    End If
+                If targetStyle IsNot Nothing Then
+                    Try
+                        ' Try direct assignment first (works if style is local/cached)
+                        typedDoc.ActiveLightingStyle = targetStyle
+                    Catch
+                        Try
+                            ' Style is library-only — convert to a local cached copy then set
+                            typedDoc.ActiveLightingStyle = targetStyle.ConvertToLocal()
+                        Catch ex2 As Exception
+                            MsgBox("Daequip-UpdateStyles: could not set Default Lights — " & ex2.Message)
+                        End Try
+                    End Try
+                Else
+                    MsgBox("Daequip-UpdateStyles: 'Default Lights' not found in LightingStyles.")
                 End If
-            Catch : End Try
+            Catch ex As Exception
+                MsgBox("Daequip-UpdateStyles lighting error: " & ex.Message)
+            End Try
         End If
 
     ElseIf ext = ".dwg" OrElse ext = ".idw" Then
