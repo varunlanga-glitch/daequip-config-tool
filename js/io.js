@@ -956,11 +956,13 @@ ${bakedFolder
         Dim doc As Inventor.Document = Nothing
         Try
             ' Suppress all Inventor/iLogic error dialogs while we work on this file.
-            ' This prevents "iProperty Check" or other embedded rules from showing
-            ' error popups when the file is opened before we've created missing properties.
+            ' SilentOperation suppresses Inventor's own UI; RuleIgnoreExceptions suppresses
+            ' iLogic embedded-rule error dialogs (e.g. "Sort Parts-List" in .dwg files).
             ThisApplication.SilentOperation = True
+            iLogicVb.RuleIgnoreExceptions = True
 
             doc = ThisApplication.Documents.Open(filePath, False)
+            iLogicVb.RuleIgnoreExceptions = False
 
             ' ── STEP A: Proactively create ALL required Custom iProperties ──
             ' We create every property from RequiredCustomProps (the full Daequip set)
@@ -1052,8 +1054,22 @@ ${bakedFolder
             Dim isModel As Boolean = docExt = ".ipt" OrElse docExt = ".iam"
             Dim isDwg   As Boolean = docExt = ".dwg" OrElse docExt = ".idw"
 
-            ' 1. Update styles from the Inventor Styles Library
-            Try : doc.StylesManager.UpdateStyles() : Catch : End Try
+            ' 1. Update + purge styles via the concrete document type.
+            '    StylesManager is NOT on the base Inventor.Document interface —
+            '    casting to the specific type avoids a silent COM E_NOINTERFACE failure.
+            Dim styMgr As Object = Nothing
+            If docExt = ".ipt" Then
+                Try : styMgr = DirectCast(doc, PartDocument).StylesManager : Catch : End Try
+            ElseIf docExt = ".iam" Then
+                Try : styMgr = DirectCast(doc, AssemblyDocument).StylesManager : Catch : End Try
+            ElseIf isDwg Then
+                Try : styMgr = DirectCast(doc, DrawingDocument).StylesManager : Catch : End Try
+            End If ' .ipn presentation files have no StylesManager — skip
+
+            If styMgr IsNot Nothing Then
+                Try : styMgr.UpdateStyles() : Catch : End Try
+                Try : styMgr.PurgeStyles(True) : Catch : End Try
+            End If
 
             ' 2. Change lighting to "Default Lights" — models only.
             '    DisplaySettings may not exist for invisible docs; Catch handles it.
@@ -1063,10 +1079,7 @@ ${bakedFolder
                 Catch : End Try
             End If
 
-            ' 3. Purge unused styles (True = include sub-styles)
-            Try : doc.StylesManager.PurgeStyles(True) : Catch : End Try
-
-            ' 4. Update Copied Properties — drawings only.
+            ' 3. Update Copied Properties — drawings only.
             '    Syncs iProperties from the referenced model into the drawing document.
             If isDwg Then
                 Try
@@ -1095,6 +1108,7 @@ ${bakedFolder
 
         Catch ex As Exception
             ThisApplication.SilentOperation = False
+            iLogicVb.RuleIgnoreExceptions = False
             If doc IsNot Nothing Then
                 Try : doc.Close(False) : Catch : End Try
             End If
