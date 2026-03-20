@@ -1339,12 +1339,31 @@ Sub Main()
         End If
 
     ElseIf ext = ".dwg" OrElse ext = ".idw" Then
-        ' DrawingDocument — DrawingStylesManager does NOT expose UpdateStyles(),
-        ' so we only call PurgeStyles to clean up unused styles.
+        ' DrawingDocument — DrawingStylesManager has no UpdateStyles() or PurgeStyles().
+        ' The correct API is to call UpdateFromGlobal() on each style in the Styles
+        ' collection, then delete any style whose InUse property is False.
         Dim styMgr As Object = Nothing
         Try : styMgr = DirectCast(doc, DrawingDocument).StylesManager : Catch : End Try
         If styMgr IsNot Nothing Then
-            Try : styMgr.PurgeStyles(True) : Catch : End Try
+            ' Pass 1: update every style from the global library
+            Try
+                For Each s As Object In styMgr.Styles
+                    Try : s.UpdateFromGlobal() : Catch : End Try
+                Next
+            Catch : End Try
+            ' Pass 2: collect then delete unused styles (two-pass avoids mutating
+            ' the collection while iterating it)
+            Dim toDelete As New System.Collections.Generic.List(Of Object)
+            Try
+                For Each s As Object In styMgr.Styles
+                    Try
+                        If Not s.InUse Then toDelete.Add(s)
+                    Catch : End Try
+                Next
+            Catch : End Try
+            For Each s As Object In toDelete
+                Try : s.Delete() : Catch : End Try
+            Next
         End If
     End If
 End Sub
