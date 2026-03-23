@@ -563,7 +563,7 @@ function exportInventor() {
         the open document in Inventor — useful when the file was named differently.
       </p>
       <div class="imap-basefolder-row">
-        <label class="imap-basefolder-label" for="imapBaseFolder">Base Folder <span class="imap-basefolder-hint">(optional — bakes the path into the iLogic script, skipping the folder prompt)</span></label>
+        <label class="imap-basefolder-label" for="imapBaseFolder">Base Folder <span class="imap-basefolder-hint">(optional — bakes the path into the iLogic script, skipping the folder prompt at runtime. If set, re-download ⬇ iLogic Script whenever this path changes. Leave blank to keep the script universal.)</span></label>
         <input id="imapBaseFolder" class="imap-basefolder-input" type="text" placeholder="e.g.  C:\\Daequip\\PN-120MM" value="${(_getInventorBaseFolder()||'').replace(/"/g,'&quot;')}">
       </div>
       <div style="flex:1;overflow:auto;padding:0 20px 10px">
@@ -596,7 +596,7 @@ function exportInventor() {
     <div class="confirm-buttons imap-footer">
       <button class="btn btn-cancel">Cancel</button>
       <button class="btn" id="imapBtnStyleRule" title="Download a standalone iLogic rule to embed in your template files — updates &amp; purges styles silently on open">⬇ Style Updater Rule</button>
-      <button class="btn" id="imapBtnILogic" title="Download the iLogic script — only needed once. Add it to Inventor as an External Rule and reuse it for every export.">⬇ iLogic Script</button>
+      <button class="btn" id="imapBtnILogic" title="Download the iLogic script. If Base Folder is blank the script prompts at runtime — one script works for all projects forever. If Base Folder is set, re-download this whenever you change it.">⬇ iLogic Script</button>
       <button class="btn" id="imapBtnPreview">👁 Preview CSV</button>
       <button class="btn btn-confirm" id="imapBtnExport" data-reviewed="0">⬇ Export CSV</button>
     </div>`;
