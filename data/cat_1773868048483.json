@@ -34,8 +34,8 @@
     }
   ],
   "activeClassId": "cat_1773868048483_1",
-  "selectedPartId": "p1773869871318",
-  "activeRightTab": "parts",
+  "selectedPartId": "p1773869860795",
+  "activeRightTab": "rules",
   "master": {
     "cat_1773868048483_1": [
       {
@@ -642,7 +642,8 @@
           "39.688",
           "39.813",
           "39.875",
-          "39.938"
+          "39.938",
+          "44.250"
         ]
       },
       {
@@ -677,7 +678,8 @@
           "1.063",
           "1.250",
           "7.125",
-          "0.813"
+          "0.813",
+          "0.875"
         ]
       },
       {
@@ -3404,10 +3406,11 @@
   "context": {
     "cat_1773868048483_1": {
       "PIN_TYPE": "FLT",
-      "PIN_LENGTH_IN": "41.750",
+      "PIN_LENGTH_IN": "44.250",
       "INDUCTION_HARDENED": "Yes",
       "ACTUAL_PIN_OD_IN": "3.934",
-      "NOMINAL_PIN_OD_MM": "100"
+      "NOMINAL_PIN_OD_MM": "100",
+      "CROSS_HOLE": "0.875"
     },
     "tab1773940149410": {
       "INDUCTION_HARDENED": "Yes",
@@ -4094,7 +4097,7 @@
   "fileNameRules": {
     "cat_1773868048483_1": {
       "p1773869852653": "PA-{NOMINAL_PIN_OD_MM#3}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX\n",
-      "p1773869860795": "PA-{NOMINAL_PIN_OD_MM#3}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX\n",
+      "p1773869860795": "PN-{NOMINAL_PIN_OD_MM#3}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX\n",
       "p1773869871318": "PA-0{NOMINAL_PIN_OD_MM?NOMINAL_PIN_OD_MM}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX",
       "p1773869885948": "PN-0{NOMINAL_PIN_OD_MM?NOMINAL_PIN_OD_MM}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX"
     },
