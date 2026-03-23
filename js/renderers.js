@@ -305,8 +305,8 @@ function renderContext() {
 
     input.onfocus = () => {
       input.select();
+      dropdown.style.display = '';   // make visible first so scrollIntoView has layout
       renderDropdown('');
-      dropdown.style.display = '';
     };
     input.oninput = () => {
       renderDropdown(input.value);
@@ -332,8 +332,27 @@ function renderContext() {
       } else if (e.key === 'Enter') {
         e.preventDefault();
         const focused = dropdown.querySelector('.combo-focused');
-        if (focused) focused.dispatchEvent(new MouseEvent('mousedown'));
-        else if (opts.length === 1) opts[0].dispatchEvent(new MouseEvent('mousedown'));
+        if (focused) {
+          focused.dispatchEvent(new MouseEvent('mousedown'));
+        } else {
+          const typed = input.value.trim();
+          if (sortedVals.includes(typed)) {
+            // Exact match — select it directly
+            pick(typed);
+          } else if (opts.length === 1) {
+            // Single filtered result — select it
+            opts[0].dispatchEvent(new MouseEvent('mousedown'));
+          } else if (typed) {
+            // Genuinely new value — launch the add-new flow pre-filled with typed text
+            dropdown.style.display = 'none';
+            handleContextSelect(m.key, '__NEW__');
+            // __NEW__ replaces the combo with an inline input and focuses it
+            const newInput = document.activeElement;
+            if (newInput && newInput.placeholder === 'New value, press Enter\u2026') {
+              newInput.value = typed;
+            }
+          }
+        }
       } else if (e.key === 'Escape') {
         dropdown.style.display = 'none';
         input.value = currentVal;
@@ -814,6 +833,18 @@ function renderRuleList() {
         </table>
         <p class="small" style="padding:8px 4px;color:#aaa">Click a row to edit its rules.</p>
       </div>`;
+    return;
+  }
+
+  // Guard: disabled parts (component headers) are hidden from the output grid.
+  // Editing their rules produces a correct preview but nothing ever shows in the
+  // grid, which is confusing.  Show a clear message instead.
+  const _selPart = getActiveParts().find(p => p.id === State.selectedPartId);
+  if (_selPart && _selPart.enabled === false) {
+    container.innerHTML = '<div class="small" style="padding:16px;color:#aaa;line-height:1.5">' +
+      '<strong style="color:#888">Component header selected.</strong><br>' +
+      'This row is hidden from the output grid, so rules set here will not appear in any column.<br>' +
+      'Select a leaf part row to edit its rules.</div>';
     return;
   }
 
