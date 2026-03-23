@@ -35,11 +35,13 @@ function _defaultCategoryState(cat) {
     props:             { [tabId]: [] },
     rules:             { [tabId]: {} },
     hiddenProps:       { [tabId]: [] },
-    lockedTabs:        {},
-    lockedSections:    {},
-    inventorMaps:      {},
-    fileNameOverrides: {},
-    exportSelections:  {}
+    lockedTabs:         {},
+    lockedSections:     {},
+    fileNameRules:      { [tabId]: {} },
+    inventorBaseFolders: {},
+    inventorMaps:       {},
+    fileNameOverrides:  {},
+    exportSelections:   {}
   };
 }
 

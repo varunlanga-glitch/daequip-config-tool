@@ -46,6 +46,7 @@ window.handleContextSelect = (key, val) => {
   }
 
   const masterVar = getActiveMaster().find(m => m.key === key);
+  if (!masterVar) { renderAll(); return; }
 
   // Replace the dropdown with an inline text input directly in the left panel
   const sel = document.querySelector(`[data-ctx-key="${key}"]`);
@@ -161,6 +162,11 @@ window.deletePart = id => {
     () => {
       State.parts[State.activeClassId] = getActiveParts().filter(p => p.id !== id);
       if (State.selectedPartId === id) State.selectedPartId = null;
+      // Clean up orphaned rule entries for the deleted part
+      const rules = getActiveRules();
+      if (rules[id]) delete rules[id];
+      const fnRules = getActiveFileNameRules();
+      if (fnRules[id]) delete fnRules[id];
       markDirty();
       renderAll();
     }
@@ -676,6 +682,14 @@ window.newTab = () => {
   State.hiddenProps[id] = [];
   if (!State.fileNameRules) State.fileNameRules = {};
   State.fileNameRules[id] = {};
+  if (!State.inventorMaps)       State.inventorMaps       = {};
+  State.inventorMaps[id]       = {};
+  if (!State.exportSelections)   State.exportSelections   = {};
+  State.exportSelections[id]   = {};
+  if (!State.fileNameOverrides)  State.fileNameOverrides  = {};
+  State.fileNameOverrides[id]  = {};
+  if (!State.inventorBaseFolders) State.inventorBaseFolders = {};
+  State.inventorBaseFolders[id] = '';
   // New tabs start unlocked — no lock entries needed
   if (!State.lockedTabs)     State.lockedTabs     = {};
   if (!State.lockedSections) State.lockedSections = {};
@@ -732,8 +746,12 @@ window.deleteTab = id => {
       delete State.parts[id];
       delete State.props[id];
       delete State.rules[id];
-      if (State.hiddenProps)    delete State.hiddenProps[id];
-      if (State.fileNameRules)  delete State.fileNameRules[id];
+      if (State.hiddenProps)        delete State.hiddenProps[id];
+      if (State.fileNameRules)      delete State.fileNameRules[id];
+      if (State.inventorMaps)       delete State.inventorMaps[id];
+      if (State.exportSelections)   delete State.exportSelections[id];
+      if (State.fileNameOverrides)  delete State.fileNameOverrides[id];
+      if (State.inventorBaseFolders) delete State.inventorBaseFolders[id];
       // Clean up lock data for deleted tab
       if (State.lockedTabs)     delete State.lockedTabs[id];
       if (State.lockedSections) {
