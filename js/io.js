@@ -4,6 +4,9 @@
 
 'use strict';
 
+/** Wrap a value for CSV: escape internal quotes and surround with double-quotes. */
+const _csvQ = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+
 /* ── Save checkpoint ─────────────────────────────────────── */
 function saveCheckpoint() {
   const defaultName =
@@ -32,13 +35,13 @@ function exportCSV() {
     if (p.enabled !== false) { parts.push(p); idxList.push(allIdxList[i]); }
   });
 
-  let csv = 'IDX,Part Name,' + props.map(p => `"${p.name}"`).join(',') + '\n';
+  let csv = 'IDX,Part Name,' + props.map(p => _csvQ(p.name)).join(',') + '\n';
   parts.forEach((p, i) => {
     const rules = getActiveRules()[p.id] || {};
     const row = [
       idxList[i],
-      `"${p.name}"`,
-      ...props.map(pr => `"${resolveRule(rules[pr.id], p.id)}"`)
+      _csvQ(p.name),
+      ...props.map(pr => _csvQ(resolveRule(rules[pr.id], p.id)))
     ];
     csv += row.join(',') + '\n';
   });
@@ -465,8 +468,8 @@ function _renderReviewTab(parts, mapping, overrides) {
     const rowHead = document.createElement('td');
     rowHead.className = 'imap-review-rowhead';
     rowHead.innerHTML =
-      `<span class="imap-review-partname">${p.name}</span>` +
-      `<span class="imap-review-newname" title="Current: ${currentName}">${generatedName}</span>`;
+      `<span class="imap-review-partname">${escapeHtml(p.name)}</span>` +
+      `<span class="imap-review-newname" title="Current: ${escapeHtml(currentName)}">${escapeHtml(generatedName)}</span>`;
     tr.appendChild(rowHead);
 
     // Rename cell
@@ -529,13 +532,13 @@ function exportInventor() {
     const isCustom = current && !INVENTOR_IPROP_OPTIONS.includes(current) && current !== '(skip — do not export)';
     return `
       <tr data-pid="${p.id}">
-        <td class="imap-col-name">${p.name}</td>
+        <td class="imap-col-name">${escapeHtml(p.name)}</td>
         <td>
           <select class="imap-select" data-pid="${p.id}">${opts}
-            ${isCustom ? `<option value="${current}" selected>${current}</option>` : ''}
+            ${isCustom ? `<option value="${escapeHtml(current)}" selected>${escapeHtml(current)}</option>` : ''}
           </select>
           <input class="imap-custom" data-pid="${p.id}" placeholder="Custom iProperty name"
-            style="display:${isCustom ? 'inline-block' : 'none'}" value="${isCustom ? current : ''}">
+            style="display:${isCustom ? 'inline-block' : 'none'}" value="${isCustom ? escapeHtml(current) : ''}">
         </td>
       </tr>`;
   }).join('');
@@ -546,7 +549,7 @@ function exportInventor() {
     const linked   = overrides[p.id] || '';
     const hasLink  = !!linked;
     return `<tr data-partid="${p.id}">
-      <td class="imap-col-name" style="font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${generated}">${generated}</td>
+      <td class="imap-col-name" style="font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${escapeHtml(generated)}">${escapeHtml(generated)}</td>
       <td>
         <div class="imap-file-link-cell">
           <span class="imap-linked-name ${hasLink ? 'imap-linked-name--set' : ''}" data-partid="${p.id}">${hasLink ? linked : 'not linked'}</span>
@@ -790,7 +793,7 @@ function _buildInventorCSV(mapping, selections) {
   const header = [
     '"FileName"',       // current/placeholder filename — used to match open document
     '"NewFileName"',    // generated target name — document will be renamed to this
-    ...otherProps.map(p => `"${mapping[p.id]}"`)
+    ...otherProps.map(p => _csvQ(mapping[p.id]))
   ].join(',');
 
   const rows = parts.map(p => {
@@ -802,13 +805,13 @@ function _buildInventorCSV(mapping, selections) {
     const newFileName = partSel.rename !== false ? generatedName : currentName;
 
     const cells = [
-      `"${currentName}"`,   // FileName — what to match in Inventor
-      `"${newFileName}"`,   // NewFileName — rename target (same as current when unchecked)
+      _csvQ(currentName),   // FileName — what to match in Inventor
+      _csvQ(newFileName),   // NewFileName — rename target (same as current when unchecked)
       ...otherProps.map(pr => {
         if (partSel.props[pr.id] === false) return '""'; // unchecked → empty, iLogic skips
         const partRules = getActiveRules()[p.id] || {};
         const val = resolveRule(partRules[pr.id], p.id);
-        return `"${val || '-'}"`;
+        return _csvQ(val || '-');
       })
     ];
     return cells.join(',');
