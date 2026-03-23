@@ -596,8 +596,9 @@ function exportInventor() {
     <div class="confirm-buttons imap-footer">
       <button class="btn btn-cancel">Cancel</button>
       <button class="btn" id="imapBtnStyleRule" title="Download a standalone iLogic rule to embed in your template files — updates &amp; purges styles silently on open">⬇ Style Updater Rule</button>
+      <button class="btn" id="imapBtnILogic" title="Download the iLogic script — only needed once. Add it to Inventor as an External Rule and reuse it for every export.">⬇ iLogic Script</button>
       <button class="btn" id="imapBtnPreview">👁 Preview CSV</button>
-      <button class="btn btn-confirm" id="imapBtnExport" data-reviewed="0">⬇ Download Files</button>
+      <button class="btn btn-confirm" id="imapBtnExport" data-reviewed="0">⬇ Export CSV</button>
     </div>`;
 
   overlay.appendChild(box);
@@ -686,6 +687,9 @@ function exportInventor() {
   box.querySelector('#imapBtnStyleRule').onclick = () =>
     _downloadBlob(_buildStyleUpdaterRule(), 'text/plain', 'Daequip-UpdateStyles.iLogicVb');
 
+  box.querySelector('#imapBtnILogic').onclick = () =>
+    _downloadBlob(_buildILogicScript(), 'text/plain', 'ConfiguratorPro-SetIProperties.iLogicVb');
+
   const collectMap = () => {
     const m = {};
     box.querySelectorAll('.imap-select').forEach(sel => {
@@ -733,12 +737,10 @@ function exportInventor() {
 
     const exportSel = (State.exportSelections || {})[State.activeClassId] || {};
     const csv = _buildInventorCSV(mapping, exportSel);
-    const ilogic = _buildILogicScript();
 
     const timestamp = new Date().toISOString().replace(/[:.]/g,'-').slice(0,-5);
     const className = State.productClasses.find(c => c.id === State.activeClassId)?.name || 'export';
-    _downloadBlob(csv,     'text/csv',   `${className}-inventor-${timestamp}.csv`);
-    _downloadBlob(ilogic,  'text/plain', `ConfiguratorPro-SetIProperties.iLogicVb`);
+    _downloadBlob(csv, 'text/csv', `${className}-inventor-${timestamp}.csv`);
     close();
   };
 }
