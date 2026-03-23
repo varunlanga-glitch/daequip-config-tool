@@ -337,7 +337,17 @@ function _addCategoryPrompt() {
     const id  = 'cat_' + Date.now();
     const cat = { id, label, file: `data/${id}.json`, icon: '📁' };
     window._categories.push(cat);
-    window._categoryStates[cat.id] = _defaultCategoryState(cat);
+    const newState = _defaultCategoryState(cat);
+    // Seed iProperty mapping from first available existing category so the user
+    // doesn't have to re-map columns that are consistent across categories
+    const existingMaps = Object.values(window._categoryStates)
+      .map(s => s.inventorMaps)
+      .find(m => m && Object.keys(m).length > 0);
+    if (existingMaps) {
+      const firstTabMap = Object.values(existingMaps)[0];
+      if (firstTabMap) newState.inventorMaps[newState.productClasses[0].id] = JSON.parse(JSON.stringify(firstTabMap));
+    }
+    window._categoryStates[cat.id] = newState;
     window._categoriesDirty = true;
     enterCategory(cat);
   });

@@ -703,6 +703,10 @@ window.cloneTab = sourceId => {
   State.inventorMaps[newId]    = JSON.parse(JSON.stringify((State.inventorMaps    || {})[sourceId] || {}));
   if (!State.exportSelections) State.exportSelections = {};
   State.exportSelections[newId] = JSON.parse(JSON.stringify((State.exportSelections || {})[sourceId] || {}));
+  if (!State.fileNameOverrides)   State.fileNameOverrides   = {};
+  State.fileNameOverrides[newId]   = JSON.parse(JSON.stringify((State.fileNameOverrides   || {})[sourceId] || {}));
+  if (!State.inventorBaseFolders) State.inventorBaseFolders = {};
+  State.inventorBaseFolders[newId] = (State.inventorBaseFolders[sourceId] || '');
   // Clones are always unlocked — never inherit the source tab's locks
   if (!State.lockedTabs)     State.lockedTabs     = {};
   if (!State.lockedSections) State.lockedSections = {};

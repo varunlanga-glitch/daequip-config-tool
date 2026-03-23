@@ -266,6 +266,16 @@ window.addEventListener('beforeunload', e => {
 
 
 /* ── Inventor iProperties export ─────────────────────────── */
+// Custom iProperties that must exist on every Daequip template file so that
+// embedded rules like "iProperty Check" never fail with "Cannot find property X".
+// Embedded in the exported CSV as "# RequiredProps=..." and read by the iLogic
+// script at runtime — change this list here, re-export, no script re-download needed.
+const INVENTOR_REQUIRED_PROPS = [
+  'Class', 'Hook-Up', 'Size',
+  'Features 1', 'Features 2',
+  'Specs 1', 'Specs 2',
+  'Machine', 'Process', 'Legacy',
+];
 
 // Standard Inventor iProperty fields (Summary + Custom tabs)
 const INVENTOR_IPROP_OPTIONS = [
@@ -598,7 +608,7 @@ function exportInventor() {
       <button class="btn" id="imapBtnStyleRule" title="Download a standalone iLogic rule to embed in your template files — updates &amp; purges styles silently on open">⬇ Style Updater Rule</button>
       <button class="btn" id="imapBtnILogic" title="Download the iLogic script — add it to Inventor once as an External Rule and reuse it forever. The base folder path travels with the CSV, so the script never needs to change.">⬇ iLogic Script</button>
       <button class="btn" id="imapBtnPreview">👁 Preview CSV</button>
-      <button class="btn btn-confirm" id="imapBtnExport" data-reviewed="0">⬇ Export CSV</button>
+      <button class="btn btn-confirm" id="imapBtnExport" data-reviewed="${((State.exportSelections||{})[State.activeClassId]||{})._reviewed ? '1' : '0'}">⬇ Export CSV</button>
     </div>`;
 
   overlay.appendChild(box);
@@ -617,20 +627,35 @@ function exportInventor() {
       box.querySelectorAll('.imap-tab-panel').forEach(p => p.style.display = 'none');
       tab.classList.add('active');
       document.getElementById('itab-' + tab.dataset.itab).style.display = '';
-      // Mark Download as reviewed once the Review tab has been visited
+      // Mark Download as reviewed once the Review tab has been visited; persist so it survives dialog close
       const exportBtn = document.getElementById('imapBtnExport');
       if (exportBtn && tab.dataset.itab === 'review') {
         exportBtn.dataset.reviewed = '1';
         exportBtn.classList.remove('btn-locked');
+        if (!State.exportSelections) State.exportSelections = {};
+        if (!State.exportSelections[State.activeClassId]) State.exportSelections[State.activeClassId] = {};
+        State.exportSelections[State.activeClassId]._reviewed = true;
       }
     };
   });
 
-  // ── Custom iProperty input toggle ──
+  // ── Custom iProperty input toggle; reset review flag on mapping change ──
+  const _clearReviewed = () => {
+    const btn = document.getElementById('imapBtnExport');
+    if (btn) btn.dataset.reviewed = '0';
+    if ((State.exportSelections || {})[State.activeClassId])
+      State.exportSelections[State.activeClassId]._reviewed = false;
+  };
   box.querySelectorAll('.imap-select').forEach(sel => {
     const pid = sel.dataset.pid;
     const ci  = box.querySelector(`.imap-custom[data-pid="${pid}"]`);
-    sel.onchange = () => { ci.style.display = sel.value === '__custom__' ? 'inline-block' : 'none'; };
+    sel.onchange = () => {
+      ci.style.display = sel.value === '__custom__' ? 'inline-block' : 'none';
+      _clearReviewed();
+    };
+  });
+  box.querySelectorAll('.imap-custom').forEach(inp => {
+    inp.oninput = () => _clearReviewed();
   });
 
   // ── File browse buttons ──
@@ -790,8 +815,10 @@ function _buildInventorCSV(mapping, selections) {
   });
 
   const lines = [header, ...rows];
+  // Metadata lines prepended in reverse order (last unshift = first line in file)
   const baseFolder = (_getInventorBaseFolder() || '').trim();
   if (baseFolder) lines.unshift(`# BaseFolder=${baseFolder}`);
+  lines.unshift(`# RequiredProps=${INVENTOR_REQUIRED_PROPS.join(',')}`);
   return lines.join('\n');
 }
 
@@ -831,15 +858,6 @@ Module BuiltInProps
     Public ReadOnly StatusProps As New HashSet(Of String)(StringComparer.OrdinalIgnoreCase) From {
         "Checked By", "Date Checked", "Eng Approved By", "Eng Approved Date",
         "Mfg Approved By", "Mfg Approved Date"
-    }
-    ' All Daequip custom iProperties that MUST exist on every template file.
-    ' These are pre-created on open so that embedded rules (e.g. "iProperty Check")
-    ' never fail with "Cannot find a property named X".
-    Public ReadOnly RequiredCustomProps As String() = {
-        "Class", "Hook-Up", "Size",
-        "Features 1", "Features 2",
-        "Specs 1", "Specs 2",
-        "Machine", "Process", "Legacy"
     }
     Public Function GetTab(propName As String) As String
         If SummaryProps.Contains(propName) Then Return "Summary"
@@ -942,16 +960,26 @@ Sub Main()
     If csvDlg.ShowDialog() <> DialogResult.OK Then MsgBox("Cancelled.") : Exit Sub
     Dim csvPath As String = csvDlg.FileName
 
-    ' ── 2. Read CSV & extract base folder from metadata ──────
+    ' ── 2. Read CSV & extract metadata lines ─────────────────
     Dim allLines() As String = System.IO.File.ReadAllLines(csvPath)
     If allLines.Length < 1 Then MsgBox("CSV appears empty.") : Exit Sub
 
     Dim dataStart As Integer = 0
     Dim baseFolder As String = ""
-    If allLines(0).StartsWith("# BaseFolder=") Then
-        baseFolder = allLines(0).Substring(13).Trim()
-        dataStart = 1
-    End If
+    Dim requiredProps As String() = {"Class", "Hook-Up", "Size", "Features 1", "Features 2", "Specs 1", "Specs 2", "Machine", "Process", "Legacy"}
+
+    ' Scan leading "# Key=Value" lines; stop at the header row
+    Do While dataStart < allLines.Length AndAlso allLines(dataStart).StartsWith("#")
+        Dim meta As String = allLines(dataStart)
+        If meta.StartsWith("# BaseFolder=") Then
+            baseFolder = meta.Substring(13).Trim()
+        ElseIf meta.StartsWith("# RequiredProps=") Then
+            Dim rp As String() = meta.Substring(16).Split(","c)
+            For i As Integer = 0 To rp.Length - 1 : rp(i) = rp(i).Trim() : Next
+            requiredProps = rp
+        End If
+        dataStart += 1
+    Loop
 
     ' Fall back to folder dialog if CSV has no path or the path no longer exists
     If baseFolder = "" OrElse Not System.IO.Directory.Exists(baseFolder) Then
@@ -1080,7 +1108,7 @@ Sub Main()
             doc = ThisApplication.Documents.Open(filePath, True)
 
             ' ── STEP A: Proactively create ALL required Custom iProperties ──
-            ' We create every property from RequiredCustomProps (the full Daequip set)
+            ' We create every property from the RequiredProps CSV metadata list
             ' BEFORE any save fires, so embedded rules like "iProperty Check" never
             ' fail with "Cannot find a property named X".
             Dim customPropSet As PropertySet = Nothing
@@ -1094,7 +1122,7 @@ Sub Main()
                 Next
 
                 ' 1. Ensure every required Daequip custom property exists (value "-" if new)
-                For Each reqName As String In BuiltInProps.RequiredCustomProps
+                For Each reqName As String In requiredProps
                     If Not existingCustom.Contains(reqName) Then
                         Try : customPropSet.Add("-", reqName) : Catch : End Try
                         existingCustom.Add(reqName)
