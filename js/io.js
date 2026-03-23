@@ -991,15 +991,24 @@ ${bakedFolder
         ".ipt", ".iam", ".dwg", ".idw", ".ipn"
     }
     Dim allFiles() As String = System.IO.Directory.GetFiles(baseFolder, "*.*", System.IO.SearchOption.AllDirectories)
-    Dim matchedFiles As New List(Of String)()
+    ' Collect all candidates first, then deduplicate: keep the shallowest (shortest)
+    ' path for each (filename + extension) pair so that files in OldVersions or
+    ' other archive subdirectories never shadow the primary copy.
+    Dim bestPath As New Dictionary(Of String, String)(StringComparer.OrdinalIgnoreCase)
     For Each f As String In allFiles
         Dim ext As String = System.IO.Path.GetExtension(f).ToLowerInvariant()
         If Not inventorExts.Contains(ext) Then Continue For
         Dim nameNoExt As String = System.IO.Path.GetFileNameWithoutExtension(f)
-        If csvRows.ContainsKey(nameNoExt) OrElse csvRows.ContainsKey(nameNoExt.ToUpperInvariant()) Then
-            matchedFiles.Add(f)
+        If Not (csvRows.ContainsKey(nameNoExt) OrElse csvRows.ContainsKey(nameNoExt.ToUpperInvariant())) Then Continue For
+        Dim fileKey As String = nameNoExt.ToUpperInvariant() & ext
+        Dim existing As String = Nothing
+        If bestPath.TryGetValue(fileKey, existing) Then
+            If f.Length < existing.Length Then bestPath(fileKey) = f
+        Else
+            bestPath.Add(fileKey, f)
         End If
     Next
+    Dim matchedFiles As New List(Of String)(bestPath.Values)
 
     If matchedFiles.Count = 0 Then
         MsgBox("No matching files found in:" & vbNewLine & baseFolder & vbNewLine & vbNewLine & _
