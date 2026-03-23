@@ -243,6 +243,34 @@ function _downloadBlob(content, mimeType, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 100);
 }
 
+/**
+ * Save via the File System Access API (native "Save As" dialog).
+ * The browser remembers the last directory, so once the user navigates to the
+ * base folder the first time, subsequent exports default there automatically.
+ * Falls back to _downloadBlob on browsers that don't support the API.
+ */
+let _lastDirHandle = null;   // remembered across exports within a session
+async function _saveWithPicker(content, mimeType, suggestedName) {
+  if (!window.showSaveFilePicker) { _downloadBlob(content, mimeType, suggestedName); return; }
+  try {
+    const ext  = suggestedName.split('.').pop();
+    const opts = {
+      suggestedName,
+      types: [{ description: ext.toUpperCase() + ' file', accept: { [mimeType]: ['.' + ext] } }],
+    };
+    if (_lastDirHandle) opts.startIn = _lastDirHandle;
+    const fileHandle = await window.showSaveFilePicker(opts);
+    // Remember the parent directory for next time
+    _lastDirHandle = fileHandle;
+    const writable = await fileHandle.createWritable();
+    await writable.write(content);
+    await writable.close();
+  } catch (e) {
+    if (e.name === 'AbortError') return;  // user cancelled — do nothing
+    _downloadBlob(content, mimeType, suggestedName);  // fallback
+  }
+}
+
 /* ── Toolbar button wiring ───────────────────────────────── */
 document.getElementById('btnSave').addEventListener('click',           saveCheckpoint);
 document.getElementById('btnExportInventor').addEventListener('click', exportInventor);
@@ -713,10 +741,10 @@ function exportInventor() {
   overlay.onclick = e => { if (e.target === overlay) close(); };
   box.querySelector('.btn-cancel').onclick = close;
   box.querySelector('#imapBtnStyleRule').onclick = () =>
-    _downloadBlob(_buildStyleUpdaterRule(), 'text/plain', 'Daequip-UpdateStyles.iLogicVb');
+    _saveWithPicker(_buildStyleUpdaterRule(), 'text/plain', 'Daequip-UpdateStyles.iLogicVb');
 
   box.querySelector('#imapBtnILogic').onclick = () =>
-    _downloadBlob(_buildILogicScript(), 'text/plain', 'ConfiguratorPro-SetIProperties.iLogicVb');
+    _saveWithPicker(_buildILogicScript(), 'text/plain', 'ConfiguratorPro-SetIProperties.iLogicVb');
 
   const collectMap = () => {
     const m = {};
@@ -768,7 +796,7 @@ function exportInventor() {
 
     const timestamp = new Date().toISOString().replace(/[:.]/g,'-').slice(0,-5);
     const className = State.productClasses.find(c => c.id === State.activeClassId)?.name || 'export';
-    _downloadBlob(csv, 'text/csv', `${className}-inventor-${timestamp}.csv`);
+    _saveWithPicker(csv, 'text/csv', `${className}-inventor-${timestamp}.csv`);
     close();
   };
 }
