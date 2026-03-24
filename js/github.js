@@ -333,6 +333,30 @@ window._requireDeletePin = function(label, onApproved) {
 
 /* ── Publish modal ────────────────────────────────────── */
 function openPublishModal() {
+  // Guard: if no category is open (home screen), only allow publishing categories.json
+  // (never publish workspace data when _activeCategory is null — it defaults to buckets_1.json
+  //  and would overwrite Buckets with whatever state was last in memory)
+  if (!window._activeCategory) {
+    if (!window._categoriesDirty) {
+      alert('No workspace is open. Open a workspace first, then publish from within it.');
+      return;
+    }
+    // Only push categories.json
+    _withAuth('🔒 Enter PIN to Publish', async token => {
+      try {
+        const catsContent = JSON.stringify(window._categories, null, 2);
+        let catsMeta;
+        try { catsMeta = await _ghGetFile(token, _ghCatCfgApi()); } catch(_) { catsMeta = { sha: undefined }; }
+        await _ghPushFile(token, catsContent, catsMeta.sha, 'Update categories', _ghCatCfgApi());
+        window._categoriesDirty = false;
+        _ghToast('✓ categories.json published.');
+      } catch(e) {
+        _ghToast('Publish failed: ' + e.message);
+      }
+    });
+    return;
+  }
+
   const catLabel = window._activeCategory?.label || 'config';
   const pushCats = !!window._categoriesDirty;
 
