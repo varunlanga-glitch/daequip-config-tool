@@ -348,6 +348,12 @@ function openPublishModal() {
         let catsMeta;
         try { catsMeta = await _ghGetFile(token, _ghCatCfgApi()); } catch(_) { catsMeta = { sha: undefined }; }
         await _ghPushFile(token, catsContent, catsMeta.sha, 'Update categories', _ghCatCfgApi());
+
+        // Dual-write to Supabase (non-fatal)
+        try { await sbSaveCategories(window._categories); } catch(sbErr) {
+          console.warn('Supabase categories sync failed:', sbErr.message);
+        }
+
         window._categoriesDirty = false;
         _ghToast('✓ categories.json published.');
       } catch(e) {
@@ -397,7 +403,7 @@ function openPublishModal() {
       status.textContent = 'Pushing category data…';
 
       try {
-        // 1. Push current category data (file may not exist yet for new categories)
+        // 1. Push current category data to GitHub
         let meta;
         try {
           meta = await _ghGetFile(token);
@@ -410,7 +416,15 @@ function openPublishModal() {
         }
         await _ghPushFile(token, content, meta.sha, msg);
 
-        // 2. Push categories.json if the list has changed
+        // 1b. Dual-write category data to Supabase (non-fatal)
+        status.textContent = 'Syncing to Supabase…';
+        try {
+          await sbSaveCategoryData(window._activeCategory.id, State);
+        } catch(sbErr) {
+          console.warn('Supabase category sync failed:', sbErr.message);
+        }
+
+        // 2. Push categories.json to GitHub if the list has changed
         if (window._categoriesDirty) {
           status.textContent = 'Updating categories.json…';
           const catsContent = JSON.stringify(window._categories, null, 2);
@@ -421,6 +435,14 @@ function openPublishModal() {
             catsMeta = { sha: undefined };
           }
           await _ghPushFile(token, catsContent, catsMeta.sha, msg + ' [categories]', _ghCatCfgApi());
+
+          // 2b. Dual-write categories to Supabase (non-fatal)
+          try {
+            await sbSaveCategories(window._categories);
+          } catch(sbErr) {
+            console.warn('Supabase categories sync failed:', sbErr.message);
+          }
+
           window._categoriesDirty = false;
         }
 

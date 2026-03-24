@@ -82,15 +82,27 @@ async function initCategories() {
   document.getElementById('homeScreen').style.display    = '';
   _setBtnVisibility(false);
 
+  // Try Supabase first, fall back to static file, then hard-coded default
+  let _catsLoaded = false;
   try {
-    const r = await fetch(_CAT_CONFIG + '?t=' + Date.now());
-    if (!r.ok) throw new Error('not found');
-    window._categories = await r.json();
-  } catch(_) {
-    // Fallback: treat the existing buckets file as the sole category
-    window._categories = [
-      { id: 'buckets', label: 'Buckets', file: 'data/buckets_1.json', icon: '🪣' }
-    ];
+    const sbCats = await sbLoadCategories();
+    if (sbCats && sbCats.length) {
+      window._categories = sbCats;
+      _catsLoaded = true;
+    }
+  } catch(_) { /* Supabase unavailable — continue to GitHub fallback */ }
+
+  if (!_catsLoaded) {
+    try {
+      const r = await fetch(_CAT_CONFIG + '?t=' + Date.now());
+      if (!r.ok) throw new Error('not found');
+      window._categories = await r.json();
+    } catch(_) {
+      // Final fallback: treat the existing buckets file as the sole category
+      window._categories = [
+        { id: 'buckets', label: 'Buckets', file: 'data/buckets_1.json', icon: '🪣' }
+      ];
+    }
   }
 
   renderHomeScreen();
@@ -232,15 +244,27 @@ async function enterCategory(cat) {
     _setBtnVisibility(true);
     if (loadEl) loadEl.style.display = '';
 
+    // Try Supabase first, fall back to the static GitHub file
+    let _dataLoaded = false;
     try {
-      const r = await fetch(cat.file + '?t=' + Date.now());
-      if (r.ok) {
-        _applySnapshot(await r.json());
-      } else {
+      const sbData = await sbLoadCategoryData(cat.id);
+      if (sbData) {
+        _applySnapshot(sbData);
+        _dataLoaded = true;
+      }
+    } catch(_) { /* Supabase unavailable — continue to GitHub fallback */ }
+
+    if (!_dataLoaded) {
+      try {
+        const r = await fetch(cat.file + '?t=' + Date.now());
+        if (r.ok) {
+          _applySnapshot(await r.json());
+        } else {
+          _applySnapshot(_defaultCategoryState(cat));
+        }
+      } catch(_) {
         _applySnapshot(_defaultCategoryState(cat));
       }
-    } catch(_) {
-      _applySnapshot(_defaultCategoryState(cat));
     }
 
     if (loadEl) loadEl.style.display = 'none';
