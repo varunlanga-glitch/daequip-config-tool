@@ -413,13 +413,9 @@ function renderGrid() {
     nameTd.title     = fnVal;
     const nameWrap = document.createElement('div');
     nameWrap.className = 'name-cell';
-    const idxSpan = document.createElement('span');
-    idxSpan.className   = 'inline-idx';
-    idxSpan.textContent = idxList[i] || '';
     const fnSpan = document.createElement('span');
     fnSpan.className   = 'cell-text';
     fnSpan.textContent = fnVal;
-    nameWrap.appendChild(idxSpan);
     nameWrap.appendChild(fnSpan);
     nameTd.appendChild(nameWrap);
     tr.appendChild(nameTd);
