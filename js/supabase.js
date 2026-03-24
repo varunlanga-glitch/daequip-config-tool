@@ -1,9 +1,10 @@
 /* ============================================================
    SUPABASE.JS — Supabase REST client (no npm required)
    ============================================================
-   Provides read/write access to two tables:
-     • categories    — workspace list (mirrors data/categories.json)
-     • category_data — per-workspace JSON blob
+   Talks to a normalized Supabase schema via three RPC functions:
+     • load_workspace    — returns full workspace state as JSON
+     • save_workspace    — distributes state across 15 tables
+     • save_categories   — upserts workspace metadata
 
    All functions are async and throw on hard errors.
    Callers should catch and fall back to GitHub/static files.
@@ -24,84 +25,71 @@ function _sbHeaders(extra) {
 
 async function _sbFetch(path, opts) {
   opts = opts || {};
-  const r = await fetch(_SB_URL + '/rest/v1' + path, {
+  var r = await fetch(_SB_URL + '/rest/v1' + path, {
     method:  opts.method  || 'GET',
     headers: _sbHeaders(opts.headers || {}),
     body:    opts.body    || undefined
   });
   if (r.status === 204) return null;
-  const text = await r.text();
+  var text = await r.text();
   if (!r.ok) {
-    let msg = 'Supabase ' + r.status;
+    var msg = 'Supabase ' + r.status;
     try { msg = JSON.parse(text).message || msg; } catch(_) {}
     throw new Error(msg);
   }
   return text ? JSON.parse(text) : null;
 }
 
-/* ── Categories ─────────────────────────────────────────────── */
+/* ── Categories (workspace list) ─────────────────────────────── */
 
 /**
- * Load all categories sorted by sort_order.
+ * Load all workspaces sorted by sort_order.
  * Returns null if the table is empty (first run).
  */
 async function sbLoadCategories() {
-  const rows = await _sbFetch('/categories?order=sort_order');
+  var rows = await _sbFetch('/workspaces?select=id,label,icon,file&order=sort_order');
   if (!rows || !rows.length) return null;
-  return rows.map(r => ({ id: r.id, label: r.label, file: r.file, icon: r.icon }));
+  return rows;
 }
 
 /**
- * Upsert the full categories array to Supabase.
+ * Upsert workspace metadata and remove deleted entries.
+ * Uses the save_categories RPC to preserve UI state columns.
  * @param {Array} categories  — window._categories
  */
 async function sbSaveCategories(categories) {
-  const rows = categories.map(function(c, i) {
-    return {
-      id:         c.id,
-      label:      c.label,
-      icon:       c.icon || '📁',
-      file:       c.file,
-      sort_order: i,
-      updated_at: new Date().toISOString()
-    };
-  });
-  await _sbFetch('/categories?on_conflict=id', {
-    method:  'POST',
-    headers: { 'Prefer': 'resolution=merge-duplicates' },
-    body:    JSON.stringify(rows)
+  await _sbFetch('/rpc/save_categories', {
+    method: 'POST',
+    body:   JSON.stringify({ p_categories: categories })
   });
 }
 
-/* ── Category data ───────────────────────────────────────────── */
+/* ── Category data (full workspace state) ────────────────────── */
 
 /**
- * Load the JSON blob for a single category.
- * Returns null if no row exists yet for this category.
+ * Load a workspace by calling the load_workspace RPC.
+ * Returns the full State object or null if the workspace has no data.
  * @param {string} catId
  */
 async function sbLoadCategoryData(catId) {
-  const rows = await _sbFetch('/category_data?id=eq.' + encodeURIComponent(catId));
-  if (!rows || !rows.length) return null;
-  return rows[0].data;
+  var result = await _sbFetch('/rpc/load_workspace', {
+    method: 'POST',
+    body:   JSON.stringify({ p_workspace_id: catId })
+  });
+  return result;
 }
 
 /**
- * Upsert the full State blob for a category.
- * The `dirty` flag is stripped before saving.
+ * Save the full State blob by calling the save_workspace RPC.
+ * The function distributes the data across all normalized tables.
  * @param {string} catId
  * @param {object} stateObj  — current State
  */
 async function sbSaveCategoryData(catId, stateObj) {
-  const saveState = Object.assign({}, stateObj);
+  var saveState = Object.assign({}, stateObj);
   delete saveState.dirty;
-  await _sbFetch('/category_data?on_conflict=id', {
-    method:  'POST',
-    headers: { 'Prefer': 'resolution=merge-duplicates' },
-    body:    JSON.stringify({
-      id:         catId,
-      data:       saveState,
-      updated_at: new Date().toISOString()
-    })
+  await _sbFetch('/rpc/save_workspace', {
+    method: 'POST',
+    body:   JSON.stringify({ p_workspace_id: catId, p_state: saveState })
   });
 }
