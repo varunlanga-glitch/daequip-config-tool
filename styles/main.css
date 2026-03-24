@@ -195,9 +195,14 @@ td.col-part-name-cell {
   position: sticky; left: 0; z-index: 1;
   background: #fafaf8;
   border-right: 2px solid rgba(0,0,0,0.08);
-  white-space: nowrap;
   max-width: 130px;
-  overflow: hidden; text-overflow: ellipsis;
+  overflow: hidden;
+}
+td.col-part-name-cell .cell-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: normal;
 }
 tbody tr.selected td.col-part-name-cell { background: rgba(43,108,176,0.1); }
 tbody tr:hover td.col-part-name-cell    { background: #f2f1ee; }
