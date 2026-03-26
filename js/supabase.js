@@ -1,10 +1,14 @@
 /* ============================================================
    SUPABASE.JS — Supabase REST client (no npm required)
    ============================================================
-   Talks to a normalized Supabase schema via three RPC functions:
+   Talks to a normalized Supabase schema via RPCs:
      • load_workspace    — returns full workspace state as JSON
      • save_workspace    — distributes state across 15 tables
      • save_categories   — upserts workspace metadata
+     • create_version    — snapshots state into version history
+     • list_versions     — returns version history metadata
+     • get_version       — returns a single version snapshot
+     • restore_version   — restores a snapshot into live tables
 
    All functions are async and throw on hard errors.
    Callers should catch and fall back to GitHub/static files.
@@ -82,14 +86,73 @@ async function sbLoadCategoryData(catId) {
 /**
  * Save the full State blob by calling the save_workspace RPC.
  * The function distributes the data across all normalized tables.
+ * After saving, automatically creates a version snapshot.
  * @param {string} catId
- * @param {object} stateObj  — current State
+ * @param {object} stateObj      — current State
+ * @param {string} [message]     — optional commit message for the version
+ * @param {string} [committedBy] — optional author label
  */
-async function sbSaveCategoryData(catId, stateObj) {
+async function sbSaveCategoryData(catId, stateObj, message, committedBy) {
   var saveState = Object.assign({}, stateObj);
   delete saveState.dirty;
   await _sbFetch('/rpc/save_workspace', {
     method: 'POST',
     body:   JSON.stringify({ p_workspace_id: catId, p_state: saveState })
+  });
+  // Non-fatal: snapshot the save as a version entry
+  try {
+    await _sbFetch('/rpc/create_version', {
+      method: 'POST',
+      body:   JSON.stringify({
+        p_workspace_id:  catId,
+        p_message:       message      || '',
+        p_committed_by:  committedBy  || 'anonymous'
+      })
+    });
+  } catch (e) {
+    console.warn('sbSaveCategoryData: version snapshot failed (non-fatal)', e);
+  }
+}
+
+/* ── Version history ─────────────────────────────────────────── */
+
+/**
+ * Returns version history metadata for a workspace (newest first).
+ * Each entry: { id, message, committed_by, created_at }
+ * @param {string} catId
+ * @param {number} [limit=50]
+ */
+async function sbListVersions(catId, limit) {
+  return await _sbFetch('/rpc/list_versions', {
+    method: 'POST',
+    body:   JSON.stringify({ p_workspace_id: catId, p_limit: limit || 50 })
+  });
+}
+
+/**
+ * Returns the full State snapshot for a specific version.
+ * @param {number} versionId
+ */
+async function sbGetVersion(versionId) {
+  return await _sbFetch('/rpc/get_version', {
+    method: 'POST',
+    body:   JSON.stringify({ p_version_id: versionId })
+  });
+}
+
+/**
+ * Restores a historical snapshot into the live normalized tables
+ * and records the restore as a new version entry.
+ * Returns the new version id.
+ * @param {number} versionId
+ * @param {string} [committedBy]
+ */
+async function sbRestoreVersion(versionId, committedBy) {
+  return await _sbFetch('/rpc/restore_version', {
+    method: 'POST',
+    body:   JSON.stringify({
+      p_version_id:   versionId,
+      p_committed_by: committedBy || 'anonymous'
+    })
   });
 }
