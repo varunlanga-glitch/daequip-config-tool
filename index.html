@@ -24,6 +24,7 @@
     <button class="btn" id="btnSave" style="display:none" title="Save checkpoint (Ctrl+S)">💾 Save</button>
     <button class="btn btn-publish" id="btnPublish" title="Publish changes to GitHub (live for everyone)">☁ Publish</button>
     <button class="btn"            id="btnHistory" title="View last 10 checkpoints &amp; revert">🕐 History</button>
+    <button class="btn" id="btnAudit" style="display:none" title="Configuration health: completeness &amp; stale variables">⚠ Audit</button>
     <button class="btn" id="btnExportInventor" style="display:none" title="Export for Autodesk Inventor iProperties">🔩 Export Inventor</button>
   </div>
 
@@ -85,6 +86,7 @@
   ║  6. io.js          — File I/O, wires toolbar            ║
   ║  7. github.js      — GitHub publish & history           ║
   ║  8. categories.js  — Category nav, lazy load, home      ║
+  ║  9. audit.js       — Health reports (completeness, stale)║
   ╚══════════════════════════════════════════════════════════╝
 -->
 <script src="js/state.js?v=20260320"></script>
@@ -96,6 +98,7 @@
 <script src="js/supabase.js?v=20260320"></script>
 <script src="js/github.js?v=20260320"></script>
 <script src="js/categories.js?v=20260320"></script>
+<script src="js/audit.js?v=20260320"></script>
 
 <script>
   /* Startup — load categories config, show home screen */
