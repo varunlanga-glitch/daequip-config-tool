@@ -70,6 +70,7 @@ function _setBtnVisibility(inWorkspace) {
   _s('btnHome',           inWorkspace);
   _s('btnNewTab',         inWorkspace);
   _s('btnSave',           inWorkspace);
+  _s('btnAudit',          inWorkspace);
   _s('btnExportInventor', inWorkspace);
   _s('btnPublish',        true);         // always visible
   _s('btnHistory',        true);         // always visible
