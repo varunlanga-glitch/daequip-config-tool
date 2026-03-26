@@ -416,10 +416,10 @@ function openPublishModal() {
         }
         await _ghPushFile(token, content, meta.sha, msg);
 
-        // 1b. Dual-write category data to Supabase (non-fatal)
+        // 1b. Dual-write category data to Supabase + create version (non-fatal)
         status.textContent = 'Syncing to Supabase…';
         try {
-          await sbSaveCategoryData(window._activeCategory.id, State);
+          await sbSaveCategoryData(window._activeCategory.id, State, msg, 'publish');
         } catch(sbErr) {
           console.warn('Supabase category sync failed:', sbErr.message);
         }
@@ -468,12 +468,18 @@ function openPublishModal() {
 
 /* ── History modal ────────────────────────────────────── */
 function openHistoryModal() {
+  if (!window._activeCategory) {
+    alert('Open a workspace first to view its version history.');
+    return;
+  }
+  const catId = window._activeCategory.id;
+
   const overlay = document.createElement('div');
   overlay.className = 'confirm-overlay';
   overlay.style.cssText = 'z-index:2000';
   overlay.innerHTML = `
     <div class="confirm-box gh-modal gh-history-box">
-      <div class="confirm-title">🕐 Last 10 Checkpoints</div>
+      <div class="confirm-title">🕐 Version History</div>
       <div id="ghHistList" class="gh-hist-list">
         <div class="gh-hist-loading">Loading history…</div>
       </div>
@@ -486,17 +492,17 @@ function openHistoryModal() {
 
   const listEl = overlay.querySelector('#ghHistList');
 
-  _ghGetHistory().then(commits => {
-    if (!commits.length) {
-      listEl.innerHTML = '<div class="gh-hist-loading">No history found.</div>';
+  sbListVersions(catId, 50).then(versions => {
+    if (!versions || !versions.length) {
+      listEl.innerHTML = '<div class="gh-hist-loading">No versions saved yet.</div>';
       return;
     }
     listEl.innerHTML = '';
-    commits.forEach((c, i) => {
-      const d       = new Date(c.commit.author.date);
+    versions.forEach((v, i) => {
+      const d       = new Date(v.created_at);
       const dateStr = d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      const msg     = c.commit.message.split('\n')[0];
-      const sha     = c.sha;
+      const msg     = v.message || '(no message)';
+      const author  = v.committed_by || 'anonymous';
       const isLatest = i === 0;
 
       const row = document.createElement('div');
@@ -504,14 +510,17 @@ function openHistoryModal() {
 
       const info = document.createElement('div');
       info.className = 'gh-hist-info';
+
       const msgSpan = document.createElement('span');
       msgSpan.className = 'gh-hist-msg';
       msgSpan.title = msg;
       if (isLatest) msgSpan.appendChild(document.createTextNode('⭐ '));
       msgSpan.appendChild(document.createTextNode(msg));
+
       const metaSpan = document.createElement('span');
       metaSpan.className = 'gh-hist-meta';
-      metaSpan.innerHTML = escapeHtml(dateStr) + ' &nbsp;·&nbsp; <code>' + escapeHtml(sha.slice(0, 7)) + '</code>';
+      metaSpan.innerHTML = escapeHtml(dateStr) + ' &nbsp;·&nbsp; ' + escapeHtml(author) + ' &nbsp;·&nbsp; <code>#' + v.id + '</code>';
+
       info.appendChild(msgSpan);
       info.appendChild(metaSpan);
       row.appendChild(info);
@@ -524,10 +533,11 @@ function openHistoryModal() {
       } else {
         const btn = document.createElement('button');
         btn.className = 'btn gh-hist-load-btn';
-        btn.textContent = '⏪ Load this';
+        btn.textContent = '⏪ Restore';
         btn.onclick = () => {
-          _withAuth('🔒 Enter PIN to Revert', async token => {
+          _openPinModal('🔒 Enter PIN to Restore', async () => {
             overlay.remove();
+
             const spinner = document.createElement('div');
             spinner.className = 'confirm-overlay';
             spinner.style.cssText = 'z-index:2100';
@@ -536,36 +546,37 @@ function openHistoryModal() {
             spinnerBox.style.cssText = 'max-width:280px;text-align:center;padding:28px 20px';
             const spinnerMsg = document.createElement('div');
             spinnerMsg.style.cssText = 'font-size:15px;margin-bottom:8px';
-            spinnerMsg.textContent = 'Loading version…';
+            spinnerMsg.textContent = 'Restoring version…';
             const spinnerMeta = document.createElement('div');
             spinnerMeta.style.cssText = 'font-size:12px;color:var(--muted)';
-            spinnerMeta.textContent = sha.slice(0, 7) + ' — ' + msg;
+            spinnerMeta.textContent = '#' + v.id + ' — ' + msg;
             spinnerBox.appendChild(spinnerMsg);
             spinnerBox.appendChild(spinnerMeta);
             spinner.appendChild(spinnerBox);
             document.body.appendChild(spinner);
 
             try {
-              const oldContent = await _ghGetFileAtRef(sha);
-              const oldState   = JSON.parse(oldContent);
-              const meta       = await _ghGetFile(token);
-              await _ghPushFile(token, oldContent, meta.sha, `Revert to: ${msg} (${sha.slice(0,7)})`);
+              // Restore normalized tables in Supabase
+              await sbRestoreVersion(v.id, 'restore');
 
-              // Apply locally
-              Object.keys(State).forEach(k => delete State[k]);
-              Object.assign(State, oldState);
-              window._unlockedTabs     = new Set();
-              window._unlockedSections = new Set();
-              migrateState();
-              State.dirty = false;
-              renderAll();
-              _updateDirtyIndicator();
+              // Reload the restored state into memory
+              const restoredState = await sbLoadCategoryData(catId);
+              if (restoredState) {
+                Object.keys(State).forEach(k => delete State[k]);
+                Object.assign(State, restoredState);
+                window._unlockedTabs     = new Set();
+                window._unlockedSections = new Set();
+                migrateState();
+                State.dirty = false;
+                renderAll();
+                _updateDirtyIndicator();
+              }
 
               spinner.remove();
-              _ghToast('✓ Reverted & published successfully.');
+              _ghToast('✓ Restored to version #' + v.id + ' successfully.');
             } catch(e) {
               spinner.remove();
-              _ghToast('Error: ' + e.message, true);
+              _ghToast('Restore failed: ' + e.message, true);
             }
           });
         };
@@ -578,7 +589,7 @@ function openHistoryModal() {
     const errEl = document.createElement('div');
     errEl.className = 'gh-hist-loading';
     errEl.style.color = '#e74c3c';
-    errEl.textContent = 'Error: ' + e.message;
+    errEl.textContent = 'Error loading history: ' + e.message;
     listEl.innerHTML = '';
     listEl.appendChild(errEl);
   });
