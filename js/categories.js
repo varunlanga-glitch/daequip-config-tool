@@ -286,6 +286,32 @@ async function enterCategory(cat) {
   if (localStorage.getItem(_autosaveKey())) {
     _showAutosaveBanner();
   }
+
+  // Start polling for remote changes — show a banner if another session saves
+  if (window._sbWatchStop) window._sbWatchStop();
+  window._sbWatchStop = sbWatchWorkspace(cat.id, () => {
+    _showRemoteChangeBanner(cat);
+  });
+}
+
+/* ── Remote-change banner ──────────────────────────────── */
+function _showRemoteChangeBanner(cat) {
+  if (document.getElementById('remoteChangeBanner')) return;
+  const banner = document.createElement('div');
+  banner.id        = 'remoteChangeBanner';
+  banner.className = 'autosave-banner';
+  banner.innerHTML = `
+    <span>🔄 This workspace was updated by someone else.</span>
+    <button class="btn btn-autosave-restore" id="btnRemoteReload">Reload</button>
+    <button class="btn btn-autosave-discard" id="btnRemoteDismiss">Dismiss</button>`;
+  document.querySelector('.app').insertBefore(banner, document.querySelector('.main'));
+
+  document.getElementById('btnRemoteReload').onclick = async () => {
+    banner.remove();
+    delete window._categoryStates[cat.id];
+    await enterCategory(cat);
+  };
+  document.getElementById('btnRemoteDismiss').onclick = () => banner.remove();
 }
 
 /* ── Return to home screen ─────────────────────────────── */
@@ -295,6 +321,9 @@ function goHome() {
     window._categoryStates[window._activeCategory.id] = _captureState();
     window._categoryDirty[window._activeCategory.id]  = !!State.dirty;
   }
+
+  // Stop the remote-change watcher
+  if (window._sbWatchStop) { window._sbWatchStop(); window._sbWatchStop = null; }
 
   window._activeCategory = null;
   window._appScreen      = 'home';

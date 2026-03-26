@@ -62,19 +62,24 @@ function _autosaveKey() {
   return 'cat_autosave_' + (window._activeCategory?.id || 'main');
 }
 
-/* ── Autosave to localStorage ────────────────────────────── */
+/* ── Autosave to localStorage + Supabase ─────────────────────── */
 let _autosaveTimer = null;
 function scheduleAutosave() {
   clearTimeout(_autosaveTimer);
   _autosaveTimer = setTimeout(() => {
     if (!State.dirty) return;
+    const { dirty, ...saveState } = State;
+    // 1. Always write to localStorage as the fast local fallback
     try {
-      const { dirty, ...saveState } = State;
       localStorage.setItem(_autosaveKey(), JSON.stringify({
         timestamp: Date.now(),
         state: saveState
       }));
     } catch(e) { /* storage full — silently skip */ }
+    // 2. Also push to Supabase (no version snapshot — just keeps DB current)
+    if (window._activeCategory?.id) {
+      sbAutoSave(window._activeCategory.id, saveState);
+    }
   }, 2000);
 }
 

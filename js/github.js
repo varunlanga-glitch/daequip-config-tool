@@ -525,6 +525,24 @@ function openHistoryModal() {
       info.appendChild(metaSpan);
       row.appendChild(info);
 
+      // Pin / unpin button (all rows except the live version)
+      if (!isLatest) {
+        const pinBtn = document.createElement('button');
+        pinBtn.className   = 'btn gh-hist-pin-btn' + (v.pinned ? ' gh-hist-pin-active' : '');
+        pinBtn.title       = v.pinned ? 'Unpin (will be pruned eventually)' : 'Pin (keep forever)';
+        pinBtn.textContent = v.pinned ? '📌' : '📍';
+        pinBtn.onclick = async () => {
+          try {
+            await sbPinVersion(v.id, !v.pinned);
+            v.pinned           = !v.pinned;
+            pinBtn.classList.toggle('gh-hist-pin-active', v.pinned);
+            pinBtn.title       = v.pinned ? 'Unpin (will be pruned eventually)' : 'Pin (keep forever)';
+            pinBtn.textContent = v.pinned ? '📌' : '📍';
+          } catch(e) { _ghToast('Pin failed: ' + e.message, true); }
+        };
+        row.appendChild(pinBtn);
+      }
+
       if (isLatest) {
         const badge = document.createElement('span');
         badge.className = 'gh-hist-current';

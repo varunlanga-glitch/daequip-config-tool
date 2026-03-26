@@ -6,9 +6,10 @@
      • save_workspace    — distributes state across 15 tables
      • save_categories   — upserts workspace metadata
      • create_version    — snapshots state into version history
-     • list_versions     — returns version history metadata
+     • list_versions     — returns version history metadata (+ pinned)
      • get_version       — returns a single version snapshot
      • restore_version   — restores a snapshot into live tables
+     • pin_version       — pins/unpins a version from pruning
 
    All functions are async and throw on hard errors.
    Callers should catch and fall back to GitHub/static files.
@@ -85,12 +86,11 @@ async function sbLoadCategoryData(catId) {
 
 /**
  * Save the full State blob by calling the save_workspace RPC.
- * The function distributes the data across all normalized tables.
- * After saving, automatically creates a version snapshot.
+ * Distributes data across all normalized tables and creates a version snapshot.
  * @param {string} catId
  * @param {object} stateObj      — current State
- * @param {string} [message]     — optional commit message for the version
- * @param {string} [committedBy] — optional author label
+ * @param {string} [message]     — commit message recorded in the version
+ * @param {string} [committedBy] — author label
  */
 async function sbSaveCategoryData(catId, stateObj, message, committedBy) {
   var saveState = Object.assign({}, stateObj);
@@ -114,11 +114,32 @@ async function sbSaveCategoryData(catId, stateObj, message, committedBy) {
   }
 }
 
+/**
+ * Silently persist the current state to Supabase without creating a version.
+ * Used by autosave — keeps the DB current without polluting version history.
+ * Non-throwing: errors are logged and swallowed.
+ * @param {string} catId
+ * @param {object} stateObj — current State
+ */
+async function sbAutoSave(catId, stateObj) {
+  if (!catId) return;
+  try {
+    var saveState = Object.assign({}, stateObj);
+    delete saveState.dirty;
+    await _sbFetch('/rpc/save_workspace', {
+      method: 'POST',
+      body:   JSON.stringify({ p_workspace_id: catId, p_state: saveState })
+    });
+  } catch (e) {
+    console.warn('sbAutoSave failed (non-fatal):', e.message);
+  }
+}
+
 /* ── Version history ─────────────────────────────────────────── */
 
 /**
  * Returns version history metadata for a workspace (newest first).
- * Each entry: { id, message, committed_by, created_at }
+ * Each entry: { id, message, committed_by, created_at, pinned }
  * @param {string} catId
  * @param {number} [limit=50]
  */
@@ -155,4 +176,57 @@ async function sbRestoreVersion(versionId, committedBy) {
       p_committed_by: committedBy || 'anonymous'
     })
   });
+}
+
+/**
+ * Pin or unpin a version so it survives automatic pruning.
+ * @param {number}  versionId
+ * @param {boolean} [pinned=true]
+ */
+async function sbPinVersion(versionId, pinned) {
+  await _sbFetch('/rpc/pin_version', {
+    method: 'POST',
+    body:   JSON.stringify({
+      p_version_id: versionId,
+      p_pinned:     pinned !== false
+    })
+  });
+}
+
+/* ── Remote-change watcher ───────────────────────────────────── */
+
+/**
+ * Polls the workspace's updated_at every 30 s.
+ * Calls onRemoteChange() if the timestamp advances beyond our last known save.
+ * Returns a stop() function to cancel polling.
+ *
+ * @param {string}   catId
+ * @param {Function} onRemoteChange  — called with no args when a remote save is detected
+ */
+function sbWatchWorkspace(catId, onRemoteChange) {
+  // Seed with current time so we don't immediately fire on startup
+  var lastKnown = new Date().toISOString();
+  var stopped   = false;
+
+  async function poll() {
+    if (stopped) return;
+    try {
+      var rows = await _sbFetch(
+        '/workspaces?select=updated_at&id=eq.' + encodeURIComponent(catId)
+      );
+      if (rows && rows[0]) {
+        var remote = rows[0].updated_at;
+        if (remote > lastKnown) {
+          lastKnown = remote;
+          onRemoteChange();
+        }
+      }
+    } catch (_) { /* silently ignore network errors */ }
+    if (!stopped) setTimeout(poll, 30000);
+  }
+
+  // First poll after 30 s so we don't race with the initial load
+  setTimeout(poll, 30000);
+
+  return function stop() { stopped = true; };
 }
