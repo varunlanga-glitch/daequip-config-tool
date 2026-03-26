@@ -283,6 +283,7 @@ document.getElementById('btnNewTab').addEventListener('click',         newTab);
 document.getElementById('btnPublish').addEventListener('click',        () => openPublishModal());
 document.getElementById('btnHistory').addEventListener('click',        () => openHistoryModal());
 document.getElementById('btnHome').addEventListener('click',           () => goHome());
+document.getElementById('btnAudit').addEventListener('click',          () => openAuditModal());
 
 /* ── Keyboard shortcuts ──────────────────────────────────── */
 document.addEventListener('keydown', e => {
