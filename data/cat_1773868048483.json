@@ -115,7 +115,7 @@
       },
       {
         "id": "p1773869860795",
-        "midx": "02-01",
+        "midx": null,
         "name": "Pin",
         "level": 1,
         "enabled": true
@@ -518,22 +518,22 @@
       "p1773869852653": {
         "f1773869896995": "PIN-{NOMINAL_PIN_OD_MM?NOMINAL_PIN_OD_MM}MM-GA",
         "f1773869904615": "PIN_TYPE - {ACTUAL_PIN_OD_IN?ACTUAL_PIN_OD_IN OD} {PIN_LENGTH_IN?X PIN_LENGTH_IN LG}",
-        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN}{CROSS_HOLE?  - CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED TAP_QTY_NO_OF_HOLES}  {BOLTSIZE?X BOLTSIZE} {GREASE_GROOVE?- GREASED x GREASE_GROOVE}"
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?- CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?- TAPPED TAP_QTY_NO_OF_HOLES}  {BOLTSIZE?X BOLTSIZE} {GREASE_GROOVE?- GREASED x GREASE_GROOVE}"
       },
       "p1773869860795": {
         "f1773869896995": "PIN-{NOMINAL_PIN_OD_MM?NOMINAL_PIN_OD_MM}MM",
         "f1773869904615": "PIN_TYPE - {ACTUAL_PIN_OD_IN?ACTUAL_PIN_OD_IN OD} {PIN_LENGTH_IN?X PIN_LENGTH_IN LG}",
-        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN}{CROSS_HOLE?  - CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED TAP_QTY_NO_OF_HOLES}  {BOLTSIZE?X BOLTSIZE} {GREASE_GROOVE?- GREASED x GREASE_GROOVE}"
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?- CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?- TAPPED TAP_QTY_NO_OF_HOLES}  {BOLTSIZE?X BOLTSIZE} {GREASE_GROOVE?- GREASED x GREASE_GROOVE}"
       },
       "p1773869871318": {
         "f1773869896995": "PIN-{NOMINAL_PIN_OD_MM?NOMINAL_PIN_OD_MM}MM-WLDT",
         "f1773869904615": "PIN_TYPE - {ACTUAL_PIN_OD_IN?ACTUAL_PIN_OD_IN OD} {PIN_LENGTH_IN?X PIN_LENGTH_IN LG}",
-        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN}{CROSS_HOLE?  - CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED TAP_QTY_NO_OF_HOLES}  {BOLTSIZE?X BOLTSIZE} {GREASE_GROOVE?- GREASED x GREASE_GROOVE}"
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?- CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?- TAPPED TAP_QTY_NO_OF_HOLES}  {BOLTSIZE?X BOLTSIZE} {GREASE_GROOVE?- GREASED x GREASE_GROOVE}"
       },
       "p1773869885948": {
         "f1773869896995": "PIN-{NOMINAL_PIN_OD_MM?NOMINAL_PIN_OD_MM}MM",
         "f1773869904615": "PIN_TYPE - {ACTUAL_PIN_OD_IN?ACTUAL_PIN_OD_IN OD} {PIN_LENGTH_IN?X PIN_LENGTH_IN LG}",
-        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN}{CROSS_HOLE?  - CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?TAPPED TAP_QTY_NO_OF_HOLES}  {BOLTSIZE?X BOLTSIZE} {GREASE_GROOVE?- GREASED x GREASE_GROOVE}"
+        "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN} {CROSS_HOLE?- CROSS HOLE - CROSS_HOLE} {DRILL?DRILLED - DRILL} {TAP_QTY_NO_OF_HOLES?- TAPPED TAP_QTY_NO_OF_HOLES}  {BOLTSIZE?X BOLTSIZE} {GREASE_GROOVE?- GREASED x GREASE_GROOVE}"
       },
       "p1773874552887": {
         "f1773869896995": "PIN-NOMINAL_PIN_OD_MM-WLDT",
@@ -3240,8 +3240,7 @@
           "135",
           "140",
           "30",
-          "35",
-          "71"
+          "35"
         ],
         "label": "Nominal Pin OD (mm)"
       },
@@ -3839,12 +3838,9 @@
           "4.722",
           "3.934",
           "3.148",
-          "3.150",
-          "2.950",
-          "2.793",
-          "2.754",
-          "2.756",
-          "2.557"
+          "2.557",
+          "2.360",
+          "2.163"
         ],
         "label": "Actual Pin OD (in)"
       },
@@ -3864,9 +3860,10 @@
           "7.125",
           "0.813",
           "0.875",
-          "0.688",
+          "0.188",
           "0.625",
-          "0.563"
+          "0.563",
+          "0.688"
         ],
         "label": "Cross Hole"
       },
@@ -3992,11 +3989,13 @@
     },
     "cat_1773868048483_1": {
       "PIN_TYPE": "FXD",
+      "PIN_LENGTH_IN": "20.438",
+      "ACTUAL_PIN_OD_IN": "2.163",
+      "NOMINAL_PIN_OD_MM": "55",
+      "INDUCTION_HARDENED": "Yes",
       "CROSS_HOLE": "0.688",
-      "PIN_LENGTH_IN": "27.750",
-      "ACTUAL_PIN_OD_IN": "2.557",
-      "NOMINAL_PIN_OD_MM": "65",
-      "INDUCTION_HARDENED": "Yes"
+      "TAP_QTY_NO_OF_HOLES": "2",
+      "BOLTSIZE": "0.375"
     }
   },
   "lockedTabs": {},
@@ -4073,7 +4072,7 @@
       "p1773869885948": "PN-0{NOMINAL_PIN_OD_MM?NOMINAL_PIN_OD_MM}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX"
     }
   },
-  "activeRightTab": "rules",
+  "activeRightTab": "parts",
   "lockedSections": {},
   "productClasses": [
     {
@@ -4109,7 +4108,7 @@
       "name": "Pins (Imperial)"
     }
   ],
-  "selectedPartId": "p1773869885948",
+  "selectedPartId": "p1773869852653",
   "exportSelections": {
     "tab1773940149410": {},
     "tab1773944324382": {},
@@ -4119,10 +4118,7 @@
     "tab1773949603891": {},
     "tab1773951378462": {},
     "cat_1773868048483_1": {
-      "_reviewed": {
-        "props": {},
-        "rename": false
-      },
+      "_reviewed": true,
       "p1773869852653": {
         "props": {
           "f1773869896995": true,
@@ -4174,13 +4170,13 @@
     "tab1773949603891": {},
     "tab1773951378462": {},
     "cat_1773868048483_1": {
-      "p1773869852653": "PA-065MM-27.7500-02",
-      "p1773869860795": "PN-065MM-27.7500-02-01",
-      "p1773869871318": "PA-065MM-27.7500-01",
-      "p1773869885948": "PN-065MM-27.7500-01-01"
+      "p1773869852653": "PA-060MM-27.8750-02",
+      "p1773869860795": "PN-060MM-18.3750-01-01",
+      "p1773869871318": "PA-55MM-20.438-01-01",
+      "p1773869885948": "PN-55MM-20.438-01"
     }
   },
   "inventorBaseFolders": {
-    "cat_1773868048483_1": "C:\\_Vault\\Daequip\\Library\\Pins\\PN-065MM"
+    "cat_1773868048483_1": "C:\\_Vault\\Daequip\\Library\\Pins\\PN-055MM"
   }
 }
