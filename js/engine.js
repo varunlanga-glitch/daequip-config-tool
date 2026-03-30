@@ -87,6 +87,7 @@ function resolveRule(template, partId) {
   // {VAR=value:output}   → shows output if VAR equals value, else blank
   // {VAR?output}         → shows output if VAR is set (non-blank, not "—select—"), else blank
   // {VAR1,VAR2?output}   → shows output only if ALL listed vars are set (AND condition)
+  // {VAR1|VAR2?output}   → shows output if ANY listed var is set (OR condition)
   const BLANK_VALUES = ['', '—select—', '-- select --', '--select--'];
   const isSet = key => !BLANK_VALUES.includes((ctx[key.trim()] || '').trim());
   s = s.replace(/\{([^{}=?:]+)=([^{}:]+):([^{}]*)\}/g, (match, varName, expected, output) => {
@@ -94,6 +95,7 @@ function resolveRule(template, partId) {
     return val === expected.trim() ? output : '';
   });
   s = s.replace(/\{([^{}=?:]+)\?([^{}]*)\}/g, (match, varNames, output) => {
+    if (varNames.includes('|')) return varNames.split('|').some(isSet)  ? output : '';
     return varNames.split(',').every(isSet) ? output : '';
   });
 
