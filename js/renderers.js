@@ -343,14 +343,11 @@ function renderContext() {
             // Single filtered result — select it
             opts[0].dispatchEvent(new MouseEvent('mousedown'));
           } else if (typed) {
-            // Genuinely new value — launch the add-new flow pre-filled with typed text
+            // Genuinely new value — add it directly without the two-step flow
+            const newValue = normalizeChipVal(typed);
+            if (!m.vals.includes(newValue)) m.vals.push(newValue);
             dropdown.style.display = 'none';
-            handleContextSelect(m.key, '__NEW__');
-            // __NEW__ replaces the combo with an inline input and focuses it
-            const newInput = document.activeElement;
-            if (newInput && newInput.placeholder === 'New value, press Enter\u2026') {
-              newInput.value = typed;
-            }
+            handleContextSelect(m.key, newValue);
           }
         }
       } else if (e.key === 'Escape') {

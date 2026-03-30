@@ -84,16 +84,17 @@ function resolveRule(template, partId) {
 
   // Evaluate conditionals BEFORE variable substitution so {VAR?output} is
   // processed while VAR is still a key name, not its substituted value.
-  // {VAR=value:output} → shows output if VAR equals value, else blank
-  // {VAR?output}       → shows output if VAR is set (non-blank, not "—select—"), else blank
+  // {VAR=value:output}   → shows output if VAR equals value, else blank
+  // {VAR?output}         → shows output if VAR is set (non-blank, not "—select—"), else blank
+  // {VAR1,VAR2?output}   → shows output only if ALL listed vars are set (AND condition)
   const BLANK_VALUES = ['', '—select—', '-- select --', '--select--'];
+  const isSet = key => !BLANK_VALUES.includes((ctx[key.trim()] || '').trim());
   s = s.replace(/\{([^{}=?:]+)=([^{}:]+):([^{}]*)\}/g, (match, varName, expected, output) => {
     const val = (ctx[varName.trim()] || '').trim();
     return val === expected.trim() ? output : '';
   });
-  s = s.replace(/\{([^{}=?:]+)\?([^{}]*)\}/g, (match, varName, output) => {
-    const val = (ctx[varName.trim()] || '').trim();
-    return BLANK_VALUES.includes(val) ? '' : output;
+  s = s.replace(/\{([^{}=?:]+)\?([^{}]*)\}/g, (match, varNames, output) => {
+    return varNames.split(',').every(isSet) ? output : '';
   });
 
   // {VAR#N} → zero-pad numeric context variable VAR to at least N digits.
