@@ -81,7 +81,7 @@
         "midx": null,
         "name": "Pin GA",
         "level": 0,
-        "enabled": false
+        "enabled": true
       },
       {
         "id": "p1773869860795",
@@ -95,14 +95,14 @@
         "midx": "01",
         "name": "Pin Wldt",
         "level": 0,
-        "enabled": false
+        "enabled": true
       },
       {
         "id": "p1773869885948",
         "midx": null,
         "name": "Pin",
         "level": 1,
-        "enabled": false
+        "enabled": true
       }
     ],
     "cat_1773868048483_1": [
@@ -485,22 +485,22 @@
     "tab1773951378462": {
       "p1773869852653": {
         "f1773869896995": "PIN-{NOMINAL_PIN_OD_IN?NOMINAL_PIN_OD_ININ}-GA",
-        "f1773869904615": "PIN_TYPE - {ACTUAL_PIN_OD_IN?ACTUAL_PIN_OD_IN OD} {PIN_LENGTH_IN?X PIN_LENGTH_IN LG}",
+        "f1773869904615": "PIN_TYPE - {NOMINAL_PIN_OD_IN?NOMINAL_PIN_OD_IN OD }{PIN_LENGTH_IN?X PIN_LENGTH_IN LG}",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN}{CROSS_HOLE,CROSS_HOLE_QTY? - CROSS HOLE - CROSS_HOLE_QTY X CROSS_HOLE}{CROSS_HOLE_2,CROSS_HOLE_QTY_2? - CROSS_HOLE_QTY_2 X CROSS_HOLE_2}{TAP_QTY_NO_OF_HOLES? - TAPPED TAP_QTY_NO_OF_HOLES X BOLTSIZE}{GREASE_GROOVE? - GREASED X GREASE_GROOVE}\n"
       },
       "p1773869860795": {
         "f1773869896995": "PIN-{NOMINAL_PIN_OD_IN?NOMINAL_PIN_OD_ININ}",
-        "f1773869904615": "PIN_TYPE - {ACTUAL_PIN_OD_IN?ACTUAL_PIN_OD_IN OD} {PIN_LENGTH_IN?X PIN_LENGTH_IN LG}",
+        "f1773869904615": "PIN_TYPE - {NOMINAL_PIN_OD_IN?NOMINAL_PIN_OD_IN OD }{PIN_LENGTH_IN?X PIN_LENGTH_IN LG}",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN}{CROSS_HOLE,CROSS_HOLE_QTY? - CROSS HOLE - CROSS_HOLE_QTY X CROSS_HOLE}{CROSS_HOLE_2,CROSS_HOLE_QTY_2? - CROSS_HOLE_QTY_2 X CROSS_HOLE_2}{TAP_QTY_NO_OF_HOLES? - TAPPED TAP_QTY_NO_OF_HOLES X BOLTSIZE}{GREASE_GROOVE? - GREASED X GREASE_GROOVE}\n"
       },
       "p1773869871318": {
         "f1773869896995": "PIN-{NOMINAL_PIN_OD_IN?NOMINAL_PIN_OD_ININ}-WLDT",
-        "f1773869904615": "PIN_TYPE - {ACTUAL_PIN_OD_IN?ACTUAL_PIN_OD_IN OD} {PIN_LENGTH_IN?X PIN_LENGTH_IN LG}",
+        "f1773869904615": "PIN_TYPE - {NOMINAL_PIN_OD_IN?NOMINAL_PIN_OD_IN OD }{PIN_LENGTH_IN?X PIN_LENGTH_IN LG}",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN}{CROSS_HOLE,CROSS_HOLE_QTY? - CROSS HOLE - CROSS_HOLE_QTY X CROSS_HOLE}{CROSS_HOLE_2,CROSS_HOLE_QTY_2? - CROSS_HOLE_QTY_2 X CROSS_HOLE_2}{TAP_QTY_NO_OF_HOLES? - TAPPED TAP_QTY_NO_OF_HOLES X BOLTSIZE}{GREASE_GROOVE? - GREASED X GREASE_GROOVE}\n"
       },
       "p1773869885948": {
         "f1773869896995": "PIN-{NOMINAL_PIN_OD_IN?NOMINAL_PIN_OD_ININ}",
-        "f1773869904615": "PIN_TYPE - {ACTUAL_PIN_OD_IN?ACTUAL_PIN_OD_IN OD} {PIN_LENGTH_IN?X PIN_LENGTH_IN LG}",
+        "f1773869904615": "PIN_TYPE - {NOMINAL_PIN_OD_IN?NOMINAL_PIN_OD_IN OD }{PIN_LENGTH_IN?X PIN_LENGTH_IN LG}",
         "f1773869932699": "{INDUCTION_HARDENED?INDN HRDN}{CROSS_HOLE,CROSS_HOLE_QTY? - CROSS HOLE - CROSS_HOLE_QTY X CROSS_HOLE}{CROSS_HOLE_2,CROSS_HOLE_QTY_2? - CROSS_HOLE_QTY_2 X CROSS_HOLE_2}{TAP_QTY_NO_OF_HOLES? - TAPPED TAP_QTY_NO_OF_HOLES X BOLTSIZE}{GREASE_GROOVE? - GREASED X GREASE_GROOVE}\n"
       },
       "p1773874552887": {
@@ -3118,7 +3118,10 @@
           "20.000",
           "3.500",
           "4.000",
-          "5.125"
+          "5.125",
+          "4.500",
+          "5.000",
+          "5.625"
         ],
         "label": "Pin Length (in)"
       },
@@ -3127,7 +3130,9 @@
         "vals": [
           "2.000",
           "1.000",
-          "1.000"
+          "1.000",
+          "1.250",
+          "1.500"
         ],
         "label": "Actual Pin OD (in)"
       },
@@ -3161,7 +3166,10 @@
           "1.063",
           "1.250",
           "0.250",
-          "0.375"
+          "0.375",
+          "0.313",
+          "0.438",
+          "0.563"
         ],
         "label": "Cross Hole"
       },
@@ -4063,21 +4071,21 @@
       "RING_THICKNESSIN": "0.563"
     },
     "tab1773951378462": {
-      "PIN_TYPE": "FLT",
-      "CROSS_HOLE": "0.375",
-      "PIN_LENGTH_IN": "6.125",
+      "PIN_TYPE": "FXD",
+      "CROSS_HOLE": "0.563",
+      "PIN_LENGTH_IN": "5.625",
       "CROSS_HOLE_QTY": "1",
-      "ACTUAL_PIN_OD_IN": "1.000",
-      "NOMINAL_PIN_OD_IN": "1.000"
+      "ACTUAL_PIN_OD_IN": "1.500",
+      "NOMINAL_PIN_OD_IN": "1.500"
     },
     "cat_1773868048483_1": {
       "PIN_TYPE": "FXD",
+      "CROSS_HOLE": "0.375",
+      "CROSS_HOLE_2": "0.250",
       "PIN_LENGTH_IN": "8.125",
       "CROSS_HOLE_QTY": "1",
       "ACTUAL_PIN_OD_IN": "1.180",
-      "NOMINAL_PIN_OD_MM": "30",
-      "CROSS_HOLE": "0.375",
-      "CROSS_HOLE_2": "0.250"
+      "NOMINAL_PIN_OD_MM": "30"
     }
   },
   "lockedTabs": {},
@@ -4200,7 +4208,7 @@
       "name": "Pins (Imperial)"
     }
   ],
-  "selectedPartId": "p1773869860795",
+  "selectedPartId": "p1773869852653",
   "exportSelections": {
     "tab1773940149410": {},
     "tab1773944324382": {},
@@ -4211,6 +4219,26 @@
     "tab1773951378462": {
       "_reviewed": true,
       "p1773869860795": {
+        "props": {
+          "f1773869896995": true,
+          "f1773869904615": true,
+          "f1773869927490": false,
+          "f1773869932699": true,
+          "f1773869937461": false
+        },
+        "rename": false
+      },
+      "p1773869871318": {
+        "props": {
+          "f1773869896995": true,
+          "f1773869904615": true,
+          "f1773869927490": false,
+          "f1773869932699": true,
+          "f1773869937461": false
+        },
+        "rename": false
+      },
+      "p1773869885948": {
         "props": {
           "f1773869896995": true,
           "f1773869904615": true,
@@ -4276,7 +4304,9 @@
     "tab1773949221785": {},
     "tab1773949603891": {},
     "tab1773951378462": {
-      "p1773869860795": "PN-1.000-5.1250-01-01"
+      "p1773869860795": "PN-1.000-6.1250-01-01",
+      "p1773869871318": "PA-1.500-9.7500-01",
+      "p1773869885948": "PN-1.500-5.625-01-01"
     },
     "cat_1773868048483_1": {
       "p1773869852653": "PA-040MM-14.7500-01-01",
@@ -4286,7 +4316,7 @@
     }
   },
   "inventorBaseFolders": {
-    "tab1773951378462": "C:\\_Vault\\Daequip\\Library\\Pins\\PN-01000",
+    "tab1773951378462": "C:\\_Vault\\Daequip\\Library\\Pins\\PN-01500",
     "cat_1773868048483_1": "C:\\_Vault\\Daequip\\Library\\Pins\\PN-030MM"
   }
 }
