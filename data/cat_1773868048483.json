@@ -3116,7 +3116,8 @@
           "19.875",
           "19.938",
           "20.000",
-          "3.500"
+          "3.500",
+          "4.000"
         ],
         "label": "Pin Length (in)"
       },
@@ -3145,6 +3146,14 @@
         "label": "Pin Type"
       },
       {
+        "key": "CROSS_HOLE_QTY",
+        "vals": [
+          "1",
+          "2"
+        ],
+        "label": "Cross Hole Qty"
+      },
+      {
         "key": "CROSS_HOLE",
         "vals": [
           "1.500",
@@ -3153,6 +3162,24 @@
           "0.250"
         ],
         "label": "Cross Hole"
+      },
+      {
+        "key": "CROSS_HOLE_QTY_2",
+        "vals": [
+          "1",
+          "2",
+          "3"
+        ],
+        "label": "Cross Hole Qty 2"
+      },
+      {
+        "key": "CROSS_HOLE_2",
+        "vals": [
+          "0.250",
+          "0.500",
+          "0.750"
+        ],
+        "label": "Cross Hole 2"
       },
       {
         "key": "TAP_QTY_NO_OF_HOLES",
@@ -3875,6 +3902,17 @@
         "label": "Induction Hardened"
       },
       {
+        "key": "CROSS_HOLE_QTY",
+        "vals": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "label": "Cross Hole Qty"
+      },
+      {
         "key": "CROSS_HOLE",
         "vals": [
           "1.500",
@@ -3891,6 +3929,26 @@
           "0.375"
         ],
         "label": "Cross Hole"
+      },
+      {
+        "key": "CROSS_HOLE_QTY_2",
+        "vals": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "0"
+        ],
+        "label": "Cross Hole Qty 2"
+      },
+      {
+        "key": "CROSS_HOLE_2",
+        "vals": [
+          "0.250",
+          "0.375",
+          "0.500"
+        ],
+        "label": "Cross Hole 2"
       },
       {
         "key": "TAP_QTY_NO_OF_HOLES",
@@ -4003,18 +4061,26 @@
       "RING_THICKNESSIN": "0.563"
     },
     "tab1773951378462": {
+      "BOLTSIZE": "0.188",
       "PIN_TYPE": "FLT",
-      "PIN_LENGTH_IN": "3.500",
+      "CROSS_HOLE": "0.250",
+      "PIN_LENGTH_IN": "4.000",
+      "CROSS_HOLE_QTY": "1",
       "ACTUAL_PIN_OD_IN": "1.000",
       "NOMINAL_PIN_OD_IN": "1.000",
-      "INDUCTION_HARDENED": "Yes"
+      "INDUCTION_HARDENED": "Yes",
+      "TAP_QTY_NO_OF_HOLES": "1",
+      "CROSS_HOLE_QTY_2": "1",
+      "CROSS_HOLE_2": "0.250"
     },
     "cat_1773868048483_1": {
       "PIN_TYPE": "FXD",
       "PIN_LENGTH_IN": "8.125",
+      "CROSS_HOLE_QTY": "1",
       "ACTUAL_PIN_OD_IN": "1.180",
       "NOMINAL_PIN_OD_MM": "30",
-      "INDUCTION_HARDENED": "Yes"
+      "CROSS_HOLE": "0.375",
+      "CROSS_HOLE_2": "0.250"
     }
   },
   "lockedTabs": {},
@@ -4029,6 +4095,16 @@
     "cat_1773868048483_1": []
   },
   "inventorMaps": {
+    "tab1773951378462": {
+      "mapping": {
+        "f1773869896995": "Description",
+        "f1773869904615": "Features 1",
+        "f1773869927490": "Features 2",
+        "f1773869932699": "Specs 1",
+        "f1773869937461": "Specs 2"
+      },
+      "fileNamePropId": null
+    },
     "cat_1773868048483_1": {
       "mapping": {
         "f1773869896995": "Description",
@@ -4040,7 +4116,7 @@
       "fileNamePropId": "f1773869896995"
     }
   },
-  "activeClassId": "cat_1773868048483_1",
+  "activeClassId": "tab1773951378462",
   "fileNameRules": {
     "tab1773940149410": {
       "p1773869852653": "BU-{PIN_OD?0PIN_ODMM}-{BUSHING_LENGTH_IN?BUSHING_LENGTH_IN}-IDX",
@@ -4080,9 +4156,9 @@
     },
     "tab1773951378462": {
       "p1773869852653": "PA-{NOMINAL_PIN_OD_IN?NOMINAL_PIN_OD_IN}-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX\n",
-      "p1773869860795": "PA-{NOMINAL_PIN_OD_IN?NOMINAL_PIN_OD_IN}-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX\n",
+      "p1773869860795": "PN-{NOMINAL_PIN_OD_IN?NOMINAL_PIN_OD_IN}-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX\n",
       "p1773869871318": "PA-{NOMINAL_PIN_OD_IN?NOMINAL_PIN_OD_IN}-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX\n",
-      "p1773869885948": "PA-{NOMINAL_PIN_OD_IN?NOMINAL_PIN_OD_IN}-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX\n"
+      "p1773869885948": "PN-{NOMINAL_PIN_OD_IN?NOMINAL_PIN_OD_IN}-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX\n"
     },
     "cat_1773868048483_1": {
       "p1773869852653": "PA-{NOMINAL_PIN_OD_MM#3}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX\n",
@@ -4127,7 +4203,7 @@
       "name": "Pins (Imperial)"
     }
   ],
-  "selectedPartId": "p1773869860795",
+  "selectedPartId": "p1773869885948",
   "exportSelections": {
     "tab1773940149410": {},
     "tab1773944324382": {},
@@ -4135,7 +4211,22 @@
     "tab1773948764358": {},
     "tab1773949221785": {},
     "tab1773949603891": {},
-    "tab1773951378462": {},
+    "tab1773951378462": {
+      "_reviewed": {
+        "props": {},
+        "rename": false
+      },
+      "p1773869860795": {
+        "props": {
+          "f1773869896995": true,
+          "f1773869904615": true,
+          "f1773869927490": false,
+          "f1773869932699": true,
+          "f1773869937461": false
+        },
+        "rename": false
+      }
+    },
     "cat_1773868048483_1": {
       "_reviewed": {
         "props": {},
@@ -4190,7 +4281,9 @@
     "tab1773948764358": {},
     "tab1773949221785": {},
     "tab1773949603891": {},
-    "tab1773951378462": {},
+    "tab1773951378462": {
+      "p1773869860795": "PN-1.000-4.0000-01-01"
+    },
     "cat_1773868048483_1": {
       "p1773869852653": "PA-040MM-14.7500-01-01",
       "p1773869860795": "PN-040MM-14.7500-01",
@@ -4199,6 +4292,7 @@
     }
   },
   "inventorBaseFolders": {
+    "tab1773951378462": "C:\\_Vault\\Daequip\\Library\\Pins\\PN-01000",
     "cat_1773868048483_1": "C:\\_Vault\\Daequip\\Library\\Pins\\PN-030MM"
   }
 }
