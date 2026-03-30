@@ -314,7 +314,18 @@ function renderContext() {
     };
     input.onblur = () => setTimeout(() => {
       dropdown.style.display = 'none';
-      input.value = currentVal;  // revert any half-typed text
+      const typed = input.value.trim();
+      const newValue = typed ? normalizeChipVal(typed) : '';
+      if (typed && typed !== currentVal && !sortedVals.includes(typed) && !m.vals.includes(newValue)) {
+        // Typed a genuinely new value and blurred — save it instead of reverting
+        m.vals.push(newValue);
+        handleContextSelect(m.key, newValue);
+      } else if (typed && typed !== currentVal && m.vals.includes(newValue)) {
+        // Typed value normalizes to an existing value — select it
+        handleContextSelect(m.key, newValue);
+      } else {
+        input.value = currentVal;  // revert partial/unchanged text
+      }
     }, 160);
 
     input.onkeydown = e => {
