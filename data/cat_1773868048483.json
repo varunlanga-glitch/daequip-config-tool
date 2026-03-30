@@ -3126,17 +3126,6 @@
         "label": "Pin Length (in)"
       },
       {
-        "key": "ACTUAL_PIN_OD_IN",
-        "vals": [
-          "2.000",
-          "1.000",
-          "1.000",
-          "1.250",
-          "1.500"
-        ],
-        "label": "Actual Pin OD (in)"
-      },
-      {
         "key": "INDUCTION_HARDENED",
         "vals": [
           "Yes"
@@ -4075,7 +4064,6 @@
       "CROSS_HOLE": "0.563",
       "PIN_LENGTH_IN": "5.625",
       "CROSS_HOLE_QTY": "1",
-      "ACTUAL_PIN_OD_IN": "1.500",
       "NOMINAL_PIN_OD_IN": "1.500"
     },
     "cat_1773868048483_1": {
@@ -4172,7 +4160,7 @@
       "p1773869885948": "PN-0{NOMINAL_PIN_OD_MM?NOMINAL_PIN_OD_MM}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX"
     }
   },
-  "activeRightTab": "rules",
+  "activeRightTab": "parts",
   "lockedSections": {},
   "productClasses": [
     {
