@@ -128,6 +128,10 @@ function resolveRule(template, partId) {
     return val !== null ? val : match;
   });
 
+  // Strip leading/trailing " - " separators that arise when the first or last
+  // field in a prefix-separator chain is absent.
+  s = s.replace(/^\s*-\s+/, '').replace(/\s+-\s*$/, '').trim();
+
   return s;
 }
 
