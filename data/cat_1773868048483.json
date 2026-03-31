@@ -4269,7 +4269,7 @@
       "CROSS_HOLE_QTY_2": "2",
       "CROSS_HOLE_2": "0.500",
       "TAP_QTY_NO_OF_HOLES": "1",
-      "BOLTSIZE": "0.125",
+      "BOLTSIZE": "0.250",
       "GREASE_GROOVE": "GREASED"
     },
     "cat_1773868048483_1": {
@@ -4427,7 +4427,7 @@
       "name": "Bushings (Imperial)"
     }
   ],
-  "selectedPartId": "p1773869885948",
+  "selectedPartId": null,
   "exportSelections": {
     "tab1773940149410": {},
     "tab1773944324382": {},
