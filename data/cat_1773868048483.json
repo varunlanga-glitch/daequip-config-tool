@@ -3471,7 +3471,8 @@
           "140",
           "30",
           "35",
-          "38"
+          "38",
+          "71"
         ],
         "label": "Nominal Pin OD (mm)"
       },
@@ -4068,7 +4069,13 @@
           "1.180",
           "4.328",
           "3.540",
-          "1.494"
+          "1.494",
+          "1.000",
+          "2.754",
+          "2.756",
+          "2.793",
+          "2.950",
+          "3.150"
         ],
         "label": "Actual Pin OD (in)"
       },
@@ -4264,12 +4271,12 @@
     },
     "cat_1773868048483_1": {
       "PIN_TYPE": "FIXED",
-      "PIN_LENGTH_IN": "14.750",
-      "ACTUAL_PIN_OD_IN": "1.494",
-      "NOMINAL_PIN_OD_MM": "40",
+      "PIN_LENGTH_IN": "29.125",
+      "ACTUAL_PIN_OD_IN": "4.328",
+      "NOMINAL_PIN_OD_MM": "110",
       "INDUCTION_HARDENED": "Yes",
-      "CROSS_HOLE_QTY": "1",
-      "CROSS_HOLE": "0.563"
+      "CROSS_HOLE_QTY": "2",
+      "CROSS_HOLE": "0.813"
     }
   },
   "lockedTabs": {},
@@ -4363,7 +4370,7 @@
       "p1773869885948": "PN-0{NOMINAL_PIN_OD_MM?NOMINAL_PIN_OD_MM}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX"
     }
   },
-  "activeRightTab": "config",
+  "activeRightTab": "parts",
   "lockedSections": {},
   "productClasses": [
     {
@@ -4403,7 +4410,7 @@
       "name": "Bushings (Imperial)"
     }
   ],
-  "selectedPartId": null,
+  "selectedPartId": "p1773869871318",
   "exportSelections": {
     "tab1773940149410": {},
     "tab1773944324382": {},
