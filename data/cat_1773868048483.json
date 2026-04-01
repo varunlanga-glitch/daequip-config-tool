@@ -333,8 +333,8 @@
     "tab1773940149410": {
       "p1773869852653": {
         "f1773869896995": "BUSHING-{PIN_OD?PIN_ODMM}",
-        "f1773869904615": "{BUSHING_OD_IN?BUSHING_OD_IN OD} X {BUSHING_ID_IN?BUSHING_ID_IN ID} X {BUSHING_LENGTH_IN?BUSHING_LENGTH_IN LG}",
-        "f1773869932699": "{GREASE_GROOVE_LENGTH?GG - GREASE_GROOVE_LENGTH}"
+        "f1773869904615": "{INDUCTION_HARDENED?INDUCTION HARDENED}",
+        "f1773869932699": "{BUSHING_OD_IN?BUSHING_OD_IN OD} X {BUSHING_ID_IN?BUSHING_ID_IN ID} X {BUSHING_LENGTH_IN?BUSHING_LENGTH_IN LG}{GREASE_GROOVE_LENGTH? - GG - GREASE_GROOVE_LENGTH}"
       },
       "p1773869860795": {
         "f1773869896995": "PIN-{BUSHING_OD_IN?PIN_ODMM}",
@@ -652,57 +652,77 @@
       {
         "key": "BUSHING_OD_IN",
         "vals": [
-          "2.000"
+          "1.628",
+          "1.974",
+          "2.446",
+          "2.444",
+          "2.657",
+          "2.959",
+          "3.157",
+          "3.351",
+          "3.393",
+          "3.747",
+          "4.140",
+          "4.534",
+          "5.127",
+          "5.737"
         ],
         "label": "Bushing OD (IN)"
       },
       {
         "key": "BUSHING_ID_IN",
         "vals": [
-          "1.525"
+          "1.193",
+          "1.502",
+          "1.585",
+          "1.784",
+          "1.977",
+          "2.173",
+          "2.368",
+          "2.571",
+          "2.771",
+          "2.806",
+          "3.164",
+          "3.557",
+          "3.952",
+          "4.343",
+          "4.737"
         ],
         "label": "Bushing ID (IN)"
       },
       {
         "key": "BUSHING_LENGTH_IN",
         "vals": [
-          "0.750",
-          "0.813",
-          "0.875",
-          "0.938",
-          "1.000",
-          "1.063",
           "1.125",
-          "1.188",
           "1.250",
-          "1.313",
-          "1.375",
-          "1.438",
-          "1.500",
-          "1.563",
-          "1.625",
-          "1.688",
+          "1.565",
           "1.750",
-          "1.813",
-          "1.875",
-          "1.938",
+          "0.938",
+          "1.130",
+          "1.500",
+          "0.750",
           "2.000",
-          "2.063",
-          "2.125",
-          "2.188",
+          "1.625",
+          "1.967",
+          "0.813",
+          "0.625",
+          "1.188",
+          "1.000",
           "2.250",
-          "2.313",
-          "2.375",
-          "2.438",
+          "0.563",
+          "1.063",
+          "1.375",
+          "0.688",
+          "1.313",
+          "2.756",
+          "2.744",
+          "2.746",
           "2.500",
-          "2.563",
-          "2.625",
-          "2.688",
-          "2.750",
-          "2.813",
-          "2.875",
-          "2.938",
-          "3.000"
+          "2.350",
+          "3.352",
+          "3.000",
+          "3.125",
+          "4.000"
         ],
         "label": "Bushing Length (in)"
       },
@@ -739,9 +759,23 @@
           "1.813",
           "1.875",
           "1.938",
-          "2.000"
+          "2.000",
+          "2.125",
+          "2.250",
+          "1.594",
+          "2.031",
+          "1.378",
+          "0.344",
+          "0.783"
         ],
         "label": "GREASE GROOVE LENGTH"
+      },
+      {
+        "key": "INDUCTION_HARDENED",
+        "label": "Induction Hardened",
+        "vals": [
+          "Yes"
+        ]
       }
     ],
     "tab1773944324382": [
@@ -4214,11 +4248,12 @@
   },
   "context": {
     "tab1773940149410": {
-      "PIN_OD": "35",
+      "PIN_OD": "30",
       "BUSHING_ID_IN": "1.525",
       "BUSHING_OD_IN": "2.000",
       "BUSHING_LENGTH_IN": "2.813",
-      "GREASE_GROOVE_LENGTH": "0.375"
+      "GREASE_GROOVE_LENGTH": "0.375",
+      "INDUCTION_HARDENED": "Yes"
     },
     "tab1773944324382": {
       "OFFSET": "YES",
@@ -4269,7 +4304,7 @@
       "PIN_TYPE": "FIXED",
       "PIN_LENGTH_IN": "14.000",
       "ACTUAL_PIN_OD_IN": "1.769",
-      "NOMINAL_PIN_OD_MM": "45",
+      "NOMINAL_PIN_OD_MM": "30",
       "INDUCTION_HARDENED": "Yes",
       "CROSS_HOLE_QTY": "1",
       "CROSS_HOLE": "0.438"
@@ -4309,7 +4344,7 @@
       "fileNamePropId": "f1773869896995"
     }
   },
-  "activeClassId": "cat_1773868048483_1",
+  "activeClassId": "tab1773940149410",
   "fileNameRules": {
     "tab1773940149410": {
       "p1773869852653": "BU-{PIN_OD?0PIN_ODMM}-{BUSHING_LENGTH_IN?BUSHING_LENGTH_IN}-IDX",
@@ -4406,7 +4441,7 @@
       "name": "Bushings (Imperial)"
     }
   ],
-  "selectedPartId": null,
+  "selectedPartId": "p1773869852653",
   "exportSelections": {
     "tab1773940149410": {},
     "tab1773944324382": {},
