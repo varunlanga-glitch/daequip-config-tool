@@ -2941,14 +2941,9 @@
           "1.250",
           "1.375",
           "1.500",
-          "1.625",
           "1.750",
-          "1.875",
           "2.000",
-          "2.250",
-          "2.500",
-          "2.750",
-          "3.000"
+          "2.500"
         ],
         "label": "Nominal Pin OD (in)"
       },
@@ -3221,15 +3216,15 @@
       {
         "key": "CROSS_HOLE",
         "vals": [
-          "1.500",
-          "1.063",
-          "1.250",
           "0.250",
           "0.375",
           "0.313",
           "0.438",
           "0.563",
-          "0.688"
+          "0.688",
+          "0.813",
+          "0.625",
+          "0.750"
         ],
         "label": "Cross Hole"
       },
@@ -3247,7 +3242,13 @@
         "vals": [
           "0.250",
           "0.500",
-          "0.750"
+          "0.750",
+          "0.688",
+          "0.813",
+          "0.625",
+          "0.375",
+          "0.313",
+          "0.438"
         ],
         "label": "Cross Hole 2"
       },
@@ -4249,17 +4250,12 @@
       "RING_THICKNESSIN": "0.563"
     },
     "tab1773951378462": {
-      "BOLTSIZE": "0.250",
       "PIN_TYPE": "FIXED",
-      "CROSS_HOLE": "0.563",
-      "CROSS_HOLE_2": "0.500",
-      "GREASE_GROOVE": "GREASED",
-      "PIN_LENGTH_IN": "9.500",
+      "PIN_LENGTH_IN": "14.875",
+      "NOMINAL_PIN_OD_IN": "2.500",
       "CROSS_HOLE_QTY": "1",
-      "CROSS_HOLE_QTY_2": "2",
-      "NOMINAL_PIN_OD_IN": "2.000",
-      "INDUCTION_HARDENED": "Yes",
-      "TAP_QTY_NO_OF_HOLES": "1"
+      "CROSS_HOLE": "0.688",
+      "INDUCTION_HARDENED": "Yes"
     },
     "tab1774974127318": {
       "PIN_OD": "35",
@@ -4271,12 +4267,12 @@
     },
     "cat_1773868048483_1": {
       "PIN_TYPE": "FIXED",
-      "PIN_LENGTH_IN": "29.125",
-      "ACTUAL_PIN_OD_IN": "4.328",
-      "NOMINAL_PIN_OD_MM": "110",
+      "PIN_LENGTH_IN": "14.000",
+      "ACTUAL_PIN_OD_IN": "1.769",
+      "NOMINAL_PIN_OD_MM": "45",
       "INDUCTION_HARDENED": "Yes",
-      "CROSS_HOLE_QTY": "2",
-      "CROSS_HOLE": "0.813"
+      "CROSS_HOLE_QTY": "1",
+      "CROSS_HOLE": "0.438"
     }
   },
   "lockedTabs": {},
@@ -4370,7 +4366,7 @@
       "p1773869885948": "PN-0{NOMINAL_PIN_OD_MM?NOMINAL_PIN_OD_MM}MM-{PIN_LENGTH_IN?PIN_LENGTH_IN}-IDX"
     }
   },
-  "activeRightTab": "parts",
+  "activeRightTab": "config",
   "lockedSections": {},
   "productClasses": [
     {
@@ -4410,7 +4406,7 @@
       "name": "Bushings (Imperial)"
     }
   ],
-  "selectedPartId": "p1773869871318",
+  "selectedPartId": null,
   "exportSelections": {
     "tab1773940149410": {},
     "tab1773944324382": {},
