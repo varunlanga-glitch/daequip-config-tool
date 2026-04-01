@@ -645,7 +645,8 @@
           "65",
           "70",
           "75",
-          "80"
+          "80",
+          "38"
         ],
         "label": "PIN OD"
       },
@@ -686,7 +687,8 @@
           "3.557",
           "3.952",
           "4.343",
-          "4.737"
+          "4.737",
+          "2.155"
         ],
         "label": "Bushing ID (IN)"
       },
@@ -766,7 +768,8 @@
           "2.031",
           "1.378",
           "0.344",
-          "0.783"
+          "0.783",
+          "0.844"
         ],
         "label": "GREASE GROOVE LENGTH"
       },
@@ -4248,11 +4251,11 @@
   },
   "context": {
     "tab1773940149410": {
-      "PIN_OD": "30",
-      "BUSHING_ID_IN": "1.525",
-      "BUSHING_OD_IN": "2.000",
-      "BUSHING_LENGTH_IN": "2.813",
-      "GREASE_GROOVE_LENGTH": "0.375",
+      "PIN_OD": "70",
+      "BUSHING_ID_IN": "2.771",
+      "BUSHING_LENGTH_IN": "2.744",
+      "GREASE_GROOVE_LENGTH": "1.000",
+      "BUSHING_OD_IN": "3.351",
       "INDUCTION_HARDENED": "Yes"
     },
     "tab1773944324382": {
@@ -4342,6 +4345,15 @@
         "f1773869937461": "Specs 2"
       },
       "fileNamePropId": "f1773869896995"
+    },
+    "tab1773940149410": {
+      "mapping": {
+        "f1773869896995": "Description",
+        "f1773869904615": "Features 1",
+        "f1773869927490": "Features 2",
+        "f1773869932699": "Specs 1",
+        "f1773869937461": "Specs 2"
+      }
     }
   },
   "activeClassId": "tab1773940149410",
@@ -4443,7 +4455,19 @@
   ],
   "selectedPartId": "p1773869852653",
   "exportSelections": {
-    "tab1773940149410": {},
+    "tab1773940149410": {
+      "p1773869852653": {
+        "rename": false,
+        "props": {
+          "f1773869896995": false,
+          "f1773869904615": true,
+          "f1773869927490": false,
+          "f1773869932699": false,
+          "f1773869937461": false
+        }
+      },
+      "_reviewed": true
+    },
     "tab1773944324382": {},
     "tab1773945410693": {},
     "tab1773948764358": {},
@@ -4534,7 +4558,9 @@
     }
   },
   "fileNameOverrides": {
-    "tab1773940149410": {},
+    "tab1773940149410": {
+      "p1773869852653": "BU-070MM-2.744-06"
+    },
     "tab1773944324382": {},
     "tab1773945410693": {},
     "tab1773948764358": {},
@@ -4556,6 +4582,7 @@
   "inventorBaseFolders": {
     "tab1773951378462": "C:\\_Vault\\Daequip\\Library\\Pins\\PN-02500",
     "tab1774974127318": "",
-    "cat_1773868048483_1": "C:\\_Vault\\Daequip\\Library\\Pins\\PN-030MM"
+    "cat_1773868048483_1": "C:\\_Vault\\Daequip\\Library\\Pins\\PN-030MM",
+    "tab1773940149410": "C:\\_Vault\\Daequip\\Library\\Bushings\\Metric\\ID 70"
   }
 }
