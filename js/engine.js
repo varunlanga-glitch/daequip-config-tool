@@ -82,11 +82,18 @@ function resolveRule(template, partId) {
 
   // Replace conditional separator tokens with private-use placeholders so they
   // survive variable substitution intact and can be cleaned up at the end.
-  // {[-]} → conditional hyphen separator
-  // {[X]} → conditional " X " separator
-  const SEP_HYPHEN = '\uE001';
-  const SEP_X      = '\uE002';
-  s = s.replace(/\{\[-\]\}/g, SEP_HYPHEN).replace(/\{\[X\]\}/g, SEP_X);
+  // {[-]}   → conditional hyphen separator      → "-"
+  // {[X]}   → conditional X separator           → "X"
+  // {[ - ]} → conditional spaced hyphen         → " - "
+  // {[ X ]} → conditional spaced X separator    → " X "
+  const SEP_HYPHEN        = '\uE001';
+  const SEP_X             = '\uE002';
+  const SEP_HYPHEN_SPACED = '\uE003';
+  const SEP_X_SPACED      = '\uE004';
+  s = s.replace(/\{\[ - \]\}/g, SEP_HYPHEN_SPACED)
+       .replace(/\{\[ X \]\}/g, SEP_X_SPACED)
+       .replace(/\{\[-\]\}/g,   SEP_HYPHEN)
+       .replace(/\{\[X\]\}/g,   SEP_X);
 
   const ctx = getActiveContext();
 
@@ -150,11 +157,12 @@ function resolveRule(template, partId) {
   // Resolve conditional separator placeholders.
   // Any run of 2+ consecutive placeholders means the field(s) between them were
   // empty, so collapse them to a single placeholder (the first in the run).
-  s = s.replace(/([\uE001\uE002])[\uE001\uE002]*/g, '$1');
+  s = s.replace(/([\uE001\uE002\uE003\uE004])[\uE001\uE002\uE003\uE004]*/g, '$1');
   // Strip a stray placeholder at the very start or end of the result.
-  s = s.replace(/^[\uE001\uE002]/, '').replace(/[\uE001\uE002]$/, '');
+  s = s.replace(/^[\uE001\uE002\uE003\uE004]/, '').replace(/[\uE001\uE002\uE003\uE004]$/, '');
   // Expand to actual characters.
-  s = s.replace(/\uE001/g, '-').replace(/\uE002/g, ' X ');
+  s = s.replace(/\uE001/g, '-').replace(/\uE002/g, 'X')
+       .replace(/\uE003/g, ' - ').replace(/\uE004/g, ' X ');
 
   // Strip leading/trailing " - " separators that arise when the first or last
   // field in a prefix-separator chain is absent.
