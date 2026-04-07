@@ -408,6 +408,13 @@ tbody tr.row-child .inline-idx { opacity: 0.6; font-size: 9px; }
   color: #555;
 }
 
+/* Separator insert buttons in the palette — always pinned, yellow tint */
+.token-sep-btn {
+  background: #fef3c7; color: #92400e;
+  border-color: #fde68a;
+}
+.token-sep-btn:hover { background: #fde68a; }
+
 /* Non-matching tokens when no prefix (shown faded) */
 .token-dim { opacity: 0.35; }
 .token-dim:hover { opacity: 0.75; }
