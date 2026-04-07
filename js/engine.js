@@ -282,9 +282,10 @@ window.hasRuleErrors = hasRuleErrors;
 //   {type:'eq',   key, value, show}
 //   {type:'idx'} | {type:'name'} | {type:'math', expr}
 
-function _tryMatchToken(s, i) {
+function _tryMatchToken(s, i, knownKeys) {
   // Returns { token, length } or null
   const rest = s.slice(i);
+  const prevCh = i > 0 ? s[i - 1] : '';
 
   // Conditional separator chips
   const sepMap = {
@@ -334,23 +335,48 @@ function _tryMatchToken(s, i) {
     return { token: { type: 'math', expr: m[1] }, length: m[0].length };
   }
 
-  // Bare IDX / NAME identifiers (not inside braces)
-  m = rest.match(/^IDX\b/);
-  if (m) return { token: { type: 'idx' }, length: 3 };
-  m = rest.match(/^NAME\b/);
-  if (m) return { token: { type: 'name' }, length: 4 };
+  // Bare IDX / NAME identifiers (not inside braces). Require a left word
+  // boundary so we don't mis-match the middle of a longer identifier.
+  if (!/[A-Za-z0-9_]/.test(prevCh)) {
+    m = rest.match(/^IDX\b/);
+    if (m) return { token: { type: 'idx' }, length: 3 };
+    m = rest.match(/^NAME\b/);
+    if (m) return { token: { type: 'name' }, length: 4 };
+  }
+
+  // Bare VAR identifiers (unbraced keys). This is how the existing data
+  // actually stores templates — the engine's variable-substitution pass
+  // rewrites them at resolve time. The parser must recognise them too,
+  // otherwise they appear as giant unclickable literal chips in the
+  // chip row. We only match against the caller's knownKeys set so we
+  // don't accidentally classify random uppercase words as variables.
+  // A left word boundary (prev char not in [A-Za-z0-9_]) mirrors the
+  // engine's own negative lookbehind at runtime.
+  if (knownKeys && knownKeys.size && !/[A-Za-z0-9_]/.test(prevCh)) {
+    const idMatch = rest.match(/^([A-Z][A-Z0-9_]*)\b/);
+    if (idMatch && knownKeys.has(idMatch[1])) {
+      return {
+        token: { type: 'var', key: idMatch[1], pad: null, decimals: null, suffix: '', _bare: true },
+        length: idMatch[1].length,
+      };
+    }
+  }
 
   return null;
 }
 
-function parseTemplate(str) {
+function parseTemplate(str, knownKeys) {
   if (!str) return [];
+  // Accept an Array or a Set; coerce to Set for fast lookups.
+  const keys = knownKeys
+    ? (knownKeys instanceof Set ? knownKeys : new Set(knownKeys))
+    : null;
   const tokens = [];
   let buf = '';
   let i = 0;
   const flush = () => { if (buf) { tokens.push({ type: 'literal', text: buf }); buf = ''; } };
   while (i < str.length) {
-    const hit = _tryMatchToken(str, i);
+    const hit = _tryMatchToken(str, i, keys);
     if (hit) { flush(); tokens.push(hit.token); i += hit.length; }
     else { buf += str[i]; i++; }
   }
@@ -372,6 +398,12 @@ function serialiseTokens(tokens) {
         return map[t.char] || '{[-]}';
       }
       case 'var': {
+        // Bare-key variables (from existing unbraced templates) round-trip
+        // as the plain key name so loading+saving is a no-op. As soon as
+        // the user adds padding, decimals, suffix, or converts to
+        // conditional, the token loses _bare and gets proper braces.
+        const isBare = t._bare && t.pad == null && !t.suffix && t.decimals == null;
+        if (isBare) return t.key;
         if (t.pad == null && !t.suffix && t.decimals == null) return '{' + t.key + '}';
         let inner = t.key + '#' + (t.pad || 0);
         if (t.decimals != null) inner += '.' + t.decimals;

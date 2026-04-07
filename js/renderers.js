@@ -1089,7 +1089,8 @@ function _renderRuleChips(container, template, textarea) {
     container.style.display = 'none';
     return;
   }
-  const tokens = parseTemplate(template);
+  const knownKeys = new Set(getActiveMaster().map(m => m.key));
+  const tokens = parseTemplate(template, knownKeys);
   if (!tokens.length) { container.style.display = 'none'; return; }
   container.style.display = 'flex';
 
