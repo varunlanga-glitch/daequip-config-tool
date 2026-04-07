@@ -1114,22 +1114,36 @@ function _renderRuleChips(container, template, textarea) {
       chip.title = 'Literal text';
     } else if (tok.type === 'var') {
       const fmt = [];
-      if (tok.pad) fmt.push('pad ' + tok.pad);
-      if (tok.decimals != null) fmt.push(tok.decimals + ' dec');
-      if (tok.suffix) fmt.push(tok.suffix);
+      if (tok.pad)            fmt.push('#' + tok.pad + (tok.decimals != null ? '.' + tok.decimals : ''));
+      if (tok.suffix)         fmt.push(tok.suffix);
       chip.textContent = tok.key + (fmt.length ? ' · ' + fmt.join(' ') : '');
-      chip.title = 'Click to edit format';
+      chip.title = 'Click to edit';
       chip.style.cursor = 'pointer';
       chip.addEventListener('click', e => {
         e.stopPropagation();
-        _openVarFormatPopover(tok, chip, fixed => {
-          // Replace the original token's slice in the textarea with the new
-          // canonical serialised form, then fire input to refresh everything.
+        _openVarPopover(tok, chip, fixed => {
           if (start < 0) return;
-          const newSer = serialiseTokens([fixed]);
-          textarea.value = template.slice(0, start) + newSer + template.slice(end);
+          textarea.value = template.slice(0, start) + serialiseTokens([fixed]) + template.slice(end);
           textarea.dispatchEvent(new Event('input'));
         });
+      });
+    } else if (tok.type === 'cond') {
+      chip.textContent = 'if ' + tok.vars.join(' ' + tok.op + ' ') + ' → ' + tok.show;
+      chip.title = 'Click to edit conditional';
+      chip.style.cursor = 'pointer';
+      chip.addEventListener('click', e => {
+        e.stopPropagation();
+        // Open popover in Conditional mode pre-filled with this token.
+        // We create a synthetic var token so _openVarPopover knows the key.
+        _openVarPopover(
+          { type: 'var', key: tok.vars[0], pad: null, decimals: null, suffix: '', _initMode: 'cond', _condShow: tok.show },
+          chip,
+          fixed => {
+            if (start < 0) return;
+            textarea.value = template.slice(0, start) + serialiseTokens([fixed]) + template.slice(end);
+            textarea.dispatchEvent(new Event('input'));
+          }
+        );
       });
     } else if (tok.type === 'sep') {
       // Show the actual character(s) so users see exactly what will render.
@@ -1167,24 +1181,55 @@ function _renderRuleChips(container, template, textarea) {
   });
 }
 
-/* ── Variable-format popover ──────────────────────────────────
- * Lets users set Pad / Decimals / Suffix on a variable chip.
- * Always emits the canonical {VAR#N(.D)?(:SUFFIX)?} form so the
- * engine can never see the malformed {VAR#NSUFFIX} shape that
- * caused the recurring "three-digit formatting" bug.
+/* ── Unified variable popover ─────────────────────────────────
+ * Single popover for all three ways a variable can be used:
+ *   Plain       → {VAR}                   (just substitutes the value)
+ *   Number      → {VAR#N(.D)?(:SUFFIX)?}  (zero-pad integer, optional decimals + suffix)
+ *   Conditional → {VAR?output}            (only shown when VAR is set)
+ *
+ * Mode is selected via tab buttons at the top. The active mode
+ * determines which controls are visible and what token is built.
+ * onApply(resultToken) — caller serialises with serialiseTokens().
  */
-function _openVarFormatPopover(token, anchorEl, onApply, onConditionalSwitch) {
-  const existing = document.getElementById('var-fmt-popover');
-  if (existing) existing.remove();
+function _openVarPopover(token, anchorEl, onApply) {
+  ['var-fmt-popover','cond-popover'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.remove();
+  });
 
   const pop = document.createElement('div');
   pop.id = 'var-fmt-popover';
-  pop.className = 'cond-popover';
+  pop.className = 'cond-popover var-popover';
 
+  // ── Title ──
   const title = document.createElement('div');
   title.className = 'cond-popover-title';
-  title.innerHTML = 'Format <strong>' + escapeHtml(token.key) + '</strong>';
+  title.innerHTML = '<strong>' + escapeHtml(token.key) + '</strong>';
   pop.appendChild(title);
+
+  // ── Mode tabs ──
+  // Determine initial mode from token state / hint
+  const initMode = token._initMode ||
+    (token.pad || token.suffix || token.decimals != null ? 'number' : 'plain');
+
+  const tabBar = document.createElement('div');
+  tabBar.className = 'var-pop-tabs';
+  pop.appendChild(tabBar);
+
+  // ── Content sections ──
+  const sections = {};
+
+  // Plain section
+  const secPlain = document.createElement('div');
+  secPlain.className = 'var-pop-section';
+  const plainHint = document.createElement('div');
+  plainHint.className = 'var-pop-hint';
+  plainHint.textContent = 'Inserts the raw value as-is.';
+  secPlain.appendChild(plainHint);
+  sections.plain = secPlain;
+
+  // Number section
+  const secNum = document.createElement('div');
+  secNum.className = 'var-pop-section';
 
   const mkRow = (label, input) => {
     const row = document.createElement('label');
@@ -1197,14 +1242,12 @@ function _openVarFormatPopover(token, anchorEl, onApply, onConditionalSwitch) {
   };
 
   const padInput = document.createElement('input');
-  padInput.type = 'number';
-  padInput.min  = '0';
-  padInput.placeholder = 'none';
+  padInput.type = 'number'; padInput.min = '1';
+  padInput.placeholder = 'e.g. 3';
   padInput.value = token.pad || '';
 
   const decInput = document.createElement('input');
-  decInput.type = 'number';
-  decInput.min  = '0';
+  decInput.type = 'number'; decInput.min = '0';
   decInput.placeholder = 'none';
   decInput.value = token.decimals != null ? token.decimals : '';
 
@@ -1213,32 +1256,94 @@ function _openVarFormatPopover(token, anchorEl, onApply, onConditionalSwitch) {
   sufInput.placeholder = 'e.g. MM';
   sufInput.value = token.suffix || '';
 
-  pop.appendChild(mkRow('Pad to digits',  padInput));
-  pop.appendChild(mkRow('Decimal places', decInput));
-  pop.appendChild(mkRow('Suffix',         sufInput));
+  secNum.appendChild(mkRow('Pad to N digits', padInput));
+  secNum.appendChild(mkRow('Decimal places',  decInput));
+  secNum.appendChild(mkRow('Suffix',          sufInput));
+  sections.number = secNum;
 
+  // Conditional section
+  const secCond = document.createElement('div');
+  secCond.className = 'var-pop-section';
+  const condHint = document.createElement('div');
+  condHint.className = 'var-pop-hint';
+  condHint.textContent = 'Only shown when ' + token.key + ' is set. "Show" text can include variable names.';
+  secCond.appendChild(condHint);
+
+  const condInput = document.createElement('input');
+  condInput.type = 'text';
+  condInput.className = 'cond-popover-input';
+  condInput.placeholder = 'Text to show (default: ' + token.key + ')';
+  condInput.value = token._condShow || token.key;
+  secCond.appendChild(condInput);
+  sections.cond = secCond;
+
+  // ── Preview ──
   const previewEl = document.createElement('div');
   previewEl.className = 'cond-popover-preview';
-  pop.appendChild(previewEl);
 
-  const buildToken = () => ({
-    type: 'var',
-    key: token.key,
-    pad: padInput.value ? parseInt(padInput.value, 10) : null,
-    decimals: decInput.value !== '' ? parseInt(decInput.value, 10) : null,
-    suffix: sufInput.value || '',
-  });
+  let activeMode = initMode;
+
+  const buildToken = () => {
+    if (activeMode === 'number') {
+      return {
+        type: 'var', key: token.key,
+        pad:      padInput.value ? parseInt(padInput.value, 10) : null,
+        decimals: decInput.value !== '' ? parseInt(decInput.value, 10) : null,
+        suffix:   sufInput.value || '',
+      };
+    }
+    if (activeMode === 'cond') {
+      return { type: 'cond', vars: [token.key], op: 'and', show: condInput.value || token.key };
+    }
+    return { type: 'var', key: token.key, pad: null, decimals: null, suffix: '' };
+  };
 
   const updatePreview = () => {
     const t   = buildToken();
     const tpl = serialiseTokens([t]);
     const res = (typeof resolveRule === 'function')
       ? resolveRule(tpl, State.selectedPartId) : '';
-    previewEl.textContent = (res ? '→ ' + res : '(blank)') + '   ' + tpl;
+    previewEl.textContent = (res ? '→ ' + res : '(blank when not set)') + '\u2003' + tpl;
   };
-  [padInput, decInput, sufInput].forEach(i => i.addEventListener('input', updatePreview));
-  updatePreview();
 
+  const switchMode = mode => {
+    activeMode = mode;
+    // Show/hide sections
+    Object.entries(sections).forEach(([k, el]) => {
+      el.style.display = k === mode ? '' : 'none';
+    });
+    // Update tab active state
+    tabBar.querySelectorAll('.var-pop-tab').forEach(tb => {
+      tb.classList.toggle('var-pop-tab--active', tb.dataset.mode === mode);
+    });
+    updatePreview();
+    // Focus the relevant input
+    if (mode === 'number') padInput.focus();
+    if (mode === 'cond')   { condInput.focus(); condInput.select(); }
+  };
+
+  // Build tabs
+  [
+    { key: 'plain',  label: 'Plain' },
+    { key: 'number', label: 'Number' },
+    { key: 'cond',   label: 'Conditional' },
+  ].forEach(({ key, label }) => {
+    const tb = document.createElement('button');
+    tb.className = 'var-pop-tab';
+    tb.dataset.mode = key;
+    tb.textContent = label;
+    tb.addEventListener('mousedown', e => { e.preventDefault(); switchMode(key); });
+    tabBar.appendChild(tb);
+  });
+
+  // Assemble
+  Object.values(sections).forEach(s => pop.appendChild(s));
+  pop.appendChild(previewEl);
+
+  // Wire live preview
+  [padInput, decInput, sufInput, condInput].forEach(i => i.addEventListener('input', updatePreview));
+
+  // ── Apply button ──
   const applyBtn = document.createElement('button');
   applyBtn.className = 'btn primary cond-popover-insert';
   applyBtn.textContent = 'Apply';
@@ -1249,22 +1354,13 @@ function _openVarFormatPopover(token, anchorEl, onApply, onConditionalSwitch) {
   });
   pop.appendChild(applyBtn);
 
-  if (typeof onConditionalSwitch === 'function') {
-    const altLink = document.createElement('a');
-    altLink.href = '#';
-    altLink.className = 'var-fmt-alt';
-    altLink.textContent = 'Use as conditional instead';
-    altLink.addEventListener('mousedown', e => {
-      e.preventDefault();
-      pop.remove();
-      onConditionalSwitch();
-    });
-    pop.appendChild(altLink);
-  }
-
+  // ── Position + show ──
   document.body.appendChild(pop);
+  // Activate initial mode (after append so layout is available)
+  switchMode(initMode);
+
   const rect = anchorEl.getBoundingClientRect();
-  const popW = 280, popH = pop.offsetHeight;
+  const popW = 290, popH = pop.offsetHeight;
   let left = rect.left;
   if (left + popW > window.innerWidth - 8) left = window.innerWidth - popW - 8;
   if (left < 8) left = 8;
@@ -1272,8 +1368,6 @@ function _openVarFormatPopover(token, anchorEl, onApply, onConditionalSwitch) {
   const top = spaceBelow >= popH ? rect.bottom + 6 : Math.max(8, rect.top - popH - 6);
   pop.style.left = left + 'px';
   pop.style.top  = top + 'px';
-  padInput.focus();
-  padInput.select();
 
   const dismiss = ev => {
     if (!pop.contains(ev.target) && ev.target !== anchorEl) {
