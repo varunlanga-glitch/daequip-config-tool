@@ -1061,7 +1061,8 @@
     "buckets": {
       "p1": {
         "f1770765683117": "ATTACHMENT-SUBTYPE DUTY HOOK-UP NAME CLASS-SIZE",
-        "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE"
+        "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
+        "f1770766978429": "{LUG_SPREAD#0.3: LS} - {CENTER_TO_CENTER#0.3: CC} - {BLADE_THK#0.3: X }{BLADE_ANGLE#0.1:°}"
       },
       "p2": {
         "f1770765683117": "TOOTH-WLDT-ATTACHMENT-SUBTYPE-DUTY CLASS-SIZE",
@@ -1577,7 +1578,7 @@
         "f1770765683117": "ATTACHMENT-SUBTYPE DUTY HOOK-UP NAME CLASS-SIZE",
         "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
         "f1770766964933": "-",
-        "f1770766978429": "-",
+        "f1770766978429": "{LUG_SPREAD#0.3: LS} - {CENTER_TO_CENTER#0.3: CC} - {BLADE_THK#0.3: X }{BLADE_ANGLE#0.1:°}",
         "f1770766992117": "-"
       },
       "p2": {
@@ -1900,6 +1901,20 @@
           "1.00 CUYD"
         ],
         "label": "VOLUME"
+      },
+      {
+        "key": "LUG_SPREAD",
+        "label": "LUG SPREAD",
+        "vals": [
+          "8.125"
+        ]
+      },
+      {
+        "key": "CENTER_TO_CENTER",
+        "label": "CENTER TO CENTER",
+        "vals": [
+          "21.375"
+        ]
       }
     ],
     "tab1770826801156": [
@@ -2967,6 +2982,20 @@
         "vals": [
           "BC"
         ]
+      },
+      {
+        "key": "LUG_SPREAD",
+        "label": "LUG SPREAD",
+        "vals": [
+          "24.000"
+        ]
+      },
+      {
+        "key": "CENTER_TO_CENTER",
+        "label": "CENTER TO CENTER",
+        "vals": [
+          "22.000"
+        ]
       }
     ]
   },
@@ -2985,7 +3014,9 @@
       "BLADE_ANGLE": "20",
       "MACHINE_TYPE": "EX",
       "TOOTH_QTY": "2",
-      "TOOTH_TYPE": "J225"
+      "TOOTH_TYPE": "J225",
+      "LUG_SPREAD": "8.125",
+      "CENTER_TO_CENTER": "21.275"
     },
     "tab1770826801156": {
       "PINS": "FRONT AND REAR PINS REQUIRED",
@@ -3104,7 +3135,9 @@
       "MACHINE_TYPE": "EX",
       "TOOTH_QTY": "2",
       "TOOTH_TYPE": "J225",
-      "TOOTH_OEM": "BC"
+      "TOOTH_OEM": "BC",
+      "LUG_SPREAD": "24.000",
+      "CENTER_TO_CENTER": "22.000"
     }
   },
   "lockedTabs": {},
@@ -3320,10 +3353,10 @@
     },
     {
       "id": "tab1774978147622",
-      "name": "Buckets (XDR,XDX)"
+      "name": "Buckets (XDR)"
     }
   ],
-  "selectedPartId": "p1770762928430",
+  "selectedPartId": "p1",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
