@@ -1,1315 +1,108 @@
 {
-  "productClasses": [
-    {
-      "id": "buckets",
-      "name": "Buckets"
-    },
-    {
-      "id": "tab1770826801156",
-      "name": "CMW"
-    },
-    {
-      "id": "tab1770838553711",
-      "name": "CHW"
-    },
-    {
-      "id": "tab1770838629859",
-      "name": "CHWA"
-    },
-    {
-      "id": "tab1770842447295",
-      "name": "HPG"
-    }
-  ],
-  "activeClassId": "buckets",
-  "selectedPartId": null,
-  "activeRightTab": "config",
-  "master": {
-    "buckets": [
-      {
-        "key": "MACHINE_TYPE",
-        "label": "Machine Type",
-        "vals": [
-          "EX",
-          "BHR",
-          "WL"
-        ]
-      },
-      {
-        "key": "ATTACHMENT",
-        "label": "Attachment",
-        "vals": [
-          "BKT",
-          "RPR"
-        ]
-      },
-      {
-        "key": "SUBTYPE",
-        "label": "Subtype",
-        "vals": [
-          "DIG",
-          "CLU",
-          "SKL"
-        ]
-      },
-      {
-        "key": "DUTY",
-        "label": "Duty",
-        "vals": [
-          "XD",
-          "XDW",
-          "XDR",
-          "XDX"
-        ]
-      },
-      {
-        "key": "CLASS",
-        "label": "Class",
-        "vals": [
-          "BH060",
-          "HE035",
-          "HE050",
-          "HE060",
-          "HE080",
-          "HE120",
-          "HE150",
-          "HE200",
-          "HE250",
-          "HE300",
-          "HE350",
-          "HE400",
-          "HE450",
-          "HE600",
-          "HE800"
-        ]
-      },
-      {
-        "key": "CLASS_NO",
-        "label": "Class No",
-        "vals": [
-          "035",
-          "060",
-          "050",
-          "080",
-          "120",
-          "150",
-          "200",
-          "250",
-          "300",
-          "350",
-          "400",
-          "450",
-          "600",
-          "800"
-        ]
-      },
-      {
-        "key": "LUGGING",
-        "label": "Lugging",
-        "vals": [
-          "WBM",
-          "WBMBH",
-          "CWS",
-          "FAS",
-          "WBML",
-          "PGL"
-        ]
-      },
-      {
-        "key": "SIZE",
-        "label": "Size",
-        "vals": [
-          "12",
-          "18",
-          "24",
-          "36",
-          "42",
-          "48",
-          "54",
-          "60",
-          "72",
-          "84",
-          "96"
-        ]
-      },
-      {
-        "key": "HOOK-UP",
-        "label": "Hook-Up",
-        "vals": [
-          "QCL",
-          "PTL",
-          "PGL"
-        ]
-      },
-      {
-        "key": "TOOTH_QTY",
-        "label": "TOOTH QTY",
-        "vals": [
-          "2",
-          "3",
-          "4",
-          "5",
-          "6"
-        ]
-      },
-      {
-        "key": "TOOTH_TYPE",
-        "label": "TOOTH TYPE",
-        "vals": [
-          "J225",
-          "J300",
-          "J350",
-          "J400",
-          "J450"
-        ]
-      },
-      {
-        "key": "BLADE_THK",
-        "label": "BLADE THK",
-        "vals": [
-          "0.750",
-          "0.875",
-          "1.000",
-          "1.250",
-          "1.500",
-          "1.750",
-          "2.000"
-        ]
-      },
-      {
-        "key": "BLADE_ANGLE",
-        "label": "BLADE ANGLE",
-        "vals": [
-          "15",
-          "20"
-        ]
-      },
-      {
-        "key": "VOLUME",
-        "label": "VOLUME",
-        "vals": [
-          "0.75 CUYD",
-          "1.00 CUYD"
-        ]
-      }
-    ],
-    "tab1770826801156": [
-      {
-        "key": "MACHINE",
-        "label": "Machine",
-        "vals": [
-          "EX",
-          "BHR",
-          "WL"
-        ]
-      },
-      {
-        "key": "SUBTYPE",
-        "label": "Subtype",
-        "vals": [
-          "LE"
-        ]
-      },
-      {
-        "key": "CLASS",
-        "label": "Class",
-        "vals": [
-          "BH060",
-          "HE035",
-          "HE050",
-          "HE060",
-          "HE080",
-          "HE120",
-          "HE150",
-          "HE200",
-          "HE250",
-          "HE300",
-          "HE350",
-          "HE400",
-          "HE450",
-          "HE600",
-          "HE800"
-        ]
-      },
-      {
-        "key": "CLASS_NO",
-        "label": "Class No",
-        "vals": [
-          "035",
-          "060",
-          "050",
-          "080",
-          "120",
-          "150",
-          "200",
-          "250",
-          "300",
-          "350",
-          "400",
-          "450",
-          "600",
-          "800"
-        ]
-      },
-      {
-        "key": "LUGGING",
-        "label": "Lugging",
-        "vals": [
-          "WBM",
-          "WBMBH",
-          "CWS",
-          "FAS",
-          "WBML",
-          "PGL"
-        ]
-      },
-      {
-        "key": "MODEL",
-        "label": "MODEL",
-        "vals": [
-          "311C",
-          "DX140LC-3"
-        ]
-      },
-      {
-        "key": "BUSHINGS",
-        "label": "BUSHINGS",
-        "vals": [
-          "BUSHED",
-          "NON-BUSHED"
-        ]
-      },
-      {
-        "key": "PINS",
-        "label": "PINS",
-        "vals": [
-          "WORKS WITH FACTORY PINS",
-          "FRONT PIN REQUIRED",
-          "REAR PIN REQUIRED",
-          "FRONT AND REAR PINS REQUIRED"
-        ]
-      },
-      {
-        "key": "FRONT_PIN_SIZE",
-        "label": "FRONT PIN SIZE",
-        "vals": [
-          "40MM",
-          "45MM"
-        ]
-      },
-      {
-        "key": "REAR_PIN_SIZE",
-        "label": "REAR PIN SIZE",
-        "vals": [
-          "50MM",
-          "55MM"
-        ]
-      },
-      {
-        "key": "STICK_WIDTH",
-        "label": "STICK WIDTH",
-        "vals": [
-          "11.125",
-          "11.188"
-        ]
-      },
-      {
-        "key": "MACHINE_CENTRE",
-        "label": "MACHINE CENTRE",
-        "vals": [
-          "16.750",
-          "18.375"
-        ]
-      },
-      {
-        "key": "CENTER_TO_CENTER",
-        "label": "CENTER TO CENTER",
-        "vals": [
-          "14.000",
-          "16.250"
-        ]
-      },
-      {
-        "key": "OUTSIDE_OS",
-        "label": "OUTSIDE OS",
-        "vals": [
-          "16.000",
-          "18.000"
-        ]
-      },
-      {
-        "key": "WIDTH",
-        "label": "WIDTH",
-        "vals": [
-          "13.250",
-          "14.000"
-        ]
-      },
-      {
-        "key": "WEDGE_BAR_HEIGHT",
-        "label": "WEDGE BAR HEIGHT",
-        "vals": [
-          "2.000",
-          "2.500",
-          "1.750"
-        ]
-      },
-      {
-        "key": "WEDGE_BAR_WIDTH",
-        "label": "WEDGE BAR WIDTH",
-        "vals": [
-          "2.000",
-          "2.500",
-          "1.750"
-        ]
-      },
-      {
-        "key": "WEDGE_BAR_LENGTH",
-        "label": "WEDGE BAR LENGTH",
-        "vals": [
-          "26.000",
-          "24.500"
-        ]
-      },
-      {
-        "key": "WEDGE_ANGLE",
-        "label": "WEDGE ANGLE",
-        "vals": [
-          "25°",
-          "26°"
-        ]
-      }
-    ],
-    "tab1770838553711": [
-      {
-        "key": "MACHINE",
-        "label": "Machine",
-        "vals": [
-          "EX",
-          "BHR",
-          "WL"
-        ]
-      },
-      {
-        "key": "SUBTYPE",
-        "label": "Subtype",
-        "vals": [
-          "LE"
-        ]
-      },
-      {
-        "key": "CLASS",
-        "label": "Class",
-        "vals": [
-          "BH060",
-          "HE035",
-          "HE050",
-          "HE060",
-          "HE080",
-          "HE120",
-          "HE150",
-          "HE200",
-          "HE250",
-          "HE300",
-          "HE350",
-          "HE400",
-          "HE450",
-          "HE600",
-          "HE800"
-        ]
-      },
-      {
-        "key": "CLASS_NO",
-        "label": "Class No",
-        "vals": [
-          "035",
-          "060",
-          "050",
-          "080",
-          "120",
-          "150",
-          "200",
-          "250",
-          "300",
-          "350",
-          "400",
-          "450",
-          "600",
-          "800"
-        ]
-      },
-      {
-        "key": "LUGGING",
-        "label": "Lugging",
-        "vals": [
-          "WBM",
-          "WBMBH",
-          "CWS",
-          "FAS",
-          "WBML",
-          "PGL"
-        ]
-      },
-      {
-        "key": "MODEL",
-        "label": "MODEL",
-        "vals": [
-          "311C",
-          "DX140LC-3"
-        ]
-      },
-      {
-        "key": "BUSHINGS",
-        "label": "BUSHINGS",
-        "vals": [
-          "BUSHED",
-          "NON-BUSHED"
-        ]
-      },
-      {
-        "key": "PINS",
-        "label": "PINS",
-        "vals": [
-          "WORKS WITH FACTORY PINS",
-          "FRONT PIN REQUIRED",
-          "REAR PIN REQUIRED",
-          "FRONT AND REAR PINS REQUIRED"
-        ]
-      },
-      {
-        "key": "FRONT_PIN_SIZE",
-        "label": "FRONT PIN SIZE",
-        "vals": [
-          "40MM",
-          "45MM"
-        ]
-      },
-      {
-        "key": "REAR_PIN_SIZE",
-        "label": "REAR PIN SIZE",
-        "vals": [
-          "50MM",
-          "55MM"
-        ]
-      },
-      {
-        "key": "STICK_WIDTH",
-        "label": "STICK WIDTH",
-        "vals": [
-          "11.125",
-          "11.188"
-        ]
-      },
-      {
-        "key": "MACHINE_CENTRE",
-        "label": "MACHINE CENTRE",
-        "vals": [
-          "16.750",
-          "18.375"
-        ]
-      },
-      {
-        "key": "CENTER_TO_CENTER",
-        "label": "CENTER TO CENTER",
-        "vals": [
-          "14.000",
-          "16.250"
-        ]
-      },
-      {
-        "key": "OUTSIDE_OS",
-        "label": "OUTSIDE OS",
-        "vals": [
-          "16.000",
-          "18.000"
-        ]
-      },
-      {
-        "key": "WIDTH",
-        "label": "WIDTH",
-        "vals": [
-          "13.250",
-          "14.000"
-        ]
-      },
-      {
-        "key": "WEDGE_BAR_HEIGHT",
-        "label": "WEDGE BAR HEIGHT",
-        "vals": [
-          "2.000",
-          "2.500",
-          "1.750"
-        ]
-      },
-      {
-        "key": "WEDGE_BAR_WIDTH",
-        "label": "WEDGE BAR WIDTH",
-        "vals": [
-          "2.000",
-          "2.500",
-          "1.750"
-        ]
-      },
-      {
-        "key": "WEDGE_BAR_LENGTH",
-        "label": "WEDGE BAR LENGTH",
-        "vals": [
-          "26.000",
-          "24.500"
-        ]
-      },
-      {
-        "key": "WEDGE_ANGLE",
-        "label": "WEDGE ANGLE",
-        "vals": [
-          "25°",
-          "26°"
-        ]
-      },
-      {
-        "key": "FRONT_HUB_OD",
-        "label": "FRONT HUB OD",
-        "vals": [
-          "5.000",
-          "5.500"
-        ]
-      },
-      {
-        "key": "FRONT_HUB_ID",
-        "label": "FRONT HUB ID",
-        "vals": [
-          "2.569",
-          "2.575"
-        ]
-      },
-      {
-        "key": "FRONT_HUB_LENGTH",
-        "label": "FRONT HUB LENGTH",
-        "vals": [
-          "3.531",
-          "3.750"
-        ]
-      },
-      {
-        "key": "REAR_HUB_OD",
-        "label": "REAR HUB OD",
-        "vals": [
-          "5.000",
-          "5.125"
-        ]
-      },
-      {
-        "key": "REAR_HUB_ID",
-        "label": "REAR HUB ID",
-        "vals": [
-          "2.569",
-          "2.575"
-        ]
-      },
-      {
-        "key": "REAR_HUB_LENGTH",
-        "label": "REAR HUB LENGTH",
-        "vals": [
-          "3.591",
-          "3.531"
-        ]
-      }
-    ],
-    "tab1770838629859": [
-      {
-        "key": "MACHINE",
-        "label": "Machine",
-        "vals": [
-          "EX",
-          "BHR",
-          "WL"
-        ]
-      },
-      {
-        "key": "SUBTYPE",
-        "label": "Subtype",
-        "vals": [
-          "LE"
-        ]
-      },
-      {
-        "key": "CLASS",
-        "label": "Class",
-        "vals": [
-          "BH060",
-          "HE035",
-          "HE050",
-          "HE060",
-          "HE080",
-          "HE120",
-          "HE150",
-          "HE200",
-          "HE250",
-          "HE300",
-          "HE350",
-          "HE400",
-          "HE450",
-          "HE600",
-          "HE800"
-        ]
-      },
-      {
-        "key": "CLASS_NO",
-        "label": "Class No",
-        "vals": [
-          "035",
-          "060",
-          "050",
-          "080",
-          "120",
-          "150",
-          "200",
-          "250",
-          "300",
-          "350",
-          "400",
-          "450",
-          "600",
-          "800"
-        ]
-      },
-      {
-        "key": "LUGGING",
-        "label": "Lugging",
-        "vals": [
-          "WBM",
-          "WBMBH",
-          "CWS",
-          "FAS",
-          "WBML",
-          "PGL"
-        ]
-      },
-      {
-        "key": "MODEL",
-        "label": "MODEL",
-        "vals": [
-          "311C",
-          "DX140LC-3"
-        ]
-      },
-      {
-        "key": "BUSHINGS",
-        "label": "BUSHINGS",
-        "vals": [
-          "BUSHED",
-          "NON-BUSHED"
-        ]
-      },
-      {
-        "key": "PINS",
-        "label": "PINS",
-        "vals": [
-          "WORKS WITH FACTORY PINS",
-          "FRONT PIN REQUIRED",
-          "REAR PIN REQUIRED",
-          "FRONT AND REAR PINS REQUIRED"
-        ]
-      },
-      {
-        "key": "FRONT_PIN_SIZE",
-        "label": "FRONT PIN SIZE",
-        "vals": [
-          "40MM",
-          "45MM"
-        ]
-      },
-      {
-        "key": "REAR_PIN_SIZE",
-        "label": "REAR PIN SIZE",
-        "vals": [
-          "50MM",
-          "55MM"
-        ]
-      },
-      {
-        "key": "STICK_WIDTH",
-        "label": "STICK WIDTH",
-        "vals": [
-          "11.125",
-          "11.188"
-        ]
-      },
-      {
-        "key": "MACHINE_CENTRE",
-        "label": "MACHINE CENTRE",
-        "vals": [
-          "16.750",
-          "18.375"
-        ]
-      },
-      {
-        "key": "CENTER_TO_CENTER",
-        "label": "CENTER TO CENTER",
-        "vals": [
-          "14.000",
-          "16.250"
-        ]
-      },
-      {
-        "key": "OUTSIDE_OS",
-        "label": "OUTSIDE OS",
-        "vals": [
-          "16.000",
-          "18.000"
-        ]
-      },
-      {
-        "key": "WIDTH",
-        "label": "WIDTH",
-        "vals": [
-          "13.250",
-          "14.000"
-        ]
-      },
-      {
-        "key": "WEDGE_BAR_HEIGHT",
-        "label": "WEDGE BAR HEIGHT",
-        "vals": [
-          "2.000",
-          "2.500",
-          "1.750"
-        ]
-      },
-      {
-        "key": "WEDGE_BAR_WIDTH",
-        "label": "WEDGE BAR WIDTH",
-        "vals": [
-          "2.000",
-          "2.500",
-          "1.750"
-        ]
-      },
-      {
-        "key": "WEDGE_BAR_LENGTH",
-        "label": "WEDGE BAR LENGTH",
-        "vals": [
-          "26.000",
-          "24.500"
-        ]
-      },
-      {
-        "key": "WEDGE_ANGLE",
-        "label": "WEDGE ANGLE",
-        "vals": [
-          "25°",
-          "26°"
-        ]
-      },
-      {
-        "key": "FRONT_HUB_OD",
-        "label": "FRONT HUB OD",
-        "vals": [
-          "5.000",
-          "5.500"
-        ]
-      },
-      {
-        "key": "FRONT_HUB_ID",
-        "label": "FRONT HUB ID",
-        "vals": [
-          "2.569",
-          "2.575"
-        ]
-      },
-      {
-        "key": "FRONT_HUB_LENGTH",
-        "label": "FRONT HUB LENGTH",
-        "vals": [
-          "3.531",
-          "3.750"
-        ]
-      },
-      {
-        "key": "REAR_HUB_OD",
-        "label": "REAR HUB OD",
-        "vals": [
-          "5.000",
-          "5.125"
-        ]
-      },
-      {
-        "key": "REAR_HUB_ID",
-        "label": "REAR HUB ID",
-        "vals": [
-          "2.569",
-          "2.575"
-        ]
-      },
-      {
-        "key": "REAR_HUB_LENGTH",
-        "label": "REAR HUB LENGTH",
-        "vals": [
-          "3.591",
-          "3.531"
-        ]
-      }
-    ],
-    "tab1770842447295": [
-      {
-        "key": "MACHINE",
-        "label": "Machine",
-        "vals": [
-          "EX",
-          "BHR",
-          "WL"
-        ]
-      },
-      {
-        "key": "SUBTYPE",
-        "label": "Subtype",
-        "vals": [
-          "LE"
-        ]
-      },
-      {
-        "key": "CLASS",
-        "label": "Class",
-        "vals": [
-          "BH060",
-          "HE035",
-          "HE050",
-          "HE060",
-          "HE080",
-          "HE120",
-          "HE150",
-          "HE200",
-          "HE250",
-          "HE300",
-          "HE350",
-          "HE400",
-          "HE450",
-          "HE600",
-          "HE800"
-        ]
-      },
-      {
-        "key": "CLASS_NO",
-        "label": "Class No",
-        "vals": [
-          "035",
-          "060",
-          "050",
-          "080",
-          "120",
-          "150",
-          "200",
-          "250",
-          "300",
-          "350",
-          "400",
-          "450",
-          "600",
-          "800"
-        ]
-      },
-      {
-        "key": "LUGGING",
-        "label": "Lugging",
-        "vals": [
-          "WBM",
-          "WBMBH",
-          "CWS",
-          "FAS",
-          "WBML",
-          "PGL"
-        ]
-      },
-      {
-        "key": "MODEL",
-        "label": "MODEL",
-        "vals": [
-          "311C",
-          "DX140LC-3"
-        ]
-      },
-      {
-        "key": "BUSHINGS",
-        "label": "BUSHINGS",
-        "vals": [
-          "BUSHED",
-          "NON-BUSHED"
-        ]
-      },
-      {
-        "key": "PINS",
-        "label": "PINS",
-        "vals": [
-          "WORKS WITH FACTORY PINS",
-          "FRONT PIN REQUIRED",
-          "REAR PIN REQUIRED",
-          "FRONT AND REAR PINS REQUIRED"
-        ]
-      },
-      {
-        "key": "FRONT_PIN_SIZE",
-        "label": "FRONT PIN SIZE",
-        "vals": [
-          "40MM",
-          "45MM"
-        ]
-      },
-      {
-        "key": "REAR_PIN_SIZE",
-        "label": "REAR PIN SIZE",
-        "vals": [
-          "50MM",
-          "55MM"
-        ]
-      },
-      {
-        "key": "STICK_WIDTH",
-        "label": "STICK WIDTH",
-        "vals": [
-          "11.125",
-          "11.188"
-        ]
-      },
-      {
-        "key": "MACHINE_CENTRE",
-        "label": "MACHINE CENTRE",
-        "vals": [
-          "16.750",
-          "18.375"
-        ]
-      },
-      {
-        "key": "CENTER_TO_CENTER",
-        "label": "CENTER TO CENTER",
-        "vals": [
-          "14.000",
-          "16.250"
-        ]
-      },
-      {
-        "key": "OUTSIDE_OS",
-        "label": "OUTSIDE OS",
-        "vals": [
-          "16.000",
-          "18.000"
-        ]
-      },
-      {
-        "key": "WIDTH",
-        "label": "WIDTH",
-        "vals": [
-          "13.250",
-          "14.000"
-        ]
-      },
-      {
-        "key": "WEDGE_BAR_HEIGHT",
-        "label": "WEDGE BAR HEIGHT",
-        "vals": [
-          "2.000",
-          "2.500",
-          "1.750"
-        ]
-      },
-      {
-        "key": "WEDGE_BAR_WIDTH",
-        "label": "WEDGE BAR WIDTH",
-        "vals": [
-          "2.000",
-          "2.500",
-          "1.750"
-        ]
-      },
-      {
-        "key": "WEDGE_BAR_LENGTH",
-        "label": "WEDGE BAR LENGTH",
-        "vals": [
-          "26.000",
-          "24.500"
-        ]
-      },
-      {
-        "key": "WEDGE_ANGLE",
-        "label": "WEDGE ANGLE",
-        "vals": [
-          "25°",
-          "26°"
-        ]
-      },
-      {
-        "key": "FRONT_HUB_OD",
-        "label": "FRONT HUB OD",
-        "vals": [
-          "5.000",
-          "5.500"
-        ]
-      },
-      {
-        "key": "FRONT_HUB_ID",
-        "label": "FRONT HUB ID",
-        "vals": [
-          "2.569",
-          "2.575"
-        ]
-      },
-      {
-        "key": "FRONT_HUB_LENGTH",
-        "label": "FRONT HUB LENGTH",
-        "vals": [
-          "3.531",
-          "3.750"
-        ]
-      },
-      {
-        "key": "REAR_HUB_OD",
-        "label": "REAR HUB OD",
-        "vals": [
-          "5.000",
-          "5.125"
-        ]
-      },
-      {
-        "key": "REAR_HUB_ID",
-        "label": "REAR HUB ID",
-        "vals": [
-          "2.569",
-          "2.575"
-        ]
-      },
-      {
-        "key": "REAR_HUB_LENGTH",
-        "label": "REAR HUB LENGTH",
-        "vals": [
-          "3.591",
-          "3.531"
-        ]
-      }
-    ]
-  },
-  "context": {
-    "buckets": {
-      "ATTACHMENT": "BKT",
-      "SUBTYPE": "DIG",
-      "DUTY": "XD",
-      "CLASS": "HE120",
-      "CLASS_NO": "120",
-      "HOOK-UP": "QCL",
-      "LUGGING": "WBM",
-      "TOOTH_QTY": "3",
-      "TOOTH_TYPE": "J350",
-      "SIZE": "36",
-      "BLADE_THK": "1.250",
-      "BLADE_ANGLE": "20",
-      "VOLUME": "0.75 CUYD",
-      "MACHINE_TYPE": "EX"
-    },
-    "tab1770826801156": {
-      "MACHINE": "EX",
-      "SUBTYPE": "LE",
-      "CLASS": "HE120",
-      "CLASS_NO": "120",
-      "LUGGING": "WBM",
-      "MODEL": "311C",
-      "BUSHINGS": "BUSHED",
-      "PINS": "FRONT AND REAR PINS REQUIRED",
-      "FRONT_PIN_SIZE": "45MM",
-      "REAR_PIN_SIZE": "55MM",
-      "STICK_WIDTH": "11.1875",
-      "MACHINE_CENTRE": "18.375",
-      "CENTER_TO_CENTER": "16.250",
-      "OUTSIDE_OS": "18.000",
-      "WIDTH": "13.250",
-      "WEDGE_BAR_HEIGHT": "2.000",
-      "WEDGE_BAR_WIDTH": "2.000",
-      "WEDGE_BAR_LENGTH": "26.000",
-      "WEDGE_ANGLE": "25°"
-    },
-    "tab1770838553711": {
-      "MACHINE": "EX",
-      "SUBTYPE": "LE",
-      "CLASS": "HE120",
-      "CLASS_NO": "120",
-      "LUGGING": "WBM",
-      "MODEL": "311C",
-      "BUSHINGS": "BUSHED",
-      "PINS": "FRONT AND REAR PINS REQUIRED",
-      "FRONT_PIN_SIZE": "45MM",
-      "REAR_PIN_SIZE": "55MM",
-      "STICK_WIDTH": "11.1875",
-      "MACHINE_CENTRE": "18.375",
-      "CENTER_TO_CENTER": "16.250",
-      "OUTSIDE_OS": "18.000",
-      "WIDTH": "13.250",
-      "WEDGE_BAR_HEIGHT": "2.000",
-      "WEDGE_BAR_WIDTH": "2.000",
-      "WEDGE_BAR_LENGTH": "26.000",
-      "WEDGE_ANGLE": "25°",
-      "FRONT_HUB_OD": "5.000",
-      "FRONT_HUB_ID": "2.569",
-      "FRONT_HUB_LENGTH": "3.531",
-      "REAR_HUB_OD": "5.000",
-      "REAR_HUB_ID": "2.569",
-      "REAR_HUB_LENGTH": "3.591"
-    },
-    "tab1770838629859": {
-      "MACHINE": "EX",
-      "SUBTYPE": "LE",
-      "CLASS": "HE120",
-      "CLASS_NO": "120",
-      "LUGGING": "WBM",
-      "MODEL": "311C",
-      "BUSHINGS": "BUSHED",
-      "PINS": "FRONT AND REAR PINS REQUIRED",
-      "FRONT_PIN_SIZE": "45MM",
-      "REAR_PIN_SIZE": "55MM",
-      "STICK_WIDTH": "11.1875",
-      "MACHINE_CENTRE": "18.375",
-      "CENTER_TO_CENTER": "16.250",
-      "OUTSIDE_OS": "18.000",
-      "WIDTH": "13.250",
-      "WEDGE_BAR_HEIGHT": "2.000",
-      "WEDGE_BAR_WIDTH": "2.000",
-      "WEDGE_BAR_LENGTH": "26.000",
-      "WEDGE_ANGLE": "25°",
-      "FRONT_HUB_OD": "5.000",
-      "FRONT_HUB_ID": "2.569",
-      "FRONT_HUB_LENGTH": "3.531",
-      "REAR_HUB_OD": "5.000",
-      "REAR_HUB_ID": "2.569",
-      "REAR_HUB_LENGTH": "3.591"
-    },
-    "tab1770842447295": {
-      "MACHINE": "EX",
-      "SUBTYPE": "LE",
-      "CLASS": "HE120",
-      "CLASS_NO": "120",
-      "LUGGING": "WBM",
-      "MODEL": "311C",
-      "BUSHINGS": "BUSHED",
-      "PINS": "FRONT AND REAR PINS REQUIRED",
-      "FRONT_PIN_SIZE": "45MM",
-      "REAR_PIN_SIZE": "55MM",
-      "STICK_WIDTH": "11.1875",
-      "MACHINE_CENTRE": "18.375",
-      "CENTER_TO_CENTER": "16.250",
-      "OUTSIDE_OS": "18.000",
-      "WIDTH": "13.250",
-      "WEDGE_BAR_HEIGHT": "2.000",
-      "WEDGE_BAR_WIDTH": "2.000",
-      "WEDGE_BAR_LENGTH": "26.000",
-      "WEDGE_ANGLE": "25°",
-      "FRONT_HUB_OD": "5.000",
-      "FRONT_HUB_ID": "2.569",
-      "FRONT_HUB_LENGTH": "3.531",
-      "REAR_HUB_OD": "5.000",
-      "REAR_HUB_ID": "2.569",
-      "REAR_HUB_LENGTH": "3.591"
-    }
-  },
   "parts": {
     "buckets": [
       {
         "id": "p1",
-        "name": "GA",
         "midx": "A",
+        "name": "GA",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p2",
-        "name": "Tooth Weldment",
         "midx": "B",
+        "name": "Tooth Weldment",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762899954",
-        "name": "Body Weldment",
         "midx": "C",
+        "name": "Body Weldment",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762912068",
-        "name": "Width Profile",
         "midx": "D",
+        "name": "Width Profile",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762928430",
-        "name": "Capacity",
         "midx": "00",
+        "name": "Capacity",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762938928",
-        "name": "Shell Plate",
         "midx": null,
+        "name": "Shell Plate",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762944205",
-        "name": "Strongback Plate",
         "midx": null,
+        "name": "Strongback Plate",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762956126",
-        "name": "Wear Bar Assm",
         "midx": null,
+        "name": "Wear Bar Assm",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762975793",
-        "name": "Wear Bar",
         "midx": null,
+        "name": "Wear Bar",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770767898320",
-        "name": "Profile Sketch",
         "midx": null,
+        "name": "Profile Sketch",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770767923264",
-        "name": "Side Edge Plate",
         "midx": null,
+        "name": "Side Edge Plate",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770767931018",
-        "name": "Side Plate",
         "midx": null,
+        "name": "Side Plate",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770767938206",
-        "name": "Cheek Plate-RH",
         "midx": null,
+        "name": "Cheek Plate-RH",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770767948898",
-        "name": "Cheek Plate-LH",
         "midx": null,
+        "name": "Cheek Plate-LH",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770767958952",
-        "name": "Lifting Eye Plate",
         "midx": null,
+        "name": "Lifting Eye Plate",
         "level": 0,
         "enabled": true
       }
@@ -1317,78 +110,78 @@
     "tab1770826801156": [
       {
         "id": "p1",
-        "name": "GA",
         "midx": "A",
+        "name": "GA",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762899954",
-        "name": "Body-Hub Weldment",
         "midx": "B",
+        "name": "Body-Hub Weldment",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770767898320",
-        "name": "Profile Sketch",
         "midx": "00",
+        "name": "Profile Sketch",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762912068",
-        "name": "Body Weldment",
         "midx": "01",
+        "name": "Body Weldment",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762928430",
-        "name": "Side Plate MC",
         "midx": null,
+        "name": "Side Plate MC",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770762938928",
-        "name": "Side Plate",
         "midx": null,
+        "name": "Side Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770762944205",
-        "name": "Front Plate",
         "midx": null,
+        "name": "Front Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770762956126",
-        "name": "Bolt Plate",
         "midx": null,
+        "name": "Bolt Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770762975793",
-        "name": "Rear Plate",
         "midx": null,
+        "name": "Rear Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770767923264",
-        "name": "Wedge Bar MC",
         "midx": null,
+        "name": "Wedge Bar MC",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770767931018",
-        "name": "Wedge Bar",
         "midx": null,
+        "name": "Wedge Bar",
         "level": 1,
         "enabled": true
       }
@@ -1396,190 +189,190 @@
     "tab1770838553711": [
       {
         "id": "p1",
-        "name": "GA",
         "midx": "A",
+        "name": "GA",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762899954",
-        "name": "Body-Hub Weldment",
         "midx": "B",
+        "name": "Body-Hub Weldment",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770837330352",
-        "name": "Hub-Front-Right",
         "midx": null,
+        "name": "Hub-Front-Right",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770837360914",
-        "name": "Hub-Front-Left",
         "midx": null,
+        "name": "Hub-Front-Left",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770837368844",
-        "name": "Hub-Rear-Right",
         "midx": null,
+        "name": "Hub-Rear-Right",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770837371450",
-        "name": "Hub-Rear-Left",
         "midx": null,
+        "name": "Hub-Rear-Left",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770767898320",
-        "name": "Profile Sketch",
         "midx": "00",
+        "name": "Profile Sketch",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762912068",
-        "name": "Body Weldment",
         "midx": "01",
+        "name": "Body Weldment",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762928430",
-        "name": "Side Plate MC",
         "midx": null,
+        "name": "Side Plate MC",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770762938928",
-        "name": "Side Plate",
         "midx": null,
+        "name": "Side Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832021049",
-        "name": "Cyl Plate MC",
         "midx": null,
+        "name": "Cyl Plate MC",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832041056",
-        "name": "Cyl Plate",
         "midx": null,
+        "name": "Cyl Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770838910007",
-        "name": "Spring Bolt Plate MC",
         "midx": null,
+        "name": "Spring Bolt Plate MC",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770838933503",
-        "name": "Spring Bolt Plate",
         "midx": null,
+        "name": "Spring Bolt Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832083800",
-        "name": "Back Plate",
         "midx": null,
+        "name": "Back Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770762944205",
-        "name": "Front base Plate",
         "midx": null,
+        "name": "Front base Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770838969693",
-        "name": "Middle Base Plate",
         "midx": null,
+        "name": "Middle Base Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770762975793",
-        "name": "Rear Cross Plate",
         "midx": null,
+        "name": "Rear Cross Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832115401",
-        "name": "Wedge Protect Plate-RH",
         "midx": null,
+        "name": "Wedge Protect Plate-RH",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832127303",
-        "name": "Wedge Protect Plate-LH",
         "midx": null,
+        "name": "Wedge Protect Plate-LH",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832138407",
-        "name": "Safety Key Lug Plate",
         "midx": null,
+        "name": "Safety Key Lug Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832149926",
-        "name": "Lifting Eye Plate",
         "midx": null,
+        "name": "Lifting Eye Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832160731",
-        "name": "Hardware Assembly",
         "midx": "02",
+        "name": "Hardware Assembly",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770767923264",
-        "name": "Wedge Bar Plate MC",
         "midx": null,
+        "name": "Wedge Bar Plate MC",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770767931018",
-        "name": "Wedge Bar Plate",
         "midx": null,
+        "name": "Wedge Bar Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832472093",
-        "name": "Safety Key Plate",
         "midx": null,
+        "name": "Safety Key Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832218222",
-        "name": "Cover Plate",
         "midx": null,
+        "name": "Cover Plate",
         "level": 1,
         "enabled": true
       }
@@ -1587,190 +380,190 @@
     "tab1770838629859": [
       {
         "id": "p1",
-        "name": "GA",
         "midx": "A",
+        "name": "GA",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762899954",
-        "name": "Body-Hub Weldment",
         "midx": "B",
+        "name": "Body-Hub Weldment",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770837330352",
-        "name": "Hub-Front-Right",
         "midx": null,
+        "name": "Hub-Front-Right",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770837360914",
-        "name": "Hub-Front-Left",
         "midx": null,
+        "name": "Hub-Front-Left",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770837368844",
-        "name": "Hub-Rear-Right",
         "midx": null,
+        "name": "Hub-Rear-Right",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770837371450",
-        "name": "Hub-Rear-Left",
         "midx": null,
+        "name": "Hub-Rear-Left",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770767898320",
-        "name": "Profile Sketch",
         "midx": "00",
+        "name": "Profile Sketch",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762912068",
-        "name": "Body Weldment",
         "midx": "01",
+        "name": "Body Weldment",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762928430",
-        "name": "Side Plate MC",
         "midx": null,
+        "name": "Side Plate MC",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770762938928",
-        "name": "Side Plate",
         "midx": null,
+        "name": "Side Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832021049",
-        "name": "Cyl Plate MC",
         "midx": null,
+        "name": "Cyl Plate MC",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832041056",
-        "name": "Cyl Plate",
         "midx": null,
+        "name": "Cyl Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770762944205",
-        "name": "Front Plate",
         "midx": null,
+        "name": "Front Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832101193",
-        "name": "Base Plate",
         "midx": null,
+        "name": "Base Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832083800",
-        "name": "Back Plate",
         "midx": null,
+        "name": "Back Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770762975793",
-        "name": "Rear Cross Plate",
         "midx": null,
+        "name": "Rear Cross Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832138407",
-        "name": "Safety Key Lug Plate",
         "midx": null,
+        "name": "Safety Key Lug Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832149926",
-        "name": "Lifting Eye Plate",
         "midx": null,
+        "name": "Lifting Eye Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832115401",
-        "name": "Wedge Protect Plate-RH",
         "midx": null,
+        "name": "Wedge Protect Plate-RH",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832127303",
-        "name": "Wedge Protect Plate-LH",
         "midx": null,
+        "name": "Wedge Protect Plate-LH",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832160731",
-        "name": "Hardware Assembly",
         "midx": "02",
+        "name": "Hardware Assembly",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770767923264",
-        "name": "Wedge Bar Plate MC",
         "midx": null,
+        "name": "Wedge Bar Plate MC",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770767931018",
-        "name": "Wedge Bar Plate",
         "midx": null,
+        "name": "Wedge Bar Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832472093",
-        "name": "Safety Key Plate",
         "midx": null,
+        "name": "Safety Key Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770835955029",
-        "name": "Cover Plate Support Bar",
         "midx": null,
+        "name": "Cover Plate Support Bar",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832218222",
-        "name": "Cover Plate",
         "midx": null,
+        "name": "Cover Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770835969099",
-        "name": "Spring Retainer",
         "midx": null,
+        "name": "Spring Retainer",
         "level": 1,
         "enabled": true
       }
@@ -1778,190 +571,353 @@
     "tab1770842447295": [
       {
         "id": "p1",
-        "name": "GA",
         "midx": "A",
+        "name": "GA",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762899954",
-        "name": "Body-Hub Weldment",
         "midx": "B",
+        "name": "Body-Hub Weldment",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770837330352",
-        "name": "Hub-Front-Right",
         "midx": null,
+        "name": "Hub-Front-Right",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770837360914",
-        "name": "Hub-Front-Left",
         "midx": null,
+        "name": "Hub-Front-Left",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770837368844",
-        "name": "Hub-Rear-Right",
         "midx": null,
+        "name": "Hub-Rear-Right",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770837371450",
-        "name": "Hub-Rear-Left",
         "midx": null,
+        "name": "Hub-Rear-Left",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770767898320",
-        "name": "Profile Sketch",
         "midx": "00",
+        "name": "Profile Sketch",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762912068",
-        "name": "Body Weldment",
         "midx": "01",
+        "name": "Body Weldment",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762928430",
-        "name": "Side Plate MC",
         "midx": null,
+        "name": "Side Plate MC",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770762938928",
-        "name": "Side Plate",
         "midx": null,
+        "name": "Side Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832021049",
-        "name": "Cyl Plate MC",
         "midx": null,
+        "name": "Cyl Plate MC",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832041056",
-        "name": "Cyl Plate",
         "midx": null,
+        "name": "Cyl Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770762944205",
-        "name": "Front Plate",
         "midx": null,
+        "name": "Front Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832101193",
-        "name": "Base Plate",
         "midx": null,
+        "name": "Base Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832083800",
-        "name": "Back Plate",
         "midx": null,
+        "name": "Back Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770762975793",
-        "name": "Rear Cross Plate",
         "midx": null,
+        "name": "Rear Cross Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832138407",
-        "name": "Safety Key Lug Plate",
         "midx": null,
+        "name": "Safety Key Lug Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832149926",
-        "name": "Lifting Eye Plate",
         "midx": null,
+        "name": "Lifting Eye Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832115401",
-        "name": "Wedge Protect Plate-RH",
         "midx": null,
+        "name": "Wedge Protect Plate-RH",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832127303",
-        "name": "Wedge Protect Plate-LH",
         "midx": null,
+        "name": "Wedge Protect Plate-LH",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832160731",
-        "name": "Hardware Assembly",
         "midx": "02",
+        "name": "Hardware Assembly",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770767923264",
-        "name": "Wedge Bar Plate MC",
         "midx": null,
+        "name": "Wedge Bar Plate MC",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770767931018",
-        "name": "Wedge Bar Plate",
         "midx": null,
+        "name": "Wedge Bar Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832472093",
-        "name": "Safety Key Plate",
         "midx": null,
+        "name": "Safety Key Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770835955029",
-        "name": "Cover Plate Support Bar",
         "midx": null,
+        "name": "Cover Plate Support Bar",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770832218222",
-        "name": "Cover Plate",
         "midx": null,
+        "name": "Cover Plate",
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1770835969099",
-        "name": "Spring Retainer",
         "midx": null,
+        "name": "Spring Retainer",
+        "level": 1,
+        "enabled": true
+      }
+    ],
+    "tab1774978147622": [
+      {
+        "id": "p1",
+        "midx": "00",
+        "name": "GA",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775591138143",
+        "midx": "01",
+        "name": "GA (Copy)",
+        "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1775591348667",
+        "midx": null,
+        "name": "GA (Copy) (Copy)",
+        "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1775591371291",
+        "midx": null,
+        "name": "GA (Copy) (Copy) (Copy)",
+        "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1775591549394",
+        "midx": null,
+        "name": "GA (Copy) (Copy) (Copy) (Copy)",
+        "level": 2,
+        "enabled": true
+      },
+      {
+        "id": "p2",
+        "midx": "B",
+        "name": "Tooth Weldment",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770762899954",
+        "midx": "C",
+        "name": "Body Weldment",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770762912068",
+        "midx": "D",
+        "name": "Width Profile",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770762928430",
+        "midx": "00",
+        "name": "Capacity",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770762938928",
+        "midx": null,
+        "name": "Shell Plate",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770762944205",
+        "midx": null,
+        "name": "Strongback Plate",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770762956126",
+        "midx": null,
+        "name": "Wear Bar Assm",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770762975793",
+        "midx": null,
+        "name": "Wear Bar",
+        "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1770767898320",
+        "midx": null,
+        "name": "Profile Sketch",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775591792870",
+        "midx": null,
+        "name": "Corner Edge Plate",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770767923264",
+        "midx": null,
+        "name": "Side Edge Plate",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770767931018",
+        "midx": null,
+        "name": "Side Plate",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770767938206",
+        "midx": null,
+        "name": "Cheek Plate-RH",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770767948898",
+        "midx": null,
+        "name": "Cheek Plate-LH",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770767958952",
+        "midx": null,
+        "name": "EX-BKT-CLU-XD-STD-250-05 (Lifting Eye Plate)",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1774978175717",
+        "midx": null,
+        "name": "Radial Wear Plate-RH",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775591947621",
+        "midx": null,
+        "name": "Radial Wear Plate-LH",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775592003600",
+        "midx": null,
+        "name": "Radial Wear Plate",
         "level": 1,
         "enabled": true
       }
@@ -2077,6 +1033,28 @@
         "id": "f1770766992117",
         "name": "Specs 2"
       }
+    ],
+    "tab1774978147622": [
+      {
+        "id": "f1770765683117",
+        "name": "Description"
+      },
+      {
+        "id": "f1770765927726",
+        "name": "Features 1"
+      },
+      {
+        "id": "f1770766964933",
+        "name": "Features 2"
+      },
+      {
+        "id": "f1770766978429",
+        "name": "Specs 1"
+      },
+      {
+        "id": "f1770766992117",
+        "name": "Specs 2"
+      }
     ]
   },
   "rules": {
@@ -2090,29 +1068,29 @@
         "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
         "f1770766978429": "BLADE_THK X BLADE_ANGLE"
       },
-      "p1770762975793": {
-        "f1770765683117": "WEAR BAR-HOR-ATTACHMENT-DUTY-SIZE"
-      },
-      "p1770762956126": {
-        "f1770765683117": "WEAR BAR ASSM-HOR-ATTACHMENT-DUTY-SIZE"
-      },
-      "p1770762928430": {
-        "f1770765683117": "CAPACITY ATTACHMENT DUTY-SIZE",
-        "f1770765927726": "HEAPED CAPACITY - VOLUME"
+      "p1770762899954": {
+        "f1770765683117": "BODY-WLDT-ATTACHMENT SUBTYPE-DUTY CLASS-SIZE",
+        "f1770765927726": "VOLUME",
+        "f1770766978429": "BLADE_THK X BLADE_ANGLE"
       },
       "p1770762912068": {
         "f1770765683117": "WIDTH SKETCH DUTY-SIZE"
       },
-      "p1770762899954": {
-        "f1770765683117": "BODY-WLDT-ATTACHMENT SUBTYPE-DUTY CLASS-SIZE",
-        "f1770766978429": "BLADE_THK X BLADE_ANGLE",
-        "f1770765927726": "VOLUME"
+      "p1770762928430": {
+        "f1770765683117": "CAPACITY ATTACHMENT DUTY-SIZE",
+        "f1770765927726": "HEAPED CAPACITY - VOLUME"
       },
       "p1770762938928": {
         "f1770765683117": "SHELL PL-ATTACHMENT-DUTY-SIZE"
       },
       "p1770762944205": {
         "f1770765683117": "STRBK PL-ATTACHMENT-DUTY-SIZE"
+      },
+      "p1770762956126": {
+        "f1770765683117": "WEAR BAR ASSM-HOR-ATTACHMENT-DUTY-SIZE"
+      },
+      "p1770762975793": {
+        "f1770765683117": "WEAR BAR-HOR-ATTACHMENT-DUTY-SIZE"
       },
       "p1770767898320": {
         "f1770765683117": "PROFILE SKETCH DUTY-CLASS"
@@ -2146,27 +1124,20 @@
         "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
         "f1770766978429": "BLADE_THK X BLADE_ANGLE"
       },
-      "p1770762975793": {
-        "f1770765683117": "REAR PL-CPLR-MW-LUGGING",
-        "f1770766978429": ""
-      },
-      "p1770762956126": {
-        "f1770765683117": "BOLT PL-CPLR-MW-LUGGING"
-      },
-      "p1770762928430": {
-        "f1770765683117": "SIDE PL MC-CPLR-MW LUGGING",
-        "f1770765927726": "",
-        "f1770766978429": "CENTER_TO_CENTER CC"
+      "p1770762899954": {
+        "f1770765683117": "HUB-WLDT-CPLR-MW CLASS",
+        "f1770765927726": "LUGGING - NAME",
+        "f1770766978429": "FRONT_PIN_SIZE - REAR_PIN_SIZE - STICK_WIDTH ISFR - MACHINE_CENTRE MC ",
+        "f1770766992117": "OUTSIDE_OS OS - CENTER_TO_CENTER CC"
       },
       "p1770762912068": {
         "f1770765683117": "BODY WLDT-CPLR-MW CLASS",
         "f1770766978429": "WIDTH  WD - CENTER_TO_CENTER CC"
       },
-      "p1770762899954": {
-        "f1770765683117": "HUB-WLDT-CPLR-MW CLASS",
-        "f1770766978429": "FRONT_PIN_SIZE - REAR_PIN_SIZE - STICK_WIDTH ISFR - MACHINE_CENTRE MC ",
-        "f1770765927726": "LUGGING - NAME",
-        "f1770766992117": "OUTSIDE_OS OS - CENTER_TO_CENTER CC"
+      "p1770762928430": {
+        "f1770765683117": "SIDE PL MC-CPLR-MW LUGGING",
+        "f1770765927726": "",
+        "f1770766978429": "CENTER_TO_CENTER CC"
       },
       "p1770762938928": {
         "f1770765683117": "SIDE PL-CPLR-MW-LUGGING",
@@ -2174,6 +1145,13 @@
       },
       "p1770762944205": {
         "f1770765683117": "FRONT PL-CPLR-MW-LUGGING"
+      },
+      "p1770762956126": {
+        "f1770765683117": "BOLT PL-CPLR-MW-LUGGING"
+      },
+      "p1770762975793": {
+        "f1770765683117": "REAR PL-CPLR-MW-LUGGING",
+        "f1770766978429": ""
       },
       "p1770767898320": {
         "f1770765683117": "PROFILE SKETCH-ATTACHMENT-CLASS",
@@ -2210,28 +1188,21 @@
         "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
         "f1770766978429": "BLADE_THK X BLADE_ANGLE"
       },
-      "p1770762975793": {
-        "f1770765683117": "REAR CROSSPL-CPLR-HW-LUGGING",
-        "f1770766978429": ""
+      "p1770762899954": {
+        "f1770765683117": "HUB-WLDT-CPLR-HW CLASS",
+        "f1770765927726": "LUGGING - HUB BODY WELDMENT",
+        "f1770766978429": "FRONT_PIN_SIZE - REAR_PIN_SIZE - STICK_WIDTH ISFR - MACHINE_CENTRE MC ",
+        "f1770766992117": "OUTSIDE_OS OS - CENTER_TO_CENTER CC"
       },
-      "p1770762956126": {
-        "f1770765683117": "BOLT PL-ATTACHMENT-LUGGING"
+      "p1770762912068": {
+        "f1770765683117": "BODY-WLDT-CPLR-HW CLASS",
+        "f1770765927726": "BODY WELDMENT",
+        "f1770766978429": "WIDTH  WD - CENTER_TO_CENTER CC"
       },
       "p1770762928430": {
         "f1770765683117": "SIDE PL MC-CPLR-HW-MC",
         "f1770765927726": "",
         "f1770766978429": "CENTER_TO_CENTER CC"
-      },
-      "p1770762912068": {
-        "f1770765683117": "BODY-WLDT-CPLR-HW CLASS",
-        "f1770766978429": "WIDTH  WD - CENTER_TO_CENTER CC",
-        "f1770765927726": "BODY WELDMENT"
-      },
-      "p1770762899954": {
-        "f1770765683117": "HUB-WLDT-CPLR-HW CLASS",
-        "f1770766978429": "FRONT_PIN_SIZE - REAR_PIN_SIZE - STICK_WIDTH ISFR - MACHINE_CENTRE MC ",
-        "f1770765927726": "LUGGING - HUB BODY WELDMENT",
-        "f1770766992117": "OUTSIDE_OS OS - CENTER_TO_CENTER CC"
       },
       "p1770762938928": {
         "f1770765683117": "SIDE PL-CPLR-HW-LUGGING",
@@ -2239,6 +1210,13 @@
       },
       "p1770762944205": {
         "f1770765683117": "FRONT BASE PL-CPLR-HW-LUGGING"
+      },
+      "p1770762956126": {
+        "f1770765683117": "BOLT PL-ATTACHMENT-LUGGING"
+      },
+      "p1770762975793": {
+        "f1770765683117": "REAR CROSSPL-CPLR-HW-LUGGING",
+        "f1770766978429": ""
       },
       "p1770767898320": {
         "f1770765683117": "PROFILE SKETCH-CHW-CLASS",
@@ -2295,14 +1273,14 @@
       "p1770832160731": {
         "f1770765683117": "HARDWARE ASSM-CPLR-HW-LUGGING"
       },
-      "p1770832472093": {
-        "f1770765683117": "SAFETY KEY PL-CPLR-HW-LUGGING"
+      "p1770832205860": {
+        "f1770765683117": "CYL SPACER PL-QC-HW"
       },
       "p1770832218222": {
         "f1770765683117": "COVER PL-CPLR-HW-LUGGING"
       },
-      "p1770832205860": {
-        "f1770765683117": "CYL SPACER PL-QC-HW"
+      "p1770832472093": {
+        "f1770765683117": "SAFETY KEY PL-CPLR-HW-LUGGING"
       },
       "p1770835955029": {
         "f1770765683117": "COVER BAR-CPLR-HW-LUGGING"
@@ -2348,28 +1326,21 @@
         "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
         "f1770766978429": "BLADE_THK X BLADE_ANGLE"
       },
-      "p1770762975793": {
-        "f1770765683117": "REAR CROSSPL-CPLR-HWA LUGGING",
-        "f1770766978429": ""
+      "p1770762899954": {
+        "f1770765683117": "HUB-WLDT-CPLR-HWA CLASS",
+        "f1770765927726": "LUGGING - HUB BODY WELDMENT",
+        "f1770766978429": "FRONT_PIN_SIZE - REAR_PIN_SIZE - STICK_WIDTH ISFR - MACHINE_CENTRE MC ",
+        "f1770766992117": "OUTSIDE_OS OS - CENTER_TO_CENTER CC"
       },
-      "p1770762956126": {
-        "f1770765683117": "BOLT PL-ATTACHMENT-LUGGING"
+      "p1770762912068": {
+        "f1770765683117": "BODY-WLDT-CPLR-HWA CLASS",
+        "f1770765927726": "BODY WELDMENT",
+        "f1770766978429": "WIDTH  WD - CENTER_TO_CENTER CC"
       },
       "p1770762928430": {
         "f1770765683117": "SIDE PL MC-CPLR-HWA-MC",
         "f1770765927726": "",
         "f1770766978429": "CENTER_TO_CENTER CC"
-      },
-      "p1770762912068": {
-        "f1770765683117": "BODY-WLDT-CPLR-HWA CLASS",
-        "f1770766978429": "WIDTH  WD - CENTER_TO_CENTER CC",
-        "f1770765927726": "BODY WELDMENT"
-      },
-      "p1770762899954": {
-        "f1770765683117": "HUB-WLDT-CPLR-HWA CLASS",
-        "f1770766978429": "FRONT_PIN_SIZE - REAR_PIN_SIZE - STICK_WIDTH ISFR - MACHINE_CENTRE MC ",
-        "f1770765927726": "LUGGING - HUB BODY WELDMENT",
-        "f1770766992117": "OUTSIDE_OS OS - CENTER_TO_CENTER CC"
       },
       "p1770762938928": {
         "f1770765683117": "SIDE PL-CPLR-HWA-LUGGING",
@@ -2377,6 +1348,13 @@
       },
       "p1770762944205": {
         "f1770765683117": "FRONT PL-CPLR-HWA-LUGGING"
+      },
+      "p1770762956126": {
+        "f1770765683117": "BOLT PL-ATTACHMENT-LUGGING"
+      },
+      "p1770762975793": {
+        "f1770765683117": "REAR CROSSPL-CPLR-HWA LUGGING",
+        "f1770766978429": ""
       },
       "p1770767898320": {
         "f1770765683117": "PROFILE SKETCH-CPLR-HWA-CLASS",
@@ -2433,14 +1411,14 @@
       "p1770832160731": {
         "f1770765683117": "HARDWARE ASSM-CPLR-HWA-LUGGING"
       },
-      "p1770832472093": {
-        "f1770765683117": "SAFETY KEY PL-CPLR-HWA-LUGGING"
+      "p1770832205860": {
+        "f1770765683117": "CYL SPACER PL-QC-HW"
       },
       "p1770832218222": {
         "f1770765683117": "COVER PL-CPLR-HWA-LUGGING"
       },
-      "p1770832205860": {
-        "f1770765683117": "CYL SPACER PL-QC-HW"
+      "p1770832472093": {
+        "f1770765683117": "SAFETY KEY PL-CPLR-HWA-LUGGING"
       },
       "p1770835955029": {
         "f1770765683117": "COVER BAR-CPLR-HWA-LUGGING"
@@ -2477,28 +1455,21 @@
         "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
         "f1770766978429": "BLADE_THK X BLADE_ANGLE"
       },
-      "p1770762975793": {
-        "f1770765683117": "REAR CROSSPL-CPLR-HWA LUGGING",
-        "f1770766978429": ""
+      "p1770762899954": {
+        "f1770765683117": "HUB-WLDT-CPLR-HWA CLASS",
+        "f1770765927726": "LUGGING - HUB BODY WELDMENT",
+        "f1770766978429": "FRONT_PIN_SIZE - REAR_PIN_SIZE - STICK_WIDTH ISFR - MACHINE_CENTRE MC ",
+        "f1770766992117": "OUTSIDE_OS OS - CENTER_TO_CENTER CC"
       },
-      "p1770762956126": {
-        "f1770765683117": "BOLT PL-ATTACHMENT-LUGGING"
+      "p1770762912068": {
+        "f1770765683117": "BODY-WLDT-CPLR-HWA CLASS",
+        "f1770765927726": "BODY WELDMENT",
+        "f1770766978429": "WIDTH  WD - CENTER_TO_CENTER CC"
       },
       "p1770762928430": {
         "f1770765683117": "SIDE PL MC-CPLR-HWA-MC",
         "f1770765927726": "",
         "f1770766978429": "CENTER_TO_CENTER CC"
-      },
-      "p1770762912068": {
-        "f1770765683117": "BODY-WLDT-CPLR-HWA CLASS",
-        "f1770766978429": "WIDTH  WD - CENTER_TO_CENTER CC",
-        "f1770765927726": "BODY WELDMENT"
-      },
-      "p1770762899954": {
-        "f1770765683117": "HUB-WLDT-CPLR-HWA CLASS",
-        "f1770766978429": "FRONT_PIN_SIZE - REAR_PIN_SIZE - STICK_WIDTH ISFR - MACHINE_CENTRE MC ",
-        "f1770765927726": "LUGGING - HUB BODY WELDMENT",
-        "f1770766992117": "OUTSIDE_OS OS - CENTER_TO_CENTER CC"
       },
       "p1770762938928": {
         "f1770765683117": "SIDE PL-CPLR-HWA-LUGGING",
@@ -2506,6 +1477,13 @@
       },
       "p1770762944205": {
         "f1770765683117": "FRONT PL-CPLR-HWA-LUGGING"
+      },
+      "p1770762956126": {
+        "f1770765683117": "BOLT PL-ATTACHMENT-LUGGING"
+      },
+      "p1770762975793": {
+        "f1770765683117": "REAR CROSSPL-CPLR-HWA LUGGING",
+        "f1770766978429": ""
       },
       "p1770767898320": {
         "f1770765683117": "PROFILE SKETCH-CPLR-HWA-CLASS",
@@ -2562,14 +1540,14 @@
       "p1770832160731": {
         "f1770765683117": "HARDWARE ASSM-CPLR-HWA-LUGGING"
       },
-      "p1770832472093": {
-        "f1770765683117": "SAFETY KEY PL-CPLR-HWA-LUGGING"
+      "p1770832205860": {
+        "f1770765683117": "CYL SPACER PL-QC-HW"
       },
       "p1770832218222": {
         "f1770765683117": "COVER PL-CPLR-HWA-LUGGING"
       },
-      "p1770832205860": {
-        "f1770765683117": "CYL SPACER PL-QC-HW"
+      "p1770832472093": {
+        "f1770765683117": "SAFETY KEY PL-CPLR-HWA-LUGGING"
       },
       "p1770835955029": {
         "f1770765683117": "COVER BAR-CPLR-HWA-LUGGING"
@@ -2593,26 +1571,1558 @@
         "f1770765683117": "HUB-QC-RR-LH",
         "f1770765927726": "REAR_HUB_OD OD X REAR_HUB_ID ID X REAR_HUB_LENGTH LG "
       }
+    },
+    "tab1774978147622": {
+      "p1": {
+        "f1770765683117": "ATTACHMENT-SUBTYPE DUTY HOOK-UP NAME CLASS-SIZE",
+        "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p2": {
+        "f1770765683117": "TOOTH-WLDT-ATTACHMENT-SUBTYPE-DUTY CLASS-SIZE",
+        "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
+        "f1770766978429": "BLADE_THK X BLADE_ANGLE",
+        "f1770766964933": "-",
+        "f1770766992117": "-"
+      },
+      "p1770762899954": {
+        "f1770765683117": "BODY-WLDT-ATTACHMENT SUBTYPE-DUTY CLASS-SIZE",
+        "f1770765927726": "VOLUME",
+        "f1770766978429": "BLADE_THK X BLADE_ANGLE",
+        "f1770766964933": "-",
+        "f1770766992117": "-"
+      },
+      "p1770762912068": {
+        "f1770765683117": "WIDTH SKETCH DUTY-SIZE",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770762928430": {
+        "f1770765683117": "CAPACITY ATTACHMENT DUTY-SIZE",
+        "f1770765927726": "HEAPED CAPACITY - VOLUME"
+      },
+      "p1770762938928": {
+        "f1770765683117": "SHELL PL-ATTACHMENT-DUTY-SIZE",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770762944205": {
+        "f1770765683117": "STRBK PL-ATTACHMENT-DUTY-SIZE",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770762956126": {
+        "f1770765683117": "WEAR BAR ASSM-HOR-ATTACHMENT-DUTY-SIZE",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770762975793": {
+        "f1770765683117": "WEAR BAR-HOR-ATTACHMENT-DUTY-SIZE",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770767898320": {
+        "f1770765683117": "PROFILE SKETCH DUTY-CLASS",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770767923264": {
+        "f1770765683117": "SIDE EDGE-ATTACHMENT-DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770767931018": {
+        "f1770765683117": "SIDE PL-ATTACHMENT-DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770767938206": {
+        "f1770765683117": "CHEEK PL-ATTACHMENT-DUTY-RH",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770767948898": {
+        "f1770765683117": "CHEEK PL-ATTACHMENT-DUTY-LH",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770767958952": {
+        "f1770765683117": "LIFTING EYE PL-ATTACHMENT-DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1774978175717": {
+        "f1770765683117": "RAD WEAR PL-ATTACHMENT-DUTY-RH",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775591138143": {
+        "f1770765683117": "STRBK PL-MID-ATTACHMENT-DUTY LUGGING CLASS",
+        "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775591348667": {
+        "f1770765683117": "STRBK PL-RH-ATTACHMENT-DUTY LUGGING CLASS",
+        "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775591371291": {
+        "f1770765683117": "STRBK PL-LH-ATTACHMENT-DUTY LUGGING CLASS",
+        "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775591549394": {
+        "f1770765683117": "STRBK PL-LH-ATTACHMENT-DUTY SIZE",
+        "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775591792870": {
+        "f1770765683117": "SIDE EDGE-ATTACHMENT-DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775591947621": {
+        "f1770765683117": "RAD WEAR PL-ATTACHMENT-DUTY-LH",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775592003600": {
+        "f1770765683117": "RAD WEAR PL-ATTACHMENT-DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      }
     }
   },
-  "hiddenProps": {
-    "buckets": []
+  "master": {
+    "buckets": [
+      {
+        "key": "MACHINE_TYPE",
+        "vals": [
+          "EX",
+          "BHR",
+          "WL"
+        ],
+        "label": "Machine Type"
+      },
+      {
+        "key": "ATTACHMENT",
+        "vals": [
+          "BKT",
+          "RPR"
+        ],
+        "label": "Attachment"
+      },
+      {
+        "key": "SUBTYPE",
+        "vals": [
+          "DIG",
+          "CLU",
+          "SKL"
+        ],
+        "label": "Subtype"
+      },
+      {
+        "key": "DUTY",
+        "vals": [
+          "XD",
+          "XDW",
+          "XDR",
+          "XDX"
+        ],
+        "label": "Duty"
+      },
+      {
+        "key": "CLASS",
+        "vals": [
+          "BH060",
+          "HE035",
+          "HE050",
+          "HE060",
+          "HE080",
+          "HE120",
+          "HE150",
+          "HE200",
+          "HE250",
+          "HE300",
+          "HE350",
+          "HE400",
+          "HE450",
+          "HE600",
+          "HE800"
+        ],
+        "label": "Class"
+      },
+      {
+        "key": "CLASS_NO",
+        "vals": [
+          "035",
+          "060",
+          "050",
+          "080",
+          "120",
+          "150",
+          "200",
+          "250",
+          "300",
+          "350",
+          "400",
+          "450",
+          "600",
+          "800"
+        ],
+        "label": "Class No"
+      },
+      {
+        "key": "LUGGING",
+        "vals": [
+          "WBM",
+          "WBMBH",
+          "CWS",
+          "FAS",
+          "WBML",
+          "PGL"
+        ],
+        "label": "Lugging"
+      },
+      {
+        "key": "SIZE",
+        "vals": [
+          "12",
+          "18",
+          "24",
+          "36",
+          "42",
+          "48",
+          "54",
+          "60",
+          "72",
+          "84",
+          "96"
+        ],
+        "label": "Size"
+      },
+      {
+        "key": "HOOK-UP",
+        "vals": [
+          "QCL",
+          "PTL",
+          "PGL"
+        ],
+        "label": "Hook-Up"
+      },
+      {
+        "key": "TOOTH_QTY",
+        "vals": [
+          "2",
+          "3",
+          "4",
+          "5",
+          "6"
+        ],
+        "label": "TOOTH QTY"
+      },
+      {
+        "key": "TOOTH_TYPE",
+        "vals": [
+          "J225",
+          "J300",
+          "J350",
+          "J400",
+          "J450"
+        ],
+        "label": "TOOTH TYPE"
+      },
+      {
+        "key": "BLADE_THK",
+        "vals": [
+          "0.750",
+          "0.875",
+          "1.000",
+          "1.250",
+          "1.500",
+          "1.750",
+          "2.000"
+        ],
+        "label": "BLADE THK"
+      },
+      {
+        "key": "BLADE_ANGLE",
+        "vals": [
+          "15",
+          "20"
+        ],
+        "label": "BLADE ANGLE"
+      },
+      {
+        "key": "VOLUME",
+        "vals": [
+          "0.75 CUYD",
+          "1.00 CUYD"
+        ],
+        "label": "VOLUME"
+      }
+    ],
+    "tab1770826801156": [
+      {
+        "key": "MACHINE",
+        "vals": [
+          "EX",
+          "BHR",
+          "WL"
+        ],
+        "label": "Machine"
+      },
+      {
+        "key": "SUBTYPE",
+        "vals": [
+          "LE"
+        ],
+        "label": "Subtype"
+      },
+      {
+        "key": "CLASS",
+        "vals": [
+          "BH060",
+          "HE035",
+          "HE050",
+          "HE060",
+          "HE080",
+          "HE120",
+          "HE150",
+          "HE200",
+          "HE250",
+          "HE300",
+          "HE350",
+          "HE400",
+          "HE450",
+          "HE600",
+          "HE800"
+        ],
+        "label": "Class"
+      },
+      {
+        "key": "CLASS_NO",
+        "vals": [
+          "035",
+          "060",
+          "050",
+          "080",
+          "120",
+          "150",
+          "200",
+          "250",
+          "300",
+          "350",
+          "400",
+          "450",
+          "600",
+          "800"
+        ],
+        "label": "Class No"
+      },
+      {
+        "key": "LUGGING",
+        "vals": [
+          "WBM",
+          "WBMBH",
+          "CWS",
+          "FAS",
+          "WBML",
+          "PGL"
+        ],
+        "label": "Lugging"
+      },
+      {
+        "key": "MODEL",
+        "vals": [
+          "311C",
+          "DX140LC-3"
+        ],
+        "label": "MODEL"
+      },
+      {
+        "key": "BUSHINGS",
+        "vals": [
+          "BUSHED",
+          "NON-BUSHED"
+        ],
+        "label": "BUSHINGS"
+      },
+      {
+        "key": "PINS",
+        "vals": [
+          "WORKS WITH FACTORY PINS",
+          "FRONT PIN REQUIRED",
+          "REAR PIN REQUIRED",
+          "FRONT AND REAR PINS REQUIRED"
+        ],
+        "label": "PINS"
+      },
+      {
+        "key": "FRONT_PIN_SIZE",
+        "vals": [
+          "40MM",
+          "45MM"
+        ],
+        "label": "FRONT PIN SIZE"
+      },
+      {
+        "key": "REAR_PIN_SIZE",
+        "vals": [
+          "50MM",
+          "55MM"
+        ],
+        "label": "REAR PIN SIZE"
+      },
+      {
+        "key": "STICK_WIDTH",
+        "vals": [
+          "11.125",
+          "11.188"
+        ],
+        "label": "STICK WIDTH"
+      },
+      {
+        "key": "MACHINE_CENTRE",
+        "vals": [
+          "16.750",
+          "18.375"
+        ],
+        "label": "MACHINE CENTRE"
+      },
+      {
+        "key": "CENTER_TO_CENTER",
+        "vals": [
+          "14.000",
+          "16.250"
+        ],
+        "label": "CENTER TO CENTER"
+      },
+      {
+        "key": "OUTSIDE_OS",
+        "vals": [
+          "16.000",
+          "18.000"
+        ],
+        "label": "OUTSIDE OS"
+      },
+      {
+        "key": "WIDTH",
+        "vals": [
+          "13.250",
+          "14.000"
+        ],
+        "label": "WIDTH"
+      },
+      {
+        "key": "WEDGE_BAR_HEIGHT",
+        "vals": [
+          "2.000",
+          "2.500",
+          "1.750"
+        ],
+        "label": "WEDGE BAR HEIGHT"
+      },
+      {
+        "key": "WEDGE_BAR_WIDTH",
+        "vals": [
+          "2.000",
+          "2.500",
+          "1.750"
+        ],
+        "label": "WEDGE BAR WIDTH"
+      },
+      {
+        "key": "WEDGE_BAR_LENGTH",
+        "vals": [
+          "26.000",
+          "24.500"
+        ],
+        "label": "WEDGE BAR LENGTH"
+      },
+      {
+        "key": "WEDGE_ANGLE",
+        "vals": [
+          "25°",
+          "26°"
+        ],
+        "label": "WEDGE ANGLE"
+      }
+    ],
+    "tab1770838553711": [
+      {
+        "key": "MACHINE",
+        "vals": [
+          "EX",
+          "BHR",
+          "WL"
+        ],
+        "label": "Machine"
+      },
+      {
+        "key": "SUBTYPE",
+        "vals": [
+          "LE"
+        ],
+        "label": "Subtype"
+      },
+      {
+        "key": "CLASS",
+        "vals": [
+          "BH060",
+          "HE035",
+          "HE050",
+          "HE060",
+          "HE080",
+          "HE120",
+          "HE150",
+          "HE200",
+          "HE250",
+          "HE300",
+          "HE350",
+          "HE400",
+          "HE450",
+          "HE600",
+          "HE800"
+        ],
+        "label": "Class"
+      },
+      {
+        "key": "CLASS_NO",
+        "vals": [
+          "035",
+          "060",
+          "050",
+          "080",
+          "120",
+          "150",
+          "200",
+          "250",
+          "300",
+          "350",
+          "400",
+          "450",
+          "600",
+          "800"
+        ],
+        "label": "Class No"
+      },
+      {
+        "key": "LUGGING",
+        "vals": [
+          "WBM",
+          "WBMBH",
+          "CWS",
+          "FAS",
+          "WBML",
+          "PGL"
+        ],
+        "label": "Lugging"
+      },
+      {
+        "key": "MODEL",
+        "vals": [
+          "311C",
+          "DX140LC-3"
+        ],
+        "label": "MODEL"
+      },
+      {
+        "key": "BUSHINGS",
+        "vals": [
+          "BUSHED",
+          "NON-BUSHED"
+        ],
+        "label": "BUSHINGS"
+      },
+      {
+        "key": "PINS",
+        "vals": [
+          "WORKS WITH FACTORY PINS",
+          "FRONT PIN REQUIRED",
+          "REAR PIN REQUIRED",
+          "FRONT AND REAR PINS REQUIRED"
+        ],
+        "label": "PINS"
+      },
+      {
+        "key": "FRONT_PIN_SIZE",
+        "vals": [
+          "40MM",
+          "45MM"
+        ],
+        "label": "FRONT PIN SIZE"
+      },
+      {
+        "key": "REAR_PIN_SIZE",
+        "vals": [
+          "50MM",
+          "55MM"
+        ],
+        "label": "REAR PIN SIZE"
+      },
+      {
+        "key": "STICK_WIDTH",
+        "vals": [
+          "11.125",
+          "11.188"
+        ],
+        "label": "STICK WIDTH"
+      },
+      {
+        "key": "MACHINE_CENTRE",
+        "vals": [
+          "16.750",
+          "18.375"
+        ],
+        "label": "MACHINE CENTRE"
+      },
+      {
+        "key": "CENTER_TO_CENTER",
+        "vals": [
+          "14.000",
+          "16.250"
+        ],
+        "label": "CENTER TO CENTER"
+      },
+      {
+        "key": "OUTSIDE_OS",
+        "vals": [
+          "16.000",
+          "18.000"
+        ],
+        "label": "OUTSIDE OS"
+      },
+      {
+        "key": "WIDTH",
+        "vals": [
+          "13.250",
+          "14.000"
+        ],
+        "label": "WIDTH"
+      },
+      {
+        "key": "WEDGE_BAR_HEIGHT",
+        "vals": [
+          "2.000",
+          "2.500",
+          "1.750"
+        ],
+        "label": "WEDGE BAR HEIGHT"
+      },
+      {
+        "key": "WEDGE_BAR_WIDTH",
+        "vals": [
+          "2.000",
+          "2.500",
+          "1.750"
+        ],
+        "label": "WEDGE BAR WIDTH"
+      },
+      {
+        "key": "WEDGE_BAR_LENGTH",
+        "vals": [
+          "26.000",
+          "24.500"
+        ],
+        "label": "WEDGE BAR LENGTH"
+      },
+      {
+        "key": "WEDGE_ANGLE",
+        "vals": [
+          "25°",
+          "26°"
+        ],
+        "label": "WEDGE ANGLE"
+      },
+      {
+        "key": "FRONT_HUB_OD",
+        "vals": [
+          "5.000",
+          "5.500"
+        ],
+        "label": "FRONT HUB OD"
+      },
+      {
+        "key": "FRONT_HUB_ID",
+        "vals": [
+          "2.569",
+          "2.575"
+        ],
+        "label": "FRONT HUB ID"
+      },
+      {
+        "key": "FRONT_HUB_LENGTH",
+        "vals": [
+          "3.531",
+          "3.750"
+        ],
+        "label": "FRONT HUB LENGTH"
+      },
+      {
+        "key": "REAR_HUB_OD",
+        "vals": [
+          "5.000",
+          "5.125"
+        ],
+        "label": "REAR HUB OD"
+      },
+      {
+        "key": "REAR_HUB_ID",
+        "vals": [
+          "2.569",
+          "2.575"
+        ],
+        "label": "REAR HUB ID"
+      },
+      {
+        "key": "REAR_HUB_LENGTH",
+        "vals": [
+          "3.591",
+          "3.531"
+        ],
+        "label": "REAR HUB LENGTH"
+      }
+    ],
+    "tab1770838629859": [
+      {
+        "key": "MACHINE",
+        "vals": [
+          "EX",
+          "BHR",
+          "WL"
+        ],
+        "label": "Machine"
+      },
+      {
+        "key": "SUBTYPE",
+        "vals": [
+          "LE"
+        ],
+        "label": "Subtype"
+      },
+      {
+        "key": "CLASS",
+        "vals": [
+          "BH060",
+          "HE035",
+          "HE050",
+          "HE060",
+          "HE080",
+          "HE120",
+          "HE150",
+          "HE200",
+          "HE250",
+          "HE300",
+          "HE350",
+          "HE400",
+          "HE450",
+          "HE600",
+          "HE800"
+        ],
+        "label": "Class"
+      },
+      {
+        "key": "CLASS_NO",
+        "vals": [
+          "035",
+          "060",
+          "050",
+          "080",
+          "120",
+          "150",
+          "200",
+          "250",
+          "300",
+          "350",
+          "400",
+          "450",
+          "600",
+          "800"
+        ],
+        "label": "Class No"
+      },
+      {
+        "key": "LUGGING",
+        "vals": [
+          "WBM",
+          "WBMBH",
+          "CWS",
+          "FAS",
+          "WBML",
+          "PGL"
+        ],
+        "label": "Lugging"
+      },
+      {
+        "key": "MODEL",
+        "vals": [
+          "311C",
+          "DX140LC-3"
+        ],
+        "label": "MODEL"
+      },
+      {
+        "key": "BUSHINGS",
+        "vals": [
+          "BUSHED",
+          "NON-BUSHED"
+        ],
+        "label": "BUSHINGS"
+      },
+      {
+        "key": "PINS",
+        "vals": [
+          "WORKS WITH FACTORY PINS",
+          "FRONT PIN REQUIRED",
+          "REAR PIN REQUIRED",
+          "FRONT AND REAR PINS REQUIRED"
+        ],
+        "label": "PINS"
+      },
+      {
+        "key": "FRONT_PIN_SIZE",
+        "vals": [
+          "40MM",
+          "45MM"
+        ],
+        "label": "FRONT PIN SIZE"
+      },
+      {
+        "key": "REAR_PIN_SIZE",
+        "vals": [
+          "50MM",
+          "55MM"
+        ],
+        "label": "REAR PIN SIZE"
+      },
+      {
+        "key": "STICK_WIDTH",
+        "vals": [
+          "11.125",
+          "11.188"
+        ],
+        "label": "STICK WIDTH"
+      },
+      {
+        "key": "MACHINE_CENTRE",
+        "vals": [
+          "16.750",
+          "18.375"
+        ],
+        "label": "MACHINE CENTRE"
+      },
+      {
+        "key": "CENTER_TO_CENTER",
+        "vals": [
+          "14.000",
+          "16.250"
+        ],
+        "label": "CENTER TO CENTER"
+      },
+      {
+        "key": "OUTSIDE_OS",
+        "vals": [
+          "16.000",
+          "18.000"
+        ],
+        "label": "OUTSIDE OS"
+      },
+      {
+        "key": "WIDTH",
+        "vals": [
+          "13.250",
+          "14.000"
+        ],
+        "label": "WIDTH"
+      },
+      {
+        "key": "WEDGE_BAR_HEIGHT",
+        "vals": [
+          "2.000",
+          "2.500",
+          "1.750"
+        ],
+        "label": "WEDGE BAR HEIGHT"
+      },
+      {
+        "key": "WEDGE_BAR_WIDTH",
+        "vals": [
+          "2.000",
+          "2.500",
+          "1.750"
+        ],
+        "label": "WEDGE BAR WIDTH"
+      },
+      {
+        "key": "WEDGE_BAR_LENGTH",
+        "vals": [
+          "26.000",
+          "24.500"
+        ],
+        "label": "WEDGE BAR LENGTH"
+      },
+      {
+        "key": "WEDGE_ANGLE",
+        "vals": [
+          "25°",
+          "26°"
+        ],
+        "label": "WEDGE ANGLE"
+      },
+      {
+        "key": "FRONT_HUB_OD",
+        "vals": [
+          "5.000",
+          "5.500"
+        ],
+        "label": "FRONT HUB OD"
+      },
+      {
+        "key": "FRONT_HUB_ID",
+        "vals": [
+          "2.569",
+          "2.575"
+        ],
+        "label": "FRONT HUB ID"
+      },
+      {
+        "key": "FRONT_HUB_LENGTH",
+        "vals": [
+          "3.531",
+          "3.750"
+        ],
+        "label": "FRONT HUB LENGTH"
+      },
+      {
+        "key": "REAR_HUB_OD",
+        "vals": [
+          "5.000",
+          "5.125"
+        ],
+        "label": "REAR HUB OD"
+      },
+      {
+        "key": "REAR_HUB_ID",
+        "vals": [
+          "2.569",
+          "2.575"
+        ],
+        "label": "REAR HUB ID"
+      },
+      {
+        "key": "REAR_HUB_LENGTH",
+        "vals": [
+          "3.591",
+          "3.531"
+        ],
+        "label": "REAR HUB LENGTH"
+      }
+    ],
+    "tab1770842447295": [
+      {
+        "key": "MACHINE",
+        "vals": [
+          "EX",
+          "BHR",
+          "WL"
+        ],
+        "label": "Machine"
+      },
+      {
+        "key": "SUBTYPE",
+        "vals": [
+          "LE"
+        ],
+        "label": "Subtype"
+      },
+      {
+        "key": "CLASS",
+        "vals": [
+          "BH060",
+          "HE035",
+          "HE050",
+          "HE060",
+          "HE080",
+          "HE120",
+          "HE150",
+          "HE200",
+          "HE250",
+          "HE300",
+          "HE350",
+          "HE400",
+          "HE450",
+          "HE600",
+          "HE800"
+        ],
+        "label": "Class"
+      },
+      {
+        "key": "CLASS_NO",
+        "vals": [
+          "035",
+          "060",
+          "050",
+          "080",
+          "120",
+          "150",
+          "200",
+          "250",
+          "300",
+          "350",
+          "400",
+          "450",
+          "600",
+          "800"
+        ],
+        "label": "Class No"
+      },
+      {
+        "key": "LUGGING",
+        "vals": [
+          "WBM",
+          "WBMBH",
+          "CWS",
+          "FAS",
+          "WBML",
+          "PGL"
+        ],
+        "label": "Lugging"
+      },
+      {
+        "key": "MODEL",
+        "vals": [
+          "311C",
+          "DX140LC-3"
+        ],
+        "label": "MODEL"
+      },
+      {
+        "key": "BUSHINGS",
+        "vals": [
+          "BUSHED",
+          "NON-BUSHED"
+        ],
+        "label": "BUSHINGS"
+      },
+      {
+        "key": "PINS",
+        "vals": [
+          "WORKS WITH FACTORY PINS",
+          "FRONT PIN REQUIRED",
+          "REAR PIN REQUIRED",
+          "FRONT AND REAR PINS REQUIRED"
+        ],
+        "label": "PINS"
+      },
+      {
+        "key": "FRONT_PIN_SIZE",
+        "vals": [
+          "40MM",
+          "45MM"
+        ],
+        "label": "FRONT PIN SIZE"
+      },
+      {
+        "key": "REAR_PIN_SIZE",
+        "vals": [
+          "50MM",
+          "55MM"
+        ],
+        "label": "REAR PIN SIZE"
+      },
+      {
+        "key": "STICK_WIDTH",
+        "vals": [
+          "11.125",
+          "11.188"
+        ],
+        "label": "STICK WIDTH"
+      },
+      {
+        "key": "MACHINE_CENTRE",
+        "vals": [
+          "16.750",
+          "18.375"
+        ],
+        "label": "MACHINE CENTRE"
+      },
+      {
+        "key": "CENTER_TO_CENTER",
+        "vals": [
+          "14.000",
+          "16.250"
+        ],
+        "label": "CENTER TO CENTER"
+      },
+      {
+        "key": "OUTSIDE_OS",
+        "vals": [
+          "16.000",
+          "18.000"
+        ],
+        "label": "OUTSIDE OS"
+      },
+      {
+        "key": "WIDTH",
+        "vals": [
+          "13.250",
+          "14.000"
+        ],
+        "label": "WIDTH"
+      },
+      {
+        "key": "WEDGE_BAR_HEIGHT",
+        "vals": [
+          "2.000",
+          "2.500",
+          "1.750"
+        ],
+        "label": "WEDGE BAR HEIGHT"
+      },
+      {
+        "key": "WEDGE_BAR_WIDTH",
+        "vals": [
+          "2.000",
+          "2.500",
+          "1.750"
+        ],
+        "label": "WEDGE BAR WIDTH"
+      },
+      {
+        "key": "WEDGE_BAR_LENGTH",
+        "vals": [
+          "26.000",
+          "24.500"
+        ],
+        "label": "WEDGE BAR LENGTH"
+      },
+      {
+        "key": "WEDGE_ANGLE",
+        "vals": [
+          "25°",
+          "26°"
+        ],
+        "label": "WEDGE ANGLE"
+      },
+      {
+        "key": "FRONT_HUB_OD",
+        "vals": [
+          "5.000",
+          "5.500"
+        ],
+        "label": "FRONT HUB OD"
+      },
+      {
+        "key": "FRONT_HUB_ID",
+        "vals": [
+          "2.569",
+          "2.575"
+        ],
+        "label": "FRONT HUB ID"
+      },
+      {
+        "key": "FRONT_HUB_LENGTH",
+        "vals": [
+          "3.531",
+          "3.750"
+        ],
+        "label": "FRONT HUB LENGTH"
+      },
+      {
+        "key": "REAR_HUB_OD",
+        "vals": [
+          "5.000",
+          "5.125"
+        ],
+        "label": "REAR HUB OD"
+      },
+      {
+        "key": "REAR_HUB_ID",
+        "vals": [
+          "2.569",
+          "2.575"
+        ],
+        "label": "REAR HUB ID"
+      },
+      {
+        "key": "REAR_HUB_LENGTH",
+        "vals": [
+          "3.591",
+          "3.531"
+        ],
+        "label": "REAR HUB LENGTH"
+      }
+    ],
+    "tab1774978147622": [
+      {
+        "key": "MACHINE_TYPE",
+        "vals": [
+          "EX",
+          "BHR",
+          "WL"
+        ],
+        "label": "Machine Type"
+      },
+      {
+        "key": "ATTACHMENT",
+        "vals": [
+          "BKT",
+          "RPR"
+        ],
+        "label": "Attachment"
+      },
+      {
+        "key": "SUBTYPE",
+        "vals": [
+          "DIG",
+          "CLU",
+          "SKL"
+        ],
+        "label": "Subtype"
+      },
+      {
+        "key": "DUTY",
+        "vals": [
+          "XD",
+          "XDW",
+          "XDR",
+          "XDX"
+        ],
+        "label": "Duty"
+      },
+      {
+        "key": "CLASS",
+        "vals": [
+          "BH060",
+          "HE035",
+          "HE050",
+          "HE060",
+          "HE080",
+          "HE120",
+          "HE150",
+          "HE200",
+          "HE250",
+          "HE300",
+          "HE350",
+          "HE400",
+          "HE450",
+          "HE600",
+          "HE800"
+        ],
+        "label": "Class"
+      },
+      {
+        "key": "CLASS_NO",
+        "vals": [
+          "035",
+          "060",
+          "050",
+          "080",
+          "120",
+          "150",
+          "200",
+          "250",
+          "300",
+          "350",
+          "400",
+          "450",
+          "600",
+          "800"
+        ],
+        "label": "Class No"
+      },
+      {
+        "key": "LUGGING",
+        "vals": [
+          "WBM",
+          "WBMBH",
+          "CWS",
+          "FAS",
+          "WBML",
+          "PGL"
+        ],
+        "label": "Lugging"
+      },
+      {
+        "key": "SIZE",
+        "vals": [
+          "12",
+          "18",
+          "24",
+          "36",
+          "42",
+          "48",
+          "54",
+          "60",
+          "72",
+          "84",
+          "96"
+        ],
+        "label": "Size"
+      },
+      {
+        "key": "HOOK-UP",
+        "vals": [
+          "QCL",
+          "PTL",
+          "PGL"
+        ],
+        "label": "Hook-Up"
+      },
+      {
+        "key": "TOOTH_QTY",
+        "vals": [
+          "2",
+          "3",
+          "4",
+          "5",
+          "6"
+        ],
+        "label": "TOOTH QTY"
+      },
+      {
+        "key": "TOOTH_TYPE",
+        "vals": [
+          "J225",
+          "J300",
+          "J350",
+          "J400",
+          "J450"
+        ],
+        "label": "TOOTH TYPE"
+      },
+      {
+        "key": "BLADE_THK",
+        "vals": [
+          "0.750",
+          "0.875",
+          "1.000",
+          "1.250",
+          "1.500",
+          "1.750",
+          "2.000"
+        ],
+        "label": "BLADE THK"
+      },
+      {
+        "key": "BLADE_ANGLE",
+        "vals": [
+          "15",
+          "20"
+        ],
+        "label": "BLADE ANGLE"
+      },
+      {
+        "key": "VOLUME",
+        "vals": [
+          "0.75 CUYD",
+          "1.00 CUYD"
+        ],
+        "label": "VOLUME"
+      }
+    ]
+  },
+  "context": {
+    "buckets": {
+      "DUTY": "XD",
+      "SIZE": "36",
+      "CLASS": "HE250",
+      "VOLUME": "0.75 CUYD",
+      "HOOK-UP": "QCL",
+      "LUGGING": "WBM",
+      "SUBTYPE": "CLU",
+      "CLASS_NO": "250",
+      "BLADE_THK": "1.250",
+      "ATTACHMENT": "BKT",
+      "BLADE_ANGLE": "20",
+      "MACHINE_TYPE": "EX",
+      "TOOTH_QTY": "2",
+      "TOOTH_TYPE": "J225"
+    },
+    "tab1770826801156": {
+      "PINS": "FRONT AND REAR PINS REQUIRED",
+      "CLASS": "HE120",
+      "MODEL": "311C",
+      "WIDTH": "13.250",
+      "LUGGING": "WBM",
+      "MACHINE": "EX",
+      "SUBTYPE": "LE",
+      "BUSHINGS": "BUSHED",
+      "CLASS_NO": "120",
+      "OUTSIDE_OS": "18.000",
+      "STICK_WIDTH": "11.1875",
+      "WEDGE_ANGLE": "25°",
+      "REAR_PIN_SIZE": "55MM",
+      "FRONT_PIN_SIZE": "45MM",
+      "MACHINE_CENTRE": "18.375",
+      "WEDGE_BAR_WIDTH": "2.000",
+      "CENTER_TO_CENTER": "16.250",
+      "WEDGE_BAR_HEIGHT": "2.000",
+      "WEDGE_BAR_LENGTH": "26.000"
+    },
+    "tab1770838553711": {
+      "PINS": "FRONT AND REAR PINS REQUIRED",
+      "CLASS": "HE120",
+      "MODEL": "311C",
+      "WIDTH": "13.250",
+      "LUGGING": "WBM",
+      "MACHINE": "EX",
+      "SUBTYPE": "LE",
+      "BUSHINGS": "BUSHED",
+      "CLASS_NO": "120",
+      "OUTSIDE_OS": "18.000",
+      "REAR_HUB_ID": "2.569",
+      "REAR_HUB_OD": "5.000",
+      "STICK_WIDTH": "11.1875",
+      "WEDGE_ANGLE": "25°",
+      "FRONT_HUB_ID": "2.569",
+      "FRONT_HUB_OD": "5.000",
+      "REAR_PIN_SIZE": "55MM",
+      "FRONT_PIN_SIZE": "45MM",
+      "MACHINE_CENTRE": "18.375",
+      "REAR_HUB_LENGTH": "3.591",
+      "WEDGE_BAR_WIDTH": "2.000",
+      "CENTER_TO_CENTER": "16.250",
+      "FRONT_HUB_LENGTH": "3.531",
+      "WEDGE_BAR_HEIGHT": "2.000",
+      "WEDGE_BAR_LENGTH": "26.000"
+    },
+    "tab1770838629859": {
+      "PINS": "FRONT AND REAR PINS REQUIRED",
+      "CLASS": "HE120",
+      "MODEL": "311C",
+      "WIDTH": "13.250",
+      "LUGGING": "WBM",
+      "MACHINE": "EX",
+      "SUBTYPE": "LE",
+      "BUSHINGS": "BUSHED",
+      "CLASS_NO": "120",
+      "OUTSIDE_OS": "18.000",
+      "REAR_HUB_ID": "2.569",
+      "REAR_HUB_OD": "5.000",
+      "STICK_WIDTH": "11.1875",
+      "WEDGE_ANGLE": "25°",
+      "FRONT_HUB_ID": "2.569",
+      "FRONT_HUB_OD": "5.000",
+      "REAR_PIN_SIZE": "55MM",
+      "FRONT_PIN_SIZE": "45MM",
+      "MACHINE_CENTRE": "18.375",
+      "REAR_HUB_LENGTH": "3.591",
+      "WEDGE_BAR_WIDTH": "2.000",
+      "CENTER_TO_CENTER": "16.250",
+      "FRONT_HUB_LENGTH": "3.531",
+      "WEDGE_BAR_HEIGHT": "2.000",
+      "WEDGE_BAR_LENGTH": "26.000"
+    },
+    "tab1770842447295": {
+      "PINS": "FRONT AND REAR PINS REQUIRED",
+      "CLASS": "HE120",
+      "MODEL": "311C",
+      "WIDTH": "13.250",
+      "LUGGING": "WBM",
+      "MACHINE": "EX",
+      "SUBTYPE": "LE",
+      "BUSHINGS": "BUSHED",
+      "CLASS_NO": "120",
+      "OUTSIDE_OS": "18.000",
+      "REAR_HUB_ID": "2.569",
+      "REAR_HUB_OD": "5.000",
+      "STICK_WIDTH": "11.1875",
+      "WEDGE_ANGLE": "25°",
+      "FRONT_HUB_ID": "2.569",
+      "FRONT_HUB_OD": "5.000",
+      "REAR_PIN_SIZE": "55MM",
+      "FRONT_PIN_SIZE": "45MM",
+      "MACHINE_CENTRE": "18.375",
+      "REAR_HUB_LENGTH": "3.591",
+      "WEDGE_BAR_WIDTH": "2.000",
+      "CENTER_TO_CENTER": "16.250",
+      "FRONT_HUB_LENGTH": "3.531",
+      "WEDGE_BAR_HEIGHT": "2.000",
+      "WEDGE_BAR_LENGTH": "26.000"
+    },
+    "tab1774978147622": {
+      "DUTY": "XD",
+      "SIZE": "36",
+      "CLASS": "HE060",
+      "VOLUME": "0.75 CUYD",
+      "HOOK-UP": "QCL",
+      "LUGGING": "WBM",
+      "SUBTYPE": "DIG",
+      "CLASS_NO": "060",
+      "BLADE_THK": "1.250",
+      "ATTACHMENT": "BKT",
+      "BLADE_ANGLE": "20",
+      "MACHINE_TYPE": "EX",
+      "TOOTH_QTY": "2",
+      "TOOTH_TYPE": "J225"
+    }
   },
   "lockedTabs": {},
-  "lockedSections": {},
-  "inventorMaps": {},
-  "fileNameOverrides": {},
+  "hiddenProps": {
+    "buckets": [],
+    "tab1770826801156": [],
+    "tab1770838553711": [],
+    "tab1770838629859": [],
+    "tab1770842447295": [],
+    "tab1774978147622": []
+  },
+  "inventorMaps": {
+    "tab1774978147622": {}
+  },
+  "activeClassId": "tab1774978147622",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-LUGGING-SIZE-TOOTH_QTY-TOOTH_TYPE (NAME)",
       "p2": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-LUGGING-SIZE-TOOTH_QTY-TOOTH_TYPE (NAME)",
-      "p1770762975793": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
-      "p1770762956126": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
-      "p1770762928430": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
-      "p1770762912068": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE (NAME)",
       "p1770762899954": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-LUGGING-SIZE-BC (NAME)",
+      "p1770762912068": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE (NAME)",
+      "p1770762928430": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
       "p1770762938928": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
       "p1770762944205": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
+      "p1770762956126": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
+      "p1770762975793": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
       "p1770767898320": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-00 (NAME)",
       "p1770767923264": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-01 (NAME)",
       "p1770767931018": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-02 (NAME)",
@@ -2623,13 +3133,13 @@
     "tab1770826801156": {
       "p1": "MACHINE-ATTACHMENT-CLASS_NO-LUGGING-MODEL-00 (NAME)",
       "p2": "MACHINE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-LUGGING-SIZE-TOOTH_QTY-TOOTH_TYPE (NAME)",
-      "p1770762975793": "MACHINE-ATTACHMENT-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770762956126": "MACHINE-ATTACHMENT-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770762928430": "MACHINE-ATTACHMENT-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770762912068": "MACHINE-ATTACHMENT-CLASS_NO-LUGGING-STD-IDX (NAME) ",
       "p1770762899954": "MACHINE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-LUGGING-MODEL-01 (NAME)",
+      "p1770762912068": "MACHINE-ATTACHMENT-CLASS_NO-LUGGING-STD-IDX (NAME) ",
+      "p1770762928430": "MACHINE-ATTACHMENT-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770762938928": "MACHINE-ATTACHMENT-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770762944205": "MACHINE-ATTACHMENT-CLASS_NO-LUGGING-STD-IDX (NAME)",
+      "p1770762956126": "MACHINE-ATTACHMENT-CLASS_NO-LUGGING-STD-IDX (NAME)",
+      "p1770762975793": "MACHINE-ATTACHMENT-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770767898320": "MACHINE-ATTACHMENT-CLASS_NO-LUGGING-IDX (NAME)",
       "p1770767923264": "MACHINE-ATTACHMENT-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770767931018": "MACHINE-ATTACHMENT-CLASS_NO-LUGGING-STD-IDX (NAME)",
@@ -2640,13 +3150,13 @@
     "tab1770838553711": {
       "p1": "MACHINE-CHW-CLASS_NO-LUGGING-MODEL-00 (NAME)",
       "p2": "MACHINE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-LUGGING-SIZE-TOOTH_QTY-TOOTH_TYPE (NAME)",
-      "p1770762975793": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770762956126": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770762928430": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770762912068": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME) ",
       "p1770762899954": "MACHINE-CHW-SUBTYPE-DUTY-CLASS_NO-LUGGING-MODEL-01 (NAME)",
+      "p1770762912068": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME) ",
+      "p1770762928430": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770762938928": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770762944205": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
+      "p1770762956126": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
+      "p1770762975793": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770767898320": "MACHINE-CHW-CLASS_NO-LUGGING-IDX (NAME)",
       "p1770767923264": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770767931018": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
@@ -2664,9 +3174,9 @@
       "p1770832138407": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770832149926": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770832160731": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770832472093": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770832218222": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770832205860": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
+      "p1770832218222": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
+      "p1770832472093": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770835955029": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770835969099": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770837330352": "MACHINE-CHW-SUBTYPE-DUTY-CLASS_NO-LUGGING-MODEL-01-01 (NAME)",
@@ -2680,13 +3190,13 @@
     "tab1770838629859": {
       "p1": "MACHINE-CHWA-CLASS_NO-LUGGING-MODEL-00 (NAME)",
       "p2": "MACHINE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-LUGGING-SIZE-TOOTH_QTY-TOOTH_TYPE (NAME)",
-      "p1770762975793": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770762956126": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770762928430": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770762912068": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME) ",
       "p1770762899954": "MACHINE-CHWA-SUBTYPE-DUTY-CLASS_NO-LUGGING-MODEL-01 (NAME)",
+      "p1770762912068": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME) ",
+      "p1770762928430": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770762938928": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770762944205": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
+      "p1770762956126": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
+      "p1770762975793": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770767898320": "MACHINE-CHWA-CLASS_NO-LUGGING-IDX (NAME)",
       "p1770767923264": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770767931018": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
@@ -2704,9 +3214,9 @@
       "p1770832138407": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770832149926": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770832160731": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770832472093": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770832218222": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770832205860": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
+      "p1770832218222": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
+      "p1770832472093": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770835955029": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770835969099": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770837330352": "MACHINE-CHWA-SUBTYPE-DUTY-CLASS_NO-LUGGING-MODEL-01-01 (NAME)",
@@ -2717,13 +3227,13 @@
     "tab1770842447295": {
       "p1": "MACHINE-CHWA-CLASS_NO-LUGGING-MODEL-00 (NAME)",
       "p2": "MACHINE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-LUGGING-SIZE-TOOTH_QTY-TOOTH_TYPE (NAME)",
-      "p1770762975793": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770762956126": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770762928430": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770762912068": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME) ",
       "p1770762899954": "MACHINE-CHWA-SUBTYPE-DUTY-CLASS_NO-LUGGING-MODEL-01 (NAME)",
+      "p1770762912068": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME) ",
+      "p1770762928430": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770762938928": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770762944205": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
+      "p1770762956126": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
+      "p1770762975793": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770767898320": "MACHINE-CHWA-CLASS_NO-LUGGING-IDX (NAME)",
       "p1770767923264": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770767931018": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
@@ -2741,16 +3251,88 @@
       "p1770832138407": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770832149926": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770832160731": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770832472093": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770832218222": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770832205860": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
+      "p1770832218222": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
+      "p1770832472093": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770835955029": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770835969099": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770837330352": "MACHINE-CHWA-SUBTYPE-DUTY-CLASS_NO-LUGGING-MODEL-01-01 (NAME)",
       "p1770837360914": "MACHINE-CHWA-SUBTYPE-DUTY-CLASS_NO-LUGGING-MODEL-01-02 (NAME)",
       "p1770837368844": "MACHINE-CHWA-SUBTYPE-DUTY-CLASS_NO-LUGGING-MODEL-01-03 (NAME)",
       "p1770837371450": "MACHINE-CHWA-SUBTYPE-DUTY-CLASS_NO-LUGGING-MODEL-01-04 (NAME)"
+    },
+    "tab1774978147622": {
+      "p1": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-LUGGING-SIZE-IDX-TOOTH_QTY-TOOTH_TYPE (NAME)",
+      "p2": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-TOOTH_QTY-TOOTH_TYPE (NAME)",
+      "p1770762899954": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-BC (NAME)",
+      "p1770762912068": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE (NAME)",
+      "p1770762928430": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
+      "p1770762938928": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
+      "p1770762944205": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
+      "p1770762956126": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
+      "p1770762975793": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
+      "p1770767898320": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-00 (NAME)",
+      "p1770767923264": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-02 (NAME)",
+      "p1770767931018": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-03 (NAME)",
+      "p1770767938206": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-04 (NAME)",
+      "p1770767948898": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-05 (NAME)",
+      "p1770767958952": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-05 (NAME)",
+      "p1774978175717": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-06 (NAME)",
+      "p1775591138143": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-IDX (Strongback-MID)",
+      "p1775591348667": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-IDX (Strongback-RH)",
+      "p1775591371291": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-IDX (Strongback-LH)",
+      "p1775591549394": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-IDX (Strongback-Plate)",
+      "p1775591792870": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-01 (NAME)",
+      "p1775591947621": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-07 (NAME)",
+      "p1775592003600": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-07-01 (NAME)"
     }
   },
-  "exportSelections": {}
+  "activeRightTab": "rules",
+  "lockedSections": {},
+  "productClasses": [
+    {
+      "id": "buckets",
+      "name": "Buckets (XD,XDW)"
+    },
+    {
+      "id": "tab1770826801156",
+      "name": "CMW"
+    },
+    {
+      "id": "tab1770838553711",
+      "name": "CHW"
+    },
+    {
+      "id": "tab1770838629859",
+      "name": "CHWA"
+    },
+    {
+      "id": "tab1770842447295",
+      "name": "HPG"
+    },
+    {
+      "id": "tab1774978147622",
+      "name": "Buckets (XDR,XDX)"
+    }
+  ],
+  "selectedPartId": "p1775591348667",
+  "exportSelections": {
+    "buckets": {},
+    "tab1770826801156": {},
+    "tab1770838553711": {},
+    "tab1770838629859": {},
+    "tab1770842447295": {},
+    "tab1774978147622": {}
+  },
+  "fileNameOverrides": {
+    "buckets": {},
+    "tab1770826801156": {},
+    "tab1770838553711": {},
+    "tab1770838629859": {},
+    "tab1770842447295": {},
+    "tab1774978147622": {}
+  },
+  "inventorBaseFolders": {
+    "tab1774978147622": ""
+  }
 }
