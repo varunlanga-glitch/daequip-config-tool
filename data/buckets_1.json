@@ -798,7 +798,7 @@
       {
         "id": "p2",
         "midx": "B",
-        "name": "Tooth Weldment",
+        "name": "(Tooth Weldment)",
         "level": 0,
         "enabled": true
       },
@@ -1066,12 +1066,12 @@
       "p2": {
         "f1770765683117": "TOOTH-WLDT-ATTACHMENT-SUBTYPE-DUTY CLASS-SIZE",
         "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
-        "f1770766978429": "BLADE_THK X BLADE_ANGLE"
+        "f1770766978429": "BLADE_THK X BLADE_ANGLE°"
       },
       "p1770762899954": {
         "f1770765683117": "BODY-WLDT-ATTACHMENT SUBTYPE-DUTY CLASS-SIZE",
         "f1770765927726": "VOLUME",
-        "f1770766978429": "BLADE_THK X BLADE_ANGLE"
+        "f1770766978429": "BLADE_THK X BLADE_ANGLE°"
       },
       "p1770762912068": {
         "f1770765683117": "WIDTH SKETCH DUTY-SIZE"
@@ -1583,14 +1583,14 @@
       "p2": {
         "f1770765683117": "TOOTH-WLDT-ATTACHMENT-SUBTYPE-DUTY CLASS-SIZE",
         "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
-        "f1770766978429": "BLADE_THK X BLADE_ANGLE",
+        "f1770766978429": "BLADE_THK X BLADE_ANGLE°",
         "f1770766964933": "-",
         "f1770766992117": "-"
       },
       "p1770762899954": {
         "f1770765683117": "BODY-WLDT-ATTACHMENT SUBTYPE-DUTY CLASS-SIZE",
         "f1770765927726": "VOLUME",
-        "f1770766978429": "BLADE_THK X BLADE_ANGLE",
+        "f1770766978429": "BLADE_THK X BLADE_ANGLE°",
         "f1770766964933": "-",
         "f1770766992117": "-"
       },
@@ -2960,6 +2960,13 @@
           "1.00 CUYD"
         ],
         "label": "VOLUME"
+      },
+      {
+        "key": "TOOTH_OEM",
+        "label": "Tooth OEM",
+        "vals": [
+          "BC"
+        ]
       }
     ]
   },
@@ -3096,7 +3103,8 @@
       "BLADE_ANGLE": "20",
       "MACHINE_TYPE": "EX",
       "TOOTH_QTY": "2",
-      "TOOTH_TYPE": "J225"
+      "TOOTH_TYPE": "J225",
+      "TOOTH_OEM": "BC"
     }
   },
   "lockedTabs": {},
@@ -3111,7 +3119,7 @@
   "inventorMaps": {
     "tab1774978147622": {}
   },
-  "activeClassId": "tab1774978147622",
+  "activeClassId": "buckets",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-LUGGING-SIZE-TOOTH_QTY-TOOTH_TYPE (NAME)",
@@ -3263,7 +3271,7 @@
     },
     "tab1774978147622": {
       "p1": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-LUGGING-SIZE-IDX-TOOTH_QTY-TOOTH_TYPE (NAME)",
-      "p2": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-TOOTH_QTY-TOOTH_TYPE (NAME)",
+      "p2": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-TOOTH_OEM-TOOTH_QTY-TOOTH_TYPE NAME",
       "p1770762899954": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-BC (NAME)",
       "p1770762912068": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE (NAME)",
       "p1770762928430": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
@@ -3315,7 +3323,7 @@
       "name": "Buckets (XDR,XDX)"
     }
   ],
-  "selectedPartId": "p1775591348667",
+  "selectedPartId": "p1770762928430",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
