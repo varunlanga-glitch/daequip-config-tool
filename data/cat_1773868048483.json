@@ -44,7 +44,7 @@
     "tab1773948764358": [
       {
         "id": "p1773869852653",
-        "midx": null,
+        "midx": "01-01",
         "name": "Pin GA",
         "level": 0,
         "enabled": true
@@ -1232,7 +1232,10 @@
           "70",
           "75",
           "80",
-          "100"
+          "100",
+          "71",
+          "90",
+          "110"
         ],
         "label": "Pin OD"
       },
@@ -1323,7 +1326,14 @@
           "4.813",
           "4.875",
           "4.938",
-          "5.000"
+          "5.000",
+          "2.259",
+          "3.671",
+          "3.415",
+          "3.665",
+          "3.000",
+          "4.187",
+          "3.947"
         ],
         "label": "Spacer ID (IN)"
       },
@@ -1366,7 +1376,11 @@
           "2.813",
           "2.875",
           "2.938",
-          "3.000"
+          "3.000",
+          "0.313",
+          "0.500",
+          "0.375",
+          "1.156"
         ],
         "label": "Spacer Width(in)"
       }
@@ -4659,10 +4673,10 @@
       "GAUGE_2": "9"
     },
     "tab1773948764358": {
-      "PIN_OD": "100",
-      "SPACER_ID_IN": "1.525",
-      "SPACER_OD_IN": "2.000",
-      "SPACER_WIDTHIN": "1.000"
+      "PIN_OD": "110",
+      "SPACER_ID_IN": "4.500",
+      "SPACER_OD_IN": "7.000",
+      "SPACER_WIDTHIN": "0.375"
     },
     "tab1773949221785": {
       "RADIUS_1": "5.000",
@@ -4737,6 +4751,16 @@
       },
       "fileNamePropId": null
     },
+    "tab1773948764358": {
+      "mapping": {
+        "f1773869896995": "Description",
+        "f1773869904615": "Features 1",
+        "f1773869927490": "Features 2",
+        "f1773869932699": "Specs 1",
+        "f1773869937461": "Specs 2"
+      },
+      "fileNamePropId": null
+    },
     "tab1773951378462": {
       "mapping": {
         "f1773869896995": "Description",
@@ -4767,6 +4791,16 @@
       },
       "fileNamePropId": null
     },
+    "tab1775574099845": {
+      "mapping": {
+        "f1773869896995": "Description",
+        "f1773869904615": "Features 1",
+        "f1773869927490": "Features 2",
+        "f1773869932699": "Specs 1",
+        "f1773869937461": "Specs 2"
+      },
+      "fileNamePropId": null
+    },
     "cat_1773868048483_1": {
       "mapping": {
         "f1773869896995": "Description",
@@ -4776,18 +4810,9 @@
         "f1773869937461": "Specs 2"
       },
       "fileNamePropId": "f1773869896995"
-    },
-    "tab1775574099845": {
-      "mapping": {
-        "f1773869896995": "Description",
-        "f1773869904615": "Features 1",
-        "f1773869927490": "Features 2",
-        "f1773869932699": "Specs 1",
-        "f1773869937461": "Specs 2"
-      }
     }
   },
-  "activeClassId": "tab1775574099845",
+  "activeClassId": "tab1773948764358",
   "fileNameRules": {
     "tab1773940149410": {
       "p1773869852653": "BU-{PIN_OD?0PIN_OD#3}-{BUSHING_LENGTH_IN?BUSHING_LENGTH_IN}-IDX",
@@ -4924,7 +4949,22 @@
     },
     "tab1773944324382": {},
     "tab1773945410693": {},
-    "tab1773948764358": {},
+    "tab1773948764358": {
+      "_reviewed": {
+        "props": {},
+        "rename": false
+      },
+      "p1773869852653": {
+        "props": {
+          "f1773869896995": true,
+          "f1773869904615": true,
+          "f1773869927490": false,
+          "f1773869932699": true,
+          "f1773869937461": false
+        },
+        "rename": false
+      }
+    },
     "tab1773949221785": {},
     "tab1773949603891": {},
     "tab1773951378462": {
@@ -4996,17 +5036,20 @@
       }
     },
     "tab1775574099845": {
+      "_reviewed": {
+        "props": {},
+        "rename": false
+      },
       "p1773869852653": {
-        "rename": false,
         "props": {
           "f1773869896995": true,
           "f1773869904615": true,
           "f1773869927490": false,
           "f1773869932699": true,
           "f1773869937461": false
-        }
-      },
-      "_reviewed": true
+        },
+        "rename": false
+      }
     },
     "cat_1773868048483_1": {
       "_reviewed": {
@@ -5061,7 +5104,9 @@
     },
     "tab1773944324382": {},
     "tab1773945410693": {},
-    "tab1773948764358": {},
+    "tab1773948764358": {
+      "p1773869852653": "SPCR-100MM-2.688-01"
+    },
     "tab1773949221785": {},
     "tab1773949603891": {},
     "tab1773951378462": {
@@ -5087,6 +5132,7 @@
   },
   "inventorBaseFolders": {
     "tab1773940149410": "C:\\_Vault\\Daequip\\Library\\Bushings\\Metric\\ID 120",
+    "tab1773948764358": "C:\\_Vault\\Daequip\\Library\\Spacer\\Metric\\ID 100MM",
     "tab1773951378462": "C:\\_Vault\\Daequip\\Library\\Pins\\PN-02500",
     "tab1774974127318": "C:\\_Vault\\Daequip\\Library\\Bushings\\Imperial\\ID 2.500",
     "tab1775161875298": "C:\\_Vault\\Daequip\\Library\\Bushings\\Blank Bushing\\Metric",
