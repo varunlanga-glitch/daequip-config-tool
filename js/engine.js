@@ -114,22 +114,45 @@ function resolveRule(template, partId) {
     return varNames.split(',').every(isSet) ? output : '';
   });
 
-  // {VAR#N:suffix} → zero-pad to N digits and append suffix, '' if VAR not set.
-  // e.g. {NOMINAL_PIN_OD_MM#3:MM} with value 40 → "040MM", with 120 → "120MM", blank → "".
-  s = s.replace(/\{([^{}#?=:]+)#(\d+):([^{}]*)\}/g, (match, varName, width, suffix) => {
-    const raw = (ctx[varName.trim()] || '').trim().replace(/[^\d]/g, '');
+  // {VAR#N:suffix}     → zero-pad integer to N digits and append suffix
+  // {VAR#N.D:suffix}   → zero-pad to N integer digits with D decimal places and suffix
+  // {VAR#N}            → zero-pad integer to N digits, no suffix
+  // {VAR#N.D}          → zero-pad to N integer digits with D decimal places, no suffix
+  // Returns '' when VAR is unset. Returns a visible error sentinel when the
+  // value is non-numeric so the user sees the problem instead of silently
+  // getting mangled output (e.g. "3.75IN" used to become "375").
+  const _formatNumeric = (varName, width, decimals, suffix) => {
+    const raw = (ctx[varName.trim()] || '').trim();
     if (!raw) return '';
-    return raw.padStart(parseInt(width, 10), '0') + suffix;
-  });
-
-  // {VAR#N} → zero-pad numeric context variable VAR to at least N digits.
-  // e.g. {NOMINAL_PIN_OD_MM#3} with value 80 → "080", with 120 → "120".
-  // Processed before variable substitution so varName is still a key, not a value.
-  s = s.replace(/\{([^{}#?=:]+)#(\d+)\}/g, (match, varName, width) => {
-    const raw = (ctx[varName.trim()] || '').trim().replace(/[^\d]/g, '');
-    if (!raw) return '';
-    return raw.padStart(parseInt(width, 10), '0');
-  });
+    // The whole value must be numeric — partial matches like "3.75IN" used
+    // to silently mangle into "375" or "3"; now we surface them as errors.
+    // Note: we deliberately do NOT include the var key in the sentinel
+    // because the later variable-substitution pass would otherwise rewrite
+    // it into the value and produce a confusing message.
+    const m = raw.match(/^-?\d+(?:\.\d+)?$/);
+    if (!m) return `‹non-numeric "${raw}"›`;
+    const num = parseFloat(m[0]);
+    const w   = parseInt(width, 10);
+    let formatted;
+    if (decimals != null) {
+      const d = parseInt(decimals, 10);
+      const fixed = num.toFixed(d);
+      const [intPart, fracPart] = fixed.split('.');
+      formatted = intPart.padStart(w, '0') + (d > 0 ? '.' + fracPart : '');
+    } else {
+      formatted = String(Math.trunc(num)).padStart(w, '0');
+    }
+    return formatted + (suffix || '');
+  };
+  // {VAR#N.D:suffix} (with optional decimals + suffix). Must run before the
+  // shorter variants so it claims the more-specific syntax first.
+  s = s.replace(/\{([^{}#?=:]+)#(\d+)(?:\.(\d+))?:([^{}]*)\}/g,
+    (_match, varName, width, decimals, suffix) =>
+      _formatNumeric(varName, width, decimals, suffix));
+  // {VAR#N.D} or {VAR#N} (no suffix)
+  s = s.replace(/\{([^{}#?=:]+)#(\d+)(?:\.(\d+))?\}/g,
+    (_match, varName, width, decimals) =>
+      _formatNumeric(varName, width, decimals, ''));
 
   // Sort longest-first so a shorter key (e.g. PIN_OD) doesn't match inside
   // a longer one (e.g. PIN_OD_MAX) before it gets its own chance to substitute.
@@ -181,6 +204,190 @@ function resolveFileNameRule(partId) {
   return template ? resolveRule(template, partId) : '';
 }
 window.resolveFileNameRule = resolveFileNameRule;
+
+/* ------------------------------------------------------------------
+ * Rule lint / strict-resolve check
+ *
+ * After resolveRule() finishes, any leftover `{...}` brace token or
+ * `‹non-numeric›` sentinel means the template did not parse cleanly.
+ * lintResolved() returns the list of offending fragments so the UI
+ * can show a red badge and block Save/Publish.
+ *
+ * suggestFix() does a tiny "did-you-mean" lookup: if the offending
+ * token contains digits that match a known context value, propose
+ * the corresponding {KEY#N:SUFFIX} rewrite.
+ * ------------------------------------------------------------------ */
+function lintResolved(resolvedValue) {
+  if (!resolvedValue) return [];
+  const errors = [];
+  const braceTokens = resolvedValue.match(/\{[^{}]*\}/g);
+  if (braceTokens) braceTokens.forEach(t => errors.push({ kind: 'unparsed', text: t }));
+  const sentinels = resolvedValue.match(/‹[^›]*›/g);
+  if (sentinels) sentinels.forEach(t => errors.push({ kind: 'value', text: t }));
+  return errors;
+}
+window.lintResolved = lintResolved;
+
+function suggestFix(brokenToken) {
+  // brokenToken like "{75#3MM}" — try to map "75" back to a context key.
+  const inner = brokenToken.replace(/^\{|\}$/g, '');
+  const m = inner.match(/^(\d+(?:\.\d+)?)#(\d+)([A-Za-z]+)$/);
+  if (!m) return null;
+  const [, val, width, suffix] = m;
+  const ctx = (typeof getActiveContext === 'function') ? getActiveContext() : {};
+  const matchKey = Object.keys(ctx).find(k => (ctx[k] || '').toString().trim() === val);
+  if (!matchKey) return null;
+  return `{${matchKey}#${width}:${suffix}}`;
+}
+window.suggestFix = suggestFix;
+
+/**
+ * Walk every rule in the active class and return true if any resolved
+ * value contains a lint error. Used by the Save/Publish gate.
+ */
+function hasRuleErrors() {
+  try {
+    const parts = (typeof getActiveParts === 'function') ? getActiveParts() : [];
+    const props = (typeof getActiveProps === 'function') ? getActiveProps() : [];
+    const rules = (typeof getActiveRules === 'function') ? getActiveRules() : {};
+    const fn    = (typeof getActiveFileNameRules === 'function') ? getActiveFileNameRules() : {};
+    for (const p of parts) {
+      if (p.enabled === false) continue;
+      const fnTpl = fn[p.id];
+      if (fnTpl && lintResolved(resolveRule(fnTpl, p.id)).length) return true;
+      const partRules = rules[p.id] || {};
+      for (const pr of props) {
+        const tpl = partRules[pr.id];
+        if (tpl && lintResolved(resolveRule(tpl, p.id)).length) return true;
+      }
+    }
+  } catch (e) { /* fail open — never block save on a lint crash */ }
+  return false;
+}
+window.hasRuleErrors = hasRuleErrors;
+
+/* ------------------------------------------------------------------
+ * Template ⇄ token-array (chip-row editor support)
+ *
+ * The chip-row editor lets non-coders compose templates by dropping
+ * typed bubbles instead of typing DSL by hand. Storage stays as the
+ * canonical DSL string — these helpers just translate.
+ * ------------------------------------------------------------------ */
+
+// Token shapes:
+//   {type:'literal', text}
+//   {type:'var',  key, pad?:int, decimals?:int, suffix?:string}
+//   {type:'sep',  char:'-'|'X'|' - '|' X '}
+//   {type:'cond', vars:[keys], op:'and'|'or', show:string}
+//   {type:'eq',   key, value, show}
+//   {type:'idx'} | {type:'name'} | {type:'math', expr}
+
+function _tryMatchToken(s, i) {
+  // Returns { token, length } or null
+  const rest = s.slice(i);
+
+  // Conditional separator chips
+  const sepMap = {
+    '{[ - ]}': ' - ',
+    '{[ X ]}': ' X ',
+    '{[-]}'  : '-',
+    '{[X]}'  : 'X',
+  };
+  for (const [pat, ch] of Object.entries(sepMap)) {
+    if (rest.startsWith(pat)) return { token: { type: 'sep', char: ch }, length: pat.length };
+  }
+
+  // {VAR#N(.D)?(:suffix)?}
+  let m = rest.match(/^\{([A-Z0-9_]+)#(\d+)(?:\.(\d+))?(?::([^{}]*))?\}/);
+  if (m) {
+    return {
+      token: {
+        type: 'var',
+        key: m[1],
+        pad: parseInt(m[2], 10),
+        decimals: m[3] != null ? parseInt(m[3], 10) : null,
+        suffix: m[4] || '',
+      },
+      length: m[0].length,
+    };
+  }
+
+  // {VAR=value:show}
+  m = rest.match(/^\{([A-Z0-9_]+)=([^{}:]+):([^{}]*)\}/);
+  if (m) return { token: { type: 'eq', key: m[1], value: m[2], show: m[3] }, length: m[0].length };
+
+  // {VAR(,VAR|...|VAR)?show}
+  m = rest.match(/^\{([A-Z0-9_,|]+)\?([^{}]*)\}/);
+  if (m) {
+    const op = m[1].includes('|') ? 'or' : 'and';
+    const vars = m[1].split(/[,|]/);
+    return { token: { type: 'cond', vars, op, show: m[2] }, length: m[0].length };
+  }
+
+  // {VAR}
+  m = rest.match(/^\{([A-Z0-9_]+)\}/);
+  if (m) return { token: { type: 'var', key: m[1], pad: null, decimals: null, suffix: '' }, length: m[0].length };
+
+  // (math expr)
+  m = rest.match(/^\(([^()]+)\)/);
+  if (m && /^[A-Z0-9_+\-*/.\s]+$/.test(m[1])) {
+    return { token: { type: 'math', expr: m[1] }, length: m[0].length };
+  }
+
+  // Bare IDX / NAME identifiers (not inside braces)
+  m = rest.match(/^IDX\b/);
+  if (m) return { token: { type: 'idx' }, length: 3 };
+  m = rest.match(/^NAME\b/);
+  if (m) return { token: { type: 'name' }, length: 4 };
+
+  return null;
+}
+
+function parseTemplate(str) {
+  if (!str) return [];
+  const tokens = [];
+  let buf = '';
+  let i = 0;
+  const flush = () => { if (buf) { tokens.push({ type: 'literal', text: buf }); buf = ''; } };
+  while (i < str.length) {
+    const hit = _tryMatchToken(str, i);
+    if (hit) { flush(); tokens.push(hit.token); i += hit.length; }
+    else { buf += str[i]; i++; }
+  }
+  flush();
+  return tokens;
+}
+window.parseTemplate = parseTemplate;
+
+function serialiseTokens(tokens) {
+  if (!Array.isArray(tokens)) return '';
+  return tokens.map(t => {
+    switch (t.type) {
+      case 'literal': return t.text || '';
+      case 'idx':     return 'IDX';
+      case 'name':    return 'NAME';
+      case 'math':    return '(' + t.expr + ')';
+      case 'sep': {
+        const map = { '-': '{[-]}', 'X': '{[X]}', ' - ': '{[ - ]}', ' X ': '{[ X ]}' };
+        return map[t.char] || '{[-]}';
+      }
+      case 'var': {
+        if (t.pad == null && !t.suffix && t.decimals == null) return '{' + t.key + '}';
+        let inner = t.key + '#' + (t.pad || 0);
+        if (t.decimals != null) inner += '.' + t.decimals;
+        if (t.suffix) inner += ':' + t.suffix;
+        return '{' + inner + '}';
+      }
+      case 'eq':   return '{' + t.key + '=' + t.value + ':' + (t.show || '') + '}';
+      case 'cond': {
+        const sep = t.op === 'or' ? '|' : ',';
+        return '{' + (t.vars || []).join(sep) + '?' + (t.show || '') + '}';
+      }
+      default: return '';
+    }
+  }).join('');
+}
+window.serialiseTokens = serialiseTokens;
 
 function moveItem(arr, index, dir) {
   if (index + dir < 0 || index + dir >= arr.length) return;

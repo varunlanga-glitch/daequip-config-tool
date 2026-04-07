@@ -366,6 +366,19 @@ function openPublishModal() {
   const catLabel = window._activeCategory?.label || 'config';
   const pushCats = !!window._categoriesDirty;
 
+  // Block publish when any rule has an unresolved token / non-numeric value.
+  // The same garbage would otherwise go live for everyone, and the recurring
+  // "three-digit formatting" bug is exactly this shape.
+  if (typeof hasRuleErrors === 'function' && hasRuleErrors()) {
+    if (!confirm(
+      'Some rule templates contain unresolved tokens or non-numeric values.\n\n' +
+      'Publishing now would push broken filenames / descriptions to everyone.\n\n' +
+      'Open the Rules tab — entries with a red ⚠ badge are the problem.\n\n' +
+      'Publish anyway?')) {
+      return;
+    }
+  }
+
   _withAuth('🔒 Enter PIN to Publish', token => {
     const { dirty, ...saveState } = State;
     const content = JSON.stringify(saveState, null, 2);

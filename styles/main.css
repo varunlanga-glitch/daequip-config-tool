@@ -1358,6 +1358,55 @@ tr:hover .cell-filepick-btn {
   font-size: 10px; color: #b91c1c; font-weight: 600; cursor: default;
 }
 
+/* ── Rule preview parse-error badge ──────────────────────── */
+.rule-preview-error {
+  display: inline-block; margin-left: 8px;
+  padding: 1px 6px; border-radius: 4px;
+  background: #fee2e2; color: #b91c1c;
+  font-size: 10px; font-weight: 700; cursor: help;
+  white-space: pre-line;
+}
+
+/* ── Read-only chip preview row above each rule textarea ── */
+.rule-chips-display {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  margin: 4px 0 6px 0;
+  min-height: 0;
+}
+.rule-chip {
+  display: inline-flex; align-items: center;
+  padding: 2px 8px; border-radius: 10px;
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  background: #eef2ff; color: #3730a3; border: 1px solid #c7d2fe;
+  white-space: nowrap;
+}
+.rule-chip--literal { background: #f3f4f6; color: #4b5563; border-color: #e5e7eb; font-weight: 500; }
+.rule-chip--var     { background: #ecfeff; color: #155e75; border-color: #a5f3fc; }
+.rule-chip--var:hover { background: #cffafe; }
+.rule-chip--sep     { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+.rule-chip--cond,
+.rule-chip--eq      { background: #f5f3ff; color: #5b21b6; border-color: #ddd6fe; }
+.rule-chip--idx,
+.rule-chip--name    { background: #ecfdf5; color: #065f46; border-color: #a7f3d0; }
+.rule-chip--math    { background: #fff7ed; color: #9a3412; border-color: #fed7aa; }
+.rule-chip--warn    { background: #fee2e2 !important; color: #b91c1c !important; border-color: #fecaca !important; }
+
+/* Format popover rows (used by var-format popover) */
+.var-fmt-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; margin: 4px 0; font-size: 11px; color: #555;
+}
+.var-fmt-row input {
+  width: 100px; padding: 4px 6px;
+  border: 1px solid #ccc; border-radius: 4px; font-size: 11px;
+}
+.var-fmt-row input:focus { outline: none; border-color: #5b8dee; }
+.var-fmt-alt {
+  display: block; margin-top: 6px;
+  font-size: 10px; color: #5b8dee; text-decoration: none;
+}
+.var-fmt-alt:hover { text-decoration: underline; }
+
 /* ── Loading indicator ──────────────────────────────────── */
 .loading-indicator {
   display: flex; align-items: center; justify-content: center;
