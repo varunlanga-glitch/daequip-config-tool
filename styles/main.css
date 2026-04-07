@@ -1414,6 +1414,27 @@ tr:hover .cell-filepick-btn {
 }
 .var-fmt-alt:hover { text-decoration: underline; }
 
+/* ── Unified variable popover tabs ───────────────────────── */
+.var-popover { min-width: 290px; }
+.var-pop-tabs {
+  display: flex; gap: 4px; margin: 6px 0 8px;
+}
+.var-pop-tab {
+  flex: 1; padding: 4px 0;
+  font-size: 11px; font-weight: 600; cursor: pointer;
+  border: 1px solid #d1d5db; border-radius: 5px;
+  background: #f9fafb; color: #6b7280;
+  transition: background 0.1s, color 0.1s;
+}
+.var-pop-tab:hover { background: #f3f4f6; color: #374151; }
+.var-pop-tab--active {
+  background: #1e40af; color: #fff; border-color: #1e40af;
+}
+.var-pop-section { margin-bottom: 4px; }
+.var-pop-hint {
+  font-size: 11px; color: #9ca3af; margin-bottom: 6px; line-height: 1.4;
+}
+
 /* ── Loading indicator ──────────────────────────────────── */
 .loading-indicator {
   display: flex; align-items: center; justify-content: center;
