@@ -435,13 +435,8 @@ function renderGrid() {
     const resolvedVals = {};
     visProps.forEach(pr2 => { resolvedVals[pr2.id] = resolveRule(rules[pr2.id], p.id); });
 
-    visProps.forEach((pr, pi) => {
-      // Separator column: hide when the next non-separator visible column is empty
-      let val = resolvedVals[pr.id];
-      if (pr.separator) {
-        const nextReal = visProps.slice(pi + 1).find(p2 => !p2.separator);
-        if (!nextReal || !resolvedVals[nextReal.id]) val = '';
-      }
+    visProps.forEach(pr => {
+      const val = resolvedVals[pr.id];
       const td  = document.createElement('td');
       td.className = 'data-cell';
       td.title     = val;
@@ -976,23 +971,12 @@ function renderRuleList() {
 
     labelWrap.appendChild(labelSpan);
 
-    const sepLabel = document.createElement('label');
-    sepLabel.className = 'sep-toggle-label';
-    sepLabel.title = 'Separator column — hides when the next column has no value';
-    const sepCheck = document.createElement('input');
-    sepCheck.type    = 'checkbox';
-    sepCheck.checked = !!pr.separator;
-    sepCheck.onchange = () => { pr.separator = sepCheck.checked; markDirty(); renderGrid(); };
-    sepLabel.appendChild(sepCheck);
-    sepLabel.appendChild(document.createTextNode(' sep'));
-
     const delBtn = document.createElement('button');
     delBtn.className = 'btn danger';
     delBtn.innerHTML = '&times;';
     delBtn.onclick   = e => { e.stopPropagation(); deleteProp(pr.id); };
 
     header.appendChild(labelWrap);
-    header.appendChild(sepLabel);
     header.appendChild(delBtn);
 
     const currentRule = rules[pr.id] || '';
@@ -1148,8 +1132,20 @@ function _renderRuleChips(container, template, textarea) {
         });
       });
     } else if (tok.type === 'sep') {
-      chip.textContent = '↔ ' + tok.char.trim();
-      chip.title = 'Conditional separator (collapses when neighbours are empty)';
+      // Show the actual character(s) so users see exactly what will render.
+      // Quotes are kept so spaces in ' - ' / ' X ' are visible.
+      chip.textContent = 'sep ' + JSON.stringify(tok.char);
+      chip.title = 'Click to change separator style';
+      chip.style.cursor = 'pointer';
+      chip.addEventListener('click', e => {
+        e.stopPropagation();
+        _openSepFormatPopover(tok, chip, fixed => {
+          if (start < 0) return;
+          const newSer = serialiseTokens([fixed]);
+          textarea.value = template.slice(0, start) + newSer + template.slice(end);
+          textarea.dispatchEvent(new Event('input'));
+        });
+      });
     } else if (tok.type === 'cond') {
       chip.textContent = 'if ' + tok.vars.join(' ' + tok.op + ' ') + ' → ' + tok.show;
       chip.title = 'Conditional output';
@@ -1288,6 +1284,121 @@ function _openVarFormatPopover(token, anchorEl, onApply, onConditionalSwitch) {
   setTimeout(() => document.addEventListener('mousedown', dismiss, true), 0);
 }
 
+/* ── Separator-format popover ─────────────────────────────────
+ * Lets users choose separator character (- or X) and whether it
+ * should have a space on both sides, then applies the canonical
+ * DSL token: {[-]}, {[ - ]}, {[X]}, or {[ X ]}.
+ */
+function _openSepFormatPopover(token, anchorEl, onApply) {
+  const existing = document.getElementById('sep-fmt-popover');
+  if (existing) existing.remove();
+
+  const pop = document.createElement('div');
+  pop.id = 'sep-fmt-popover';
+  pop.className = 'cond-popover';
+
+  const title = document.createElement('div');
+  title.className = 'cond-popover-title';
+  title.textContent = 'Separator';
+  pop.appendChild(title);
+
+  // Derive initial state from current token.char
+  // '-' or ' - ' → hyphen; 'X' or ' X ' → cross
+  const curChar    = token.char || '-';
+  const initHyphen = !curChar.includes('X');
+  const initSpaced = curChar.includes(' ');
+
+  // Character radio group
+  const charRow = document.createElement('div');
+  charRow.className = 'var-fmt-row';
+  const charLbl = document.createElement('span');
+  charLbl.textContent = 'Character';
+  charRow.appendChild(charLbl);
+
+  const radios = document.createElement('div');
+  radios.style.cssText = 'display:flex;gap:10px;align-items:center';
+
+  const mkRadio = (value, label, checked) => {
+    const wrap = document.createElement('label');
+    wrap.style.cssText = 'display:flex;gap:4px;align-items:center;cursor:pointer;font-size:12px';
+    const r = document.createElement('input');
+    r.type = 'radio'; r.name = 'sep-char'; r.value = value; r.checked = checked;
+    wrap.appendChild(r);
+    wrap.appendChild(document.createTextNode(label));
+    return { wrap, radio: r };
+  };
+
+  const { wrap: wrapH, radio: radioH } = mkRadio('-', '—  hyphen', initHyphen);
+  const { wrap: wrapX, radio: radioX } = mkRadio('X', '✕  cross', !initHyphen);
+  radios.appendChild(wrapH);
+  radios.appendChild(wrapX);
+  charRow.appendChild(radios);
+  pop.appendChild(charRow);
+
+  // Spaced checkbox
+  const spaceRow = document.createElement('label');
+  spaceRow.className = 'var-fmt-row';
+  spaceRow.style.cursor = 'pointer';
+  const spaceLbl = document.createElement('span');
+  spaceLbl.textContent = 'Space on both sides';
+  const spaceChk = document.createElement('input');
+  spaceChk.type = 'checkbox'; spaceChk.checked = initSpaced;
+  spaceRow.appendChild(spaceLbl);
+  spaceRow.appendChild(spaceChk);
+  pop.appendChild(spaceRow);
+
+  // Live preview
+  const previewEl = document.createElement('div');
+  previewEl.className = 'cond-popover-preview';
+  const buildToken = () => {
+    const ch     = radioH.checked ? '-' : 'X';
+    const spaced = spaceChk.checked;
+    const char   = spaced ? ` ${ch} ` : ch;
+    return { type: 'sep', char };
+  };
+  const updatePreview = () => {
+    const tok = buildToken();
+    const dsl = serialiseTokens([tok]);
+    const rendered = tok.char;
+    previewEl.textContent = `→ "${rendered}"  (${dsl})`;
+  };
+  [radioH, radioX, spaceChk].forEach(el => el.addEventListener('change', updatePreview));
+  updatePreview();
+  pop.appendChild(previewEl);
+
+  // Apply button
+  const applyBtn = document.createElement('button');
+  applyBtn.className = 'btn primary cond-popover-insert';
+  applyBtn.textContent = 'Apply';
+  applyBtn.addEventListener('mousedown', e => {
+    e.preventDefault();
+    onApply(buildToken());
+    pop.remove();
+  });
+  pop.appendChild(applyBtn);
+
+  // Position
+  document.body.appendChild(pop);
+  const rect  = anchorEl.getBoundingClientRect();
+  const popW  = 260;
+  const popH  = pop.offsetHeight;
+  let left = rect.left;
+  if (left + popW > window.innerWidth - 8) left = window.innerWidth - popW - 8;
+  if (left < 8) left = 8;
+  const spaceBelow = window.innerHeight - rect.bottom - 8;
+  const top = spaceBelow >= popH ? rect.bottom + 6 : Math.max(8, rect.top - popH - 6);
+  pop.style.left = left + 'px';
+  pop.style.top  = top + 'px';
+
+  const dismiss = ev => {
+    if (!pop.contains(ev.target) && ev.target !== anchorEl) {
+      pop.remove();
+      document.removeEventListener('mousedown', dismiss, true);
+    }
+  };
+  setTimeout(() => document.addEventListener('mousedown', dismiss, true), 0);
+}
+
 /* ── Internal: shared reorder+delete button group ────────── */
 function _makeReorderDeleteButtons(onUp, onDown, onDelete) {
   const c = document.createElement('div');
@@ -1331,8 +1442,11 @@ function _wireTokenAutocomplete(textarea, palette, propId) {
   /* Returns all available token descriptors */
   const getTokens = () => {
     const builtins = [
-      { key: 'IDX',  label: 'IDX',  desc: 'Auto-calculated part index' },
-      { key: 'NAME', label: 'NAME', desc: 'Part name' },
+      { key: 'IDX',        label: 'IDX',          desc: 'Auto-calculated part index' },
+      { key: 'NAME',       label: 'NAME',          desc: 'Part name' },
+      // Separator tokens — always shown, open the sep-format popover on click.
+      { key: 'SEP_HYPHEN', label: '–  Separator  -', desc: 'sep', _isSep: true, _char: '-' },
+      { key: 'SEP_X',      label: '✕  Separator  X', desc: 'sep', _isSep: true, _char: 'X' },
     ];
     const dynamic = getActiveMaster().map(m => ({
       key:   m.key,
@@ -1462,9 +1576,14 @@ function _wireTokenAutocomplete(textarea, palette, propId) {
     const formula = textarea.value;
     const upper   = prefix.toUpperCase();
 
+    // Separators are always pinned at the top and excluded from the
+    // used/unused sort and the prefix filter (they're not typed as words).
+    const sepTokens  = tokens.filter(t => t._isSep);
+    const restTokens = tokens.filter(t => !t._isSep);
+
     /* Split into: matches-prefix vs rest (only shown when no active prefix) */
-    const matching = tokens.filter(t => t.key.startsWith(upper));
-    const rest     = prefix ? [] : tokens.filter(t => !t.key.startsWith(upper));
+    const matching = restTokens.filter(t => t.key.startsWith(upper));
+    const rest     = prefix ? [] : restTokens.filter(t => !t.key.startsWith(upper));
 
     /* Sort each group: unused first, then already-in-formula */
     const sort = arr => [
@@ -1472,25 +1591,28 @@ function _wireTokenAutocomplete(textarea, palette, propId) {
       ...arr.filter(t =>  isUsed(formula, t.key)),
     ];
 
-    const ordered = [...sort(matching), ...sort(rest)];
+    const ordered = [...sepTokens, ...sort(matching), ...sort(rest)];
 
     if (ordered.length === 0) { palette.style.display = 'none'; return; }
     palette.style.display = 'flex';
 
     ordered.forEach(t => {
-      const used     = isUsed(formula, t.key);
-      const inMatch  = t.key.startsWith(upper);
+      const isSep    = !!t._isSep;
+      const used     = !isSep && isUsed(formula, t.key);
+      const inMatch  = isSep || t.key.startsWith(upper);
       const isDimmed = !inMatch && !prefix;
 
       const btn = document.createElement('button');
       btn.className = 'token-pill' +
-        (used    ? ' token-used' : ' token-new') +
-        (isDimmed ? ' token-dim' : '');
-      btn.title = t.key !== 'IDX' && t.key !== 'NAME'
-        ? t.label + (used ? ' — already used as conditional' : ' — click to insert as conditional')
-        : t.label + (used ? ' — already used' : ' — click to insert');
+        (isSep           ? ' token-sep-btn'  :
+         used            ? ' token-used'      : ' token-new') +
+        (isDimmed        ? ' token-dim'       : '');
 
-      if (prefix && inMatch) {
+      if (isSep) {
+        btn.title = t.label + ' — click to insert';
+        btn.textContent = t.label;
+      } else if (prefix && inMatch) {
+        btn.title = t.label + (used ? ' — already used' : ' — click to insert');
         /* Highlight the typed portion */
         const hi  = document.createElement('mark');
         hi.className   = 'token-match';
@@ -1498,11 +1620,12 @@ function _wireTokenAutocomplete(textarea, palette, propId) {
         btn.appendChild(hi);
         btn.appendChild(document.createTextNode(t.key.substring(upper.length)));
       } else {
+        btn.title = t.label + (used ? ' — already used' : ' — click to insert');
         btn.textContent = t.key;
       }
 
-      /* Sub-label for dynamic variables (human name) */
-      if (t.label !== t.key) {
+      /* Sub-label for dynamic variables (human name differs from key) */
+      if (!isSep && t.label !== t.key) {
         const sub = document.createElement('span');
         sub.className   = 'token-sub';
         sub.textContent = t.label;
@@ -1512,31 +1635,20 @@ function _wireTokenAutocomplete(textarea, palette, propId) {
       /* Mousedown so the click fires before textarea blur */
       btn.addEventListener('mousedown', e => {
         e.preventDefault();
-        if (t.key !== 'IDX' && t.key !== 'NAME') {
-          // Dynamic variables open the format popover so users always get the
-          // canonical {VAR#N(.D)?(:SUFFIX)?} syntax. The popover offers a
-          // "Use as conditional instead" link that switches to the legacy
-          // conditional builder for users who need that flow.
-          _openVarFormatPopover(
-            { type: 'var', key: t.key, pad: null, decimals: null, suffix: '' },
+        if (isSep) {
+          // Separators open the sep-format popover; result is inserted directly.
+          _openSepFormatPopover(
+            { type: 'sep', char: t._char },
             btn,
             tok => {
-              const snippet = serialiseTokens([tok]);
-              const pos    = textarea.selectionStart;
-              const before = textarea.value.substring(0, pos);
-              const after  = textarea.value.substring(pos);
-              const word   = getCurrentWord();
-              const newVal = before.substring(0, before.length - word.length) + snippet + after;
-              textarea.value = newVal;
-              const newPos = before.length - word.length + snippet.length;
-              textarea.setSelectionRange(newPos, newPos);
-              textarea.dispatchEvent(new Event('input'));
-              textarea.focus();
+              insertToken(serialiseTokens([tok]));
               palette.style.display = 'none';
-            },
-            () => openConditionalBuilder(t.key, t.label, btn)
+            }
           );
         } else {
+          // All other tokens (IDX, NAME, dynamic vars) insert directly.
+          // The user can click the resulting chip to open the format / conditional
+          // popover — no forced pop-up on insert.
           insertToken(t.key);
         }
       });
