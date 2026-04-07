@@ -3752,7 +3752,8 @@
           "6.250",
           "6.500",
           "6.750",
-          "7.000"
+          "7.000",
+          "2.688"
         ],
         "label": "Spacer OD (IN)"
       },
@@ -3816,7 +3817,10 @@
           "4.813",
           "4.875",
           "4.938",
-          "5.000"
+          "5.000",
+          "0.688",
+          "1.063",
+          "0.875"
         ],
         "label": "Spacer ID (IN)"
       },
@@ -3859,7 +3863,8 @@
           "2.813",
           "2.875",
           "2.938",
-          "3.000"
+          "3.000",
+          "0.188"
         ],
         "label": "Spacer Thickness (in)"
       }
@@ -4693,9 +4698,9 @@
       "INDUCTION_HARDENED": "Yes"
     },
     "tab1775574099845": {
-      "SPACER_ID_IN": "1.525",
-      "SPACER_OD_IN": "2.250",
-      "SPACER_THICKNESS_IN": "1.000"
+      "SPACER_ID_IN": "3.250",
+      "SPACER_OD_IN": "5.500",
+      "SPACER_THICKNESS_IN": "1.500"
     },
     "cat_1773868048483_1": {
       "PIN_TYPE": "FIXED",
@@ -4771,6 +4776,15 @@
         "f1773869937461": "Specs 2"
       },
       "fileNamePropId": "f1773869896995"
+    },
+    "tab1775574099845": {
+      "mapping": {
+        "f1773869896995": "Description",
+        "f1773869904615": "Features 1",
+        "f1773869927490": "Features 2",
+        "f1773869932699": "Specs 1",
+        "f1773869937461": "Specs 2"
+      }
     }
   },
   "activeClassId": "tab1775574099845",
@@ -4842,7 +4856,7 @@
       "p1773869885948": "PN-{NOMINAL_PIN_OD_MM#3:MM}{[-]}{PIN_LENGTH_IN?PIN_LENGTH_IN}{[-]}IDX"
     }
   },
-  "activeRightTab": "rules",
+  "activeRightTab": "config",
   "lockedSections": {},
   "productClasses": [
     {
@@ -4981,7 +4995,19 @@
         "rename": false
       }
     },
-    "tab1775574099845": {},
+    "tab1775574099845": {
+      "p1773869852653": {
+        "rename": false,
+        "props": {
+          "f1773869896995": true,
+          "f1773869904615": true,
+          "f1773869927490": false,
+          "f1773869932699": true,
+          "f1773869937461": false
+        }
+      },
+      "_reviewed": true
+    },
     "cat_1773868048483_1": {
       "_reviewed": {
         "props": {},
@@ -5049,7 +5075,9 @@
     "tab1775161875298": {
       "p1773869852653": "BU-BLANK-120MM-01 (5.737OD x 4.737ID x 4.000LG)"
     },
-    "tab1775574099845": {},
+    "tab1775574099845": {
+      "p1773869852653": "SP-1.500-01"
+    },
     "cat_1773868048483_1": {
       "p1773869852653": "PA-040MM-14.7500-01-01",
       "p1773869860795": "PN-040MM-14.7500-01",
@@ -5062,7 +5090,7 @@
     "tab1773951378462": "C:\\_Vault\\Daequip\\Library\\Pins\\PN-02500",
     "tab1774974127318": "C:\\_Vault\\Daequip\\Library\\Bushings\\Imperial\\ID 2.500",
     "tab1775161875298": "C:\\_Vault\\Daequip\\Library\\Bushings\\Blank Bushing\\Metric",
-    "tab1775574099845": "",
+    "tab1775574099845": "C:\\_Vault\\Daequip\\Library\\Spacer\\Imperial\\1.500",
     "cat_1773868048483_1": "C:\\_Vault\\Daequip\\Library\\Pins\\PN-030MM"
   }
 }
