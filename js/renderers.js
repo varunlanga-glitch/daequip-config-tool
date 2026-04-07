@@ -911,9 +911,18 @@ function renderRuleList() {
     warnBadge.title     = 'Characters like / \\ : * ? " < > | are not allowed in Windows filenames';
     warnBadge.textContent = _fnWarn(resolvedFn);
 
+    const errBadge = document.createElement('span');
+    errBadge.className = 'rule-preview-error';
+    _updateRuleErrBadge(errBadge, resolvedFn);
+
     preview.appendChild(previewText);
     if (resolvedFn) preview.appendChild(previewCount);
     preview.appendChild(warnBadge);
+    preview.appendChild(errBadge);
+
+    const chipsDisplay = document.createElement('div');
+    chipsDisplay.className = 'rule-chips-display';
+    _renderRuleChips(chipsDisplay, currentFn, textarea);
 
     textarea.oninput = function() {
       updateFileNameRule(State.selectedPartId, this.value);
@@ -921,6 +930,7 @@ function renderRuleList() {
       const txt = preview.querySelector('.rule-preview-text');
       const cnt = preview.querySelector('.rule-preview-count');
       const wrn = preview.querySelector('.fn-warn-badge');
+      const err = preview.querySelector('.rule-preview-error');
       if (txt) txt.textContent = resolved;
       if (cnt) { cnt.textContent = resolved.length; cnt.style.display = resolved ? '' : 'none'; }
       else if (resolved) {
@@ -930,6 +940,8 @@ function renderRuleList() {
         preview.insertBefore(newCnt, wrn);
       }
       if (wrn) wrn.textContent = _fnWarn(resolved);
+      if (err) _updateRuleErrBadge(err, resolved);
+      _renderRuleChips(chipsDisplay, this.value, textarea);
     };
 
     const palette = document.createElement('div');
@@ -937,6 +949,7 @@ function renderRuleList() {
     _wireTokenAutocomplete(textarea, palette, '__filename__');
 
     div.appendChild(header);
+    div.appendChild(chipsDisplay);
     div.appendChild(textarea);
     div.appendChild(palette);
     div.appendChild(preview);
@@ -1003,8 +1016,17 @@ function renderRuleList() {
     previewCount.textContent = resolvedVal.length;
     previewCount.title       = resolvedVal.length + ' characters';
 
+    const errBadge = document.createElement('span');
+    errBadge.className = 'rule-preview-error';
+    _updateRuleErrBadge(errBadge, resolvedVal);
+
     preview.appendChild(previewText);
     if (resolvedVal) preview.appendChild(previewCount);
+    preview.appendChild(errBadge);
+
+    const chipsDisplay = document.createElement('div');
+    chipsDisplay.className = 'rule-chips-display';
+    _renderRuleChips(chipsDisplay, currentRule, textarea);
 
     textarea.oninput = function () {
       updateRule(State.selectedPartId, pr.id, this.value);
@@ -1014,6 +1036,7 @@ function renderRuleList() {
       if (el && el.classList.contains('rule-preview')) {
         const txt = el.querySelector('.rule-preview-text');
         const cnt = el.querySelector('.rule-preview-count');
+        const err = el.querySelector('.rule-preview-error');
         const resolved = resolveRule(this.value, State.selectedPartId);
         if (txt) txt.textContent = resolved;
         if (cnt) { cnt.textContent = resolved.length; cnt.style.display = resolved ? '' : 'none'; }
@@ -1023,7 +1046,9 @@ function renderRuleList() {
           newCnt.textContent = resolved.length;
           el.appendChild(newCnt);
         }
+        if (err) _updateRuleErrBadge(err, resolved);
       }
+      _renderRuleChips(chipsDisplay, this.value, textarea);
     };
 
     const palette = document.createElement('div');
@@ -1033,11 +1058,234 @@ function renderRuleList() {
     _wireTokenAutocomplete(textarea, palette, pr.id);
 
     div.appendChild(header);
+    div.appendChild(chipsDisplay);
     div.appendChild(textarea);
     div.appendChild(palette);
     div.appendChild(preview);
     container.appendChild(div);
   });
+}
+
+/* ── Rule preview error badge ─────────────────────────────────
+ * Shows a red ⚠ next to the resolved preview when the engine
+ * left behind unparsed brace tokens or non-numeric value
+ * sentinels. Tooltip suggests a fix when possible.
+ */
+function _updateRuleErrBadge(el, resolved) {
+  const errors = (typeof lintResolved === 'function') ? lintResolved(resolved) : [];
+  if (!errors.length) {
+    el.textContent = '';
+    el.style.display = 'none';
+    el.removeAttribute('title');
+    return;
+  }
+  el.style.display = '';
+  el.textContent = '⚠ ' + errors.length;
+  const lines = errors.map(e => {
+    if (e.kind === 'unparsed') {
+      const fix = (typeof suggestFix === 'function') ? suggestFix(e.text) : null;
+      return fix
+        ? `Unrecognised token ${e.text}\n  did you mean ${fix} ?`
+        : `Unrecognised token ${e.text}`;
+    }
+    return e.text;
+  });
+  el.title = lines.join('\n\n');
+}
+
+/* ── Read-only chip preview of a template ─────────────────────
+ * Renders parsed tokens as coloured pills above the textarea.
+ * Variable chips are clickable: clicking opens the format
+ * popover, which rewrites the textarea with canonical syntax
+ * the engine is guaranteed to understand.
+ */
+function _renderRuleChips(container, template, textarea) {
+  container.innerHTML = '';
+  if (!template || typeof parseTemplate !== 'function') {
+    container.style.display = 'none';
+    return;
+  }
+  const tokens = parseTemplate(template);
+  if (!tokens.length) { container.style.display = 'none'; return; }
+  container.style.display = 'flex';
+
+  // Re-serialise to detect orphan literal segments left over by the parser.
+  // Anything that round-trips identically is fully understood; anything else
+  // is shown as a warning chip so the user can spot the malformed bit.
+  let cursor = 0;
+  tokens.forEach((tok, idx) => {
+    const serialised = (typeof serialiseTokens === 'function')
+      ? serialiseTokens([tok]) : '';
+    const start = template.indexOf(serialised, cursor);
+    const end   = start >= 0 ? start + serialised.length : cursor;
+
+    const chip = document.createElement('span');
+    chip.className = 'chip rule-chip rule-chip--' + tok.type;
+
+    if (tok.type === 'literal') {
+      // Detect literal segments that look like a half-typed brace token
+      // (e.g. "{NOMINAL_PIN_OD_MM#3MM}") and flag them.
+      if (/[{}]/.test(tok.text)) chip.classList.add('rule-chip--warn');
+      chip.textContent = tok.text;
+      chip.title = 'Literal text';
+    } else if (tok.type === 'var') {
+      const fmt = [];
+      if (tok.pad) fmt.push('pad ' + tok.pad);
+      if (tok.decimals != null) fmt.push(tok.decimals + ' dec');
+      if (tok.suffix) fmt.push(tok.suffix);
+      chip.textContent = tok.key + (fmt.length ? ' · ' + fmt.join(' ') : '');
+      chip.title = 'Click to edit format';
+      chip.style.cursor = 'pointer';
+      chip.addEventListener('click', e => {
+        e.stopPropagation();
+        _openVarFormatPopover(tok, chip, fixed => {
+          // Replace the original token's slice in the textarea with the new
+          // canonical serialised form, then fire input to refresh everything.
+          if (start < 0) return;
+          const newSer = serialiseTokens([fixed]);
+          textarea.value = template.slice(0, start) + newSer + template.slice(end);
+          textarea.dispatchEvent(new Event('input'));
+        });
+      });
+    } else if (tok.type === 'sep') {
+      chip.textContent = '↔ ' + tok.char.trim();
+      chip.title = 'Conditional separator (collapses when neighbours are empty)';
+    } else if (tok.type === 'cond') {
+      chip.textContent = 'if ' + tok.vars.join(' ' + tok.op + ' ') + ' → ' + tok.show;
+      chip.title = 'Conditional output';
+    } else if (tok.type === 'eq') {
+      chip.textContent = tok.key + '=' + tok.value + ' → ' + tok.show;
+      chip.title = 'Equality conditional';
+    } else if (tok.type === 'idx') {
+      chip.textContent = 'IDX';
+      chip.title = 'Auto part index';
+    } else if (tok.type === 'name') {
+      chip.textContent = 'NAME';
+      chip.title = 'Part name';
+    } else if (tok.type === 'math') {
+      chip.textContent = '(' + tok.expr + ')';
+      chip.title = 'Math expression';
+    }
+    container.appendChild(chip);
+    if (start >= 0) cursor = end;
+  });
+}
+
+/* ── Variable-format popover ──────────────────────────────────
+ * Lets users set Pad / Decimals / Suffix on a variable chip.
+ * Always emits the canonical {VAR#N(.D)?(:SUFFIX)?} form so the
+ * engine can never see the malformed {VAR#NSUFFIX} shape that
+ * caused the recurring "three-digit formatting" bug.
+ */
+function _openVarFormatPopover(token, anchorEl, onApply, onConditionalSwitch) {
+  const existing = document.getElementById('var-fmt-popover');
+  if (existing) existing.remove();
+
+  const pop = document.createElement('div');
+  pop.id = 'var-fmt-popover';
+  pop.className = 'cond-popover';
+
+  const title = document.createElement('div');
+  title.className = 'cond-popover-title';
+  title.innerHTML = 'Format <strong>' + escapeHtml(token.key) + '</strong>';
+  pop.appendChild(title);
+
+  const mkRow = (label, input) => {
+    const row = document.createElement('label');
+    row.className = 'var-fmt-row';
+    const lbl = document.createElement('span');
+    lbl.textContent = label;
+    row.appendChild(lbl);
+    row.appendChild(input);
+    return row;
+  };
+
+  const padInput = document.createElement('input');
+  padInput.type = 'number';
+  padInput.min  = '0';
+  padInput.placeholder = 'none';
+  padInput.value = token.pad || '';
+
+  const decInput = document.createElement('input');
+  decInput.type = 'number';
+  decInput.min  = '0';
+  decInput.placeholder = 'none';
+  decInput.value = token.decimals != null ? token.decimals : '';
+
+  const sufInput = document.createElement('input');
+  sufInput.type = 'text';
+  sufInput.placeholder = 'e.g. MM';
+  sufInput.value = token.suffix || '';
+
+  pop.appendChild(mkRow('Pad to digits',  padInput));
+  pop.appendChild(mkRow('Decimal places', decInput));
+  pop.appendChild(mkRow('Suffix',         sufInput));
+
+  const previewEl = document.createElement('div');
+  previewEl.className = 'cond-popover-preview';
+  pop.appendChild(previewEl);
+
+  const buildToken = () => ({
+    type: 'var',
+    key: token.key,
+    pad: padInput.value ? parseInt(padInput.value, 10) : null,
+    decimals: decInput.value !== '' ? parseInt(decInput.value, 10) : null,
+    suffix: sufInput.value || '',
+  });
+
+  const updatePreview = () => {
+    const t   = buildToken();
+    const tpl = serialiseTokens([t]);
+    const res = (typeof resolveRule === 'function')
+      ? resolveRule(tpl, State.selectedPartId) : '';
+    previewEl.textContent = (res ? '→ ' + res : '(blank)') + '   ' + tpl;
+  };
+  [padInput, decInput, sufInput].forEach(i => i.addEventListener('input', updatePreview));
+  updatePreview();
+
+  const applyBtn = document.createElement('button');
+  applyBtn.className = 'btn primary cond-popover-insert';
+  applyBtn.textContent = 'Apply';
+  applyBtn.addEventListener('mousedown', e => {
+    e.preventDefault();
+    onApply(buildToken());
+    pop.remove();
+  });
+  pop.appendChild(applyBtn);
+
+  if (typeof onConditionalSwitch === 'function') {
+    const altLink = document.createElement('a');
+    altLink.href = '#';
+    altLink.className = 'var-fmt-alt';
+    altLink.textContent = 'Use as conditional instead';
+    altLink.addEventListener('mousedown', e => {
+      e.preventDefault();
+      pop.remove();
+      onConditionalSwitch();
+    });
+    pop.appendChild(altLink);
+  }
+
+  document.body.appendChild(pop);
+  const rect = anchorEl.getBoundingClientRect();
+  const popW = 280, popH = pop.offsetHeight;
+  let left = rect.left;
+  if (left + popW > window.innerWidth - 8) left = window.innerWidth - popW - 8;
+  if (left < 8) left = 8;
+  const spaceBelow = window.innerHeight - rect.bottom - 8;
+  const top = spaceBelow >= popH ? rect.bottom + 6 : Math.max(8, rect.top - popH - 6);
+  pop.style.left = left + 'px';
+  pop.style.top  = top + 'px';
+  padInput.focus();
+  padInput.select();
+
+  const dismiss = ev => {
+    if (!pop.contains(ev.target) && ev.target !== anchorEl) {
+      pop.remove();
+      document.removeEventListener('mousedown', dismiss, true);
+    }
+  };
+  setTimeout(() => document.addEventListener('mousedown', dismiss, true), 0);
 }
 
 /* ── Internal: shared reorder+delete button group ────────── */
@@ -1265,8 +1513,29 @@ function _wireTokenAutocomplete(textarea, palette, propId) {
       btn.addEventListener('mousedown', e => {
         e.preventDefault();
         if (t.key !== 'IDX' && t.key !== 'NAME') {
-          // Dynamic variables always open the conditional builder
-          openConditionalBuilder(t.key, t.label, btn);
+          // Dynamic variables open the format popover so users always get the
+          // canonical {VAR#N(.D)?(:SUFFIX)?} syntax. The popover offers a
+          // "Use as conditional instead" link that switches to the legacy
+          // conditional builder for users who need that flow.
+          _openVarFormatPopover(
+            { type: 'var', key: t.key, pad: null, decimals: null, suffix: '' },
+            btn,
+            tok => {
+              const snippet = serialiseTokens([tok]);
+              const pos    = textarea.selectionStart;
+              const before = textarea.value.substring(0, pos);
+              const after  = textarea.value.substring(pos);
+              const word   = getCurrentWord();
+              const newVal = before.substring(0, before.length - word.length) + snippet + after;
+              textarea.value = newVal;
+              const newPos = before.length - word.length + snippet.length;
+              textarea.setSelectionRange(newPos, newPos);
+              textarea.dispatchEvent(new Event('input'));
+              textarea.focus();
+              palette.style.display = 'none';
+            },
+            () => openConditionalBuilder(t.key, t.label, btn)
+          );
         } else {
           insertToken(t.key);
         }
