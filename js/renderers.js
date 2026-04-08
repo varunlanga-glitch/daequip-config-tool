@@ -802,37 +802,13 @@ function renderRuleList() {
     </div>`;
 
   if (!State.selectedPartId) {
-    const parts = getActiveParts().filter(p => p.enabled !== false);
-    const props = getActiveProps();
-    if (!parts.length || !props.length) {
-      container.innerHTML += "<div class='small' style='padding:20px'>Select a part from the Parts tab.</div>";
+    const firstPart = getActiveParts().find(p => p.enabled !== false);
+    if (!firstPart) {
+      container.innerHTML += "<div class='small' style='padding:20px'>No parts available.</div>";
       return;
     }
-    const idxList = calculateIndices();
-    const allParts = getActiveParts();
-    const rows = parts.map(p => {
-      const globalIdx = allParts.findIndex(ap => ap.id === p.id);
-      const idx = idxList[globalIdx] || '';
-      const rules = getActiveRules()[p.id] || {};
-      const cells = props.map(pr => {
-        const val = resolveRule(rules[pr.id], p.id);
-        return `<td class="rules-summary-cell" title="${escapeHtml(val)}">${escapeHtml(val)}</td>`;
-      }).join('');
-      return `<tr class="rules-summary-row" onclick="State.selectedPartId='${p.id}';renderAll();">
-        <td class="rules-summary-part"><span class="idx-badge" style="margin-right:5px">${idx}</span>${escapeHtml(p.name)}</td>
-        ${cells}
-      </tr>`;
-    }).join('');
-    const heads = props.map(pr => `<th>${escapeHtml(pr.name)}</th>`).join('');
-    container.innerHTML += `
-      <div style="overflow:auto;margin-top:8px">
-        <table class="rules-summary-table">
-          <thead><tr><th>Part</th>${heads}</tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-        <p class="small" style="padding:8px 4px;color:#aaa">Click a row to edit its rules.</p>
-      </div>`;
-    return;
+    State.selectedPartId = firstPart.id;
+    // Fall through to render rules editor for the auto-selected first part
   }
 
   // Guard: disabled parts (component headers) are hidden from the output grid.
