@@ -4171,7 +4171,7 @@
     "tab1775681477169": []
   },
   "inventorMaps": {},
-  "activeClassId": "buckets",
+  "activeClassId": "tab1775679963733",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
@@ -4429,7 +4429,7 @@
       "name": "Buckets (XDR) CLU"
     }
   ],
-  "selectedPartId": "p1770762912068",
+  "selectedPartId": null,
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
