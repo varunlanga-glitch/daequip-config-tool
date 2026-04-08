@@ -770,7 +770,7 @@
       {
         "id": "p1775591138143",
         "midx": "01",
-        "name": "GA (Copy)",
+        "name": "EX-BKT-DIG-XD-060-00-01 (Strongback-MID) HE060 EX-BKT-DIG-XD-060-00-01 (Strongback-MID)",
         "level": 1,
         "enabled": true
       },
@@ -1575,7 +1575,7 @@
     },
     "tab1774978147622": {
       "p1": {
-        "f1770765683117": "ATTACHMENT-SUBTYPE DUTY HOOK-UP NAME CLASS-SIZE",
+        "f1770765683117": "ATTACHMENT-{[X]} DUTY HOOK-UP NAME CLASS-SIZE",
         "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
         "f1770766964933": "-",
         "f1770766978429": "{LUG_SPREAD#0.3: LS} - {CENTER_TO_CENTER#0.3: CC} - {BLADE_THK#0.3: X }{BLADE_ANGLE#0.1:°}",
@@ -1584,15 +1584,15 @@
       "p2": {
         "f1770765683117": "TOOTH-WLDT-ATTACHMENT-SUBTYPE-DUTY CLASS-SIZE",
         "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
-        "f1770766978429": "BLADE_THK X BLADE_ANGLE°",
         "f1770766964933": "-",
+        "f1770766978429": "BLADE_THK X BLADE_ANGLE°",
         "f1770766992117": "-"
       },
       "p1770762899954": {
         "f1770765683117": "BODY-WLDT-ATTACHMENT SUBTYPE-DUTY CLASS-SIZE",
         "f1770765927726": "VOLUME",
-        "f1770766978429": "BLADE_THK X BLADE_ANGLE°",
         "f1770766964933": "-",
+        "f1770766978429": "BLADE_THK X BLADE_ANGLE°",
         "f1770766992117": "-"
       },
       "p1770762912068": {
@@ -1685,8 +1685,8 @@
       },
       "p1775591138143": {
         "f1770765683117": "STRBK PL-MID-ATTACHMENT-DUTY LUGGING CLASS",
-        "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
-        "f1770766964933": "-",
+        "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE ATTACHMENT",
+        "f1770766964933": "ATTACHMENT IDX NAME MACHINE_TYPE ",
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
@@ -1904,17 +1904,17 @@
       },
       {
         "key": "LUG_SPREAD",
-        "label": "LUG SPREAD",
         "vals": [
           "8.125"
-        ]
+        ],
+        "label": "LUG SPREAD"
       },
       {
         "key": "CENTER_TO_CENTER",
-        "label": "CENTER TO CENTER",
         "vals": [
           "21.375"
-        ]
+        ],
+        "label": "CENTER TO CENTER"
       }
     ],
     "tab1770826801156": [
@@ -2978,24 +2978,24 @@
       },
       {
         "key": "TOOTH_OEM",
-        "label": "Tooth OEM",
         "vals": [
           "BC"
-        ]
+        ],
+        "label": "Tooth OEM"
       },
       {
         "key": "LUG_SPREAD",
-        "label": "LUG SPREAD",
         "vals": [
           "24.000"
-        ]
+        ],
+        "label": "LUG SPREAD"
       },
       {
         "key": "CENTER_TO_CENTER",
-        "label": "CENTER TO CENTER",
         "vals": [
           "22.000"
-        ]
+        ],
+        "label": "CENTER TO CENTER"
       }
     ]
   },
@@ -3010,12 +3010,12 @@
       "SUBTYPE": "CLU",
       "CLASS_NO": "250",
       "BLADE_THK": "1.250",
+      "TOOTH_QTY": "2",
       "ATTACHMENT": "BKT",
+      "LUG_SPREAD": "8.125",
+      "TOOTH_TYPE": "J225",
       "BLADE_ANGLE": "20",
       "MACHINE_TYPE": "EX",
-      "TOOTH_QTY": "2",
-      "TOOTH_TYPE": "J225",
-      "LUG_SPREAD": "8.125",
       "CENTER_TO_CENTER": "21.275"
     },
     "tab1770826801156": {
@@ -3130,13 +3130,13 @@
       "SUBTYPE": "DIG",
       "CLASS_NO": "060",
       "BLADE_THK": "1.250",
+      "TOOTH_OEM": "BC",
+      "TOOTH_QTY": "2",
       "ATTACHMENT": "BKT",
+      "LUG_SPREAD": "24.000",
+      "TOOTH_TYPE": "J225",
       "BLADE_ANGLE": "20",
       "MACHINE_TYPE": "EX",
-      "TOOTH_QTY": "2",
-      "TOOTH_TYPE": "J225",
-      "TOOTH_OEM": "BC",
-      "LUG_SPREAD": "24.000",
       "CENTER_TO_CENTER": "22.000"
     }
   },
@@ -3149,10 +3149,8 @@
     "tab1770842447295": [],
     "tab1774978147622": []
   },
-  "inventorMaps": {
-    "tab1774978147622": {}
-  },
-  "activeClassId": "buckets",
+  "inventorMaps": {},
+  "activeClassId": "tab1774978147622",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-LUGGING-SIZE-TOOTH_QTY-TOOTH_TYPE (NAME)",
@@ -3303,7 +3301,7 @@
       "p1770837371450": "MACHINE-CHWA-SUBTYPE-DUTY-CLASS_NO-LUGGING-MODEL-01-04 (NAME)"
     },
     "tab1774978147622": {
-      "p1": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-LUGGING-SIZE-IDX-TOOTH_QTY-TOOTH_TYPE (NAME)",
+      "p1": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-LUGGING-SIZE-IDX-TOOTH_QTY-TOOTH_TYPE VOLUME ",
       "p2": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-TOOTH_OEM-TOOTH_QTY-TOOTH_TYPE NAME",
       "p1770762899954": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-BC (NAME)",
       "p1770762912068": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE (NAME)",
@@ -3333,7 +3331,7 @@
   "productClasses": [
     {
       "id": "buckets",
-      "name": "Buckets (XD,XDW)"
+      "name": "Buckets (XD,XDW) DIG"
     },
     {
       "id": "tab1770826801156",
@@ -3353,10 +3351,10 @@
     },
     {
       "id": "tab1774978147622",
-      "name": "Buckets (XDR)"
+      "name": "Buckets (XDR) DIG"
     }
   ],
-  "selectedPartId": "p1",
+  "selectedPartId": "p1775591138143",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
