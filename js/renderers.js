@@ -426,6 +426,27 @@ function renderGrid() {
     fnSpan.textContent = fnVal;
     nameWrap.appendChild(fnSpan);
     nameTd.appendChild(nameWrap);
+
+    if (fnVal) {
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'cell-copy-btn';
+      copyBtn.title     = 'Copy';
+      copyBtn.setAttribute('aria-label', 'Copy file name');
+      copyBtn.innerHTML = _copyIcon();
+      copyBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        navigator.clipboard.writeText(fnVal).then(() => {
+          copyBtn.innerHTML = _checkIcon();
+          copyBtn.classList.add('cell-copy-btn--ok');
+          setTimeout(() => {
+            copyBtn.innerHTML = _copyIcon();
+            copyBtn.classList.remove('cell-copy-btn--ok');
+          }, 1400);
+        });
+      });
+      nameTd.appendChild(copyBtn);
+    }
+
     tr.appendChild(nameTd);
 
     // Data cells only — no row-header th
