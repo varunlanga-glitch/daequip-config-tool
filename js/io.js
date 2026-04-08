@@ -543,7 +543,7 @@ function _renderReviewTab(parts, mapping, overrides) {
 function exportInventor() {
   const map    = _getInventorMap();
   const props  = getActiveProps();
-  const parts  = getActiveParts().filter(p => p.enabled !== false);
+  const parts  = getActiveParts().filter(p => p.enabled !== false && p.type !== 'group');
 
   // Per-part file overrides: partId → actual filename (no ext), set via file picker
   if (!State.fileNameOverrides) State.fileNameOverrides = {};
@@ -818,7 +818,7 @@ function _clearFileLink(partId, row, overrides, updateLinkCount) {
 }
 
 function _buildInventorCSV(mapping, selections) {
-  const parts   = getActiveParts().filter(p => p.enabled !== false);
+  const parts   = getActiveParts().filter(p => p.enabled !== false && p.type !== 'group');
   const props   = getActiveProps();
   const otherProps = props.filter(p => mapping[p.id]);
   const overrides  = ((State.fileNameOverrides || {})[State.activeClassId]) || {};

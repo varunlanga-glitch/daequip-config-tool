@@ -556,6 +556,12 @@ function renderPartList() {
       label.textContent  = p.name;
       label.id = `part-name-${p.id}`;
 
+      const convertBtn = document.createElement('button');
+      convertBtn.className = 'btn part-convert-btn';
+      convertBtn.innerHTML = '&#8693;';
+      convertBtn.title = 'Convert to regular part';
+      convertBtn.onclick = e => { e.stopPropagation(); convertToPart(p.id); };
+
       const delBtn = document.createElement('button');
       delBtn.className = 'btn danger';
       delBtn.innerHTML = '&times;';
@@ -564,6 +570,7 @@ function renderPartList() {
 
       div.appendChild(dragHandle);
       div.appendChild(label);
+      div.appendChild(convertBtn);
       div.appendChild(delBtn);
       div.onclick = e => {
         if (!e.target.dataset.edit && !e.target.closest('button')) {
@@ -643,6 +650,13 @@ function renderPartList() {
     dupBtn.title = 'Duplicate part';
     dupBtn.onclick = e => { e.stopPropagation(); duplicatePart(p.id); };
 
+    // Convert to group button
+    const convertBtn = document.createElement('button');
+    convertBtn.className = 'btn part-convert-btn';
+    convertBtn.innerHTML = '&#8693;';
+    convertBtn.title = 'Convert to group separator';
+    convertBtn.onclick = e => { e.stopPropagation(); convertToGroup(p.id); };
+
     // Delete button
     const delBtn = document.createElement('button');
     delBtn.className = 'btn danger';
@@ -656,6 +670,7 @@ function renderPartList() {
     div.appendChild(indentWrap);
     div.appendChild(toggleBtn);
     div.appendChild(dupBtn);
+    div.appendChild(convertBtn);
     div.appendChild(delBtn);
 
     div.onclick = e => {
