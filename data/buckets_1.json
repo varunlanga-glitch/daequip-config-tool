@@ -1062,17 +1062,17 @@
       "p1": {
         "f1770765683117": "ATTACHMENT-SUBTYPE DUTY HOOK-UP NAME CLASS-SIZE",
         "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
-        "f1770766978429": "{LUG_SPREAD#0.3: LS} - {CENTER_TO_CENTER#0.3: CC} - {BLADE_THK#0.3: X }{BLADE_ANGLE#0.1:°}"
+        "f1770766978429": "{LUG_SPREAD#0.3: LS} - {CENTER_TO_CENTER#0.3: CC} - {BLADE_THK#0.3: X }{BLADE_ANGLE#0.1:\u00b0}"
       },
       "p2": {
         "f1770765683117": "TOOTH-WLDT-ATTACHMENT-SUBTYPE-DUTY CLASS-SIZE",
         "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
-        "f1770766978429": "BLADE_THK X BLADE_ANGLE°"
+        "f1770766978429": "BLADE_THK X BLADE_ANGLE\u00b0"
       },
       "p1770762899954": {
         "f1770765683117": "BODY-WLDT-ATTACHMENT SUBTYPE-DUTY CLASS-SIZE",
         "f1770765927726": "VOLUME",
-        "f1770766978429": "BLADE_THK X BLADE_ANGLE°"
+        "f1770766978429": "BLADE_THK X BLADE_ANGLE\u00b0"
       },
       "p1770762912068": {
         "f1770765683117": "WIDTH SKETCH DUTY-SIZE"
@@ -1578,21 +1578,21 @@
         "f1770765683117": "ATTACHMENT-{[X]} DUTY HOOK-UP NAME CLASS-SIZE",
         "f1770765927726": "VOLUME{[ - ]}TOOTH_QTY TOOTH_TYPE",
         "f1770766964933": "-",
-        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
+        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:\u00b0}",
         "f1770766992117": "-"
       },
       "p2": {
         "f1770765683117": "TOOTH-WLDT-ATTACHMENT-SUBTYPE-DUTY CLASS-SIZE",
         "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
         "f1770766964933": "-",
-        "f1770766978429": "BLADE_THK X BLADE_ANGLE°",
+        "f1770766978429": "BLADE_THK X BLADE_ANGLE\u00b0",
         "f1770766992117": "-"
       },
       "p1770762899954": {
         "f1770765683117": "BODY-WLDT-ATTACHMENT SUBTYPE-DUTY CLASS-SIZE",
         "f1770765927726": "VOLUME",
         "f1770766964933": "-",
-        "f1770766978429": "BLADE_THK X BLADE_ANGLE°",
+        "f1770766978429": "BLADE_THK X BLADE_ANGLE\u00b0",
         "f1770766992117": "-"
       },
       "p1770762912068": {
@@ -2098,8 +2098,8 @@
       {
         "key": "WEDGE_ANGLE",
         "vals": [
-          "25°",
-          "26°"
+          "25\u00b0",
+          "26\u00b0"
         ],
         "label": "WEDGE ANGLE"
       }
@@ -2285,8 +2285,8 @@
       {
         "key": "WEDGE_ANGLE",
         "vals": [
-          "25°",
-          "26°"
+          "25\u00b0",
+          "26\u00b0"
         ],
         "label": "WEDGE ANGLE"
       },
@@ -2520,8 +2520,8 @@
       {
         "key": "WEDGE_ANGLE",
         "vals": [
-          "25°",
-          "26°"
+          "25\u00b0",
+          "26\u00b0"
         ],
         "label": "WEDGE ANGLE"
       },
@@ -2755,8 +2755,8 @@
       {
         "key": "WEDGE_ANGLE",
         "vals": [
-          "25°",
-          "26°"
+          "25\u00b0",
+          "26\u00b0"
         ],
         "label": "WEDGE ANGLE"
       },
@@ -3030,7 +3030,7 @@
       "CLASS_NO": "120",
       "OUTSIDE_OS": "18.000",
       "STICK_WIDTH": "11.1875",
-      "WEDGE_ANGLE": "25°",
+      "WEDGE_ANGLE": "25\u00b0",
       "REAR_PIN_SIZE": "55MM",
       "FRONT_PIN_SIZE": "45MM",
       "MACHINE_CENTRE": "18.375",
@@ -3053,7 +3053,7 @@
       "REAR_HUB_ID": "2.569",
       "REAR_HUB_OD": "5.000",
       "STICK_WIDTH": "11.1875",
-      "WEDGE_ANGLE": "25°",
+      "WEDGE_ANGLE": "25\u00b0",
       "FRONT_HUB_ID": "2.569",
       "FRONT_HUB_OD": "5.000",
       "REAR_PIN_SIZE": "55MM",
@@ -3080,7 +3080,7 @@
       "REAR_HUB_ID": "2.569",
       "REAR_HUB_OD": "5.000",
       "STICK_WIDTH": "11.1875",
-      "WEDGE_ANGLE": "25°",
+      "WEDGE_ANGLE": "25\u00b0",
       "FRONT_HUB_ID": "2.569",
       "FRONT_HUB_OD": "5.000",
       "REAR_PIN_SIZE": "55MM",
@@ -3107,7 +3107,7 @@
       "REAR_HUB_ID": "2.569",
       "REAR_HUB_OD": "5.000",
       "STICK_WIDTH": "11.1875",
-      "WEDGE_ANGLE": "25°",
+      "WEDGE_ANGLE": "25\u00b0",
       "FRONT_HUB_ID": "2.569",
       "FRONT_HUB_OD": "5.000",
       "REAR_PIN_SIZE": "55MM",
