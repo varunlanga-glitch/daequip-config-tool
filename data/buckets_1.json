@@ -770,7 +770,7 @@
       {
         "id": "p1775591138143",
         "midx": "01",
-        "name": "EX-BKT-DIG-XD-060-WBM-36-00-01 (Strongback-MID)",
+        "name": "(Strongback-MID)",
         "level": 1,
         "enabled": true
       },
@@ -896,7 +896,7 @@
       {
         "id": "p1770767958952",
         "midx": null,
-        "name": "EX-BKT-CLU-XD-STD-250-05 (Lifting Eye Plate)",
+        "name": "(Lifting Eye Plate)",
         "level": 0,
         "enabled": true
       },
