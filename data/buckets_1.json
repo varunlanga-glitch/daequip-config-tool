@@ -1029,13 +1029,6 @@
         "enabled": true
       },
       {
-        "id": "p1770762899954",
-        "midx": "A",
-        "name": "(Body-Weldment)",
-        "level": 0,
-        "enabled": true
-      },
-      {
         "id": "p1770762912068",
         "midx": "B",
         "name": "Width Profile",
@@ -1116,6 +1109,13 @@
         "id": "p1770767958952",
         "midx": null,
         "name": "Lifting Eye Plate",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770762899954",
+        "midx": "A",
+        "name": "(Body-Weldment)",
         "level": 0,
         "enabled": true
       }
