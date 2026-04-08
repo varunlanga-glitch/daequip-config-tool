@@ -2,6 +2,13 @@
   "parts": {
     "buckets": [
       {
+        "id": "g1775682307162",
+        "name": "GA Level",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
         "id": "p1",
         "midx": "A",
         "name": "GA",
@@ -12,6 +19,41 @@
         "id": "p2",
         "midx": "B",
         "name": "Tooth Weldment",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "g1775682325590",
+        "name": "Lugging",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775679429721",
+        "midx": "00",
+        "name": "(Lug GA)",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775679516021",
+        "midx": null,
+        "name": "(Lug GA) (Copy)",
+        "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1775679517835",
+        "midx": null,
+        "name": "(Lug GA) (Copy) (Copy)",
+        "level": 2,
+        "enabled": true
+      },
+      {
+        "id": "g1775682374357",
+        "name": "Standard Parts",
+        "type": "group",
         "level": 0,
         "enabled": true
       },
@@ -104,27 +146,6 @@
         "midx": null,
         "name": "Lifting Eye Plate",
         "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1775679429721",
-        "midx": "00",
-        "name": "(Lug GA)",
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1775679516021",
-        "midx": null,
-        "name": "(Lug GA) (Copy)",
-        "level": 1,
-        "enabled": true
-      },
-      {
-        "id": "p1775679517835",
-        "midx": null,
-        "name": "(Lug GA) (Copy) (Copy)",
-        "level": 2,
         "enabled": true
       }
     ],
@@ -782,6 +803,13 @@
     ],
     "tab1774978147622": [
       {
+        "id": "g1775682672203",
+        "name": "GA Level",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
         "id": "p1",
         "midx": "00",
         "name": "GA",
@@ -814,6 +842,41 @@
         "midx": null,
         "name": "GA (Copy) (Copy) (Copy) (Copy)",
         "level": 2,
+        "enabled": true
+      },
+      {
+        "id": "g1775682749061",
+        "name": "Lugging",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775679054369",
+        "midx": "00",
+        "name": "EX-BKT-DIG-XD-060-WBM-00 (Lug GA)",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775679080676",
+        "midx": "00-01",
+        "name": "Lug MC",
+        "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1775679093496",
+        "midx": null,
+        "name": "Lug Plate",
+        "level": 2,
+        "enabled": true
+      },
+      {
+        "id": "g1775682790362",
+        "name": "Standard Parts",
+        "type": "group",
+        "level": 0,
         "enabled": true
       },
       {
@@ -941,33 +1004,12 @@
         "name": "Radial Wear Plate",
         "level": 1,
         "enabled": true
-      },
-      {
-        "id": "p1775679054369",
-        "midx": "00",
-        "name": "EX-BKT-DIG-XD-060-WBM-00 (Lug GA)",
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1775679080676",
-        "midx": "00-01",
-        "name": "Lug MC",
-        "level": 1,
-        "enabled": true
-      },
-      {
-        "id": "p1775679093496",
-        "midx": null,
-        "name": "Lug Plate",
-        "level": 2,
-        "enabled": true
       }
     ],
     "tab1775679963733": [
       {
         "id": "g1775682242227",
-        "name": "GA level",
+        "name": "GA Level",
         "type": "group",
         "level": 0,
         "enabled": true
@@ -976,13 +1018,6 @@
         "id": "p1",
         "midx": "00",
         "name": "GA",
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1770762899954",
-        "midx": null,
-        "name": "Body Weldment",
         "level": 0,
         "enabled": true
       },
@@ -1022,8 +1057,15 @@
         "enabled": true
       },
       {
+        "id": "p1770762899954",
+        "midx": "A",
+        "name": "Body Weldment",
+        "level": 0,
+        "enabled": true
+      },
+      {
         "id": "p1770762912068",
-        "midx": "D",
+        "midx": "B",
         "name": "Width Profile",
         "level": 0,
         "enabled": true
@@ -1108,9 +1150,16 @@
     ],
     "tab1775681477169": [
       {
+        "id": "g1775682493296",
+        "name": "GA Level",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
         "id": "p1",
         "midx": "00",
-        "name": "GA",
+        "name": "EX-BKT-CLU-XD-060-WBM-36-00",
         "level": 0,
         "enabled": true
       },
@@ -1143,22 +1192,57 @@
         "enabled": true
       },
       {
+        "id": "g1775682508089",
+        "name": "Lugging",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775679054369",
+        "midx": "00",
+        "name": "EX-BKT-DIG-XD-060-WBM-00 (Lug GA)",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775679080676",
+        "midx": "00-01",
+        "name": "Lug MC",
+        "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1775679093496",
+        "midx": null,
+        "name": "Lug Plate",
+        "level": 2,
+        "enabled": true
+      },
+      {
+        "id": "g1775682518705",
+        "name": "Standard Parts",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
         "id": "p2",
-        "midx": "B",
+        "midx": "A",
         "name": "(Tooth Weldment)",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762899954",
-        "midx": "C",
+        "midx": "B",
         "name": "Body Weldment",
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1770762912068",
-        "midx": "D",
+        "midx": "C",
         "name": "Width Profile",
         "level": 0,
         "enabled": true
@@ -1174,13 +1258,6 @@
         "id": "p1770762938928",
         "midx": null,
         "name": "Shell Plate",
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1770762944205",
-        "midx": null,
-        "name": "Strongback Plate",
         "level": 0,
         "enabled": true
       },
@@ -1266,27 +1343,6 @@
         "midx": null,
         "name": "Radial Wear Plate",
         "level": 1,
-        "enabled": true
-      },
-      {
-        "id": "p1775679054369",
-        "midx": "00",
-        "name": "EX-BKT-DIG-XD-060-WBM-00 (Lug GA)",
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1775679080676",
-        "midx": "00-01",
-        "name": "Lug MC",
-        "level": 1,
-        "enabled": true
-      },
-      {
-        "id": "p1775679093496",
-        "midx": null,
-        "name": "Lug Plate",
-        "level": 2,
         "enabled": true
       }
     ]
@@ -2288,13 +2344,6 @@
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
-      "p1770762944205": {
-        "f1770765683117": "STRBK PL-ATTACHMENT-DUTY-SIZE",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
       "p1770762956126": {
         "f1770765683117": "WEAR BAR ASSM{[-]}HOR{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
         "f1770765927726": "-",
@@ -2427,7 +2476,8 @@
         "f1770766964933": "-",
         "f1770766978429": "{CENTER_TO_CENTER#0.3: CC}",
         "f1770766992117": "-"
-      }
+      },
+      "g1775682508089": {}
     }
   },
   "master": {
@@ -4192,7 +4242,7 @@
     "tab1775681477169": []
   },
   "inventorMaps": {},
-  "activeClassId": "tab1775679963733",
+  "activeClassId": "tab1774978147622",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
@@ -4346,7 +4396,7 @@
       "p1770837371450": "MACHINE{[-]}CHWA{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}01-04 (NAME)"
     },
     "tab1774978147622": {
-      "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}IDX{[-]}TOOTH_QTY{[-]}TOOTH_TYPE",
+      "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (GA)",
       "p2": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}TOOTH_OEM{[-]}TOOTH_QTY{[-]}TOOTH_TYPE NAME",
       "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}BC (NAME)",
       "p1770762912068": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE (NAME)",
@@ -4393,13 +4443,12 @@
       "p1775679517835": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug Plate)"
     },
     "tab1775681477169": {
-      "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}IDX{[-]}{[-]}",
+      "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}IDX{[-]}{[-]} (GA)",
       "p2": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}{[-]}{[-]} NAME",
       "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}BC (NAME)",
       "p1770762912068": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE (NAME)",
       "p1770762928430": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
       "p1770762938928": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
-      "p1770762944205": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
       "p1770762956126": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
       "p1770762975793": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
       "p1770767898320": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}00 (NAME)",
@@ -4421,7 +4470,7 @@
       "p1775679093496": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug Plate)"
     }
   },
-  "activeRightTab": "config",
+  "activeRightTab": "parts",
   "lockedSections": {},
   "productClasses": [
     {
@@ -4457,7 +4506,7 @@
       "name": "Buckets (XDR) CLU"
     }
   ],
-  "selectedPartId": "g1775682242227",
+  "selectedPartId": "g1775682790362",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
