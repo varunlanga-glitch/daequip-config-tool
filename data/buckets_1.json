@@ -1576,9 +1576,9 @@
     "tab1774978147622": {
       "p1": {
         "f1770765683117": "ATTACHMENT-{[X]} DUTY HOOK-UP NAME CLASS-SIZE",
-        "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
+        "f1770765927726": "VOLUME{[ - ]}TOOTH_QTY TOOTH_TYPE",
         "f1770766964933": "-",
-        "f1770766978429": "{LUG_SPREAD#0.3: LS} - {CENTER_TO_CENTER#0.3: CC} - {BLADE_THK#0.3: X }{BLADE_ANGLE#0.1:°}",
+        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
         "f1770766992117": "-"
       },
       "p2": {
@@ -3354,7 +3354,7 @@
       "name": "Buckets (XDR) DIG"
     }
   ],
-  "selectedPartId": "p1775591138143",
+  "selectedPartId": "p1",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
