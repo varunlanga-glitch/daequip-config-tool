@@ -75,10 +75,16 @@ function resolveRule(template, partId) {
   const part    = parts[pIdx];
   if (!part) return '';
 
+  // Marker wrapping any non-empty variable substitution. Separators only
+  // survive if flanked by these markers, so a sep whose neighbouring variable
+  // is empty automatically disappears.
+  const VAR_MARK = '\uE010';
+  const wrap = v => (v === '' || v == null) ? '' : VAR_MARK + v + VAR_MARK;
+
   const idx = idxList[pIdx];
   let s = template
-    .replace(/\bIDX\b/g,  idx)
-    .replace(/\bNAME\b/g, part.name);
+    .replace(/\bIDX\b/g,  () => wrap(String(idx)))
+    .replace(/\bNAME\b/g, () => wrap(part.name || ''));
 
   // Replace conditional separator tokens with private-use placeholders so they
   // survive variable substitution intact and can be cleaned up at the end.
@@ -107,11 +113,13 @@ function resolveRule(template, partId) {
   const isSet = key => !BLANK_VALUES.includes((ctx[key.trim()] || '').trim());
   s = s.replace(/\{([^{}=?:]+)=([^{}:]+):([^{}]*)\}/g, (match, varName, expected, output) => {
     const val = (ctx[varName.trim()] || '').trim();
-    return val === expected.trim() ? output : '';
+    return val === expected.trim() ? wrap(output) : '';
   });
   s = s.replace(/\{([^{}=?:]+)\?([^{}]*)\}/g, (match, varNames, output) => {
-    if (varNames.includes('|')) return varNames.split('|').some(isSet)  ? output : '';
-    return varNames.split(',').every(isSet) ? output : '';
+    const ok = varNames.includes('|')
+      ? varNames.split('|').some(isSet)
+      : varNames.split(',').every(isSet);
+    return ok ? wrap(output) : '';
   });
 
   // {VAR#N:suffix}     → zero-pad integer to N digits and append suffix
@@ -142,7 +150,7 @@ function resolveRule(template, partId) {
     } else {
       formatted = String(Math.trunc(num)).padStart(w, '0');
     }
-    return formatted + (suffix || '');
+    return wrap(formatted + (suffix || ''));
   };
   // {VAR#N.D:suffix} (with optional decimals + suffix). Must run before the
   // shorter variants so it claims the more-specific syntax first.
@@ -168,7 +176,7 @@ function resolveRule(template, partId) {
       // that would mean a longer name (MPIN_OD must not match PIN_OD).
       const regex = new RegExp(`(?<![a-zA-Z_])${escaped}([a-zA-Z]*)\\b`, 'g');
       // If the context value is empty, emit nothing — don't append a bare unit suffix
-      s = s.replace(regex, (_, unit) => ctx[key] ? ctx[key] + unit : '');
+      s = s.replace(regex, (_, unit) => ctx[key] ? wrap(ctx[key] + unit) : '');
     });
 
   // Evaluate math expressions wrapped in parentheses, e.g. (70/25.4) → "2.7559"
@@ -178,14 +186,51 @@ function resolveRule(template, partId) {
   });
 
   // Resolve conditional separator placeholders.
-  // Any run of 2+ consecutive placeholders means the field(s) between them were
-  // empty, so collapse them to a single placeholder (the first in the run).
-  s = s.replace(/([\uE001\uE002\uE003\uE004])[\uE001\uE002\uE003\uE004]*/g, '$1');
-  // Strip a stray placeholder at the very start or end of the result.
-  s = s.replace(/^[\uE001\uE002\uE003\uE004]/, '').replace(/[\uE001\uE002\uE003\uE004]$/, '');
-  // Expand to actual characters.
-  s = s.replace(/\uE001/g, '-').replace(/\uE002/g, 'X')
-       .replace(/\uE003/g, ' - ').replace(/\uE004/g, ' X ');
+  // A separator only survives if it is flanked on BOTH sides by a VAR_MARK,
+  // meaning a non-empty variable value was substituted on each side. Adjacent
+  // whitespace and other sep placeholders are skipped so chains like
+  // {A}{[-]}{B}{[-]}{C} collapse cleanly when one variable is empty.
+  const SEP_RE = /[\uE001\uE002\uE003\uE004]/;
+  const isSkip = ch => ch === ' ' || SEP_RE.test(ch);
+  const sepKept = new Array(s.length).fill(false);
+  for (let i = 0; i < s.length; i++) {
+    if (!SEP_RE.test(s[i])) continue;
+    let L = i - 1;
+    while (L >= 0 && isSkip(s[L])) L--;
+    let R = i + 1;
+    while (R < s.length && isSkip(s[R])) R++;
+    if (L >= 0 && s[L] === VAR_MARK && R < s.length && s[R] === VAR_MARK) {
+      sepKept[i] = true;
+    }
+  }
+  // Collapse runs: among consecutive kept seps, keep only the first.
+  let prevKept = false;
+  for (let i = 0; i < s.length; i++) {
+    if (sepKept[i]) {
+      if (prevKept) sepKept[i] = false;
+      else prevKept = true;
+    } else if (!isSkip(s[i]) && s[i] !== VAR_MARK) {
+      prevKept = false;
+    } else if (SEP_RE.test(s[i])) {
+      // dropped sep — keep prevKept state unchanged
+    }
+  }
+  // Rebuild the string, dropping non-kept sep placeholders and var markers.
+  let out = '';
+  for (let i = 0; i < s.length; i++) {
+    const ch = s[i];
+    if (ch === VAR_MARK) continue;
+    if (SEP_RE.test(ch)) {
+      if (!sepKept[i]) continue;
+      if      (ch === '\uE001') out += '-';
+      else if (ch === '\uE002') out += 'X';
+      else if (ch === '\uE003') out += ' - ';
+      else if (ch === '\uE004') out += ' X ';
+      continue;
+    }
+    out += ch;
+  }
+  s = out;
 
   // Strip leading/trailing " - " separators that arise when the first or last
   // field in a prefix-separator chain is absent.
