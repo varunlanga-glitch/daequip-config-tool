@@ -105,6 +105,27 @@
         "name": "Lifting Eye Plate",
         "level": 0,
         "enabled": true
+      },
+      {
+        "id": "p1775679429721",
+        "midx": "00",
+        "name": "(Lug GA)",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775679516021",
+        "midx": null,
+        "name": "(Lug GA) (Copy)",
+        "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1775679517835",
+        "midx": null,
+        "name": "(Lug GA) (Copy) (Copy)",
+        "level": 2,
+        "enabled": true
       }
     ],
     "tab1770826801156": [
@@ -1131,7 +1152,23 @@
         "f1770765683117": "CHEEK PL{[-]}ATTACHMENT{[-]}DUTY{[-]}LH"
       },
       "p1770767958952": {
-        "f1770765683117": "LIFTING EYE PL{[-]}ATTACHMENT{[-]}DUTY"
+        "f1770765683117": "LIFTING EYE PL{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775679429721": {
+        "f1770765683117": "LUG GA-ATTACHMENT{[-]}DUTY{[-]}LUGGING CLASS",
+        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}CENTER_TO_CENTER"
+      },
+      "p1775679516021": {
+        "f1770765683117": "LUG MC-ATTACHMENT{[-]}DUTY{[-]}LUGGING CLASS",
+        "f1770766978429": "{CENTER_TO_CENTER#0.3: CC}"
+      },
+      "p1775679517835": {
+        "f1770765683117": "LUG PL-ATTACHMENT{[-]}DUTY{[-]}LUGGING CLASS",
+        "f1770766978429": "{CENTER_TO_CENTER#0.3: CC}"
       }
     },
     "tab1770826801156": {
@@ -3049,7 +3086,7 @@
       "VOLUME": "0.75 CUYD",
       "HOOK-UP": "QCL",
       "LUGGING": "WBM",
-      "SUBTYPE": "CLU",
+      "SUBTYPE": "DIG",
       "CLASS_NO": "250",
       "BLADE_THK": "1.250",
       "TOOTH_QTY": "2",
@@ -3192,7 +3229,7 @@
     "tab1774978147622": []
   },
   "inventorMaps": {},
-  "activeClassId": "tab1774978147622",
+  "activeClassId": "buckets",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
@@ -3209,7 +3246,10 @@
       "p1770767931018": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-02 (NAME)",
       "p1770767938206": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-03 (NAME)",
       "p1770767948898": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-04 (NAME)",
-      "p1770767958952": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-05 (NAME)"
+      "p1770767958952": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-05 (NAME)",
+      "p1775679429721": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug GA)",
+      "p1775679516021": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug MC)",
+      "p1775679517835": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug Plate)"
     },
     "tab1770826801156": {
       "p1": "MACHINE{[-]}ATTACHMENT{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}00 (NAME)",
@@ -3399,7 +3439,7 @@
       "name": "Buckets (XDR) DIG"
     }
   ],
-  "selectedPartId": "p1775679054369",
+  "selectedPartId": "p1775679429721",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
