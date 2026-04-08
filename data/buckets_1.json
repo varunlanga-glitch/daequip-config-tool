@@ -920,6 +920,27 @@
         "name": "Radial Wear Plate",
         "level": 1,
         "enabled": true
+      },
+      {
+        "id": "p1775679054369",
+        "midx": "00",
+        "name": "EX-BKT-DIG-XD-060-WBM-00 (Lug GA)",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775679080676",
+        "midx": "00-01",
+        "name": "Lug MC",
+        "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1775679093496",
+        "midx": null,
+        "name": "Lug Plate",
+        "level": 2,
+        "enabled": true
       }
     ]
   },
@@ -1727,6 +1748,27 @@
       },
       "p1775592003600": {
         "f1770765683117": "RAD WEAR PL{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775679054369": {
+        "f1770765683117": "LUG GA{[-]}ATTACHMENT{[-]}DUTY{[-]}LUGGING CLASS",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775679080676": {
+        "f1770765683117": "LUG MC{[-]}ATTACHMENT{[-]}DUTY{[-]}LUGGING CLASS",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775679093496": {
+        "f1770765683117": "LUG PL{[-]}ATTACHMENT{[-]}DUTY{[-]}LUGGING CLASS",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
@@ -3150,7 +3192,7 @@
     "tab1774978147622": []
   },
   "inventorMaps": {},
-  "activeClassId": "buckets",
+  "activeClassId": "tab1774978147622",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
@@ -3323,7 +3365,10 @@
       "p1775591549394": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX (Strongback-Plate)",
       "p1775591792870": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}01 (NAME)",
       "p1775591947621": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}07 (NAME)",
-      "p1775592003600": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}07-01 (NAME)"
+      "p1775592003600": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}07-01 (NAME)",
+      "p1775679093496": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug Plate)",
+      "p1775679054369": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug GA)",
+      "p1775679080676": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING-IDX (Lug MC)"
     }
   },
   "activeRightTab": "rules",
@@ -3354,7 +3399,7 @@
       "name": "Buckets (XDR) DIG"
     }
   ],
-  "selectedPartId": "p1",
+  "selectedPartId": "p1775679054369",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
