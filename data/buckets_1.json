@@ -3,8 +3,8 @@
     "buckets": [
       {
         "id": "g1775682307162",
+        "midx": null,
         "name": "GA Level",
-        "type": "group",
         "level": 0,
         "enabled": true
       },
@@ -24,8 +24,8 @@
       },
       {
         "id": "g1775682325590",
+        "midx": null,
         "name": "Lugging",
-        "type": "group",
         "level": 0,
         "enabled": true
       },
@@ -52,8 +52,8 @@
       },
       {
         "id": "g1775682374357",
+        "midx": null,
         "name": "Standard Parts",
-        "type": "group",
         "level": 0,
         "enabled": true
       },
@@ -804,8 +804,8 @@
     "tab1774978147622": [
       {
         "id": "g1775682672203",
+        "midx": null,
         "name": "GA Level",
-        "type": "group",
         "level": 0,
         "enabled": true
       },
@@ -846,8 +846,8 @@
       },
       {
         "id": "g1775682749061",
+        "midx": null,
         "name": "Lugging",
-        "type": "group",
         "level": 0,
         "enabled": true
       },
@@ -874,8 +874,8 @@
       },
       {
         "id": "g1775682790362",
+        "midx": null,
         "name": "Standard Parts",
-        "type": "group",
         "level": 0,
         "enabled": true
       },
@@ -1008,7 +1008,7 @@
     ],
     "tab1775679963733": [
       {
-        "id": "g1775682242227",
+        "id": "g1775683277881",
         "name": "GA Level",
         "type": "group",
         "level": 0,
@@ -1022,35 +1022,7 @@
         "enabled": true
       },
       {
-        "id": "g1775682182924",
-        "name": "Lugging",
-        "type": "group",
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1775679429721",
-        "midx": null,
-        "name": "(Lug GA)",
-        "level": 1,
-        "enabled": true
-      },
-      {
-        "id": "p1775679516021",
-        "midx": null,
-        "name": "(Lug GA) (Copy)",
-        "level": 1,
-        "enabled": true
-      },
-      {
-        "id": "p1775679517835",
-        "midx": null,
-        "name": "(Lug GA) (Copy) (Copy)",
-        "level": 2,
-        "enabled": true
-      },
-      {
-        "id": "g1775682133408",
+        "id": "g1775683309366",
         "name": "Standard Parts",
         "type": "group",
         "level": 0,
@@ -1059,7 +1031,7 @@
       {
         "id": "p1770762899954",
         "midx": "A",
-        "name": "Body Weldment",
+        "name": "(Body-Weldment)",
         "level": 0,
         "enabled": true
       },
@@ -1151,8 +1123,8 @@
     "tab1775681477169": [
       {
         "id": "g1775682493296",
+        "midx": null,
         "name": "GA Level",
-        "type": "group",
         "level": 0,
         "enabled": true
       },
@@ -1193,8 +1165,8 @@
       },
       {
         "id": "g1775682508089",
+        "midx": null,
         "name": "Lugging",
-        "type": "group",
         "level": 0,
         "enabled": true
       },
@@ -1221,8 +1193,8 @@
       },
       {
         "id": "g1775682518705",
+        "midx": null,
         "name": "Standard Parts",
-        "type": "group",
         "level": 0,
         "enabled": true
       },
@@ -2290,18 +2262,6 @@
         "f1770766964933": "-",
         "f1770766978429": "-",
         "f1770766992117": "-"
-      },
-      "p1775679429721": {
-        "f1770765683117": "LUG GA-ATTACHMENT{[-]}DUTY{[-]}LUGGING CLASS",
-        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}CENTER_TO_CENTER"
-      },
-      "p1775679516021": {
-        "f1770765683117": "LUG MC-ATTACHMENT{[-]}DUTY{[-]}LUGGING CLASS",
-        "f1770766978429": "{CENTER_TO_CENTER#0.3: CC}"
-      },
-      "p1775679517835": {
-        "f1770765683117": "LUG PL-ATTACHMENT{[-]}DUTY{[-]}LUGGING CLASS",
-        "f1770766978429": "{CENTER_TO_CENTER#0.3: CC}"
       }
     },
     "tab1775681477169": {
@@ -2476,8 +2436,7 @@
         "f1770766964933": "-",
         "f1770766978429": "{CENTER_TO_CENTER#0.3: CC}",
         "f1770766992117": "-"
-      },
-      "g1775682508089": {}
+      }
     }
   },
   "master": {
@@ -4242,7 +4201,7 @@
     "tab1775681477169": []
   },
   "inventorMaps": {},
-  "activeClassId": "tab1774978147622",
+  "activeClassId": "tab1775679963733",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
@@ -4425,7 +4384,7 @@
     },
     "tab1775679963733": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE-IDX (GA)",
-      "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BC (NAME)",
+      "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE NAME",
       "p1770762912068": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE (NAME)",
       "p1770762928430": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
       "p1770762938928": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
@@ -4437,10 +4396,7 @@
       "p1770767931018": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-02 (NAME)",
       "p1770767938206": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-03 (NAME)",
       "p1770767948898": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-04 (NAME)",
-      "p1770767958952": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-05 (NAME)",
-      "p1775679429721": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug GA)",
-      "p1775679516021": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug MC)",
-      "p1775679517835": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug Plate)"
+      "p1770767958952": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-05 (NAME)"
     },
     "tab1775681477169": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}IDX{[-]}{[-]} (GA)",
@@ -4506,7 +4462,7 @@
       "name": "Buckets (XDR) CLU"
     }
   ],
-  "selectedPartId": "g1775682790362",
+  "selectedPartId": "g1775683309366",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
