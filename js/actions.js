@@ -154,6 +154,39 @@ window.addPart = (type = 'component') => {
   }, 50);
 };
 
+window.addGroup = () => {
+  const parts = getActiveParts();
+  const newId = 'g' + Date.now();
+  parts.push({ id: newId, name: 'Group', type: 'group', level: 0, enabled: true });
+  State.selectedPartId = newId;
+  markDirty();
+  renderAll();
+  setTimeout(() => {
+    const el = document.getElementById(`part-name-${newId}`);
+    if (!el) return;
+    const input = document.createElement('input');
+    input.value = 'Group'; input.className = 'combo';
+    input.style.cssText = 'flex:1;font-size:13px';
+    el.replaceWith(input); input.focus(); input.select();
+    const save = () => {
+      const val = input.value.trim();
+      const part = getActiveParts().find(p => p.id === newId);
+      if (part && val) part.name = val;
+      renderAll();
+    };
+    input.onblur = save;
+    input.onkeydown = e => {
+      if (e.key === 'Enter') { input.onblur = null; save(); }
+      if (e.key === 'Escape') {
+        input.onblur = null;
+        State.parts[State.activeClassId] = getActiveParts().filter(p => p.id !== newId);
+        State.selectedPartId = null;
+        renderAll();
+      }
+    };
+  }, 50);
+};
+
 window.deletePart = id => {
   const part = getActiveParts().find(p => p.id === id);
   showConfirm(
@@ -182,6 +215,7 @@ window.indentPart = id => {
   const parts = getActiveParts();
   const idx   = parts.findIndex(p => p.id === id);
   if (idx <= 0) return;
+  if (parts[idx]?.type === 'group') return;
 
   const part       = parts[idx];
   const currentLvl = part.level || 0;
@@ -209,7 +243,7 @@ window.indentPart = id => {
  */
 window.outdentPart = id => {
   const part = getActiveParts().find(p => p.id === id);
-  if (!part || (part.level || 0) === 0) return;
+  if (!part || part.type === 'group' || (part.level || 0) === 0) return;
 
   part.level = (part.level || 0) - 1;
   part.midx  = null;
