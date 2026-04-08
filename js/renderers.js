@@ -408,6 +408,19 @@ function renderGrid() {
 
   body.innerHTML = '';
   parts.forEach((p, i) => {
+    // Group separator — full-width header row
+    if (p.type === 'group') {
+      const tr = document.createElement('tr');
+      tr.className = 'grid-group-header';
+      const td = document.createElement('td');
+      td.className = 'grid-group-header-cell';
+      td.colSpan = 1 + visProps.length;
+      td.textContent = p.name;
+      tr.appendChild(td);
+      body.appendChild(tr);
+      return;
+    }
+
     if (p.enabled === false) return;  // disabled parts hidden from grid
 
     const tr = document.createElement('tr');
@@ -511,6 +524,7 @@ function renderPartList() {
     <div class="tree-controls">
       <button class="btn primary" onclick="addPart('component')" title="Add main component">+ Component</button>
       <button class="btn" onclick="addPart('subcomponent')" title="Add sub-component" style="background:rgba(43,108,176,0.04)">+ Sub-Component</button>
+      <button class="btn btn-group-add" onclick="addGroup()" title="Add group separator">+ Group</button>
     </div>
     <div class="parts-hint">Drag to reorder &nbsp;·&nbsp; Use <kbd>⇥</kbd> <kbd>⇤</kbd> to indent/outdent</div>`;
 
@@ -521,6 +535,45 @@ function renderPartList() {
   const idxList = calculateIndices();
 
   getActiveParts().forEach((p, i) => {
+    // Group separator row
+    if (p.type === 'group') {
+      const div = document.createElement('div');
+      div.className = 'tree-item tree-item-group' + (p.id === State.selectedPartId ? ' selected' : '');
+      div.draggable = true;
+      div.dataset.partId    = p.id;
+      div.dataset.partIdx   = String(i);
+      div.dataset.partLevel = '0';
+
+      const dragHandle = document.createElement('span');
+      dragHandle.className = 'drag-handle';
+      dragHandle.innerHTML = '&#8942;&#8942;';
+      dragHandle.title = 'Drag to reorder group';
+
+      const label = document.createElement('span');
+      label.className = 'node-name group-label';
+      label.dataset.edit = 'partName';
+      label.dataset.id   = p.id;
+      label.textContent  = p.name;
+      label.id = `part-name-${p.id}`;
+
+      const delBtn = document.createElement('button');
+      delBtn.className = 'btn danger';
+      delBtn.innerHTML = '&times;';
+      delBtn.title = 'Delete group';
+      delBtn.onclick = e => { e.stopPropagation(); deletePart(p.id); };
+
+      div.appendChild(dragHandle);
+      div.appendChild(label);
+      div.appendChild(delBtn);
+      div.onclick = e => {
+        if (!e.target.dataset.edit && !e.target.closest('button')) {
+          State.selectedPartId = p.id; renderAll();
+        }
+      };
+      listWrap.appendChild(div);
+      return;
+    }
+
     const lvl = p.level || 0;
     const isDisabled = p.enabled === false;
     const div = document.createElement('div');

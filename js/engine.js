@@ -17,6 +17,9 @@ function calculateIndices() {
   const prefixes = [];   // prefixes[level] = full index string of the last part at that level
 
   parts.forEach(p => {
+    // Group separators reset all counters so each group starts fresh at 01
+    if (p.type === 'group') { results.push(''); counters.length = 0; prefixes.length = 0; return; }
+
     // Disabled parts get no index and don't consume a counter slot
     if (p.enabled === false) { results.push(''); return; }
 
