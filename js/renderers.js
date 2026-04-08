@@ -1559,13 +1559,18 @@ function _wireTokenAutocomplete(textarea, palette, propId) {
     return m ? m[0].toUpperCase() : '';
   };
 
-  /* Replace the current partial word with `token` then update live preview */
+  /* Insert `token` at the cursor. If the user is mid-typing a partial word
+   * that the token actually completes (e.g. typed "MACH" and clicked
+   * MACHINE_TYPE), the partial is consumed; otherwise the token is inserted
+   * raw so existing content is never deleted. */
   const insertToken = token => {
     const pos    = textarea.selectionStart;
     const before = textarea.value.substring(0, pos);
     const after  = textarea.value.substring(pos);
     const word   = getCurrentWord();
-    const newBefore = before.substring(0, before.length - word.length) + token;
+    const completes = word && token.toUpperCase().startsWith(word);
+    const consume = completes ? word.length : 0;
+    const newBefore = before.substring(0, before.length - consume) + token;
     textarea.value  = newBefore + after;
     const newPos    = newBefore.length;
     textarea.setSelectionRange(newPos, newPos);
