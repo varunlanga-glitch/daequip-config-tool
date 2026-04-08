@@ -187,6 +187,25 @@ window.addGroup = () => {
   }, 50);
 };
 
+window.convertToGroup = id => {
+  const part = getActiveParts().find(p => p.id === id);
+  if (!part) return;
+  part.type    = 'group';
+  part.level   = 0;
+  part.midx    = null;
+  part.enabled = true;
+  markDirty();
+  renderAll();
+};
+
+window.convertToPart = id => {
+  const part = getActiveParts().find(p => p.id === id);
+  if (!part) return;
+  delete part.type;
+  markDirty();
+  renderAll();
+};
+
 window.deletePart = id => {
   const part = getActiveParts().find(p => p.id === id);
   showConfirm(

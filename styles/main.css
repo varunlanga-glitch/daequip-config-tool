@@ -1462,6 +1462,22 @@ tr:hover .cell-filepick-btn {
 }
 .btn-group-add:hover { background: rgba(43,108,176,0.18); }
 
+/* ── Part ↔ Group convert button ───────────────────────── */
+.part-convert-btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+  font-size: 13px;
+  line-height: 1;
+  padding: 2px 5px;
+  color: var(--muted, #999);
+}
+.tree-item:hover .part-convert-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+.part-convert-btn:hover { color: #2b6cb0; }
+
 /* ── Group header row: centre grid ─────────────────────── */
 tr.grid-group-header td.grid-group-header-cell {
   background: #ebf4ff;
