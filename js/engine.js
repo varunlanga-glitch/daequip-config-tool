@@ -75,16 +75,16 @@ function resolveRule(template, partId) {
   const part    = parts[pIdx];
   if (!part) return '';
 
-  // Marker wrapping any non-empty variable substitution. Separators only
-  // survive if flanked by these markers, so a sep whose neighbouring variable
-  // is empty automatically disappears.
-  const VAR_MARK = '\uE010';
-  const wrap = v => (v === '' || v == null) ? '' : VAR_MARK + v + VAR_MARK;
+  // EMPTY_MARK is emitted in place of any variable that resolved to no value.
+  // Separators dropped iff the segment they border has no real content (only
+  // whitespace + EMPTY_MARKs). Literal text is therefore always preserved.
+  const EMPTY_MARK = '\uE010';
+  const orEmpty = v => (v === '' || v == null) ? EMPTY_MARK : v;
 
   const idx = idxList[pIdx];
   let s = template
-    .replace(/\bIDX\b/g,  () => wrap(String(idx)))
-    .replace(/\bNAME\b/g, () => wrap(part.name || ''));
+    .replace(/\bIDX\b/g,  () => orEmpty(String(idx)))
+    .replace(/\bNAME\b/g, () => orEmpty(part.name || ''));
 
   // Replace conditional separator tokens with private-use placeholders so they
   // survive variable substitution intact and can be cleaned up at the end.
@@ -113,13 +113,13 @@ function resolveRule(template, partId) {
   const isSet = key => !BLANK_VALUES.includes((ctx[key.trim()] || '').trim());
   s = s.replace(/\{([^{}=?:]+)=([^{}:]+):([^{}]*)\}/g, (match, varName, expected, output) => {
     const val = (ctx[varName.trim()] || '').trim();
-    return val === expected.trim() ? wrap(output) : '';
+    return val === expected.trim() ? orEmpty(output) : EMPTY_MARK;
   });
   s = s.replace(/\{([^{}=?:]+)\?([^{}]*)\}/g, (match, varNames, output) => {
     const ok = varNames.includes('|')
       ? varNames.split('|').some(isSet)
       : varNames.split(',').every(isSet);
-    return ok ? wrap(output) : '';
+    return ok ? orEmpty(output) : EMPTY_MARK;
   });
 
   // {VAR#N:suffix}     → zero-pad integer to N digits and append suffix
@@ -131,7 +131,7 @@ function resolveRule(template, partId) {
   // getting mangled output (e.g. "3.75IN" used to become "375").
   const _formatNumeric = (varName, width, decimals, suffix) => {
     const raw = (ctx[varName.trim()] || '').trim();
-    if (!raw) return '';
+    if (!raw) return EMPTY_MARK;
     // The whole value must be numeric — partial matches like "3.75IN" used
     // to silently mangle into "375" or "3"; now we surface them as errors.
     // Note: we deliberately do NOT include the var key in the sentinel
@@ -150,7 +150,7 @@ function resolveRule(template, partId) {
     } else {
       formatted = String(Math.trunc(num)).padStart(w, '0');
     }
-    return wrap(formatted + (suffix || ''));
+    return formatted + (suffix || '');
   };
   // {VAR#N.D:suffix} (with optional decimals + suffix). Must run before the
   // shorter variants so it claims the more-specific syntax first.
@@ -175,8 +175,9 @@ function resolveRule(template, partId) {
       // variable (e.g. 0PIN_OD → 045) while still rejecting a leading letter
       // that would mean a longer name (MPIN_OD must not match PIN_OD).
       const regex = new RegExp(`(?<![a-zA-Z_])${escaped}([a-zA-Z]*)\\b`, 'g');
-      // If the context value is empty, emit nothing — don't append a bare unit suffix
-      s = s.replace(regex, (_, unit) => ctx[key] ? wrap(ctx[key] + unit) : '');
+      // If the context value is empty, drop a marker so the conditional sep
+      // pass knows the slot was a variable that resolved to nothing.
+      s = s.replace(regex, (_, unit) => ctx[key] ? ctx[key] + unit : EMPTY_MARK);
     });
 
   // Evaluate math expressions wrapped in parentheses, e.g. (70/25.4) → "2.7559"
@@ -186,49 +187,33 @@ function resolveRule(template, partId) {
   });
 
   // Resolve conditional separator placeholders.
-  // A separator only survives if it is flanked on BOTH sides by a VAR_MARK,
-  // meaning a non-empty variable value was substituted on each side. Adjacent
-  // whitespace and other sep placeholders are skipped so chains like
-  // {A}{[-]}{B}{[-]}{C} collapse cleanly when one variable is empty.
-  const SEP_RE = /[\uE001\uE002\uE003\uE004]/;
-  const isSkip = ch => ch === ' ' || SEP_RE.test(ch);
-  const sepKept = new Array(s.length).fill(false);
-  for (let i = 0; i < s.length; i++) {
-    if (!SEP_RE.test(s[i])) continue;
-    let L = i - 1;
-    while (L >= 0 && isSkip(s[L])) L--;
-    let R = i + 1;
-    while (R < s.length && isSkip(s[R])) R++;
-    if (L >= 0 && s[L] === VAR_MARK && R < s.length && s[R] === VAR_MARK) {
-      sepKept[i] = true;
-    }
+  // Split the string into segments at every sep placeholder. A segment is
+  // "empty" if it contains only whitespace and EMPTY_MARK chars (i.e. every
+  // variable in it resolved to nothing). We then walk segments left-to-right
+  // and emit each non-empty segment, joining consecutive non-empty segments
+  // with the first sep that originally separated them. Empty segments are
+  // skipped, and any sep adjacent only to empty segments disappears.
+  const SEP_CHAR = { '\uE001': '-', '\uE002': 'X', '\uE003': ' - ', '\uE004': ' X ' };
+  const SEP_GLOBAL = /[\uE001\uE002\uE003\uE004]/g;
+  const segments = [];
+  const sepBetween = [];
+  let lastIdx = 0;
+  let mSep;
+  while ((mSep = SEP_GLOBAL.exec(s)) !== null) {
+    segments.push(s.slice(lastIdx, mSep.index));
+    sepBetween.push(mSep[0]);
+    lastIdx = mSep.index + 1;
   }
-  // Collapse runs: among consecutive kept seps, keep only the first.
-  let prevKept = false;
-  for (let i = 0; i < s.length; i++) {
-    if (sepKept[i]) {
-      if (prevKept) sepKept[i] = false;
-      else prevKept = true;
-    } else if (!isSkip(s[i]) && s[i] !== VAR_MARK) {
-      prevKept = false;
-    } else if (SEP_RE.test(s[i])) {
-      // dropped sep — keep prevKept state unchanged
-    }
-  }
-  // Rebuild the string, dropping non-kept sep placeholders and var markers.
+  segments.push(s.slice(lastIdx));
+  const isEmptySeg = seg => /^[\s\uE010]*$/.test(seg);
+  const stripMarks = seg => seg.replace(/\uE010/g, '');
   let out = '';
-  for (let i = 0; i < s.length; i++) {
-    const ch = s[i];
-    if (ch === VAR_MARK) continue;
-    if (SEP_RE.test(ch)) {
-      if (!sepKept[i]) continue;
-      if      (ch === '\uE001') out += '-';
-      else if (ch === '\uE002') out += 'X';
-      else if (ch === '\uE003') out += ' - ';
-      else if (ch === '\uE004') out += ' X ';
-      continue;
-    }
-    out += ch;
+  let lastKept = -1;
+  for (let i = 0; i < segments.length; i++) {
+    if (isEmptySeg(segments[i])) continue;
+    if (lastKept >= 0) out += SEP_CHAR[sepBetween[lastKept]] || '';
+    out += stripMarks(segments[i]);
+    lastKept = i;
   }
   s = out;
 
