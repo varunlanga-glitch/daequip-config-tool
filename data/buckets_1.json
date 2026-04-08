@@ -966,6 +966,13 @@
     ],
     "tab1775679963733": [
       {
+        "id": "g1775682242227",
+        "name": "GA level",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
         "id": "p1",
         "midx": "00",
         "name": "GA",
@@ -976,7 +983,42 @@
         "id": "p1770762899954",
         "midx": null,
         "name": "Body Weldment",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "g1775682182924",
+        "name": "Lugging",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775679429721",
+        "midx": null,
+        "name": "(Lug GA)",
         "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1775679516021",
+        "midx": null,
+        "name": "(Lug GA) (Copy)",
+        "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1775679517835",
+        "midx": null,
+        "name": "(Lug GA) (Copy) (Copy)",
+        "level": 2,
+        "enabled": true
+      },
+      {
+        "id": "g1775682133408",
+        "name": "Standard Parts",
+        "type": "group",
+        "level": 0,
         "enabled": true
       },
       {
@@ -1061,27 +1103,6 @@
         "midx": null,
         "name": "Lifting Eye Plate",
         "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1775679429721",
-        "midx": "00",
-        "name": "(Lug GA)",
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1775679516021",
-        "midx": null,
-        "name": "(Lug GA) (Copy)",
-        "level": 1,
-        "enabled": true
-      },
-      {
-        "id": "p1775679517835",
-        "midx": null,
-        "name": "(Lug GA) (Copy) (Copy)",
-        "level": 2,
         "enabled": true
       }
     ],
@@ -4436,7 +4457,7 @@
       "name": "Buckets (XDR) CLU"
     }
   ],
-  "selectedPartId": null,
+  "selectedPartId": "g1775682242227",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
