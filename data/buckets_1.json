@@ -194,6 +194,13 @@
     ],
     "tab1770826801156": [
       {
+        "id": "g1775851749603",
+        "name": "Machine Specific",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
         "id": "p1",
         "midx": "A",
         "name": "GA",
@@ -206,6 +213,13 @@
         "midx": "B",
         "name": "Body-Hub Weldment",
         "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "g1775851731533",
+        "name": "Standard Parts",
+        "type": "group",
         "level": 0,
         "enabled": true
       },
@@ -284,6 +298,13 @@
     ],
     "tab1770838553711": [
       {
+        "id": "g1775851554114",
+        "name": "Machine Specific",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
         "id": "p1",
         "midx": "A",
         "name": "GA",
@@ -329,6 +350,13 @@
         "name": "Hub-Rear-Left",
         "type": null,
         "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "g1775851499374",
+        "name": "Standard Parts",
+        "type": "group",
+        "level": 0,
         "enabled": true
       },
       {
@@ -502,6 +530,13 @@
     ],
     "tab1770838629859": [
       {
+        "id": "g1775851695773",
+        "name": "Machine Specific",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
         "id": "p1",
         "midx": "A",
         "name": "GA",
@@ -547,6 +582,13 @@
         "name": "Hub-Rear-Left",
         "type": null,
         "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "g1775851710771",
+        "name": "Standard Parts",
+        "type": "group",
+        "level": 0,
         "enabled": true
       },
       {
@@ -2315,7 +2357,8 @@
         "f1770765683117": "LUG PL-ATTACHMENT-DUTY{[-]}LUGGING  CLASS",
         "f1770765927726": "-",
         "f1770766964933": "-",
-        "f1770766978429": "-"
+        "f1770766978429": "-",
+        "f1770766992117": "-"
       },
       "p1775843844835": {
         "f1770765683117": "LUG GA-ATTACHMENT-DUTY{[-]}LUGGING CLASS",
@@ -2340,6 +2383,20 @@
       },
       "p1775844271974": {
         "f1770765683117": "TOP SHELL PL-ATTACHMENT{[-]}DUTY{[-]}SIZE",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775844236383": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775843850782": {
+        "f1770765683117": "-",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
@@ -2659,6 +2716,13 @@
       },
       "p1770838969693": {
         "f1770765683117": "MID BASE PL-CPLR-HWA-LUGGING",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775851499374": {
+        "f1770765683117": "-",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
@@ -3292,6 +3356,13 @@
         "f1770766964933": "-",
         "f1770766978429": "-",
         "f1770766992117": "-"
+      },
+      "g1775843432943": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
       }
     },
     "tab1775679963733": {
@@ -3915,6 +3986,20 @@
         "f1770766964933": "-",
         "f1770766978429": "-",
         "f1770766992117": "-"
+      },
+      "g1775846149475": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775846666159": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
       }
     }
   },
@@ -4281,6 +4366,13 @@
           "26°"
         ],
         "label": "WEDGE ANGLE"
+      },
+      {
+        "key": "ATTACHMENT",
+        "label": "ATTACHMENT",
+        "vals": [
+          "CMW"
+        ]
       }
     ],
     "tab1770838553711": [
@@ -6385,7 +6477,8 @@
       "WEDGE_BAR_WIDTH": "2.000",
       "CENTER_TO_CENTER": "16.250",
       "WEDGE_BAR_HEIGHT": "2.000",
-      "WEDGE_BAR_LENGTH": "26.000"
+      "WEDGE_BAR_LENGTH": "26.000",
+      "ATTACHMENT": "CMW"
     },
     "tab1770838553711": {
       "PINS": "FRONT AND REAR PINS REQUIRED",
@@ -6633,7 +6726,7 @@
     "tab1775846066229": {},
     "tab1775846093984": {}
   },
-  "activeClassId": "tab1775846093984",
+  "activeClassId": "tab1770826801156",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
@@ -6658,7 +6751,9 @@
       "p1775843900104": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX NAME",
       "p1775843916572": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX NAME",
       "p1775844252170": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE DUTY{[-]}CLASS_NO{[-]}IDX NAME",
-      "p1775844271974": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE DUTY{[-]}CLASS_NO{[-]}IDX NAME"
+      "p1775844271974": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE DUTY{[-]}CLASS_NO{[-]}IDX NAME",
+      "g1775844236383": "-",
+      "g1775843850782": "-"
     },
     "tab1770826801156": {
       "p1": "MACHINE{[-]}ATTACHMENT{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}00 (NAME)",
@@ -6715,7 +6810,8 @@
       "p1770837371450": "MACHINE-CHW-SUBTYPE-DUTY-CLASS_NO-LUGGING-MODEL-01-04 (NAME)",
       "p1770838910007": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770838933503": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770838969693": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)"
+      "p1770838969693": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
+      "g1775851499374": "-"
     },
     "tab1770838629859": {
       "p1": "MACHINE-CHWA-CLASS_NO-LUGGING-MODEL-00 (NAME)",
@@ -6820,7 +6916,8 @@
       "g1775682672203": "-",
       "g1775682790362": "-",
       "g1775682749061": "-",
-      "p1775843543329": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME"
+      "p1775843543329": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME",
+      "g1775843432943": "-"
     },
     "tab1775679963733": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE-IDX (GA)",
@@ -6921,10 +7018,12 @@
       "p1775846571880": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE NAME",
       "p1775846707341": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX NAME",
       "p1775846680831": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX NAME",
-      "p1775846728641": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX NAME"
+      "p1775846728641": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX NAME",
+      "g1775846149475": "-",
+      "g1775846666159": "-"
     }
   },
-  "activeRightTab": "rules",
+  "activeRightTab": "parts",
   "lockedSections": {},
   "productClasses": [
     {
@@ -6980,7 +7079,7 @@
       "name": "Buckets (XDX) DIG"
     }
   ],
-  "selectedPartId": "p1775846707341",
+  "selectedPartId": "g1775851749603",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
