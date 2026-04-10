@@ -5,14 +5,15 @@
         "id": "g1775682307162",
         "midx": null,
         "name": "GA Level",
+        "type": "group",
         "level": 0,
-        "enabled": true,
-        "type": "group"
+        "enabled": true
       },
       {
         "id": "p1",
         "midx": "A",
         "name": "GA",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -20,21 +21,7 @@
         "id": "g1775682374357",
         "midx": null,
         "name": "Standard Parts",
-        "level": 0,
-        "enabled": true,
-        "type": "group"
-      },
-      {
-        "id": "p2",
-        "midx": "A",
-        "name": "Tooth Weldment",
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1770762899954",
-        "midx": "B",
-        "name": "Body Weldment",
+        "type": "group",
         "level": 0,
         "enabled": true
       },
@@ -42,6 +29,7 @@
         "id": "p1770762912068",
         "midx": "C",
         "name": "Width Profile",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -49,6 +37,7 @@
         "id": "p1770762928430",
         "midx": "00",
         "name": "Capacity",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -56,6 +45,7 @@
         "id": "p1770762938928",
         "midx": null,
         "name": "Shell Plate",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -63,6 +53,7 @@
         "id": "p1770762944205",
         "midx": null,
         "name": "Strongback Plate",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -70,6 +61,7 @@
         "id": "p1770762956126",
         "midx": null,
         "name": "Wear Bar Assm",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -77,6 +69,7 @@
         "id": "p1770762975793",
         "midx": null,
         "name": "Wear Bar",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -84,6 +77,7 @@
         "id": "p1770767898320",
         "midx": null,
         "name": "Profile Sketch",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -91,6 +85,7 @@
         "id": "p1770767923264",
         "midx": null,
         "name": "Side Edge Plate",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -98,6 +93,7 @@
         "id": "p1770767931018",
         "midx": null,
         "name": "Side Plate",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -105,6 +101,7 @@
         "id": "p1770767938206",
         "midx": null,
         "name": "Cheek Plate-RH",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -112,6 +109,7 @@
         "id": "p1770767948898",
         "midx": null,
         "name": "Cheek Plate-LH",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -119,6 +117,15 @@
         "id": "p1770767958952",
         "midx": null,
         "name": "Lifting Eye Plate",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770762899954",
+        "midx": "B",
+        "name": "Body Weldment",
+        "type": null,
         "level": 0,
         "enabled": true
       }
@@ -128,6 +135,7 @@
         "id": "p1",
         "midx": "A",
         "name": "GA",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -135,6 +143,7 @@
         "id": "p1770762899954",
         "midx": "B",
         "name": "Body-Hub Weldment",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -142,6 +151,7 @@
         "id": "p1770767898320",
         "midx": "00",
         "name": "Profile Sketch",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -149,6 +159,7 @@
         "id": "p1770762912068",
         "midx": "01",
         "name": "Body Weldment",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -156,6 +167,7 @@
         "id": "p1770762928430",
         "midx": null,
         "name": "Side Plate MC",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -163,6 +175,7 @@
         "id": "p1770762938928",
         "midx": null,
         "name": "Side Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -170,6 +183,7 @@
         "id": "p1770762944205",
         "midx": null,
         "name": "Front Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -177,6 +191,7 @@
         "id": "p1770762956126",
         "midx": null,
         "name": "Bolt Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -184,6 +199,7 @@
         "id": "p1770762975793",
         "midx": null,
         "name": "Rear Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -191,6 +207,7 @@
         "id": "p1770767923264",
         "midx": null,
         "name": "Wedge Bar MC",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -198,6 +215,7 @@
         "id": "p1770767931018",
         "midx": null,
         "name": "Wedge Bar",
+        "type": null,
         "level": 1,
         "enabled": true
       }
@@ -207,6 +225,7 @@
         "id": "p1",
         "midx": "A",
         "name": "GA",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -214,6 +233,7 @@
         "id": "p1770762899954",
         "midx": "B",
         "name": "Body-Hub Weldment",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -221,6 +241,7 @@
         "id": "p1770837330352",
         "midx": null,
         "name": "Hub-Front-Right",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -228,6 +249,7 @@
         "id": "p1770837360914",
         "midx": null,
         "name": "Hub-Front-Left",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -235,6 +257,7 @@
         "id": "p1770837368844",
         "midx": null,
         "name": "Hub-Rear-Right",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -242,6 +265,7 @@
         "id": "p1770837371450",
         "midx": null,
         "name": "Hub-Rear-Left",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -249,6 +273,7 @@
         "id": "p1770767898320",
         "midx": "00",
         "name": "Profile Sketch",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -256,6 +281,7 @@
         "id": "p1770762912068",
         "midx": "01",
         "name": "Body Weldment",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -263,6 +289,7 @@
         "id": "p1770762928430",
         "midx": null,
         "name": "Side Plate MC",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -270,6 +297,7 @@
         "id": "p1770762938928",
         "midx": null,
         "name": "Side Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -277,6 +305,7 @@
         "id": "p1770832021049",
         "midx": null,
         "name": "Cyl Plate MC",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -284,6 +313,7 @@
         "id": "p1770832041056",
         "midx": null,
         "name": "Cyl Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -291,6 +321,7 @@
         "id": "p1770838910007",
         "midx": null,
         "name": "Spring Bolt Plate MC",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -298,6 +329,7 @@
         "id": "p1770838933503",
         "midx": null,
         "name": "Spring Bolt Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -305,6 +337,7 @@
         "id": "p1770832083800",
         "midx": null,
         "name": "Back Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -312,6 +345,7 @@
         "id": "p1770762944205",
         "midx": null,
         "name": "Front base Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -319,6 +353,7 @@
         "id": "p1770838969693",
         "midx": null,
         "name": "Middle Base Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -326,6 +361,7 @@
         "id": "p1770762975793",
         "midx": null,
         "name": "Rear Cross Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -333,6 +369,7 @@
         "id": "p1770832115401",
         "midx": null,
         "name": "Wedge Protect Plate-RH",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -340,6 +377,7 @@
         "id": "p1770832127303",
         "midx": null,
         "name": "Wedge Protect Plate-LH",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -347,6 +385,7 @@
         "id": "p1770832138407",
         "midx": null,
         "name": "Safety Key Lug Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -354,6 +393,7 @@
         "id": "p1770832149926",
         "midx": null,
         "name": "Lifting Eye Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -361,6 +401,7 @@
         "id": "p1770832160731",
         "midx": "02",
         "name": "Hardware Assembly",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -368,6 +409,7 @@
         "id": "p1770767923264",
         "midx": null,
         "name": "Wedge Bar Plate MC",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -375,6 +417,7 @@
         "id": "p1770767931018",
         "midx": null,
         "name": "Wedge Bar Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -382,6 +425,7 @@
         "id": "p1770832472093",
         "midx": null,
         "name": "Safety Key Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -389,6 +433,7 @@
         "id": "p1770832218222",
         "midx": null,
         "name": "Cover Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       }
@@ -398,6 +443,7 @@
         "id": "p1",
         "midx": "A",
         "name": "GA",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -405,6 +451,7 @@
         "id": "p1770762899954",
         "midx": "B",
         "name": "Body-Hub Weldment",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -412,6 +459,7 @@
         "id": "p1770837330352",
         "midx": null,
         "name": "Hub-Front-Right",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -419,6 +467,7 @@
         "id": "p1770837360914",
         "midx": null,
         "name": "Hub-Front-Left",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -426,6 +475,7 @@
         "id": "p1770837368844",
         "midx": null,
         "name": "Hub-Rear-Right",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -433,6 +483,7 @@
         "id": "p1770837371450",
         "midx": null,
         "name": "Hub-Rear-Left",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -440,6 +491,7 @@
         "id": "p1770767898320",
         "midx": "00",
         "name": "Profile Sketch",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -447,6 +499,7 @@
         "id": "p1770762912068",
         "midx": "01",
         "name": "Body Weldment",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -454,6 +507,7 @@
         "id": "p1770762928430",
         "midx": null,
         "name": "Side Plate MC",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -461,6 +515,7 @@
         "id": "p1770762938928",
         "midx": null,
         "name": "Side Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -468,6 +523,7 @@
         "id": "p1770832021049",
         "midx": null,
         "name": "Cyl Plate MC",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -475,6 +531,7 @@
         "id": "p1770832041056",
         "midx": null,
         "name": "Cyl Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -482,6 +539,7 @@
         "id": "p1770762944205",
         "midx": null,
         "name": "Front Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -489,6 +547,7 @@
         "id": "p1770832101193",
         "midx": null,
         "name": "Base Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -496,6 +555,7 @@
         "id": "p1770832083800",
         "midx": null,
         "name": "Back Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -503,6 +563,7 @@
         "id": "p1770762975793",
         "midx": null,
         "name": "Rear Cross Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -510,6 +571,7 @@
         "id": "p1770832138407",
         "midx": null,
         "name": "Safety Key Lug Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -517,6 +579,7 @@
         "id": "p1770832149926",
         "midx": null,
         "name": "Lifting Eye Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -524,6 +587,7 @@
         "id": "p1770832115401",
         "midx": null,
         "name": "Wedge Protect Plate-RH",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -531,6 +595,7 @@
         "id": "p1770832127303",
         "midx": null,
         "name": "Wedge Protect Plate-LH",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -538,6 +603,7 @@
         "id": "p1770832160731",
         "midx": "02",
         "name": "Hardware Assembly",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -545,6 +611,7 @@
         "id": "p1770767923264",
         "midx": null,
         "name": "Wedge Bar Plate MC",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -552,6 +619,7 @@
         "id": "p1770767931018",
         "midx": null,
         "name": "Wedge Bar Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -559,6 +627,7 @@
         "id": "p1770832472093",
         "midx": null,
         "name": "Safety Key Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -566,6 +635,7 @@
         "id": "p1770835955029",
         "midx": null,
         "name": "Cover Plate Support Bar",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -573,6 +643,7 @@
         "id": "p1770832218222",
         "midx": null,
         "name": "Cover Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -580,6 +651,7 @@
         "id": "p1770835969099",
         "midx": null,
         "name": "Spring Retainer",
+        "type": null,
         "level": 1,
         "enabled": true
       }
@@ -589,6 +661,7 @@
         "id": "p1",
         "midx": "A",
         "name": "GA",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -596,6 +669,7 @@
         "id": "p1770762899954",
         "midx": "B",
         "name": "Body-Hub Weldment",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -603,6 +677,7 @@
         "id": "p1770837330352",
         "midx": null,
         "name": "Hub-Front-Right",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -610,6 +685,7 @@
         "id": "p1770837360914",
         "midx": null,
         "name": "Hub-Front-Left",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -617,6 +693,7 @@
         "id": "p1770837368844",
         "midx": null,
         "name": "Hub-Rear-Right",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -624,6 +701,7 @@
         "id": "p1770837371450",
         "midx": null,
         "name": "Hub-Rear-Left",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -631,6 +709,7 @@
         "id": "p1770767898320",
         "midx": "00",
         "name": "Profile Sketch",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -638,6 +717,7 @@
         "id": "p1770762912068",
         "midx": "01",
         "name": "Body Weldment",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -645,6 +725,7 @@
         "id": "p1770762928430",
         "midx": null,
         "name": "Side Plate MC",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -652,6 +733,7 @@
         "id": "p1770762938928",
         "midx": null,
         "name": "Side Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -659,6 +741,7 @@
         "id": "p1770832021049",
         "midx": null,
         "name": "Cyl Plate MC",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -666,6 +749,7 @@
         "id": "p1770832041056",
         "midx": null,
         "name": "Cyl Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -673,6 +757,7 @@
         "id": "p1770762944205",
         "midx": null,
         "name": "Front Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -680,6 +765,7 @@
         "id": "p1770832101193",
         "midx": null,
         "name": "Base Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -687,6 +773,7 @@
         "id": "p1770832083800",
         "midx": null,
         "name": "Back Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -694,6 +781,7 @@
         "id": "p1770762975793",
         "midx": null,
         "name": "Rear Cross Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -701,6 +789,7 @@
         "id": "p1770832138407",
         "midx": null,
         "name": "Safety Key Lug Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -708,6 +797,7 @@
         "id": "p1770832149926",
         "midx": null,
         "name": "Lifting Eye Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -715,6 +805,7 @@
         "id": "p1770832115401",
         "midx": null,
         "name": "Wedge Protect Plate-RH",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -722,6 +813,7 @@
         "id": "p1770832127303",
         "midx": null,
         "name": "Wedge Protect Plate-LH",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -729,6 +821,7 @@
         "id": "p1770832160731",
         "midx": "02",
         "name": "Hardware Assembly",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -736,6 +829,7 @@
         "id": "p1770767923264",
         "midx": null,
         "name": "Wedge Bar Plate MC",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -743,6 +837,7 @@
         "id": "p1770767931018",
         "midx": null,
         "name": "Wedge Bar Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -750,6 +845,7 @@
         "id": "p1770832472093",
         "midx": null,
         "name": "Safety Key Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -757,6 +853,7 @@
         "id": "p1770835955029",
         "midx": null,
         "name": "Cover Plate Support Bar",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -764,6 +861,7 @@
         "id": "p1770832218222",
         "midx": null,
         "name": "Cover Plate",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -771,6 +869,7 @@
         "id": "p1770835969099",
         "midx": null,
         "name": "Spring Retainer",
+        "type": null,
         "level": 1,
         "enabled": true
       }
@@ -780,14 +879,15 @@
         "id": "g1775682672203",
         "midx": null,
         "name": "GA Level",
+        "type": "group",
         "level": 0,
-        "enabled": true,
-        "type": "group"
+        "enabled": true
       },
       {
         "id": "p1",
         "midx": "00",
         "name": "GA",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -795,6 +895,7 @@
         "id": "p1775591138143",
         "midx": "01",
         "name": "EX-BKT-DIG-XD-060-WBM-36-00-01 (Strongback-MID)",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -802,6 +903,7 @@
         "id": "p1775591348667",
         "midx": null,
         "name": "GA (Copy) (Copy)",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -809,6 +911,7 @@
         "id": "p1775591371291",
         "midx": null,
         "name": "GA (Copy) (Copy) (Copy)",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -816,6 +919,7 @@
         "id": "p1775591549394",
         "midx": null,
         "name": "GA (Copy) (Copy) (Copy) (Copy)",
+        "type": null,
         "level": 2,
         "enabled": true
       },
@@ -823,14 +927,15 @@
         "id": "g1775682749061",
         "midx": null,
         "name": "Lugging",
+        "type": "group",
         "level": 0,
-        "enabled": true,
-        "type": "group"
+        "enabled": true
       },
       {
         "id": "p1775679054369",
         "midx": "00",
         "name": "EX-BKT-DIG-XD-060-WBM-00 (Lug GA)",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -838,6 +943,7 @@
         "id": "p1775679080676",
         "midx": "00-01",
         "name": "Lug MC",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -845,6 +951,7 @@
         "id": "p1775679093496",
         "midx": null,
         "name": "Lug Plate",
+        "type": null,
         "level": 2,
         "enabled": true
       },
@@ -852,21 +959,7 @@
         "id": "g1775682790362",
         "midx": null,
         "name": "Standard Parts",
-        "level": 0,
-        "enabled": true,
-        "type": "group"
-      },
-      {
-        "id": "p2",
-        "midx": "B",
-        "name": "(Tooth Weldment)",
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1770762899954",
-        "midx": "C",
-        "name": "Body Weldment",
+        "type": "group",
         "level": 0,
         "enabled": true
       },
@@ -874,6 +967,7 @@
         "id": "p1770762912068",
         "midx": "D",
         "name": "Width Profile",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -881,6 +975,7 @@
         "id": "p1770762928430",
         "midx": "00",
         "name": "Capacity",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -888,6 +983,7 @@
         "id": "p1770762938928",
         "midx": null,
         "name": "Shell Plate",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -895,6 +991,7 @@
         "id": "p1770762944205",
         "midx": null,
         "name": "Strongback Plate",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -902,6 +999,7 @@
         "id": "p1770762956126",
         "midx": null,
         "name": "Wear Bar Assm",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -909,6 +1007,7 @@
         "id": "p1770762975793",
         "midx": null,
         "name": "Wear Bar",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -916,6 +1015,7 @@
         "id": "p1770767898320",
         "midx": null,
         "name": "Profile Sketch",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -923,6 +1023,7 @@
         "id": "p1775591792870",
         "midx": null,
         "name": "Corner Edge Plate",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -930,6 +1031,7 @@
         "id": "p1770767923264",
         "midx": null,
         "name": "Side Edge Plate",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -937,6 +1039,7 @@
         "id": "p1770767931018",
         "midx": null,
         "name": "Side Plate",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -944,6 +1047,7 @@
         "id": "p1770767938206",
         "midx": null,
         "name": "Cheek Plate-RH",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -951,6 +1055,7 @@
         "id": "p1770767948898",
         "midx": null,
         "name": "Cheek Plate-LH",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -958,6 +1063,7 @@
         "id": "p1770767958952",
         "midx": null,
         "name": "(Lifting Eye Plate)",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -965,6 +1071,7 @@
         "id": "p1774978175717",
         "midx": null,
         "name": "Radial Wear Plate-RH",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -972,6 +1079,7 @@
         "id": "p1775591947621",
         "midx": null,
         "name": "Radial Wear Plate-LH",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -979,7 +1087,24 @@
         "id": "p1775592003600",
         "midx": null,
         "name": "Radial Wear Plate",
+        "type": null,
         "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1770762899954",
+        "midx": "C",
+        "name": "Body Weldment",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p2",
+        "midx": "B",
+        "name": "(Tooth Weldment)",
+        "type": null,
+        "level": 0,
         "enabled": true
       }
     ],
@@ -988,14 +1113,15 @@
         "id": "g1775683522501",
         "midx": null,
         "name": "GA Level",
+        "type": "group",
         "level": 0,
-        "enabled": true,
-        "type": "group"
+        "enabled": true
       },
       {
         "id": "p1",
         "midx": "00",
         "name": "GA",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1003,14 +1129,15 @@
         "id": "g1775683537727",
         "midx": null,
         "name": "Standard Parts",
+        "type": "group",
         "level": 0,
-        "enabled": true,
-        "type": "group"
+        "enabled": true
       },
       {
         "id": "p1770762912068",
         "midx": "B",
         "name": "Width Profile",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1018,6 +1145,7 @@
         "id": "p1770762928430",
         "midx": "00",
         "name": "Capacity",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1025,6 +1153,7 @@
         "id": "p1770762938928",
         "midx": null,
         "name": "Shell Plate",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1032,6 +1161,7 @@
         "id": "p1770762944205",
         "midx": null,
         "name": "Strongback Plate",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1039,6 +1169,7 @@
         "id": "p1770762956126",
         "midx": null,
         "name": "Wear Bar Assm",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1046,6 +1177,7 @@
         "id": "p1770762975793",
         "midx": null,
         "name": "Wear Bar",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -1053,6 +1185,7 @@
         "id": "p1770767898320",
         "midx": null,
         "name": "Profile Sketch",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1060,6 +1193,7 @@
         "id": "p1770767923264",
         "midx": null,
         "name": "Side Edge Plate",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1067,6 +1201,7 @@
         "id": "p1770767931018",
         "midx": null,
         "name": "Side Plate",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1074,6 +1209,7 @@
         "id": "p1770767938206",
         "midx": null,
         "name": "Cheek Plate-RH",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1081,6 +1217,7 @@
         "id": "p1770767948898",
         "midx": null,
         "name": "Cheek Plate-LH",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1088,6 +1225,7 @@
         "id": "p1770767958952",
         "midx": null,
         "name": "Lifting Eye Plate",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1095,6 +1233,7 @@
         "id": "p1770762899954",
         "midx": "A",
         "name": "(Body-Weldment)",
+        "type": null,
         "level": 0,
         "enabled": true
       }
@@ -1104,14 +1243,15 @@
         "id": "g1775682493296",
         "midx": null,
         "name": "GA Level",
+        "type": "group",
         "level": 0,
-        "enabled": true,
-        "type": "group"
+        "enabled": true
       },
       {
         "id": "p1",
         "midx": "00",
         "name": "EX-BKT-CLU-XD-060-WBM-36-00",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1119,6 +1259,7 @@
         "id": "p1775591138143",
         "midx": "01",
         "name": "EX-BKT-DIG-XD-060-WBM-36-00-01 (Strongback-MID)",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -1126,6 +1267,7 @@
         "id": "p1775591348667",
         "midx": null,
         "name": "GA (Copy) (Copy)",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -1133,6 +1275,7 @@
         "id": "p1775591371291",
         "midx": null,
         "name": "GA (Copy) (Copy) (Copy)",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -1140,6 +1283,7 @@
         "id": "p1775591549394",
         "midx": null,
         "name": "GA (Copy) (Copy) (Copy) (Copy)",
+        "type": null,
         "level": 2,
         "enabled": true
       },
@@ -1147,14 +1291,15 @@
         "id": "g1775682508089",
         "midx": null,
         "name": "Lugging",
+        "type": "group",
         "level": 0,
-        "enabled": true,
-        "type": "group"
+        "enabled": true
       },
       {
         "id": "p1775679054369",
         "midx": "00",
         "name": "EX-BKT-DIG-XD-060-WBM-00 (Lug GA)",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1162,6 +1307,7 @@
         "id": "p1775679080676",
         "midx": "00-01",
         "name": "Lug MC",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -1169,6 +1315,7 @@
         "id": "p1775679093496",
         "midx": null,
         "name": "Lug Plate",
+        "type": null,
         "level": 2,
         "enabled": true
       },
@@ -1176,21 +1323,7 @@
         "id": "g1775682518705",
         "midx": null,
         "name": "Standard Parts",
-        "level": 0,
-        "enabled": true,
-        "type": "group"
-      },
-      {
-        "id": "p2",
-        "midx": "A",
-        "name": "(Tooth Weldment)",
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1770762899954",
-        "midx": "B",
-        "name": "Body Weldment",
+        "type": "group",
         "level": 0,
         "enabled": true
       },
@@ -1198,6 +1331,7 @@
         "id": "p1770762912068",
         "midx": "C",
         "name": "Width Profile",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1205,6 +1339,7 @@
         "id": "p1770762928430",
         "midx": "00",
         "name": "Capacity",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1212,6 +1347,7 @@
         "id": "p1770762938928",
         "midx": null,
         "name": "Shell Plate",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1219,6 +1355,7 @@
         "id": "p1770762956126",
         "midx": null,
         "name": "Wear Bar Assm",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1226,6 +1363,7 @@
         "id": "p1770762975793",
         "midx": null,
         "name": "Wear Bar",
+        "type": null,
         "level": 1,
         "enabled": true
       },
@@ -1233,6 +1371,7 @@
         "id": "p1770767898320",
         "midx": null,
         "name": "Profile Sketch",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1240,6 +1379,7 @@
         "id": "p1775591792870",
         "midx": null,
         "name": "Corner Edge Plate",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1247,6 +1387,7 @@
         "id": "p1770767923264",
         "midx": null,
         "name": "Side Edge Plate",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1254,6 +1395,7 @@
         "id": "p1770767931018",
         "midx": null,
         "name": "Side Plate",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1261,6 +1403,7 @@
         "id": "p1770767938206",
         "midx": null,
         "name": "Cheek Plate-RH",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1268,6 +1411,7 @@
         "id": "p1770767948898",
         "midx": null,
         "name": "Cheek Plate-LH",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1275,6 +1419,7 @@
         "id": "p1770767958952",
         "midx": null,
         "name": "(Lifting Eye Plate)",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1282,6 +1427,7 @@
         "id": "p1774978175717",
         "midx": null,
         "name": "Radial Wear Plate-RH",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1289,6 +1435,7 @@
         "id": "p1775591947621",
         "midx": null,
         "name": "Radial Wear Plate-LH",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1296,7 +1443,16 @@
         "id": "p1775592003600",
         "midx": null,
         "name": "Radial Wear Plate",
+        "type": null,
         "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1770762899954",
+        "midx": "B",
+        "name": "Body Weldment",
+        "type": null,
+        "level": 0,
         "enabled": true
       }
     ]
@@ -1485,11 +1641,6 @@
         "f1770765683117": "ATTACHMENT{[-]}SUBTYPE DUTY HOOK-UP NAME CLASS{[-]}SIZE",
         "f1770765927726": "HOOK-UP{[ - ]}LUGGING{[ - ]}VOLUME{[ - ]}TOOTH_QTY TOOTH_TYPE",
         "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}"
-      },
-      "p2": {
-        "f1770765683117": "TOOTH-WLDT{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
-        "f1770765927726": "VOLUME{[ - ]}TOOTH_QTY TOOTH_TYPE",
-        "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°"
       },
       "p1770762899954": {
         "f1770765683117": "BODY-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
@@ -2240,13 +2391,6 @@
         "f1770765927726": "HOOK-UP{[ - ]}LUGGING{[ - ]}VOLUME{[ - ]} ",
         "f1770766964933": "-",
         "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
-        "f1770766992117": "-"
-      },
-      "p2": {
-        "f1770765683117": "TOOTH-WLDT{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
-        "f1770765927726": "VOLUME{[ - ]} ",
-        "f1770766964933": "-",
-        "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
         "f1770766992117": "-"
       },
       "p1770762899954": {
@@ -4171,12 +4315,11 @@
     "tab1775681477169": []
   },
   "inventorMaps": {},
-  "activeClassId": "tab1774978147622",
+  "activeClassId": "buckets",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
-      "p2": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-LUGGING-SIZE-TOOTH_QTY-TOOTH_TYPE (NAME)",
-      "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BC (NAME)",
+      "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE (NAME)",
       "p1770762912068": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE (NAME)",
       "p1770762928430": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
       "p1770762938928": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
@@ -4367,8 +4510,7 @@
     },
     "tab1775681477169": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}IDX{[-]}{[-]} (GA)",
-      "p2": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}{[-]}{[-]} NAME",
-      "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}BC (NAME)",
+      "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}BOE (NAME)",
       "p1770762912068": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE (NAME)",
       "p1770762928430": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
       "p1770762938928": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
@@ -4393,7 +4535,7 @@
       "p1775679093496": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug Plate)"
     }
   },
-  "activeRightTab": "parts",
+  "activeRightTab": "rules",
   "lockedSections": {},
   "productClasses": [
     {
@@ -4429,7 +4571,7 @@
       "name": "Buckets (XDR) CLU"
     }
   ],
-  "selectedPartId": null,
+  "selectedPartId": "p1770762899954",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
