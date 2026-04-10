@@ -1196,6 +1196,29 @@
         "type": null,
         "level": 0,
         "enabled": true
+      },
+      {
+        "id": "g1775839847195",
+        "name": "400 & above",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775839880823",
+        "midx": "02",
+        "name": "(Top Shell Plate)",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775840052320",
+        "midx": null,
+        "name": "(Top Shell Plate) (Copy)",
+        "type": null,
+        "level": 0,
+        "enabled": true
       }
     ],
     "tab1775681477169": [
@@ -2326,6 +2349,12 @@
         "f1770765683117": "ATTACHMENT{[-]}SUBTYPE DUTY HOOK-UP NAME CLASS{[-]}SIZE",
         "f1770765927726": "HOOK-UP{[ - ]}LUGGING{[ - ]}VOLUME{[ - ]} ",
         "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}"
+      },
+      "p1775839880823": {
+        "f1770765683117": "STRBK PL{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE"
+      },
+      "p1775840052320": {
+        "f1770765683117": "TOP STIFFENER PL{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE"
       }
     },
     "tab1775681477169": {
@@ -4444,7 +4473,9 @@
       "p1770762944205": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
       "p1770762956126": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
       "p1770762975793": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
-      "p1775839430390": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}HA-IDX (GA)"
+      "p1775839430390": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}HA-IDX (GA)",
+      "p1775839880823": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (Top Shell Plate)",
+      "p1775840052320": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (Top Stiffener Plate)"
     },
     "tab1775681477169": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}IDX{[-]}{[-]} (GA)",
@@ -4473,7 +4504,7 @@
       "p1775679093496": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug Plate)"
     }
   },
-  "activeRightTab": "parts",
+  "activeRightTab": "rules",
   "lockedSections": {},
   "productClasses": [
     {
@@ -4509,7 +4540,7 @@
       "name": "Buckets (XDR) CLU"
     }
   ],
-  "selectedPartId": "p1775839430390",
+  "selectedPartId": "p1775840052320",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
