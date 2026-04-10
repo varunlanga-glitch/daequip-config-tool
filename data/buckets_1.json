@@ -971,7 +971,7 @@
       {
         "id": "g1775682790362",
         "midx": null,
-        "name": "Standard Parts",
+        "name": "Width Parts",
         "type": "group",
         "level": 0,
         "enabled": true
@@ -1001,17 +1001,17 @@
         "enabled": true
       },
       {
-        "id": "p1770762944205",
+        "id": "p1775843543329",
         "midx": null,
-        "name": "Strongback Plate",
+        "name": "(Top Stiffener Plate)",
         "type": null,
         "level": 0,
         "enabled": true
       },
       {
-        "id": "p1770762956126",
+        "id": "p1770762944205",
         "midx": null,
-        "name": "Wear Bar Assm",
+        "name": "Liner Plate",
         "type": null,
         "level": 0,
         "enabled": true
@@ -1021,7 +1021,30 @@
         "midx": null,
         "name": "Wear Bar",
         "type": null,
-        "level": 1,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770762899954",
+        "midx": "C",
+        "name": "Body Weldment",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p2",
+        "midx": "B",
+        "name": "(Tooth Weldment)",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "g1775843432943",
+        "name": "Standard Parts",
+        "type": "group",
+        "level": 0,
         "enabled": true
       },
       {
@@ -1102,22 +1125,6 @@
         "name": "Radial Wear Plate",
         "type": null,
         "level": 1,
-        "enabled": true
-      },
-      {
-        "id": "p1770762899954",
-        "midx": "C",
-        "name": "Body Weldment",
-        "type": null,
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p2",
-        "midx": "B",
-        "name": "(Tooth Weldment)",
-        "type": null,
-        "level": 0,
         "enabled": true
       }
     ],
@@ -2458,14 +2465,7 @@
         "f1770766992117": "-"
       },
       "p1770762944205": {
-        "f1770765683117": "STRBK PL-ATTACHMENT-DUTY-SIZE",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "p1770762956126": {
-        "f1770765683117": "WEAR BAR ASSM{[-]}HOR{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
+        "f1770765683117": "LINER PL-ATTACHMENT-DUTY-SIZE",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
@@ -2613,6 +2613,13 @@
       },
       "g1775682749061": {
         "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775843543329": {
+        "f1770765683117": "TOP STIFFENER PL{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
@@ -2863,10 +2870,7 @@
       {
         "key": "DUTY",
         "vals": [
-          "XD",
-          "XDW",
-          "XDR",
-          "XDX"
+          "XD"
         ],
         "label": "Duty"
       },
@@ -3935,10 +3939,7 @@
       {
         "key": "DUTY",
         "vals": [
-          "XD",
-          "XDW",
-          "XDR",
-          "XDX"
+          "XDR"
         ],
         "label": "Duty"
       },
@@ -4122,10 +4123,7 @@
       {
         "key": "DUTY",
         "vals": [
-          "XD",
-          "XDW",
-          "XDR",
-          "XDX"
+          "XD"
         ],
         "label": "Duty"
       },
@@ -4288,10 +4286,7 @@
       {
         "key": "DUTY",
         "vals": [
-          "XD",
-          "XDW",
-          "XDR",
-          "XDX"
+          "XDR"
         ],
         "label": "Duty"
       },
@@ -4548,7 +4543,7 @@
       "WEDGE_BAR_LENGTH": "26.000"
     },
     "tab1774978147622": {
-      "DUTY": "XD",
+      "DUTY": "XDR",
       "SIZE": "36",
       "CLASS": "HE060",
       "VOLUME": "0.75 CUYD",
@@ -4584,7 +4579,7 @@
       "BOLT_PATTERN": "6-4"
     },
     "tab1775681477169": {
-      "DUTY": "XD",
+      "DUTY": "XDR",
       "SIZE": "36",
       "CLASS": "HE060",
       "VOLUME": "0.75 CUYD",
@@ -4613,7 +4608,7 @@
     "tab1775681477169": []
   },
   "inventorMaps": {},
-  "activeClassId": "tab1775681477169",
+  "activeClassId": "tab1775679963733",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
@@ -4774,7 +4769,6 @@
       "p1770762928430": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
       "p1770762938928": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
       "p1770762944205": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
-      "p1770762956126": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
       "p1770762975793": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
       "p1770767898320": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}00 (NAME)",
       "p1770767923264": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}02 (NAME)",
@@ -4795,7 +4789,8 @@
       "p1775679093496": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug Plate)",
       "g1775682672203": "-",
       "g1775682790362": "-",
-      "g1775682749061": "-"
+      "g1775682749061": "-",
+      "p1775843543329": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME"
     },
     "tab1775679963733": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE-IDX (GA)",
@@ -4832,7 +4827,7 @@
       "g1775841541628": "-"
     }
   },
-  "activeRightTab": "parts",
+  "activeRightTab": "config",
   "lockedSections": {},
   "productClasses": [
     {
