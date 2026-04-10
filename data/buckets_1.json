@@ -5013,7 +5013,6 @@
       {
         "key": "DUTY",
         "vals": [
-          "XD",
           "XDW"
         ],
         "label": "Duty"
@@ -5637,7 +5636,7 @@
       "p1775845078065": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE NAME"
     }
   },
-  "activeRightTab": "parts",
+  "activeRightTab": "config",
   "lockedSections": {},
   "productClasses": [
     {
@@ -5681,7 +5680,7 @@
       "name": "Buckets (XDW) DIG"
     }
   ],
-  "selectedPartId": null,
+  "selectedPartId": "g1775682307162",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
