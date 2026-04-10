@@ -986,38 +986,6 @@
         "enabled": true
       },
       {
-        "id": "g1775682749061",
-        "midx": null,
-        "name": "Lugging",
-        "type": "group",
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1775679054369",
-        "midx": "00",
-        "name": "EX-BKT-DIG-XD-060-WBM-00 (Lug GA)",
-        "type": null,
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1775679080676",
-        "midx": "00-01",
-        "name": "Lug MC",
-        "type": null,
-        "level": 1,
-        "enabled": true
-      },
-      {
-        "id": "p1775679093496",
-        "midx": null,
-        "name": "Lug Plate",
-        "type": null,
-        "level": 2,
-        "enabled": true
-      },
-      {
         "id": "g1775682790362",
         "midx": null,
         "name": "Width Parts",
@@ -1174,6 +1142,38 @@
         "name": "Radial Wear Plate",
         "type": null,
         "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "g1775682749061",
+        "midx": null,
+        "name": "Lugging",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775679054369",
+        "midx": "00",
+        "name": "EX-BKT-DIG-XD-060-WBM-00 (Lug GA)",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775679080676",
+        "midx": "00-01",
+        "name": "Lug MC",
+        "type": null,
+        "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1775679093496",
+        "midx": null,
+        "name": "Lug Plate",
+        "type": null,
+        "level": 2,
         "enabled": true
       }
     ],
@@ -4691,7 +4691,7 @@
     "tab1775681477169": []
   },
   "inventorMaps": {},
-  "activeClassId": "buckets",
+  "activeClassId": "tab1774978147622",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
@@ -4951,7 +4951,7 @@
       "name": "Buckets (XDR) CLU"
     }
   ],
-  "selectedPartId": "p1775844271974",
+  "selectedPartId": null,
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
