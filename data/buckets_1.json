@@ -169,6 +169,27 @@
         "midx": null,
         "level": 2,
         "enabled": true
+      },
+      {
+        "id": "g1775844236383",
+        "name": "400 & Above",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775844271974",
+        "name": "(Top Shell Plate)",
+        "midx": "02",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775844252170",
+        "name": "(Top Stiffener Plate)",
+        "midx": "04",
+        "level": 0,
+        "enabled": true
       }
     ],
     "tab1770826801156": [
@@ -1720,6 +1741,20 @@
       },
       "p1775843900104": {
         "f1770765683117": "LUG MC-ATTACHMENT-DUTY{[-]}LUGGING  CLASS",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775844252170": {
+        "f1770765683117": "TOP STIFFENER PL-ATTACHMENT{[-]}DUTY{[-]}SIZE",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775844271974": {
+        "f1770765683117": "TOP SHELL PL-ATTACHMENT{[-]}DUTY{[-]}SIZE",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
@@ -4679,7 +4714,9 @@
       "g1775840471709": "-",
       "p1775843844835": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX NAME",
       "p1775843900104": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX NAME",
-      "p1775843916572": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX NAME"
+      "p1775843916572": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX NAME",
+      "p1775844252170": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE DUTY{[-]}CLASS_NO{[-]}IDX NAME",
+      "p1775844271974": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE DUTY{[-]}CLASS_NO{[-]}IDX NAME"
     },
     "tab1770826801156": {
       "p1": "MACHINE{[-]}ATTACHMENT{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}00 (NAME)",
@@ -4878,7 +4915,7 @@
       "g1775841541628": "-"
     }
   },
-  "activeRightTab": "rules",
+  "activeRightTab": "parts",
   "lockedSections": {},
   "productClasses": [
     {
@@ -4914,7 +4951,7 @@
       "name": "Buckets (XDR) CLU"
     }
   ],
-  "selectedPartId": "p1775843844835",
+  "selectedPartId": "p1775844271974",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
