@@ -1126,6 +1126,14 @@
         "enabled": true
       },
       {
+        "id": "p1775839430390",
+        "midx": "00",
+        "name": "GA (Copy)",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
         "id": "g1775683537727",
         "midx": null,
         "name": "Standard Parts",
@@ -1179,54 +1187,6 @@
         "name": "Wear Bar",
         "type": null,
         "level": 1,
-        "enabled": true
-      },
-      {
-        "id": "p1770767898320",
-        "midx": null,
-        "name": "Profile Sketch",
-        "type": null,
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1770767923264",
-        "midx": null,
-        "name": "Side Edge Plate",
-        "type": null,
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1770767931018",
-        "midx": null,
-        "name": "Side Plate",
-        "type": null,
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1770767938206",
-        "midx": null,
-        "name": "Cheek Plate-RH",
-        "type": null,
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1770767948898",
-        "midx": null,
-        "name": "Cheek Plate-LH",
-        "type": null,
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1770767958952",
-        "midx": null,
-        "name": "Lifting Eye Plate",
-        "type": null,
-        "level": 0,
         "enabled": true
       },
       {
@@ -2361,28 +2321,11 @@
       "p1770762975793": {
         "f1770765683117": "WEAR BAR{[-]}HOR{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE"
       },
-      "p1770767898320": {
-        "f1770765683117": "PROFILE SKETCH DUTY{[-]}CLASS"
-      },
-      "p1770767923264": {
-        "f1770765683117": "SIDE EDGE{[-]}ATTACHMENT{[-]}DUTY"
-      },
-      "p1770767931018": {
-        "f1770765683117": "SIDE PL{[-]}ATTACHMENT-DUTY"
-      },
-      "p1770767938206": {
-        "f1770765683117": "CHEEK PL{[-]}ATTACHMENT{[-]}DUTY{[-]}RH",
-        "f1770765927726": ""
-      },
-      "p1770767948898": {
-        "f1770765683117": "CHEEK PL{[-]}ATTACHMENT{[-]}DUTY{[-]}LH"
-      },
-      "p1770767958952": {
-        "f1770765683117": "LIFTING EYE PL{[-]}ATTACHMENT{[-]}DUTY",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
+      "g1775683522501": {},
+      "p1775839430390": {
+        "f1770765683117": "ATTACHMENT{[-]}SUBTYPE DUTY HOOK-UP NAME CLASS{[-]}SIZE",
+        "f1770765927726": "HOOK-UP{[ - ]}LUGGING{[ - ]}VOLUME{[ - ]} ",
+        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}"
       }
     },
     "tab1775681477169": {
@@ -4315,7 +4258,7 @@
     "tab1775681477169": []
   },
   "inventorMaps": {},
-  "activeClassId": "buckets",
+  "activeClassId": "tab1775679963733",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
@@ -4501,12 +4444,7 @@
       "p1770762944205": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
       "p1770762956126": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
       "p1770762975793": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
-      "p1770767898320": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-00 (NAME)",
-      "p1770767923264": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-01 (NAME)",
-      "p1770767931018": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-02 (NAME)",
-      "p1770767938206": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-03 (NAME)",
-      "p1770767948898": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-04 (NAME)",
-      "p1770767958952": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-05 (NAME)"
+      "p1775839430390": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}HA-IDX (GA)"
     },
     "tab1775681477169": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}IDX{[-]}{[-]} (GA)",
@@ -4535,7 +4473,7 @@
       "p1775679093496": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug Plate)"
     }
   },
-  "activeRightTab": "rules",
+  "activeRightTab": "parts",
   "lockedSections": {},
   "productClasses": [
     {
@@ -4571,7 +4509,7 @@
       "name": "Buckets (XDR) CLU"
     }
   ],
-  "selectedPartId": "p1770762899954",
+  "selectedPartId": "p1775839430390",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
