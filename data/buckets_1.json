@@ -1149,7 +1149,7 @@
       {
         "id": "g1775683537727",
         "midx": null,
-        "name": "Standard Parts",
+        "name": "Width Parts",
         "type": "group",
         "level": 0,
         "enabled": true
@@ -4532,7 +4532,7 @@
       "p1775679093496": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug Plate)"
     }
   },
-  "activeRightTab": "rules",
+  "activeRightTab": "parts",
   "lockedSections": {},
   "productClasses": [
     {
@@ -4568,7 +4568,7 @@
       "name": "Buckets (XDR) CLU"
     }
   ],
-  "selectedPartId": "p1",
+  "selectedPartId": "g1775683537727",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
