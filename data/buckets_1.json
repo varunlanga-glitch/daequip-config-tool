@@ -2613,7 +2613,10 @@
       },
       "p1770762928430": {
         "f1770765683117": "CAPACITY ATTACHMENT DUTY{[-]}SIZE",
-        "f1770765927726": "HEAPED CAPACITY{[ - ]}VOLUME"
+        "f1770765927726": "HEAPED CAPACITY{[ - ]}VOLUME",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
       },
       "p1770762938928": {
         "f1770765683117": "SHELL PL{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
@@ -2678,7 +2681,8 @@
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
-      "g1775841541628": {}
+      "g1775841541628": {},
+      "g1775682493296": {}
     }
   },
   "master": {
@@ -4460,7 +4464,7 @@
     "tab1775681477169": []
   },
   "inventorMaps": {},
-  "activeClassId": "tab1770842447295",
+  "activeClassId": "tab1775679963733",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
@@ -4703,7 +4707,7 @@
       "name": "Buckets (XDR) CLU"
     }
   ],
-  "selectedPartId": "p1770835969099",
+  "selectedPartId": "p1775839430390",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
