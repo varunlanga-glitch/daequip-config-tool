@@ -1649,7 +1649,27 @@
         "f1770766964933": "-",
         "f1770766992117": "-"
       },
-      "g1775682307162": {}
+      "g1775682307162": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775682374357": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775840471709": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      }
     },
     "tab1770826801156": {
       "p1": {
@@ -2507,7 +2527,27 @@
         "f1770766978429": "{CENTER_TO_CENTER#0.3: CC}",
         "f1770766992117": "-"
       },
-      "g1775682672203": {}
+      "g1775682672203": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775682790362": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775682749061": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      }
     },
     "tab1775679963733": {
       "p1": {
@@ -2566,7 +2606,13 @@
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
-      "g1775683522501": {},
+      "g1775683522501": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
       "p1775839430390": {
         "f1770765683117": "ATTACHMENT{[-]}SUBTYPE DUTY HOOK-UP NAME CLASS{[-]}SIZE",
         "f1770765927726": "HOOK-UP{[ - ]}LUGGING{[ - ]}VOLUME{[ - ]} BOE",
@@ -2583,6 +2629,20 @@
       },
       "p1775840052320": {
         "f1770765683117": "TOP STIFFENER PL{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775683537727": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775839847195": {
+        "f1770765683117": "-",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
@@ -2681,8 +2741,27 @@
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
-      "g1775841541628": {},
-      "g1775682493296": {}
+      "g1775841541628": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775682493296": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775682518705": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      }
     }
   },
   "master": {
@@ -4464,7 +4543,7 @@
     "tab1775681477169": []
   },
   "inventorMaps": {},
-  "activeClassId": "tab1775679963733",
+  "activeClassId": "tab1774978147622",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
@@ -4481,7 +4560,10 @@
       "p1770767958952": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-05 (NAME)",
       "p1775840507085": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}IDX (NAME)",
       "p1775840542739": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}IDX (NAME)",
-      "p1775840684932": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BC NAME"
+      "p1775840684932": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BC NAME",
+      "g1775682307162": "-",
+      "g1775682374357": "-",
+      "g1775840471709": "-"
     },
     "tab1770826801156": {
       "p1": "MACHINE{[-]}ATTACHMENT{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}00 (NAME)",
@@ -4640,7 +4722,10 @@
       "p1775592003600": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}07-01 (NAME)",
       "p1775679054369": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug GA)",
       "p1775679080676": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING-IDX (Lug MC)",
-      "p1775679093496": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug Plate)"
+      "p1775679093496": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug Plate)",
+      "g1775682672203": "-",
+      "g1775682790362": "-",
+      "g1775682749061": "-"
     },
     "tab1775679963733": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE-IDX (GA)",
@@ -4653,7 +4738,10 @@
       "p1770762975793": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
       "p1775839430390": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}HA-IDX (GA)",
       "p1775839880823": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (Top Shell Plate)",
-      "p1775840052320": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (Top Stiffener Plate)"
+      "p1775840052320": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (Top Stiffener Plate)",
+      "g1775683522501": "-",
+      "g1775683537727": "-",
+      "g1775839847195": "-"
     },
     "tab1775681477169": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}IDX{[-]}{[-]} (GA)",
@@ -4668,7 +4756,10 @@
       "p1775591549394": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX (Strongback-Plate)",
       "p1775841277656": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME",
       "p1775841294220": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME",
-      "p1775841395567": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME"
+      "p1775841395567": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME",
+      "g1775682493296": "-",
+      "g1775682518705": "-",
+      "g1775841541628": "-"
     }
   },
   "activeRightTab": "rules",
@@ -4707,7 +4798,7 @@
       "name": "Buckets (XDR) CLU"
     }
   ],
-  "selectedPartId": "p1775839430390",
+  "selectedPartId": "g1775682749061",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
