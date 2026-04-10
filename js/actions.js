@@ -354,7 +354,11 @@ window.duplicatePart = id => {
 window.togglePartEnabled = id => {
   const part = getActiveParts().find(p => p.id === id);
   if (!part) return;
+  const wasEnabled = part.enabled !== false;
   part.enabled = part.enabled === false;  // false → true, true/undefined → false
+  if (typeof logChange === 'function') {
+    logChange(State.activeClassId, 'part_enabled', id, part.name, null, null, String(wasEnabled), String(part.enabled));
+  }
   markDirty();
   renderAll();
 };
@@ -717,7 +721,13 @@ function updateRule(partId, propId, value) {
 window.setRuleLiteral = (partId, propId, literalValue) => {
   const activeRules = getActiveRules();
   if (!activeRules[partId]) activeRules[partId] = {};
+  const oldValue = activeRules[partId][propId] || '';
   activeRules[partId][propId] = literalValue;
+  if (typeof logChange === 'function' && oldValue !== literalValue) {
+    const partName = getActiveParts().find(p => p.id === partId)?.name || partId;
+    const propName = getActiveProps().find(p => p.id === propId)?.name || propId;
+    logChange(State.activeClassId, 'rule', partId, partName, propId, propName, oldValue, literalValue);
+  }
   markDirty();
   renderAll();
 };
