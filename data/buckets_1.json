@@ -1792,22 +1792,34 @@
       },
       "p1770762928430": {
         "f1770765683117": "SIDE PL MC-CPLR-HW-MC",
-        "f1770765927726": "",
-        "f1770766978429": "CENTER_TO_CENTER CC"
+        "f1770765927726": "-",
+        "f1770766978429": "CENTER_TO_CENTER CC",
+        "f1770766964933": "-",
+        "f1770766992117": "-"
       },
       "p1770762938928": {
         "f1770765683117": "SIDE PL-CPLR-HW-LUGGING",
-        "f1770766978429": "CENTER_TO_CENTER CC"
+        "f1770766978429": "CENTER_TO_CENTER CC",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766992117": "-"
       },
       "p1770762944205": {
-        "f1770765683117": "FRONT BASE PL-CPLR-HW-LUGGING"
+        "f1770765683117": "FRONT BASE PL-CPLR-HW-LUGGING",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
       },
       "p1770762956126": {
         "f1770765683117": "BOLT PL-ATTACHMENT-LUGGING"
       },
       "p1770762975793": {
         "f1770765683117": "REAR CROSSPL-CPLR-HW-LUGGING",
-        "f1770766978429": ""
+        "f1770766978429": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766992117": "-"
       },
       "p1770767898320": {
         "f1770765683117": "PROFILE SKETCH{[-]}CHW{[-]}CLASS",
@@ -1818,11 +1830,17 @@
       },
       "p1770767923264": {
         "f1770765683117": "WEDGE BAR MC-CPLR-HW-LUGGING",
-        "f1770766978429": "WEDGE_BAR_HEIGHT X WEDGE_BAR_WIDTH X WEDGE_BAR_LENGTH - WEDGE_ANGLE"
+        "f1770766978429": "WEDGE_BAR_HEIGHT X WEDGE_BAR_WIDTH X WEDGE_BAR_LENGTH - WEDGE_ANGLE",
+        "f1770766964933": "-",
+        "f1770765927726": "-",
+        "f1770766992117": "-"
       },
       "p1770767931018": {
         "f1770765683117": "WEDGE BAR PL-CPLR-HW-LUGGING",
-        "f1770766978429": "WEDGE_BAR_HEIGHT X WEDGE_BAR_WIDTH X WEDGE_BAR_LENGTH - WEDGE_ANGLE"
+        "f1770766978429": "WEDGE_BAR_HEIGHT X WEDGE_BAR_WIDTH X WEDGE_BAR_LENGTH - WEDGE_ANGLE",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766992117": "-"
       },
       "p1770767938206": {
         "f1770765683117": "CHEEK PL-ATTACHMENT-DUTY-RH",
@@ -1835,10 +1853,18 @@
         "f1770765683117": "LIFTING EYE PL-ATTACHMENT-DUTY"
       },
       "p1770832021049": {
-        "f1770765683117": "CYL PL MC-CPLR-HW-LUGGING"
+        "f1770765683117": "CYL PL MC-CPLR-HW-LUGGING",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
       },
       "p1770832041056": {
-        "f1770765683117": "CYL PL-CPLR-HW-LUGGING"
+        "f1770765683117": "CYL PL-CPLR-HW-LUGGING",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
       },
       "p1770832064324": {
         "f1770765683117": "SPRING BOLT PL-QC-HW-MC"
@@ -1847,34 +1873,66 @@
         "f1770765683117": "SPRING BOLT PL-QC-HWA"
       },
       "p1770832083800": {
-        "f1770765683117": "BACK PL-CPLR-HW-LUGGING"
+        "f1770765683117": "BACK PL-CPLR-HW-LUGGING",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
       },
       "p1770832101193": {
         "f1770765683117": "BASE PL-CPLR-HW-LUGGING"
       },
       "p1770832115401": {
-        "f1770765683117": "WEDGE BAR PROTECTOR PL-RH-CPLR-HW-LUGGING"
+        "f1770765683117": "WEDGE BAR PROTECTOR PL-RH-CPLR-HW-LUGGING",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
       },
       "p1770832127303": {
-        "f1770765683117": "WEDGE BAR PROTECTOR PL LH-CPLR-HW-LUGGING"
+        "f1770765683117": "WEDGE BAR PROTECTOR PL LH-CPLR-HW-LUGGING",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
       },
       "p1770832138407": {
-        "f1770765683117": "SAFETY KEY LUG PL-CPLR-HW-LUGGING"
+        "f1770765683117": "SAFETY KEY LUG PL-CPLR-HW-LUGGING",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
       },
       "p1770832149926": {
-        "f1770765683117": "LIFTING EYE PL-CPLR-HW-LUGGING"
+        "f1770765683117": "LIFTING EYE PL-CPLR-HW-LUGGING",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
       },
       "p1770832160731": {
-        "f1770765683117": "HARDWARE ASSM-CPLR-HW-LUGGING"
+        "f1770765683117": "HARDWARE ASSM-CPLR-HW-LUGGING",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
       },
       "p1770832205860": {
         "f1770765683117": "CYL SPACER PL-QC-HW"
       },
       "p1770832218222": {
-        "f1770765683117": "COVER PL-CPLR-HW-LUGGING"
+        "f1770765683117": "COVER PL-CPLR-HW-LUGGING",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
       },
       "p1770832472093": {
-        "f1770765683117": "SAFETY KEY PL-CPLR-HW-LUGGING"
+        "f1770765683117": "SAFETY KEY PL-CPLR-HW-LUGGING",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
       },
       "p1770835955029": {
         "f1770765683117": "COVER BAR-CPLR-HW-LUGGING"
@@ -1911,13 +1969,25 @@
         "f1770766992117": "-"
       },
       "p1770838910007": {
-        "f1770765683117": "SPRING BOLT MC-CPLR-HW-LUGGING"
+        "f1770765683117": "SPRING BOLT MC-CPLR-HW-LUGGING",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
       },
       "p1770838933503": {
-        "f1770765683117": "SPRING BOLT PL-CPLR-HW-LUGGING"
+        "f1770765683117": "SPRING BOLT PL-CPLR-HW-LUGGING",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
       },
       "p1770838969693": {
-        "f1770765683117": "MID BASE PL-CPLR-HWA-LUGGING"
+        "f1770765683117": "MID BASE PL-CPLR-HWA-LUGGING",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
       }
     },
     "tab1770838629859": {
@@ -4543,7 +4613,7 @@
     "tab1775681477169": []
   },
   "inventorMaps": {},
-  "activeClassId": "tab1774978147622",
+  "activeClassId": "tab1770838553711",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
@@ -4798,7 +4868,7 @@
       "name": "Buckets (XDR) CLU"
     }
   ],
-  "selectedPartId": "g1775682749061",
+  "selectedPartId": "p1770832218222",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
