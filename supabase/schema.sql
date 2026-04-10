@@ -564,3 +564,80 @@ begin
   end if;
 end;
 $$;
+
+
+-- ============================================================
+-- RPC: get_completeness_report(p_workspace_id)
+-- Returns parts missing at least one rule. Excludes group/header
+-- rows (type = 'group') and disabled parts.
+-- Returns: [ { class_id, class_name, part_id, part_name,
+--              missing_props text[] } ]
+-- ============================================================
+create or replace function get_completeness_report(p_workspace_id text)
+returns table (
+  class_id      text,
+  class_name    text,
+  part_id       text,
+  part_name     text,
+  missing_props text[]
+)
+language sql stable
+as $$
+  select
+    pc.id                                        as class_id,
+    pc.name                                      as class_name,
+    p.id                                         as part_id,
+    p.name                                       as part_name,
+    array_agg(pr.name order by pr.sort_order)    as missing_props
+  from product_classes pc
+  join parts       p  on p.product_class_id  = pc.id
+  join properties  pr on pr.product_class_id = pc.id
+  left join rules  r  on  r.product_class_id = pc.id
+                      and r.part_id          = p.id
+                      and r.property_id      = pr.id
+  where pc.workspace_id      = p_workspace_id
+    and p.enabled            = true
+    and p.type is distinct from 'group'
+    and (r.template is null or r.template = '')
+  group by pc.id, pc.name, p.id, p.name, p.sort_order
+  order by pc.id, p.sort_order;
+$$;
+
+
+-- ============================================================
+-- RPC: get_stale_variables(p_workspace_id)
+-- Returns master variables never referenced in any rule formula
+-- or file name template within the workspace.
+-- Returns: [ { class_id, class_name, key, label, vals } ]
+-- ============================================================
+create or replace function get_stale_variables(p_workspace_id text)
+returns table (
+  class_id   text,
+  class_name text,
+  key        text,
+  label      text,
+  vals       text[]
+)
+language sql stable
+as $$
+  select
+    pc.id    as class_id,
+    pc.name  as class_name,
+    mv.key,
+    mv.label,
+    mv.vals
+  from product_classes  pc
+  join master_variables mv on mv.product_class_id = pc.id
+  where pc.workspace_id = p_workspace_id
+    and not exists (
+      select 1 from rules r
+      where r.product_class_id = pc.id
+        and r.template like '%' || mv.key || '%'
+    )
+    and not exists (
+      select 1 from file_name_rules fnr
+      where fnr.product_class_id = pc.id
+        and fnr.template like '%' || mv.key || '%'
+    )
+  order by pc.id, mv.sort_order;
+$$;

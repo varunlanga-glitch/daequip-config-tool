@@ -63,6 +63,16 @@ async function openAuditModal() {
     return;
   }
 
+  // Filter out group/header rows — they are never expected to have rules.
+  if (completeness) {
+    completeness = completeness.filter(item => {
+      const classParts = State.parts[item.class_id];
+      if (!classParts) return true; // class not in local state — keep, fail safe
+      const part = classParts.find(p => p.id === item.part_id);
+      return !part || part.type !== 'group';
+    });
+  }
+
   // Update badge counts on tabs
   const cCount = (completeness || []).length;
   const sCount = (staleVars   || []).length;
