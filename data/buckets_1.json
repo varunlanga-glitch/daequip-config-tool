@@ -141,6 +141,34 @@
         "type": null,
         "level": 0,
         "enabled": true
+      },
+      {
+        "id": "g1775843850782",
+        "name": "Lugging",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775843844835",
+        "name": "(Lug GA)",
+        "midx": "00",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775843900104",
+        "name": "(Lug MC)",
+        "midx": null,
+        "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1775843916572",
+        "name": "(Lug Plate)",
+        "midx": null,
+        "level": 2,
+        "enabled": true
       }
     ],
     "tab1770826801156": [
@@ -1672,6 +1700,26 @@
       },
       "g1775840471709": {
         "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775843916572": {
+        "f1770765683117": "LUG PL-ATTACHMENT-DUTY{[-]}LUGGING  CLASS",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-"
+      },
+      "p1775843844835": {
+        "f1770765683117": "LUG GA-ATTACHMENT-DUTY{[-]}LUGGING CLASS",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775843900104": {
+        "f1770765683117": "LUG MC-ATTACHMENT-DUTY{[-]}LUGGING  CLASS",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
@@ -4608,7 +4656,7 @@
     "tab1775681477169": []
   },
   "inventorMaps": {},
-  "activeClassId": "tab1775679963733",
+  "activeClassId": "buckets",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
@@ -4628,7 +4676,10 @@
       "p1775840684932": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BC NAME",
       "g1775682307162": "-",
       "g1775682374357": "-",
-      "g1775840471709": "-"
+      "g1775840471709": "-",
+      "p1775843844835": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX NAME",
+      "p1775843900104": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX NAME",
+      "p1775843916572": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX NAME"
     },
     "tab1770826801156": {
       "p1": "MACHINE{[-]}ATTACHMENT{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}00 (NAME)",
@@ -4827,7 +4878,7 @@
       "g1775841541628": "-"
     }
   },
-  "activeRightTab": "config",
+  "activeRightTab": "rules",
   "lockedSections": {},
   "productClasses": [
     {
@@ -4863,7 +4914,7 @@
       "name": "Buckets (XDR) CLU"
     }
   ],
-  "selectedPartId": null,
+  "selectedPartId": "p1775843844835",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
