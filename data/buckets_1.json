@@ -4613,7 +4613,7 @@
     "tab1775681477169": []
   },
   "inventorMaps": {},
-  "activeClassId": "tab1770838553711",
+  "activeClassId": "tab1775681477169",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
@@ -4832,7 +4832,7 @@
       "g1775841541628": "-"
     }
   },
-  "activeRightTab": "rules",
+  "activeRightTab": "parts",
   "lockedSections": {},
   "productClasses": [
     {
@@ -4861,14 +4861,14 @@
     },
     {
       "id": "tab1775679963733",
-      "name": "Buckets (XD) CLU)"
+      "name": "Buckets (XD) CLU"
     },
     {
       "id": "tab1775681477169",
       "name": "Buckets (XDR) CLU"
     }
   ],
-  "selectedPartId": "p1770832218222",
+  "selectedPartId": null,
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
