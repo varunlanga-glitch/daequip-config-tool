@@ -432,7 +432,7 @@ function openPublishModal() {
         // 1b. Dual-write category data to Supabase + create version (non-fatal)
         status.textContent = 'Syncing to Supabase…';
         try {
-          await sbSaveCategoryData(window._activeCategory.id, State, msg, 'publish');
+          await sbSaveCategoryData(window._activeCategory.id, State, msg, getCurrentUser() || 'publish');
         } catch(sbErr) {
           console.warn('Supabase category sync failed:', sbErr.message);
         }
@@ -492,16 +492,44 @@ function openHistoryModal() {
   overlay.style.cssText = 'z-index:2000';
   overlay.innerHTML = `
     <div class="confirm-box gh-modal gh-history-box">
-      <div class="confirm-title">🕐 Version History</div>
-      <div id="ghHistList" class="gh-hist-list">
-        <div class="gh-hist-loading">Loading history…</div>
+      <div class="confirm-title">🕐 History</div>
+      <div class="audit-tabs">
+        <button class="audit-tab audit-tab-active" id="histTabVersions">Versions</button>
+        <button class="audit-tab" id="histTabChanges">Changes</button>
       </div>
+      <div id="ghHistVersionsPanel" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+        <div id="ghHistList" class="gh-hist-list">
+          <div class="gh-hist-loading">Loading history…</div>
+        </div>
+      </div>
+      <div id="ghHistChangesPanel" style="display:none;flex-direction:column;flex:1;overflow:hidden"></div>
       <div class="confirm-buttons" style="border-top:1px solid var(--stroke)">
         <button class="btn btn-cancel" id="ghHistClose">Close</button>
       </div>
     </div>`;
   document.body.appendChild(overlay);
   overlay.querySelector('#ghHistClose').onclick = () => overlay.remove();
+
+  const versionsPanel = overlay.querySelector('#ghHistVersionsPanel');
+  const changesPanel  = overlay.querySelector('#ghHistChangesPanel');
+  let changesLoaded   = false;
+
+  overlay.querySelector('#histTabVersions').onclick = () => {
+    overlay.querySelector('#histTabVersions').classList.add('audit-tab-active');
+    overlay.querySelector('#histTabChanges').classList.remove('audit-tab-active');
+    versionsPanel.style.display = 'flex';
+    changesPanel.style.display  = 'none';
+  };
+  overlay.querySelector('#histTabChanges').onclick = () => {
+    overlay.querySelector('#histTabChanges').classList.add('audit-tab-active');
+    overlay.querySelector('#histTabVersions').classList.remove('audit-tab-active');
+    versionsPanel.style.display = 'none';
+    changesPanel.style.display  = 'flex';
+    if (!changesLoaded) {
+      changesLoaded = true;
+      renderChangeLogTab(changesPanel, catId);
+    }
+  };
 
   const listEl = overlay.querySelector('#ghHistList');
 

@@ -1784,6 +1784,15 @@ tr.grid-group-header td.grid-group-header-cell {
 .gh-hist-pin-btn:hover { opacity: 1; background: rgba(43,108,176,.08); border-color: var(--stroke); }
 .gh-hist-pin-btn.gh-hist-pin-active { opacity: 1; }
 
+/* -- Change log tab */
+.gh-hist-date-group { padding: 8px 20px 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); border-top: 1px solid var(--stroke); background: #fafaf8; position: sticky; top: 0; }
+.gh-hist-date-group:first-child { border-top: 0; }
+.gh-hist-change-diff { font-size: 11px; font-family: var(--mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.diff-old { color: #b91c1c; text-decoration: line-through; opacity: .75; }
+.diff-new { color: #276749; font-weight: 600; }
+.hist-identity-bar { padding: 8px 20px; font-size: 12px; color: var(--muted); background: #fafaf8; border-bottom: 1px solid var(--stroke); display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.hist-identity-edit-btn { font-size: 11px; padding: 2px 8px; }
+
 /* -- Audit modal */
 .audit-modal { max-width: 620px; max-height: 80vh; display: flex; flex-direction: column; }
 .audit-tabs { display: flex; border-bottom: 1px solid var(--stroke); padding: 0 20px; gap: 4px; background: #fafaf8; flex-shrink: 0; }

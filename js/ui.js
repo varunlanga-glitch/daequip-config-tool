@@ -178,7 +178,14 @@ document.body.addEventListener('dblclick', e => {
     const val = input.value.trim();
     let changed = false;
     if (val) {
-      if (type === 'partName') { const p = getActiveParts().find(p => p.id === id); if (p && p.name !== val) { p.name = val; changed = true; } }
+      if (type === 'partName') {
+        const p = getActiveParts().find(p => p.id === id);
+        if (p && p.name !== val) {
+          if (typeof logChange === 'function') logChange(State.activeClassId, 'part_name', id, p.name, null, null, p.name, val);
+          p.name = val;
+          changed = true;
+        }
+      }
       if (type === 'partIdx')  { const p = getActiveParts().find(p => p.id === id); if (p && p.midx !== val) { p.midx = val; changed = true; } }
       if (type === 'propName') { const p = getActiveProps().find(p => p.id === id);  if (p && p.name !== val) { p.name = val; changed = true; } }
     }

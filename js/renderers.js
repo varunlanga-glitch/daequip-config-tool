@@ -950,6 +950,16 @@ function renderRuleList() {
     textarea.placeholder    = 'e.g. PN-PIN_ODMM-PIN_LENGTH_IN-01-01';
     textarea.dataset.propId = '__filename__';
 
+    // Change log: capture on focus, log on blur if changed
+    let _fnValOnFocus = currentFn;
+    textarea.onfocus = function() { _fnValOnFocus = this.value; };
+    textarea.onblur  = function() {
+      if (this.value !== _fnValOnFocus && typeof logChange === 'function') {
+        const partName = getActiveParts().find(p => p.id === State.selectedPartId)?.name || State.selectedPartId;
+        logChange(State.activeClassId, 'file_name_rule', State.selectedPartId, partName, null, null, _fnValOnFocus, this.value);
+      }
+    };
+
     const INVALID_FN_CHARS = /[/\\:*?"<>|]/g;
     const _fnWarn = fn => fn && INVALID_FN_CHARS.test(fn)
       ? ' ⚠ contains invalid filename characters' : '';
@@ -1052,6 +1062,16 @@ function renderRuleList() {
     textarea.className    = 'rule-textarea';
     textarea.value        = currentRule;
     textarea.dataset.propId = pr.id;
+
+    // Change log: capture value on focus, log on blur if it changed
+    let _ruleValOnFocus = currentRule;
+    textarea.onfocus = function() { _ruleValOnFocus = this.value; };
+    textarea.onblur  = function() {
+      if (this.value !== _ruleValOnFocus && typeof logChange === 'function') {
+        const partName = getActiveParts().find(p => p.id === State.selectedPartId)?.name || State.selectedPartId;
+        logChange(State.activeClassId, 'rule', State.selectedPartId, partName, pr.id, pr.name, _ruleValOnFocus, this.value);
+      }
+    };
 
     const preview = document.createElement('div');
     preview.className = 'rule-preview';
