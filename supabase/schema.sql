@@ -69,6 +69,7 @@ create table parts (
   midx              text,
   level             integer not null default 0,
   enabled           boolean not null default true,
+  type              text,                             -- 'group' for header rows, NULL for regular parts
   sort_order        integer not null default 0,
   primary key (product_class_id, id)
 );
@@ -237,7 +238,7 @@ as $$
         select jsonb_object_agg(pc.id, coalesce((
           select jsonb_agg(jsonb_build_object(
             'id', p.id, 'name', p.name, 'midx', p.midx,
-            'level', p.level, 'enabled', p.enabled
+            'level', p.level, 'enabled', p.enabled, 'type', p.type
           ) order by p.sort_order)
           from parts p where p.product_class_id = pc.id
         ), '[]'::jsonb))
@@ -409,11 +410,12 @@ begin
     for arr_item in select value from jsonb_array_elements(
                       coalesce(p_state->'parts'->pc_id, '[]'::jsonb))
     loop
-      insert into parts (id, product_class_id, name, midx, level, enabled, sort_order)
+      insert into parts (id, product_class_id, name, midx, level, enabled, type, sort_order)
       values (
         arr_item->>'id', pc_id, arr_item->>'name', arr_item->>'midx',
         coalesce((arr_item->>'level')::int, 0),
         coalesce((arr_item->>'enabled')::bool, true),
+        nullif(arr_item->>'type', ''),
         arr_idx
       );
       arr_idx := arr_idx + 1;
