@@ -18,9 +18,8 @@
         "enabled": true
       },
       {
-        "id": "g1775682374357",
-        "midx": null,
-        "name": "Standard Parts",
+        "id": "g1775840471709",
+        "name": "Width Parts",
         "type": "group",
         "level": 0,
         "enabled": true
@@ -74,6 +73,28 @@
         "enabled": true
       },
       {
+        "id": "p1775840684932",
+        "midx": null,
+        "name": "(Body Weldment)",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770762899954",
+        "midx": null,
+        "name": "E",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "g1775682374357",
+        "midx": null,
+        "name": "Standard Parts",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
         "id": "p1770767898320",
         "midx": null,
         "name": "Profile Sketch",
@@ -98,7 +119,7 @@
         "enabled": true
       },
       {
-        "id": "p1770767938206",
+        "id": "p1775840507085",
         "midx": null,
         "name": "Cheek Plate-RH",
         "type": null,
@@ -106,7 +127,7 @@
         "enabled": true
       },
       {
-        "id": "p1770767948898",
+        "id": "p1775840542739",
         "midx": null,
         "name": "Cheek Plate-LH",
         "type": null,
@@ -117,14 +138,6 @@
         "id": "p1770767958952",
         "midx": null,
         "name": "Lifting Eye Plate",
-        "type": null,
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1770762899954",
-        "midx": "B",
-        "name": "Body Weldment",
         "type": null,
         "level": 0,
         "enabled": true
@@ -1658,19 +1671,23 @@
       "p1770767931018": {
         "f1770765683117": "SIDE PL{[-]}ATTACHMENT-DUTY"
       },
-      "p1770767938206": {
-        "f1770765683117": "CHEEK PL{[-]}ATTACHMENT{[-]}DUTY{[-]}RH",
-        "f1770765927726": ""
-      },
-      "p1770767948898": {
-        "f1770765683117": "CHEEK PL{[-]}ATTACHMENT{[-]}DUTY{[-]}LH"
-      },
       "p1770767958952": {
         "f1770765683117": "LIFTING EYE PL{[-]}ATTACHMENT{[-]}DUTY",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
         "f1770766992117": "-"
+      },
+      "p1775840507085": {
+        "f1770765683117": "CHHEK PL{[-]}RH{[-]}ATTACHMENT{[-]}DUTY"
+      },
+      "p1775840542739": {
+        "f1770765683117": "CHHEK PL{[-]}LH{[-]}ATTACHMENT{[-]}DUTY"
+      },
+      "p1775840684932": {
+        "f1770765683117": "BODY-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
+        "f1770765927726": "VOLUME",
+        "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°"
       }
     },
     "tab1770826801156": {
@@ -4287,11 +4304,11 @@
     "tab1775681477169": []
   },
   "inventorMaps": {},
-  "activeClassId": "tab1775679963733",
+  "activeClassId": "buckets",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
-      "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE (NAME)",
+      "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BC{[-]}TOOTH_TYPE (Tooth Weldment)",
       "p1770762912068": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE (NAME)",
       "p1770762928430": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
       "p1770762938928": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
@@ -4301,9 +4318,10 @@
       "p1770767898320": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-00 (NAME)",
       "p1770767923264": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-01 (NAME)",
       "p1770767931018": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-02 (NAME)",
-      "p1770767938206": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-03 (NAME)",
-      "p1770767948898": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-04 (NAME)",
-      "p1770767958952": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-05 (NAME)"
+      "p1770767958952": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-05 (NAME)",
+      "p1775840507085": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}IDX (NAME)",
+      "p1775840542739": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}IDX (NAME)",
+      "p1775840684932": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BC NAME"
     },
     "tab1770826801156": {
       "p1": "MACHINE{[-]}ATTACHMENT{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}00 (NAME)",
@@ -4540,7 +4558,7 @@
       "name": "Buckets (XDR) CLU"
     }
   ],
-  "selectedPartId": "p1775840052320",
+  "selectedPartId": "p1775840684932",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
