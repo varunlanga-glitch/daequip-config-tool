@@ -1284,41 +1284,9 @@
         "enabled": true
       },
       {
-        "id": "g1775682508089",
-        "midx": null,
-        "name": "Lugging",
-        "type": "group",
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1775679054369",
-        "midx": "00",
-        "name": "EX-BKT-DIG-XD-060-WBM-00 (Lug GA)",
-        "type": null,
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1775679080676",
-        "midx": "00-01",
-        "name": "Lug MC",
-        "type": null,
-        "level": 1,
-        "enabled": true
-      },
-      {
-        "id": "p1775679093496",
-        "midx": null,
-        "name": "Lug Plate",
-        "type": null,
-        "level": 2,
-        "enabled": true
-      },
-      {
         "id": "g1775682518705",
         "midx": null,
-        "name": "Standard Parts",
+        "name": "Width Parts",
         "type": "group",
         "level": 0,
         "enabled": true
@@ -1348,9 +1316,17 @@
         "enabled": true
       },
       {
-        "id": "p1770762956126",
+        "id": "p1775841277656",
         "midx": null,
-        "name": "Wear Bar Assm",
+        "name": "(Top Stiffener Plate)",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775841294220",
+        "midx": null,
+        "name": "(Liner Plate)",
         "type": null,
         "level": 0,
         "enabled": true
@@ -1360,93 +1336,28 @@
         "midx": null,
         "name": "Wear Bar",
         "type": null,
-        "level": 1,
-        "enabled": true
-      },
-      {
-        "id": "p1770767898320",
-        "midx": null,
-        "name": "Profile Sketch",
-        "type": null,
         "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1775591792870",
-        "midx": null,
-        "name": "Corner Edge Plate",
-        "type": null,
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1770767923264",
-        "midx": null,
-        "name": "Side Edge Plate",
-        "type": null,
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1770767931018",
-        "midx": null,
-        "name": "Side Plate",
-        "type": null,
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1770767938206",
-        "midx": null,
-        "name": "Cheek Plate-RH",
-        "type": null,
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1770767948898",
-        "midx": null,
-        "name": "Cheek Plate-LH",
-        "type": null,
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1770767958952",
-        "midx": null,
-        "name": "(Lifting Eye Plate)",
-        "type": null,
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1774978175717",
-        "midx": null,
-        "name": "Radial Wear Plate-RH",
-        "type": null,
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1775591947621",
-        "midx": null,
-        "name": "Radial Wear Plate-LH",
-        "type": null,
-        "level": 0,
-        "enabled": true
-      },
-      {
-        "id": "p1775592003600",
-        "midx": null,
-        "name": "Radial Wear Plate",
-        "type": null,
-        "level": 1,
         "enabled": true
       },
       {
         "id": "p1770762899954",
         "midx": "B",
         "name": "Body Weldment",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "g1775841541628",
+        "name": "400 & Above",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775841395567",
+        "midx": "02",
+        "name": "(Top Shell Plate)",
         "type": null,
         "level": 0,
         "enabled": true
@@ -2408,139 +2319,63 @@
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
-      "p1770762956126": {
-        "f1770765683117": "WEAR BAR ASSM{[-]}HOR{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
       "p1770762975793": {
         "f1770765683117": "WEAR BAR{[-]}HOR{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "p1770767898320": {
-        "f1770765683117": "PROFILE SKETCH DUTY{[-]}CLASS",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "p1770767923264": {
-        "f1770765683117": "SIDE EDGE{[-]}ATTACHMENT{[-]}DUTY",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "p1770767931018": {
-        "f1770765683117": "SIDE PL{[-]}ATTACHMENT{[-]}DUTY",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "p1770767938206": {
-        "f1770765683117": "CHEEK PL{[-]}ATTACHMENT{[-]}DUTY{[-]}RH",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "p1770767948898": {
-        "f1770765683117": "CHEEK PL{[-]}ATTACHMENT{[-]}DUTY{[-]}LH",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "p1770767958952": {
-        "f1770765683117": "LIFTING EYE PL{[-]}ATTACHMENT{[-]}DUTY",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "p1774978175717": {
-        "f1770765683117": "RAD WEAR PL{[-]}ATTACHMENT{[-]}DUTY{[-]}RH",
-        "f1770765927726": "-",
+        "f1770765927726": "WEAR_BAR_THICKNESS THK",
         "f1770766964933": "-",
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "p1775591138143": {
         "f1770765683117": "STRBK PL{[-]}{[-]}ATTACHMENT-DUTY LUGGING CLASS",
-        "f1770765927726": "VOLUME{[ - ]}{?} {?} ATTACHMENT",
+        "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "p1775591348667": {
         "f1770765683117": "STRBK PL-RH-ATTACHMENT-DUTY LUGGING CLASS",
-        "f1770765927726": "VOLUME -  ",
+        "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "p1775591371291": {
         "f1770765683117": "STRBK PL-LH-ATTACHMENT-DUTY LUGGING CLASS",
-        "f1770765927726": "VOLUME -  ",
+        "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "p1775591549394": {
         "f1770765683117": "STRBK PL{[-]}LH{[-]}ATTACHMENT{[-]}DUTY SIZE",
-        "f1770765927726": "VOLUME{[ - ]} ",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "p1775591792870": {
-        "f1770765683117": "SIDE EDGE{[-]}ATTACHMENT{[-]}DUTY",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
-      "p1775591947621": {
-        "f1770765683117": "RAD WEAR PL{[-]}ATTACHMENT{[-]}DUTY{[-]}LH",
+      "p1775841277656": {
+        "f1770765683117": "TOP STIFFENER PL{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
-      "p1775592003600": {
-        "f1770765683117": "RAD WEAR PL{[-]}ATTACHMENT{[-]}DUTY",
+      "p1775841294220": {
+        "f1770765683117": "LINER PL{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
-      "p1775679054369": {
-        "f1770765683117": "LUG GA{[-]}ATTACHMENT{[-]}DUTY{[-]}LUGGING CLASS",
+      "p1775841395567": {
+        "f1770765683117": "TOP SHELL PL{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
         "f1770765927726": "-",
         "f1770766964933": "-",
-        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}",
+        "f1770766978429": "-",
         "f1770766992117": "-"
       },
-      "p1775679080676": {
-        "f1770765683117": "LUG MC{[-]}ATTACHMENT{[-]}DUTY{[-]}LUGGING CLASS",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "{CENTER_TO_CENTER#0.3: CC}",
-        "f1770766992117": "-"
-      },
-      "p1775679093496": {
-        "f1770765683117": "LUG PL{[-]}ATTACHMENT{[-]}DUTY{[-]}LUGGING CLASS",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "{CENTER_TO_CENTER#0.3: CC}",
-        "f1770766992117": "-"
-      }
+      "g1775841541628": {}
     }
   },
   "master": {
@@ -4125,6 +3960,13 @@
           "22.000"
         ],
         "label": "CENTER TO CENTER"
+      },
+      {
+        "key": "WEAR_BAR_THICKNESS",
+        "label": "Wear Bar Thickness",
+        "vals": [
+          "0.750"
+        ]
       }
     ]
   },
@@ -4299,7 +4141,8 @@
       "LUG_SPREAD": "24.000",
       "BLADE_ANGLE": "20",
       "MACHINE_TYPE": "EX",
-      "CENTER_TO_CENTER": "22.000"
+      "CENTER_TO_CENTER": "22.000",
+      "WEAR_BAR_THICKNESS": "0.750"
     }
   },
   "lockedTabs": {},
@@ -4314,7 +4157,7 @@
     "tab1775681477169": []
   },
   "inventorMaps": {},
-  "activeClassId": "tab1775679963733",
+  "activeClassId": "tab1775681477169",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
@@ -4511,28 +4354,17 @@
       "p1770762912068": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE (NAME)",
       "p1770762928430": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
       "p1770762938928": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
-      "p1770762956126": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
       "p1770762975793": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
-      "p1770767898320": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}00 (NAME)",
-      "p1770767923264": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}02 (NAME)",
-      "p1770767931018": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}03 (NAME)",
-      "p1770767938206": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}04 (NAME)",
-      "p1770767948898": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}05 (NAME)",
-      "p1770767958952": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}05 (NAME)",
-      "p1774978175717": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}06 (NAME)",
       "p1775591138143": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}IDX (Strongback-MID)",
       "p1775591348667": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-IDX (Strongback-RH)",
       "p1775591371291": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-IDX (Strongback-LH)",
       "p1775591549394": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX (Strongback-Plate)",
-      "p1775591792870": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}01 (NAME)",
-      "p1775591947621": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}07 (NAME)",
-      "p1775592003600": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}07-01 (NAME)",
-      "p1775679054369": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug GA)",
-      "p1775679080676": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING-IDX (Lug MC)",
-      "p1775679093496": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug Plate)"
+      "p1775841277656": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME",
+      "p1775841294220": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME",
+      "p1775841395567": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME"
     }
   },
-  "activeRightTab": "parts",
+  "activeRightTab": "rules",
   "lockedSections": {},
   "productClasses": [
     {
@@ -4568,7 +4400,7 @@
       "name": "Buckets (XDR) CLU"
     }
   ],
-  "selectedPartId": "g1775683537727",
+  "selectedPartId": "p1775591549394",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
