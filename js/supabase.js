@@ -121,7 +121,7 @@ async function sbSaveCategoryData(catId, stateObj, message, committedBy) {
  * @param {string} catId
  * @param {object} stateObj — current State
  */
-async function sbAutoSave(catId, stateObj) {
+async function sbAutoSave(catId, stateObj, onError) {
   if (!catId) return;
   try {
     var saveState = Object.assign({}, stateObj);
@@ -132,6 +132,7 @@ async function sbAutoSave(catId, stateObj) {
     });
   } catch (e) {
     console.warn('sbAutoSave failed (non-fatal):', e.message);
+    if (typeof onError === 'function') onError(e);
   }
 }
 

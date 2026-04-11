@@ -147,10 +147,15 @@ function _openSetupModal(onDone) {
     </div>`;
   document.body.appendChild(overlay);
 
+  const _close = () => { overlay.remove(); document.removeEventListener('keydown', _escSetup); };
+  const _escSetup = e => { if (e.key === 'Escape') _close(); };
+  document.addEventListener('keydown', _escSetup);
+  overlay.addEventListener('click', e => { if (e.target === overlay) _close(); });
+
   const err  = overlay.querySelector('#ghSetupErr');
   const save = overlay.querySelector('#ghSetupSave');
 
-  overlay.querySelector('#ghSetupCancel').onclick = () => overlay.remove();
+  overlay.querySelector('#ghSetupCancel').onclick = _close;
   save.onclick = async () => {
     const token = overlay.querySelector('#ghSetupToken').value.trim();
     const pin   = overlay.querySelector('#ghSetupPin').value;
@@ -404,10 +409,15 @@ function openPublishModal() {
     document.body.appendChild(overlay);
     overlay.querySelector('#ghCommitMsg').select();
 
+    const _closePub = () => { overlay.remove(); document.removeEventListener('keydown', _escPub); };
+    const _escPub = e => { if (e.key === 'Escape' && !pubBtn.disabled) _closePub(); };
+    document.addEventListener('keydown', _escPub);
+    overlay.addEventListener('click', e => { if (e.target === overlay && !pubBtn.disabled) _closePub(); });
+
     const status = overlay.querySelector('#ghPublishStatus');
     const pubBtn = overlay.querySelector('#ghPubBtn');
 
-    overlay.querySelector('#ghPubCancel').onclick = () => overlay.remove();
+    overlay.querySelector('#ghPubCancel').onclick = _closePub;
 
     pubBtn.onclick = async () => {
       const msg = overlay.querySelector('#ghCommitMsg').value.trim() || `Update ${catLabel} config`;
@@ -508,7 +518,11 @@ function openHistoryModal() {
       </div>
     </div>`;
   document.body.appendChild(overlay);
-  overlay.querySelector('#ghHistClose').onclick = () => overlay.remove();
+  const _closeHist = () => { overlay.remove(); document.removeEventListener('keydown', _escHist); };
+  const _escHist = e => { if (e.key === 'Escape') _closeHist(); };
+  document.addEventListener('keydown', _escHist);
+  overlay.addEventListener('click', e => { if (e.target === overlay) _closeHist(); });
+  overlay.querySelector('#ghHistClose').onclick = _closeHist;
 
   const versionsPanel = overlay.querySelector('#ghHistVersionsPanel');
   const changesPanel  = overlay.querySelector('#ghHistChangesPanel');
@@ -560,7 +574,7 @@ function openHistoryModal() {
 
       const metaSpan = document.createElement('span');
       metaSpan.className = 'gh-hist-meta';
-      metaSpan.innerHTML = escapeHtml(dateStr) + ' &nbsp;·&nbsp; ' + escapeHtml(author) + ' &nbsp;·&nbsp; <code>#' + v.id + '</code>';
+      metaSpan.innerHTML = escapeHtml(dateStr) + ' &nbsp;·&nbsp; ' + escapeHtml(author) + ' &nbsp;·&nbsp; <code>#' + escapeHtml(String(v.id)) + '</code>';
 
       info.appendChild(msgSpan);
       info.appendChild(metaSpan);
