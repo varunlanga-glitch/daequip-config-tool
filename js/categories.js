@@ -59,6 +59,9 @@ function _applySnapshot(snapshot) {
   window._unlockedSections = new Set();
   migrateState();
   State.dirty = false;
+  // stateVersion comes back from Supabase; defaults to null for static-file
+  // loads so the first save won't trigger optimistic-lock rejection.
+  if (State.stateVersion === undefined) State.stateVersion = null;
 }
 
 /* ── Topbar button visibility ─────────────────────────── */
@@ -247,28 +250,35 @@ async function enterCategory(cat) {
 
     // Try Supabase first, fall back to the static GitHub file
     let _dataLoaded = false;
+    let _usedFallback = null;   // null | 'static' | 'empty' — drives the warning banner below
+    let _sbError      = null;
     try {
       const sbData = await sbLoadCategoryData(cat.id);
       if (sbData) {
         _applySnapshot(sbData);
         _dataLoaded = true;
       }
-    } catch(_) { /* Supabase unavailable — continue to GitHub fallback */ }
+    } catch(e) { _sbError = e; }
 
     if (!_dataLoaded) {
       try {
         const r = await fetch(cat.file + '?t=' + Date.now());
         if (r.ok) {
           _applySnapshot(await r.json());
+          _dataLoaded  = true;
+          _usedFallback = 'static';
         } else {
           _applySnapshot(_defaultCategoryState(cat));
+          _usedFallback = 'empty';
         }
       } catch(_) {
         _applySnapshot(_defaultCategoryState(cat));
+        _usedFallback = 'empty';
       }
     }
 
     if (loadEl) loadEl.style.display = 'none';
+    if (_usedFallback) _showLoadFallbackBanner(cat, _usedFallback, _sbError);
 
     // Cache it
     window._categoryStates[cat.id] = _captureState();
@@ -293,6 +303,47 @@ async function enterCategory(cat) {
   window._sbWatchStop = sbWatchWorkspace(cat.id, () => {
     _showRemoteChangeBanner(cat);
   });
+}
+
+/* ── Load-fallback banner ──────────────────────────────
+   Shown when Supabase didn't return data and we had to fall back to
+   the static file (or empty state). Prevents the user from saving
+   over a real workspace that briefly looked empty due to a transient
+   network error. (audit item #9) */
+function _showLoadFallbackBanner(cat, kind, sbError) {
+  const existing = document.getElementById('loadFallbackBanner');
+  if (existing) existing.remove();
+
+  const banner = document.createElement('div');
+  banner.id        = 'loadFallbackBanner';
+  banner.className = 'autosave-banner';
+
+  const msgSpan = document.createElement('span');
+  if (kind === 'static') {
+    msgSpan.textContent = '⚠ Loaded from the static backup — Supabase was unreachable. Do not publish until you verify your changes.';
+  } else {
+    msgSpan.textContent = '⚠ No saved data found. This is an empty workspace. If you expected existing data, reload before editing.';
+  }
+  if (sbError && sbError.message) {
+    msgSpan.title = 'Supabase error: ' + sbError.message;
+  }
+
+  const reloadBtn = document.createElement('button');
+  reloadBtn.className   = 'btn btn-autosave-restore';
+  reloadBtn.textContent = 'Reload';
+  reloadBtn.onclick = async () => {
+    banner.remove();
+    delete window._categoryStates[cat.id];
+    await enterCategory(cat);
+  };
+
+  const dismissBtn = document.createElement('button');
+  dismissBtn.className   = 'btn btn-autosave-discard';
+  dismissBtn.textContent = 'Dismiss';
+  dismissBtn.onclick = () => banner.remove();
+
+  banner.append(msgSpan, reloadBtn, dismissBtn);
+  document.querySelector('.app').insertBefore(banner, document.querySelector('.main'));
 }
 
 /* ── Remote-change banner ──────────────────────────────── */

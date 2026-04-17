@@ -78,7 +78,9 @@ function scheduleAutosave() {
     } catch(e) { /* storage full — silently skip */ }
     // 2. Also push to Supabase (no version snapshot — just keeps DB current)
     if (window._activeCategory?.id) {
-      sbAutoSave(window._activeCategory.id, saveState);
+      sbAutoSave(window._activeCategory.id, saveState).then(newVer => {
+        if (newVer != null) State.stateVersion = newVer;
+      });
     }
   }, 2000);
 }

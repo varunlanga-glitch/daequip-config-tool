@@ -415,10 +415,32 @@ function openPublishModal() {
       const msg = overlay.querySelector('#ghCommitMsg').value.trim() || `Update ${catLabel} config`;
       pubBtn.disabled = true;
       status.className = 'gh-status';
-      status.textContent = 'Pushing category data…';
+      status.textContent = 'Saving to Supabase…';
 
       try {
-        // 1. Push current category data to GitHub
+        // 1. Supabase is the source-of-truth: save there first with optimistic
+        //    locking so concurrent publishes surface a conflict rather than
+        //    clobbering silently. If this fails, we DO NOT push to GitHub —
+        //    otherwise the two stores drift apart (item #3 split-brain).
+        try {
+          const newVersion = await sbSaveCategoryData(
+            window._activeCategory.id, State, msg, getCurrentUser() || 'publish'
+          );
+          if (newVersion != null) State.stateVersion = newVersion;
+        } catch(sbErr) {
+          if (/workspace_version_conflict/i.test(sbErr.message || '')) {
+            status.className = 'gh-status gh-status-err';
+            status.textContent = 'Someone else published first. Reload the workspace and retry.';
+            pubBtn.disabled = false;
+            _showRemoteChangeBanner(window._activeCategory);
+            return;
+          }
+          throw sbErr;
+        }
+
+        // 2. Push current category data to GitHub (source of truth for readers
+        //    without Supabase access — falls back to this file).
+        status.textContent = 'Pushing to GitHub…';
         let meta;
         try {
           meta = await _ghGetFile(token);
@@ -430,14 +452,6 @@ function openPublishModal() {
           }
         }
         await _ghPushFile(token, content, meta.sha, msg);
-
-        // 1b. Dual-write category data to Supabase + create version (non-fatal)
-        status.textContent = 'Syncing to Supabase…';
-        try {
-          await sbSaveCategoryData(window._activeCategory.id, State, msg, getCurrentUser() || 'publish');
-        } catch(sbErr) {
-          console.warn('Supabase category sync failed:', sbErr.message);
-        }
 
         // 2. Push categories.json to GitHub if the list has changed
         if (window._categoriesDirty) {
@@ -464,6 +478,14 @@ function openPublishModal() {
         State.dirty = false;
         if (window._activeCategory) {
           window._categoryDirty[window._activeCategory.id] = false;
+        }
+        // Clear the per-category autosave localStorage entry (item #10) so
+        // the unsaved-changes banner doesn't pop up next reload.
+        try { localStorage.removeItem(_autosaveKey()); } catch(_) {}
+        // Any pending autosave timer from before publish should be cancelled
+        // so it doesn't re-write stale data.
+        if (typeof _autosaveTimer !== 'undefined' && _autosaveTimer) {
+          clearTimeout(_autosaveTimer);
         }
         _updateDirtyIndicator();
 

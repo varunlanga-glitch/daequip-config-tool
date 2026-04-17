@@ -10,6 +10,7 @@ let State = {
   selectedPartId: null,
   activeRightTab: "parts",
   dirty:          false,   // true when in-memory state differs from last save/load
+  stateVersion:   null,    // last server-known state_version — null means no server record yet (first save will bypass optimistic locking)
 
   master:      { buckets: [] },
   context:     { buckets: {} },

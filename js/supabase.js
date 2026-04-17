@@ -99,11 +99,17 @@ async function sbLoadCategoryData(catId) {
 async function sbSaveCategoryData(catId, stateObj, message, committedBy) {
   var saveState = Object.assign({}, stateObj);
   delete saveState.dirty;
-  await _sbFetch('/rpc/save_workspace', {
+  var expected = (stateObj && stateObj.stateVersion != null) ? stateObj.stateVersion : null;
+  // save_workspace returns the new bigint state_version
+  var newVersion = await _sbFetch('/rpc/save_workspace', {
     method: 'POST',
-    body:   JSON.stringify({ p_workspace_id: catId, p_state: saveState })
+    body:   JSON.stringify({
+      p_workspace_id:     catId,
+      p_state:            saveState,
+      p_expected_version: expected
+    })
   });
-  // Non-fatal: snapshot the save as a version entry
+  // Non-fatal: snapshot the save as a version entry (content-hash-deduped server-side)
   try {
     await _sbFetch('/rpc/create_version', {
       method: 'POST',
@@ -116,6 +122,7 @@ async function sbSaveCategoryData(catId, stateObj, message, committedBy) {
   } catch (e) {
     console.warn('sbSaveCategoryData: version snapshot failed (non-fatal)', e);
   }
+  return newVersion;
 }
 
 /**
@@ -126,16 +133,25 @@ async function sbSaveCategoryData(catId, stateObj, message, committedBy) {
  * @param {object} stateObj — current State
  */
 async function sbAutoSave(catId, stateObj) {
-  if (!catId) return;
+  if (!catId) return null;
   try {
     var saveState = Object.assign({}, stateObj);
     delete saveState.dirty;
-    await _sbFetch('/rpc/save_workspace', {
+    var expected = (stateObj && stateObj.stateVersion != null) ? stateObj.stateVersion : null;
+    return await _sbFetch('/rpc/save_workspace', {
       method: 'POST',
-      body:   JSON.stringify({ p_workspace_id: catId, p_state: saveState })
+      body:   JSON.stringify({
+        p_workspace_id:     catId,
+        p_state:            saveState,
+        p_expected_version: expected
+      })
     });
   } catch (e) {
-    console.warn('sbAutoSave failed (non-fatal):', e.message);
+    // Don't spam console on routine version conflicts — the UI handles those
+    if (!/workspace_version_conflict/i.test(e.message || '')) {
+      console.warn('sbAutoSave failed (non-fatal):', e.message);
+    }
+    return null;
   }
 }
 
