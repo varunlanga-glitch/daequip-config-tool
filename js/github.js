@@ -5,9 +5,11 @@
    the browser. Changes go live for everyone as soon as they
    reload the tool.
 
-   Storage (localStorage):
-     gh_pat       — GitHub Personal Access Token (entered once)
-     gh_pin_hash  — SHA-256 of the PIN (hex string)
+   Storage:
+     gh_pat       — GitHub Personal Access Token (sessionStorage: cleared
+                    when the tab closes, so XSS / shared-device risk is
+                    bounded by the current session)
+     gh_pin_hash  — PBKDF2 hash of the PIN (localStorage, hashed-only)
    ============================================================ */
 
 'use strict';
@@ -176,7 +178,7 @@ function _openSetupModal(onDone) {
       return;
     }
 
-    localStorage.setItem(_TOKEN_KEY, token);
+    sessionStorage.setItem(_TOKEN_KEY, token);
     localStorage.setItem(_PIN_KEY, await _hashPin(pin));
     window._ghSessionToken = token;
     overlay.remove();
@@ -228,7 +230,7 @@ function _openPinModal(actionLabel, onCorrect) {
   overlay.querySelector('#ghPinOk').onclick     = tryPin;
   overlay.querySelector('#ghPinCancel').onclick = () => overlay.remove();
   overlay.querySelector('#ghPinReset').onclick  = () => {
-    localStorage.removeItem(_TOKEN_KEY);
+    sessionStorage.removeItem(_TOKEN_KEY);
     localStorage.removeItem(_PIN_KEY);
     window._ghSessionToken = null;
     overlay.remove();
@@ -268,7 +270,7 @@ function _openTokenOnlyModal(onDone) {
 
   overlay.querySelector('#ghRetokenCancel').onclick = () => overlay.remove();
   overlay.querySelector('#ghRetokenFull').onclick = () => {
-    localStorage.removeItem(_TOKEN_KEY);
+    sessionStorage.removeItem(_TOKEN_KEY);
     localStorage.removeItem(_PIN_KEY);
     overlay.remove();
     _openSetupModal(onDone);
@@ -289,7 +291,7 @@ function _openTokenOnlyModal(onDone) {
       save.disabled = false;
       return;
     }
-    localStorage.setItem(_TOKEN_KEY, token);
+    sessionStorage.setItem(_TOKEN_KEY, token);
     window._ghSessionToken = token;
     overlay.remove();
     onDone(token);
@@ -299,7 +301,7 @@ function _openTokenOnlyModal(onDone) {
 /* ── Auth gate: setup if needed, otherwise PIN ────────── */
 function _withAuth(label, onToken) {
   // Use session-cached token as fallback when localStorage was cleared mid-session
-  const storedToken = localStorage.getItem(_TOKEN_KEY) || window._ghSessionToken || null;
+  const storedToken = sessionStorage.getItem(_TOKEN_KEY) || window._ghSessionToken || null;
   const hasPin      = !!localStorage.getItem(_PIN_KEY);
   const hasToken    = !!storedToken;
 
@@ -316,7 +318,7 @@ function _withAuth(label, onToken) {
     _openTokenOnlyModal(done);
   } else if (hasToken && !hasPin) {
     // Unusual: token exists but no PIN — full reset to keep them in sync
-    localStorage.removeItem(_TOKEN_KEY);
+    sessionStorage.removeItem(_TOKEN_KEY);
     window._ghSessionToken = null;
     _openSetupModal(done);
   } else {
@@ -560,7 +562,7 @@ function openHistoryModal() {
 
       const metaSpan = document.createElement('span');
       metaSpan.className = 'gh-hist-meta';
-      metaSpan.innerHTML = escapeHtml(dateStr) + ' &nbsp;·&nbsp; ' + escapeHtml(author) + ' &nbsp;·&nbsp; <code>#' + v.id + '</code>';
+      metaSpan.innerHTML = escapeHtml(dateStr) + ' &nbsp;·&nbsp; ' + escapeHtml(author) + ' &nbsp;·&nbsp; <code>#' + escapeHtml(String(v.id)) + '</code>';
 
       info.appendChild(msgSpan);
       info.appendChild(metaSpan);

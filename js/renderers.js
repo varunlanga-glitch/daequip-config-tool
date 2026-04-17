@@ -238,7 +238,9 @@ function renderContext() {
     // Label row
     const labelDiv = document.createElement('div');
     labelDiv.className = 'label';
-    labelDiv.innerHTML = `<span>${m.label}</span>`;
+    const labelSpan = document.createElement('span');
+    labelSpan.textContent = m.label;
+    labelDiv.appendChild(labelSpan);
 
     // Searchable combobox
     const comboWrap = document.createElement('div');
@@ -690,13 +692,30 @@ function renderPartList() {
 /* ── Section lock overlay (Rules / Config) ───────────────── */
 function _renderSectionLockOverlay(container, section) {
   const label = section.charAt(0).toUpperCase() + section.slice(1);
-  container.innerHTML = `
-    <div class="section-lock-overlay">
-      <div class="lock-icon">🔒</div>
-      <div class="lock-title">${label} is locked</div>
-      <p class="lock-desc">Enter the PIN to access this section.</p>
-      <button class="btn primary" onclick="unlockSection('${section}', null)">Unlock</button>
-    </div>`;
+  container.innerHTML = '';
+
+  const wrap = document.createElement('div');
+  wrap.className = 'section-lock-overlay';
+
+  const icon = document.createElement('div');
+  icon.className   = 'lock-icon';
+  icon.textContent = '🔒';
+
+  const title = document.createElement('div');
+  title.className   = 'lock-title';
+  title.textContent = label + ' is locked';
+
+  const desc = document.createElement('p');
+  desc.className   = 'lock-desc';
+  desc.textContent = 'Enter the PIN to access this section.';
+
+  const btn = document.createElement('button');
+  btn.className   = 'btn primary';
+  btn.textContent = 'Unlock';
+  btn.addEventListener('click', () => unlockSection(section, null));
+
+  wrap.append(icon, title, desc, btn);
+  container.appendChild(wrap);
 }
 
 /* ── Right panel: Config list ────────────────────────────── */

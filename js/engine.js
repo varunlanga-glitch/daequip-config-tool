@@ -51,22 +51,82 @@ function calculateIndices() {
   return results;
 }
 
+// Tiny recursive-descent parser for +,-,*,/,parentheses. No Function()/eval.
+// Accepts numbers (including decimals), returns a finite number or null.
+function _parseMathExpr(src) {
+  let i = 0;
+  const peek = () => src[i];
+  const skip = () => { while (i < src.length && src[i] === ' ') i++; };
+
+  function parseNumber() {
+    skip();
+    const start = i;
+    while (i < src.length && /[0-9.]/.test(src[i])) i++;
+    if (i === start) return NaN;
+    const n = parseFloat(src.slice(start, i));
+    return isNaN(n) ? NaN : n;
+  }
+  function parseFactor() {
+    skip();
+    if (peek() === '(') {
+      i++;
+      const v = parseExpr();
+      skip();
+      if (peek() !== ')') return NaN;
+      i++;
+      return v;
+    }
+    if (peek() === '-') { i++; return -parseFactor(); }
+    if (peek() === '+') { i++; return  parseFactor(); }
+    return parseNumber();
+  }
+  function parseTerm() {
+    let v = parseFactor();
+    while (true) {
+      skip();
+      const c = peek();
+      if (c !== '*' && c !== '/') break;
+      i++;
+      const rhs = parseFactor();
+      if (c === '*') v = v * rhs;
+      else {
+        if (rhs === 0) return NaN;
+        v = v / rhs;
+      }
+    }
+    return v;
+  }
+  function parseExpr() {
+    let v = parseTerm();
+    while (true) {
+      skip();
+      const c = peek();
+      if (c !== '+' && c !== '-') break;
+      i++;
+      v = (c === '+') ? v + parseTerm() : v - parseTerm();
+    }
+    return v;
+  }
+
+  const v = parseExpr();
+  skip();
+  if (i !== src.length || !isFinite(v)) return null;
+  return v;
+}
+
 function _safeMathEval(expr) {
   // Strip unit suffixes from numbers (e.g. "100MM" → "100", "5IN" → "5")
   // This allows (PIN_OD/25.4) to work even when PIN_OD = "100MM"
   expr = expr.replace(/(\d+(?:\.\d+)?)\s*[a-zA-Z]+/g, '$1');
-  // Only allow digits, operators, dots, spaces — no identifiers that could escape
-  if (!/^[\d\s+\-*/.]+$/.test(expr)) return null;
-  try {
-    // eslint-disable-next-line no-new-func
-    const result = Function('"use strict"; return (' + expr + ')')();
-    if (typeof result === 'number' && isFinite(result)) {
-      // Round to 3 decimal places, round-half-up (≥0.0005 rounds away from zero),
-      // then strip trailing zeros via parseFloat
-      const rounded = Math.round(result * 1000) / 1000;
-      return parseFloat(rounded.toFixed(3)).toString();
-    }
-  } catch (e) { /* ignore */ }
+  // Allow-list: digits, basic operators, dots, spaces, parens. Exponents (1e10),
+  // unicode, identifiers are all rejected.
+  if (!/^[\d\s+\-*/.()]+$/.test(expr)) return null;
+  const result = _parseMathExpr(expr);
+  if (typeof result === 'number' && isFinite(result)) {
+    // Round to 3 decimal places, round-half-up, strip trailing zeros
+    const rounded = Math.round(result * 1000) / 1000;
+    return parseFloat(rounded.toFixed(3)).toString();
+  }
   return null;
 }
 
