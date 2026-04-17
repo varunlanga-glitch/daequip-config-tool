@@ -2547,7 +2547,7 @@
         "f1770765683117": "BODY-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
         "f1770765927726": "VOLUME",
         "f1770766964933": "-",
-        "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
+        "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°{[ - ]}TOOTH_QTY",
         "f1770766992117": "-"
       },
       "p1770762912068": {
@@ -2645,21 +2645,21 @@
         "f1770765683117": "LUG GA-ATTACHMENT-DUTY{[-]}LUGGING CLASS",
         "f1770765927726": "-",
         "f1770766964933": "-",
-        "f1770766978429": "-",
+        "f1770766978429": "{LUG_SPREAD?LUG_SPREAD LS}{[ - ]}{CENTER_TO_CENTER?CENTER_TO_CENTER CC}",
         "f1770766992117": "-"
       },
       "p1775843900104": {
         "f1770765683117": "LUG MC-ATTACHMENT-DUTY{[-]}LUGGING  CLASS",
         "f1770765927726": "-",
         "f1770766964933": "-",
-        "f1770766978429": "-",
+        "f1770766978429": "{CENTER_TO_CENTER?CENTER_TO_CENTER CC}",
         "f1770766992117": "-"
       },
       "p1775843916572": {
         "f1770765683117": "LUG PL-ATTACHMENT-DUTY{[-]}LUGGING  CLASS",
         "f1770765927726": "-",
         "f1770766964933": "-",
-        "f1770766978429": "-",
+        "f1770766978429": "{CENTER_TO_CENTER?CENTER_TO_CENTER CC}",
         "f1770766992117": "-"
       },
       "p1775844252170": {
@@ -7367,7 +7367,7 @@
     "tab1775855560276": []
   },
   "inventorMaps": {},
-  "activeClassId": "tab1775681477169",
+  "activeClassId": "buckets",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
@@ -7753,7 +7753,7 @@
       "name": "Thumb XD"
     }
   ],
-  "selectedPartId": "g1775682493296",
+  "selectedPartId": "p1770762899954",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
