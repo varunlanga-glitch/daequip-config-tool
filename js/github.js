@@ -73,6 +73,19 @@ async function _ghFetch(method, url, token, body) {
     opts.body = JSON.stringify(body);
   }
   const r = await fetch(url, opts);
+
+  // Rate-limit handling (item #8): primary and secondary limits surface as
+  // 403 with specific headers, or 429 with Retry-After. Surface a friendly
+  // "rate-limited, retry in N s" instead of the opaque GitHub JSON message.
+  if (r.status === 429 || (r.status === 403 && r.headers.get('x-ratelimit-remaining') === '0')) {
+    const retryAfter = parseInt(r.headers.get('retry-after') || '0', 10);
+    const resetSec   = parseInt(r.headers.get('x-ratelimit-reset') || '0', 10);
+    const waitSec    = retryAfter > 0
+      ? retryAfter
+      : (resetSec > 0 ? Math.max(1, resetSec - Math.floor(Date.now() / 1000)) : 60);
+    throw new Error(`GitHub rate-limited — retry in ~${waitSec}s`);
+  }
+
   if (!r.ok) {
     const text = await r.text();
     let msg = `GitHub API ${r.status}`;

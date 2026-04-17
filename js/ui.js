@@ -230,23 +230,30 @@ function initResizers() {
   resizer1.addEventListener('mousedown', startResize(resizer1, leftPanel));
   resizer2.addEventListener('mousedown', startResize(resizer2, rightPanel));
 
-  document.addEventListener('mousemove', e => {
-    if (!isResizing) return;
-    if (currentResizer === resizer1) {
-      const w = startWidth + (e.clientX - startX);
-      if (w >= 200 && w <= 600) leftPanel.style.width = w + 'px';
-    } else if (currentResizer === resizer2) {
-      const w = startWidth - (e.clientX - startX);
-      if (w >= 300 && w <= 800) rightPanel.style.width = w + 'px';
-    }
-  });
+  // mousemove + mouseup are attached to document for the lifetime of the page.
+  // They are cheap (early-exit when !isResizing) but we guard against re-init
+  // with an idempotency flag (item #13).
+  if (!window.__panelResizerListenersAttached) {
+    window.__panelResizerListenersAttached = true;
 
-  document.addEventListener('mouseup', () => {
-    isResizing     = false;
-    currentResizer = null;
-    document.body.style.cursor     = '';
-    document.body.style.userSelect = '';
-  });
+    document.addEventListener('mousemove', e => {
+      if (!isResizing) return;
+      if (currentResizer === resizer1) {
+        const w = startWidth + (e.clientX - startX);
+        if (w >= 200 && w <= 600) leftPanel.style.width = w + 'px';
+      } else if (currentResizer === resizer2) {
+        const w = startWidth - (e.clientX - startX);
+        if (w >= 300 && w <= 800) rightPanel.style.width = w + 'px';
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      isResizing     = false;
+      currentResizer = null;
+      document.body.style.cursor     = '';
+      document.body.style.userSelect = '';
+    });
+  }
 }
 
 initResizers();
