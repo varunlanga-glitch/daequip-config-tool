@@ -6,29 +6,7 @@
     "enabled": true
   },
   "assets": {
-    "directory": ".",
-    "headers": [
-      // Versioned assets (js/?v=SHA, styles/?v=SHA) — cache forever in CDN, revalidate in browser
-      {
-        "pattern": "js/*",
-        "headers": {
-          "Cache-Control": "public, max-age=31536000, immutable"
-        }
-      },
-      {
-        "pattern": "styles/*",
-        "headers": {
-          "Cache-Control": "public, max-age=31536000, immutable"
-        }
-      },
-      // index.html — must not be cached so new deploy version stamps reach browsers
-      {
-        "pattern": "*.html",
-        "headers": {
-          "Cache-Control": "no-cache, no-store, must-revalidate"
-        }
-      }
-    ]
+    "directory": "."
   },
   "compatibility_flags": [
     "nodejs_compat"
