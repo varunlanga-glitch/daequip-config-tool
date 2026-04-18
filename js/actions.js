@@ -121,9 +121,14 @@ window.addPart = (type = 'component') => {
   markDirty();
   renderAll();
 
-  setTimeout(() => {
+  // renderAll is synchronous, so the new element is already in the DOM.
+  // A single rAF tick lets layout settle so .focus() reliably scrolls into view.
+  requestAnimationFrame(() => {
     const nameElement = document.getElementById(`part-name-${newId}`);
-    if (!nameElement) return;
+    if (!nameElement) {
+      console.warn(`addPart: part-name-${newId} not found after renderAll`);
+      return;
+    }
 
     const input = document.createElement('input');
     input.value         = 'New Part';
@@ -144,14 +149,14 @@ window.addPart = (type = 'component') => {
 
     input.onblur    = saveEdit;
     input.onkeydown = e => {
-      if (e.key === 'Enter') saveEdit();
+      if (e.key === 'Enter') { e.preventDefault(); saveEdit(); }
       if (e.key === 'Escape') {
         State.parts[State.activeClassId] = getActiveParts().filter(p => p.id !== newId);
         State.selectedPartId = null;
         renderAll();
       }
     };
-  }, 50);
+  });
 };
 
 window.addGroup = () => {
@@ -161,9 +166,12 @@ window.addGroup = () => {
   State.selectedPartId = newId;
   markDirty();
   renderAll();
-  setTimeout(() => {
+  requestAnimationFrame(() => {
     const el = document.getElementById(`part-name-${newId}`);
-    if (!el) return;
+    if (!el) {
+      console.warn(`addGroup: part-name-${newId} not found after renderAll`);
+      return;
+    }
     const input = document.createElement('input');
     input.value = 'Group'; input.className = 'combo';
     input.style.cssText = 'flex:1;font-size:13px';
@@ -176,7 +184,7 @@ window.addGroup = () => {
     };
     input.onblur = save;
     input.onkeydown = e => {
-      if (e.key === 'Enter') { input.onblur = null; save(); }
+      if (e.key === 'Enter') { e.preventDefault(); input.onblur = null; save(); }
       if (e.key === 'Escape') {
         input.onblur = null;
         State.parts[State.activeClassId] = getActiveParts().filter(p => p.id !== newId);
@@ -184,7 +192,7 @@ window.addGroup = () => {
         renderAll();
       }
     };
-  }, 50);
+  });
 };
 
 window.convertToGroup = id => {
@@ -322,6 +330,10 @@ window.nestPart = (srcId, targetId) => {
 window.reorderParts = orderedIds => {
   const parts   = getActiveParts();
   const byId    = Object.fromEntries(parts.map(p => [p.id, p]));
+  const missing = orderedIds.filter(id => !byId[id]);
+  if (missing.length) {
+    console.warn('reorderParts: dropping unknown part IDs', missing);
+  }
   State.parts[State.activeClassId] = orderedIds.map(id => byId[id]).filter(Boolean);
   markDirty();
   renderAll();
@@ -335,9 +347,14 @@ window.duplicatePart = id => {
   const src   = parts[srcIdx];
   const newId = 'p' + Date.now();
   const newPart = { ...src, id: newId, name: src.name + ' (Copy)', midx: null };
-  // Copy all rules for this part
+  // Copy all rules for this part. structuredClone preserves nested types
+  // (Date, Map, undefined) that JSON serialization would silently drop.
   const activeRules = getActiveRules();
-  if (activeRules[id]) activeRules[newId] = JSON.parse(JSON.stringify(activeRules[id]));
+  if (activeRules[id]) {
+    activeRules[newId] = (typeof structuredClone === 'function')
+      ? structuredClone(activeRules[id])
+      : JSON.parse(JSON.stringify(activeRules[id]));
+  }
   // Insert after the last descendant of the source
   let insertAt = srcIdx + 1;
   for (let j = srcIdx + 1; j < parts.length; j++) {
@@ -371,15 +388,22 @@ window.addVariable = () => {
   getActiveMaster().push({ key: newKey, label: newLabel, vals: [] });
   switchRightTab('config');
 
-  setTimeout(() => {
+  requestAnimationFrame(() => {
     const configContainer = document.getElementById('tab-config');
+    if (!configContainer) return;
     const ruleItems = configContainer.querySelectorAll('.rule-item');
     const lastItem  = ruleItems[ruleItems.length - 1];
-    if (!lastItem) return;
+    if (!lastItem) {
+      console.warn(`addVariable: no rule-item rendered for new key ${newKey}`);
+      return;
+    }
     const labelSpan = lastItem.querySelector('[data-edit="configLabel"]');
-    if (!labelSpan || labelSpan.dataset.id !== newKey) return;
+    if (!labelSpan || labelSpan.dataset.id !== newKey) {
+      console.warn(`addVariable: label span for ${newKey} not found`);
+      return;
+    }
     _startConfigLabelEdit(labelSpan, newKey);
-  }, 50);
+  });
 };
 
 window.deleteVariable = k => {
@@ -432,11 +456,14 @@ window.renameVariable = (oldKey, newLabel) => {
   const master = getActiveMaster().find(m => m.key === oldKey);
   if (!master) return;
 
-  const newKey = newLabel.toUpperCase().replace(/\s+/g, '_').replace(/[^A-Z0-9_]/g, '');
+  let newKey = newLabel.toUpperCase().replace(/\s+/g, '_').replace(/[^A-Z0-9_]/g, '');
   if (!newKey) {
     showConfirm('Invalid Name', 'Label must contain at least one letter or number.', () => {});
     return;
   }
+  // A key beginning with a digit would conflict with the numeric-literal rules
+  // (#5.5, #10.4:mm, …) used by the resolver. Prefix with VAR_ so "123" → "VAR_123".
+  if (/^\d/.test(newKey)) newKey = 'VAR_' + newKey;
   let finalKey = newKey;
   let suffix = 2;
   while (getActiveMaster().some(m => m.key === finalKey && m.key !== oldKey)) {
@@ -695,12 +722,18 @@ window.deleteProp = id => {
 };
 
 /* ── File name rule update ───────────────────────────────── */
+let _ruleRenderTimer = null;
+function _scheduleRuleRender() {
+  clearTimeout(_ruleRenderTimer);
+  _ruleRenderTimer = setTimeout(renderGrid, 150);
+}
+
 window.updateFileNameRule = function(partId, value) {
   if (!_guardSection('rules')) return;
   const fnRules = getActiveFileNameRules();
   fnRules[partId] = value;
   markDirty();
-  renderGrid();
+  _scheduleRuleRender();
 };
 
 /* ── Rule update ─────────────────────────────────────────── */
@@ -710,7 +743,7 @@ function updateRule(partId, propId, value) {
   if (!activeRules[partId]) activeRules[partId] = {};
   activeRules[partId][propId] = value;
   markDirty();
-  renderGrid();
+  _scheduleRuleRender();
 }
 
 /**
@@ -759,7 +792,7 @@ window.newTab = () => {
   State.activeClassId   = id;
   State.selectedPartId  = null;
   renderAll();
-  setTimeout(() => startProductNameEdit(), 50);
+  requestAnimationFrame(() => startProductNameEdit());
 };
 
 window.cloneTab = sourceId => {
@@ -790,7 +823,7 @@ window.cloneTab = sourceId => {
   State.activeClassId  = newId;
   State.selectedPartId = null;
   renderAll();
-  setTimeout(() => startProductNameEdit(), 50);
+  requestAnimationFrame(() => startProductNameEdit());
 };
 
 window.deleteTab = id => {

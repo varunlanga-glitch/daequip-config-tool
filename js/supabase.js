@@ -17,8 +17,9 @@
 
 'use strict';
 
-const _SB_URL = 'https://cduivsioupjytthaosgx.supabase.co';
-const _SB_KEY = 'sb_publishable_NONIyKO7mTs535VewUwk8Q_TBEV0bxd';
+const _SB_URL = (window.APP_CONFIG && window.APP_CONFIG.supabase && window.APP_CONFIG.supabase.url)  || '';
+const _SB_KEY = (window.APP_CONFIG && window.APP_CONFIG.supabase && window.APP_CONFIG.supabase.anonKey) || '';
+const _SB_POLL_MS = 10000;   // remote-change polling cadence (item #22)
 
 function _sbHeaders(extra) {
   return Object.assign({
@@ -52,7 +53,10 @@ async function _sbFetch(path, opts) {
  * Returns null if the table is empty (first run).
  */
 async function sbLoadCategories() {
-  var rows = await _sbFetch('/workspaces?select=id,label,icon,file&order=sort_order');
+  var rows = await _sbFetch('/rpc/sb_list_categories', {
+    method: 'POST',
+    body:   '{}'
+  });
   if (!rows || !rows.length) return null;
   return rows;
 }
@@ -95,11 +99,17 @@ async function sbLoadCategoryData(catId) {
 async function sbSaveCategoryData(catId, stateObj, message, committedBy) {
   var saveState = Object.assign({}, stateObj);
   delete saveState.dirty;
-  await _sbFetch('/rpc/save_workspace', {
+  var expected = (stateObj && stateObj.stateVersion != null) ? stateObj.stateVersion : null;
+  // save_workspace returns the new bigint state_version
+  var newVersion = await _sbFetch('/rpc/save_workspace', {
     method: 'POST',
-    body:   JSON.stringify({ p_workspace_id: catId, p_state: saveState })
+    body:   JSON.stringify({
+      p_workspace_id:     catId,
+      p_state:            saveState,
+      p_expected_version: expected
+    })
   });
-  // Non-fatal: snapshot the save as a version entry
+  // Non-fatal: snapshot the save as a version entry (content-hash-deduped server-side)
   try {
     await _sbFetch('/rpc/create_version', {
       method: 'POST',
@@ -112,6 +122,7 @@ async function sbSaveCategoryData(catId, stateObj, message, committedBy) {
   } catch (e) {
     console.warn('sbSaveCategoryData: version snapshot failed (non-fatal)', e);
   }
+  return newVersion;
 }
 
 /**
@@ -122,16 +133,25 @@ async function sbSaveCategoryData(catId, stateObj, message, committedBy) {
  * @param {object} stateObj — current State
  */
 async function sbAutoSave(catId, stateObj) {
-  if (!catId) return;
+  if (!catId) return null;
   try {
     var saveState = Object.assign({}, stateObj);
     delete saveState.dirty;
-    await _sbFetch('/rpc/save_workspace', {
+    var expected = (stateObj && stateObj.stateVersion != null) ? stateObj.stateVersion : null;
+    return await _sbFetch('/rpc/save_workspace', {
       method: 'POST',
-      body:   JSON.stringify({ p_workspace_id: catId, p_state: saveState })
+      body:   JSON.stringify({
+        p_workspace_id:     catId,
+        p_state:            saveState,
+        p_expected_version: expected
+      })
     });
   } catch (e) {
-    console.warn('sbAutoSave failed (non-fatal):', e.message);
+    // Don't spam console on routine version conflicts — the UI handles those
+    if (!/workspace_version_conflict/i.test(e.message || '')) {
+      console.warn('sbAutoSave failed (non-fatal):', e.message);
+    }
+    return null;
   }
 }
 
@@ -143,10 +163,10 @@ async function sbAutoSave(catId, stateObj) {
  * @param {string} catId
  * @param {number} [limit=50]
  */
-async function sbListVersions(catId, limit) {
+async function sbListVersions(catId, limit, offset = 0) {
   return await _sbFetch('/rpc/list_versions', {
     method: 'POST',
-    body:   JSON.stringify({ p_workspace_id: catId, p_limit: limit || 50 })
+    body:   JSON.stringify({ p_workspace_id: catId, p_limit: limit || 50, p_offset: offset })
   });
 }
 
@@ -211,22 +231,19 @@ function sbWatchWorkspace(catId, onRemoteChange) {
   async function poll() {
     if (stopped) return;
     try {
-      var rows = await _sbFetch(
-        '/workspaces?select=updated_at&id=eq.' + encodeURIComponent(catId)
-      );
-      if (rows && rows[0]) {
-        var remote = rows[0].updated_at;
-        if (remote > lastKnown) {
-          lastKnown = remote;
-          onRemoteChange();
-        }
+      var remote = await _sbFetch('/rpc/sb_workspace_updated_at', {
+        method: 'POST',
+        body:   JSON.stringify({ p_workspace_id: catId })
+      });
+      if (remote && remote > lastKnown) {
+        lastKnown = remote;
+        onRemoteChange();
       }
     } catch (_) { /* silently ignore network errors */ }
-    if (!stopped) setTimeout(poll, 30000);
+    if (!stopped) setTimeout(poll, _SB_POLL_MS);
   }
 
-  // First poll after 30 s so we don't race with the initial load
-  setTimeout(poll, 30000);
+  setTimeout(poll, _SB_POLL_MS);
 
   return function stop() { stopped = true; };
 }
