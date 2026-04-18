@@ -722,12 +722,18 @@ window.deleteProp = id => {
 };
 
 /* ── File name rule update ───────────────────────────────── */
+let _ruleRenderTimer = null;
+function _scheduleRuleRender() {
+  clearTimeout(_ruleRenderTimer);
+  _ruleRenderTimer = setTimeout(renderGrid, 150);
+}
+
 window.updateFileNameRule = function(partId, value) {
   if (!_guardSection('rules')) return;
   const fnRules = getActiveFileNameRules();
   fnRules[partId] = value;
   markDirty();
-  renderGrid();
+  _scheduleRuleRender();
 };
 
 /* ── Rule update ─────────────────────────────────────────── */
@@ -737,7 +743,7 @@ function updateRule(partId, propId, value) {
   if (!activeRules[partId]) activeRules[partId] = {};
   activeRules[partId][propId] = value;
   markDirty();
-  renderGrid();
+  _scheduleRuleRender();
 }
 
 /**

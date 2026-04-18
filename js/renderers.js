@@ -531,7 +531,8 @@ function renderPartList() {
     <div class="parts-hint">Drag to reorder &nbsp;·&nbsp; Use <kbd>⇥</kbd> <kbd>⇤</kbd> to indent/outdent</div>`;
 
   const listWrap = document.createElement('div');
-  listWrap.id = 'partsList';
+  listWrap.id        = 'partsList';
+  listWrap.className = 'part-list';
   container.appendChild(listWrap);
 
   const idxList = calculateIndices();
@@ -570,14 +571,21 @@ function renderPartList() {
       delBtn.title = 'Delete group';
       delBtn.onclick = e => { e.stopPropagation(); deletePart(p.id); };
 
+      div.role     = 'button';
+      div.tabIndex = 0;
+      div.setAttribute('aria-label', 'Select group: ' + p.name);
       div.appendChild(dragHandle);
       div.appendChild(label);
       div.appendChild(convertBtn);
       div.appendChild(delBtn);
-      div.onclick = e => {
+      const _selectGroup = e => {
         if (!e.target.dataset.edit && !e.target.closest('button')) {
           State.selectedPartId = p.id; renderAll();
         }
+      };
+      div.onclick  = _selectGroup;
+      div.onkeydown = e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); State.selectedPartId = p.id; renderAll(); }
       };
       listWrap.appendChild(div);
       return;
@@ -666,6 +674,9 @@ function renderPartList() {
     delBtn.title = 'Delete part';
     delBtn.onclick = e => { e.stopPropagation(); deletePart(p.id); };
 
+    div.role     = 'button';
+    div.tabIndex = 0;
+    div.setAttribute('aria-label', 'Select part: ' + p.name);
     div.appendChild(dragHandle);
     div.appendChild(idxBadge);
     div.appendChild(nodeName);
@@ -680,6 +691,9 @@ function renderPartList() {
         State.selectedPartId = p.id;
         renderAll();
       }
+    };
+    div.onkeydown = e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); State.selectedPartId = p.id; renderAll(); }
     };
 
     listWrap.appendChild(div);

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://daequip.com https://www.daequip.com data:; connect-src 'self' https://api.github.com https://cduivsioupjytthaosgx.supabase.co;" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://daequip.com https://www.daequip.com data:; connect-src 'self' https://api.github.com https://cduivsioupjytthaosgx.supabase.co;" />
   <title>Configurator Pro</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,11 +21,11 @@
     <button class="btn btn-back-home" id="btnHome" style="display:none" title="Back to category list">← Home</button>
     <div class="tabs" id="tabs"></div>
     <button class="btn primary" id="btnNewTab" style="display:none">+ New Tab</button>
-    <button class="btn" id="btnSave" style="display:none" title="Save checkpoint (Ctrl+S)">💾 Save</button>
-    <button class="btn btn-publish" id="btnPublish" title="Publish changes to GitHub (live for everyone)">☁ Publish</button>
-    <button class="btn"            id="btnHistory" title="View last 10 checkpoints &amp; revert">🕐 History</button>
-    <button class="btn" id="btnAudit" style="display:none" title="Configuration health: completeness &amp; stale variables">⚠ Audit</button>
-    <button class="btn" id="btnExportInventor" style="display:none" title="Export for Autodesk Inventor iProperties">🔩 Export Inventor</button>
+    <button class="btn" id="btnSave" style="display:none" title="Save checkpoint (Ctrl+S)" aria-label="Save checkpoint">💾 Save</button>
+    <button class="btn btn-publish" id="btnPublish" title="Publish changes to GitHub (live for everyone)" aria-label="Publish changes to GitHub">☁ Publish</button>
+    <button class="btn"            id="btnHistory" title="View version history and revert" aria-label="View version history and revert">🕐 History</button>
+    <button class="btn" id="btnAudit" style="display:none" title="Configuration health: completeness &amp; stale variables" aria-label="Audit configuration health">⚠ Audit</button>
+    <button class="btn" id="btnExportInventor" style="display:none" title="Export for Autodesk Inventor iProperties" aria-label="Export for Autodesk Inventor">🔩 Export Inventor</button>
   </div>
 
   <!-- ── Home screen (category card grid) ─────────────── -->
