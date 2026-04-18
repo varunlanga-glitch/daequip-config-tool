@@ -5,7 +5,7 @@
 'use strict';
 
 /* ── Confirmation dialog ─────────────────────────────────── */
-function showConfirm(title, message, onConfirm) {
+function showConfirm(title, message, onConfirm, confirmText = 'Delete') {
   const overlay = document.createElement('div');
   overlay.className = 'confirm-overlay';
 
@@ -27,7 +27,7 @@ function showConfirm(title, message, onConfirm) {
   cancelBtn.textContent = 'Cancel';
   const confirmBtn = document.createElement('button');
   confirmBtn.className = 'btn btn-confirm';
-  confirmBtn.textContent = 'Delete';
+  confirmBtn.textContent = confirmText;
   btns.appendChild(cancelBtn);
   btns.appendChild(confirmBtn);
 
@@ -45,7 +45,7 @@ function showConfirm(title, message, onConfirm) {
 }
 
 /* ── Prompt dialog ───────────────────────────────────────── */
-function showPrompt(title, message, defaultValue, onConfirm) {
+function showPrompt(title, message, defaultValue, onConfirm, allowEmpty = false) {
   const overlay = document.createElement('div');
   overlay.className = 'confirm-overlay';
 
@@ -87,8 +87,8 @@ function showPrompt(title, message, defaultValue, onConfirm) {
 
   const close = () => overlay.remove();
   const save  = () => {
-    const value = input.value.trim();
-    if (value) { onConfirm(value); close(); }
+    const value = allowEmpty ? input.value : input.value.trim();
+    if (allowEmpty || value) { onConfirm(value); close(); }
   };
 
   cancelBtn.onclick = close;
@@ -385,12 +385,22 @@ function initPartsDragDrop() {
 }
 
 /* ── Toast notification (non-blocking, auto-dismiss) ─────── */
+const _MAX_TOASTS   = 5;
+const _activeToasts = [];
 function _showToast(msg, duration = 2500) {
+  if (_activeToasts.length >= _MAX_TOASTS) {
+    _activeToasts.shift().remove();
+  }
   const t = document.createElement('div');
   t.className = 'toast-msg';
   t.textContent = msg;
   document.body.appendChild(t);
-  setTimeout(() => t.remove(), duration);
+  _activeToasts.push(t);
+  setTimeout(() => {
+    const idx = _activeToasts.indexOf(t);
+    if (idx !== -1) _activeToasts.splice(idx, 1);
+    t.remove();
+  }, duration);
 }
 window._showToast = _showToast;
 

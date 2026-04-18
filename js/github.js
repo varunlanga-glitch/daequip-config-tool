@@ -426,7 +426,8 @@ function openPublishModal() {
 
     pubBtn.onclick = async () => {
       const msg = overlay.querySelector('#ghCommitMsg').value.trim() || `Update ${catLabel} config`;
-      pubBtn.disabled = true;
+      pubBtn.disabled  = true;
+      pubBtn.textContent = '⏳ Publishing…';
       status.className = 'gh-status';
       status.textContent = 'Saving to Supabase…';
 
@@ -510,6 +511,7 @@ function openPublishModal() {
       } catch(e) {
         status.className = 'gh-status gh-status-err';
         status.textContent = 'Error: ' + e.message;
+        pubBtn.textContent = '⬆ Publish';
         pubBtn.disabled = false;
       }
     };
@@ -568,20 +570,20 @@ function openHistoryModal() {
     }
   };
 
-  const listEl = overlay.querySelector('#ghHistList');
+  const listEl  = overlay.querySelector('#ghHistList');
+  const PAGE_SIZE = 25;
+  let   _histOffset  = 0;
+  let   _histLoading = false;
+  let   _loadMoreBtn = null;
 
-  sbListVersions(catId, 50).then(versions => {
-    if (!versions || !versions.length) {
-      listEl.innerHTML = '<div class="gh-hist-loading">No versions saved yet.</div>';
-      return;
-    }
-    listEl.innerHTML = '';
+  function _appendVersionRows(versions, startIndex) {
     versions.forEach((v, i) => {
+      const idx     = startIndex + i;
       const d       = new Date(v.created_at);
       const dateStr = d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       const msg     = v.message || '(no message)';
       const author  = v.committed_by || 'anonymous';
-      const isLatest = i === 0;
+      const isLatest = idx === 0;
 
       const row = document.createElement('div');
       row.className = 'gh-hist-row';
@@ -652,10 +654,8 @@ function openHistoryModal() {
             document.body.appendChild(spinner);
 
             try {
-              // Restore normalized tables in Supabase
               await sbRestoreVersion(v.id, 'restore');
 
-              // Reload the restored state into memory
               const restoredState = await sbLoadCategoryData(catId);
               if (restoredState) {
                 Object.keys(State).forEach(k => delete State[k]);
@@ -681,12 +681,52 @@ function openHistoryModal() {
 
       listEl.appendChild(row);
     });
-  }).catch(e => {
-    const errEl = document.createElement('div');
-    errEl.className = 'gh-hist-loading';
-    errEl.style.color = '#e74c3c';
-    errEl.textContent = 'Error loading history: ' + e.message;
-    listEl.innerHTML = '';
-    listEl.appendChild(errEl);
-  });
+  }
+
+  async function _loadHistoryPage() {
+    if (_histLoading) return;
+    _histLoading = true;
+    if (_loadMoreBtn) { _loadMoreBtn.disabled = true; _loadMoreBtn.textContent = 'Loading…'; }
+
+    try {
+      const versions = await sbListVersions(catId, PAGE_SIZE, _histOffset);
+      if (_histOffset === 0) {
+        listEl.innerHTML = '';
+        if (!versions || !versions.length) {
+          const empty = document.createElement('div');
+          empty.className = 'gh-hist-loading';
+          empty.textContent = 'No versions saved yet.';
+          listEl.appendChild(empty);
+          return;
+        }
+      }
+      if (versions && versions.length) {
+        _appendVersionRows(versions, _histOffset);
+        _histOffset += versions.length;
+
+        if (_loadMoreBtn) _loadMoreBtn.remove();
+        _loadMoreBtn = null;
+
+        if (versions.length === PAGE_SIZE) {
+          _loadMoreBtn = document.createElement('button');
+          _loadMoreBtn.className = 'btn';
+          _loadMoreBtn.style.cssText = 'display:block;margin:8px auto;width:120px';
+          _loadMoreBtn.textContent = 'Load more';
+          _loadMoreBtn.onclick = _loadHistoryPage;
+          listEl.appendChild(_loadMoreBtn);
+        }
+      }
+    } catch(e) {
+      if (_histOffset === 0) listEl.innerHTML = '';
+      const errEl = document.createElement('div');
+      errEl.className = 'gh-hist-loading';
+      errEl.style.color = '#e74c3c';
+      errEl.textContent = 'Error loading history: ' + e.message;
+      listEl.appendChild(errEl);
+    } finally {
+      _histLoading = false;
+    }
+  }
+
+  _loadHistoryPage();
 }

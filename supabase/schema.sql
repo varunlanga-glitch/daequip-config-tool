@@ -771,10 +771,14 @@ end;
 $$;
 
 -- ============================================================
--- RPC: list_versions(p_workspace_id, p_limit)
--- Returns recent version metadata newest-first.
+-- RPC: list_versions(p_workspace_id, p_limit, p_offset)
+-- Returns recent version metadata newest-first with pagination support.
 -- ============================================================
-create or replace function list_versions(p_workspace_id text, p_limit int default 50)
+create or replace function list_versions(
+  p_workspace_id text,
+  p_limit        int default 50,
+  p_offset       int default 0
+)
 returns table (
   id            bigint,
   message       text,
@@ -790,7 +794,8 @@ as $$
     from workspace_versions
    where workspace_id = p_workspace_id
    order by created_at desc
-   limit greatest(coalesce(p_limit, 50), 1);
+   limit  greatest(coalesce(p_limit, 50), 1)
+   offset greatest(coalesce(p_offset, 0),  0);
 $$;
 
 -- ============================================================
@@ -891,7 +896,7 @@ revoke all on function save_categories(jsonb)                   from public;
 revoke all on function get_completeness_report(text)            from public;
 revoke all on function get_stale_variables(text)                from public;
 revoke all on function create_version(text, text, text)         from public;
-revoke all on function list_versions(text, int)                 from public;
+revoke all on function list_versions(text, int, int)            from public;
 revoke all on function get_version(bigint)                      from public;
 revoke all on function restore_version(bigint, text)            from public;
 revoke all on function pin_version(bigint, boolean)             from public;
@@ -904,7 +909,7 @@ grant execute on function save_categories(jsonb)                to anon;
 grant execute on function get_completeness_report(text)         to anon;
 grant execute on function get_stale_variables(text)             to anon;
 grant execute on function create_version(text, text, text)      to anon;
-grant execute on function list_versions(text, int)              to anon;
+grant execute on function list_versions(text, int, int)         to anon;
 grant execute on function get_version(bigint)                   to anon;
 grant execute on function restore_version(bigint, text)         to anon;
 grant execute on function pin_version(bigint, boolean)          to anon;

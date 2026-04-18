@@ -520,8 +520,8 @@ function moveItem(arr, index, dir) {
   renderAll();
 }
 
+const _escapeDiv = document.createElement('div');
 function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
+  _escapeDiv.textContent = text;
+  return _escapeDiv.innerHTML;
 }

@@ -163,10 +163,10 @@ async function sbAutoSave(catId, stateObj) {
  * @param {string} catId
  * @param {number} [limit=50]
  */
-async function sbListVersions(catId, limit) {
+async function sbListVersions(catId, limit, offset = 0) {
   return await _sbFetch('/rpc/list_versions', {
     method: 'POST',
-    body:   JSON.stringify({ p_workspace_id: catId, p_limit: limit || 50 })
+    body:   JSON.stringify({ p_workspace_id: catId, p_limit: limit || 50, p_offset: offset })
   });
 }
 
