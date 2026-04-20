@@ -173,6 +173,10 @@ document.body.addEventListener('dblclick', e => {
   el.replaceWith(input);
   input.focus();
   input.select();
+  // Prevent clicks/mousedowns on the input from bubbling to parent div.onclick
+  // handlers that call renderAll() and would destroy this input mid-edit.
+  input.addEventListener('click',     e => e.stopPropagation());
+  input.addEventListener('mousedown', e => e.stopPropagation());
 
   const saveEdit = () => {
     const val = input.value.trim();
@@ -279,9 +283,12 @@ function initColumnResizers() {
         document.removeEventListener('mouseup', onUp);
         document.body.style.cursor     = '';
         document.body.style.userSelect = '';
-        // Persist width for session duration
+        // Persist width across page loads
         const colKey = th.dataset.colKey;
-        if (colKey) _colWidths[colKey] = th.offsetWidth;
+        if (colKey) {
+          _colWidths[colKey] = th.offsetWidth;
+          try { localStorage.setItem('daequip_col_widths', JSON.stringify(_colWidths)); } catch(_) {}
+        }
       };
 
       document.body.style.cursor     = 'col-resize';

@@ -86,6 +86,13 @@ async function initCategories() {
   document.getElementById('homeScreen').style.display    = '';
   _setBtnVisibility(false);
 
+  // Show loading indicator while categories are fetched
+  const initLoader = document.createElement('div');
+  initLoader.id = 'initLoader';
+  initLoader.style.cssText = 'position:fixed;inset:0;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--muted)';
+  initLoader.textContent = 'Loading configuration\u2026';
+  document.body.appendChild(initLoader);
+
   // Try Supabase first, fall back to static file, then hard-coded default
   let _catsLoaded = false;
   try {
@@ -109,6 +116,7 @@ async function initCategories() {
     }
   }
 
+  initLoader.remove();
   renderHomeScreen();
 }
 
@@ -294,8 +302,9 @@ async function enterCategory(cat) {
   renderAll();
 
   // Show per-category autosave banner if applicable
-  if (localStorage.getItem(_autosaveKey())) {
-    _showAutosaveBanner();
+  const _asSaved = localStorage.getItem(_autosaveKey());
+  if (_asSaved) {
+    try { _showAutosaveBanner(JSON.parse(_asSaved).timestamp); } catch(_) { _showAutosaveBanner(); }
   }
 
   // Start polling for remote changes — show a banner if another session saves

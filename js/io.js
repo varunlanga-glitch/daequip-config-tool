@@ -78,20 +78,31 @@ function scheduleAutosave() {
     } catch(e) { /* storage full — silently skip */ }
     // 2. Also push to Supabase (no version snapshot — just keeps DB current)
     if (window._activeCategory?.id) {
-      sbAutoSave(window._activeCategory.id, saveState).then(newVer => {
-        if (newVer != null) State.stateVersion = newVer;
+      sbAutoSave(window._activeCategory.id, saveState, () => {
+        if (typeof _ghToast === 'function') {
+          _ghToast('⚠ Cloud sync failed — changes saved locally only.', true);
+        }
       });
     }
   }, 2000);
 }
 
-function _showAutosaveBanner() {
+function _showAutosaveBanner(savedTimestamp) {
   if (document.getElementById('autosaveBanner')) return;
+  let ageStr = 'a previous session';
+  if (savedTimestamp) {
+    const ms = Date.now() - savedTimestamp;
+    if (ms < 3600000) {
+      ageStr = Math.max(1, Math.round(ms / 60000)) + ' min ago';
+    } else {
+      ageStr = new Date(savedTimestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+  }
   const banner = document.createElement('div');
   banner.id = 'autosaveBanner';
   banner.className = 'autosave-banner';
   banner.innerHTML = `
-    <span>⚠ You have unsaved changes from a previous session.</span>
+    <span>⚠ Unsaved changes from ${escapeHtml(ageStr)} — restore or discard?</span>
     <button class="btn btn-autosave-restore" id="btnAutosaveRestore">Restore</button>
     <button class="btn btn-autosave-discard" id="btnAutosaveDiscard">Discard</button>`;
   document.querySelector('.app').insertBefore(banner, document.querySelector('.main'));
@@ -234,7 +245,8 @@ function _finishLoad() {
   // Update dirty indicator (should be clean after load)
   _updateDirtyIndicator();
   // Show autosave restore banner if a previous session was interrupted
-  if (localStorage.getItem(_autosaveKey())) _showAutosaveBanner();
+  const _asSaved = localStorage.getItem(_autosaveKey());
+  if (_asSaved) { try { _showAutosaveBanner(JSON.parse(_asSaved).timestamp); } catch(_) { _showAutosaveBanner(); } }
 }
 
 /* ── Internal download helper ────────────────────────────── */

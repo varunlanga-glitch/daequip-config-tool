@@ -306,7 +306,6 @@ function renderContext() {
     };
 
     input.onfocus = () => {
-      input.select();
       dropdown.style.display = '';   // make visible first so scrollIntoView has layout
       renderDropdown('');
     };
@@ -379,8 +378,10 @@ function renderContext() {
 }
 
 /* ── Centre grid (IDX column hidden) ────────────────────── */
-/* ── Session column-width memory (survives renderGrid rebuilds) ── */
-const _colWidths = {};   // keyed by colKey string → width in px
+/* ── Session column-width memory (persisted to localStorage) ── */
+const _colWidths = (function() {
+  try { return JSON.parse(localStorage.getItem('daequip_col_widths') || '{}'); } catch(_) { return {}; }
+})();
 
 function renderGrid() {
   const head      = document.getElementById('gridHead');
