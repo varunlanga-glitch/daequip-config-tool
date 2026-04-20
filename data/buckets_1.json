@@ -1500,7 +1500,7 @@
       {
         "id": "p1775839430390",
         "midx": "00",
-        "name": "GA (Copy)",
+        "name": "EX-BKT-CLU-XDW-250-WBM-36-HA-00 (GA)",
         "type": null,
         "level": 0,
         "enabled": true
@@ -2621,14 +2621,14 @@
         "f1770766992117": "-"
       },
       "p1775840507085": {
-        "f1770765683117": "CHHEK PL{[-]}RH{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765683117": "CHEEK PL{[-]}RH{[-]}ATTACHMENT{[-]}DUTY",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "p1775840542739": {
-        "f1770765683117": "CHHEK PL{[-]}LH{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765683117": "CHEEK PL{[-]}LH{[-]}ATTACHMENT{[-]}DUTY",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
@@ -3741,7 +3741,7 @@
     },
     "tab1775681477169": {
       "p1": {
-        "f1770765683117": "ATTACHMENT{[-]}DUTY HOOK-UP NAME CLASS{[-]}SIZE",
+        "f1770765683117": "ATTACHMENT{[-]}DUTY HOOK-UP GA CLASS{[-]}SIZE",
         "f1770765927726": "HOOK-UP{[ - ]}LUGGING{[ - ]}VOLUME{[ - ]} ",
         "f1770766964933": "-",
         "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
@@ -3897,7 +3897,7 @@
         "f1770766992117": "-"
       },
       "p1775839430390": {
-        "f1770765683117": "ATTACHMENT{[-]}SUBTYPE DUTY HOOK-UP NAME CLASS{[-]}SIZE",
+        "f1770765683117": "ATTACHMENT{[-]}SUBTYPE DUTY HOOK-UP GA CLASS{[-]}SIZE",
         "f1770765927726": "HOOK-UP{[ - ]}LUGGING{[ - ]}VOLUME{[ - ]} BOE",
         "f1770766964933": "-",
         "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
@@ -3955,14 +3955,14 @@
         "f1770766992117": "-"
       },
       "p1775840507085": {
-        "f1770765683117": "CHHEK PL{[-]}RH{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765683117": "CHEEK PL{[-]}RH{[-]}ATTACHMENT{[-]}DUTY",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "p1775840542739": {
-        "f1770765683117": "CHHEK PL{[-]}LH{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765683117": "CHEEK PL{[-]}LH{[-]}ATTACHMENT{[-]}DUTY",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
@@ -7367,7 +7367,7 @@
     "tab1775855560276": []
   },
   "inventorMaps": {},
-  "activeClassId": "buckets",
+  "activeClassId": "tab1775844901509",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
@@ -7753,7 +7753,7 @@
       "name": "Thumb XD"
     }
   ],
-  "selectedPartId": "p1770762899954",
+  "selectedPartId": "p1775840542739",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
@@ -7796,5 +7796,6 @@
     "tab1775846066229": "",
     "tab1775846093984": "",
     "tab1775855560276": ""
-  }
+  },
+  "stateVersion": null
 }
