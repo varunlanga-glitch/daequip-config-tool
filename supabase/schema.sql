@@ -216,6 +216,23 @@ create trigger trg_product_classes_updated
   before update on product_classes for each row execute function touch_updated_at();
 
 
+-- Drop all RPCs before (re)creating them so that changes to return
+-- types or parameter lists never cause "cannot change return type"
+-- or ambiguous-overload errors on existing deployments.
+drop function if exists load_workspace(text);
+drop function if exists save_workspace(text, jsonb);
+drop function if exists save_workspace(text, jsonb, bigint);
+drop function if exists save_categories(jsonb);
+drop function if exists get_completeness_report(text);
+drop function if exists get_stale_variables(text);
+drop function if exists create_version(text, text, text);
+drop function if exists list_versions(text, int, int);
+drop function if exists get_version(bigint);
+drop function if exists restore_version(bigint, text);
+drop function if exists pin_version(bigint, boolean);
+drop function if exists sb_list_categories();
+drop function if exists sb_workspace_updated_at(text);
+
 -- ============================================================
 -- RPC: load_workspace(p_workspace_id)
 -- Returns the full workspace state as a single JSON object
@@ -370,13 +387,6 @@ $$;
 --
 -- Returns the new state_version after the save.
 -- ============================================================
--- Drop the legacy 2-arg signature (returns void) from older deploys.
--- PostgreSQL treats different parameter lists as separate overloads,
--- so CREATE OR REPLACE below would otherwise leave both versions in
--- place — ambiguous overloads prevent PostgREST from resolving the
--- RPC and cause "Could not find the function … in the schema cache".
-drop function if exists save_workspace(text, jsonb);
-
 create or replace function save_workspace(
   p_workspace_id     text,
   p_state            jsonb,
