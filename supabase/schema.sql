@@ -364,10 +364,17 @@ $$;
 -- Optimistic locking: when p_expected_version is provided and not
 -- null, the current state_version must match or the save raises
 -- 'workspace_version_conflict'. Pass null to bypass (used by first
--- save and by the legacy two-arg signature below).
+-- save after the legacy two-arg signature was dropped).
 --
 -- Returns the new state_version after the save.
 -- ============================================================
+-- Drop the legacy 2-arg signature (returns void) from older deploys.
+-- PostgreSQL treats different parameter lists as separate overloads,
+-- so CREATE OR REPLACE below would otherwise leave both versions in
+-- place — ambiguous overloads prevent PostgREST from resolving the
+-- RPC and cause "Could not find the function … in the schema cache".
+drop function if exists save_workspace(text, jsonb);
+
 create or replace function save_workspace(
   p_workspace_id     text,
   p_state            jsonb,
@@ -915,3 +922,7 @@ grant execute on function restore_version(bigint, text)         to anon;
 grant execute on function pin_version(bigint, boolean)          to anon;
 grant execute on function sb_list_categories()                  to anon;
 grant execute on function sb_workspace_updated_at(text)         to anon;
+
+-- Force PostgREST to reload the schema cache so new/changed RPC
+-- signatures are picked up without restarting the API container.
+notify pgrst, 'reload schema';
