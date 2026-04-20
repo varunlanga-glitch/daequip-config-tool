@@ -5,9 +5,11 @@
    the browser. Changes go live for everyone as soon as they
    reload the tool.
 
-   Storage (localStorage):
-     gh_pat       — GitHub Personal Access Token (entered once)
-     gh_pin_hash  — SHA-256 of the PIN (hex string)
+   Storage:
+     gh_pat       — GitHub Personal Access Token (sessionStorage: cleared
+                    when the tab closes, so XSS / shared-device risk is
+                    bounded by the current session)
+     gh_pin_hash  — PBKDF2 hash of the PIN (localStorage, hashed-only)
    ============================================================ */
 
 'use strict';
@@ -71,6 +73,19 @@ async function _ghFetch(method, url, token, body) {
     opts.body = JSON.stringify(body);
   }
   const r = await fetch(url, opts);
+
+  // Rate-limit handling (item #8): primary and secondary limits surface as
+  // 403 with specific headers, or 429 with Retry-After. Surface a friendly
+  // "rate-limited, retry in N s" instead of the opaque GitHub JSON message.
+  if (r.status === 429 || (r.status === 403 && r.headers.get('x-ratelimit-remaining') === '0')) {
+    const retryAfter = parseInt(r.headers.get('retry-after') || '0', 10);
+    const resetSec   = parseInt(r.headers.get('x-ratelimit-reset') || '0', 10);
+    const waitSec    = retryAfter > 0
+      ? retryAfter
+      : (resetSec > 0 ? Math.max(1, resetSec - Math.floor(Date.now() / 1000)) : 60);
+    throw new Error(`GitHub rate-limited — retry in ~${waitSec}s`);
+  }
+
   if (!r.ok) {
     const text = await r.text();
     let msg = `GitHub API ${r.status}`;
@@ -181,7 +196,7 @@ function _openSetupModal(onDone) {
       return;
     }
 
-    localStorage.setItem(_TOKEN_KEY, token);
+    sessionStorage.setItem(_TOKEN_KEY, token);
     localStorage.setItem(_PIN_KEY, await _hashPin(pin));
     window._ghSessionToken = token;
     overlay.remove();
@@ -233,7 +248,7 @@ function _openPinModal(actionLabel, onCorrect) {
   overlay.querySelector('#ghPinOk').onclick     = tryPin;
   overlay.querySelector('#ghPinCancel').onclick = () => overlay.remove();
   overlay.querySelector('#ghPinReset').onclick  = () => {
-    localStorage.removeItem(_TOKEN_KEY);
+    sessionStorage.removeItem(_TOKEN_KEY);
     localStorage.removeItem(_PIN_KEY);
     window._ghSessionToken = null;
     overlay.remove();
@@ -273,7 +288,7 @@ function _openTokenOnlyModal(onDone) {
 
   overlay.querySelector('#ghRetokenCancel').onclick = () => overlay.remove();
   overlay.querySelector('#ghRetokenFull').onclick = () => {
-    localStorage.removeItem(_TOKEN_KEY);
+    sessionStorage.removeItem(_TOKEN_KEY);
     localStorage.removeItem(_PIN_KEY);
     overlay.remove();
     _openSetupModal(onDone);
@@ -294,7 +309,7 @@ function _openTokenOnlyModal(onDone) {
       save.disabled = false;
       return;
     }
-    localStorage.setItem(_TOKEN_KEY, token);
+    sessionStorage.setItem(_TOKEN_KEY, token);
     window._ghSessionToken = token;
     overlay.remove();
     onDone(token);
@@ -304,7 +319,7 @@ function _openTokenOnlyModal(onDone) {
 /* ── Auth gate: setup if needed, otherwise PIN ────────── */
 function _withAuth(label, onToken) {
   // Use session-cached token as fallback when localStorage was cleared mid-session
-  const storedToken = localStorage.getItem(_TOKEN_KEY) || window._ghSessionToken || null;
+  const storedToken = sessionStorage.getItem(_TOKEN_KEY) || window._ghSessionToken || null;
   const hasPin      = !!localStorage.getItem(_PIN_KEY);
   const hasToken    = !!storedToken;
 
@@ -321,7 +336,7 @@ function _withAuth(label, onToken) {
     _openTokenOnlyModal(done);
   } else if (hasToken && !hasPin) {
     // Unusual: token exists but no PIN — full reset to keep them in sync
-    localStorage.removeItem(_TOKEN_KEY);
+    sessionStorage.removeItem(_TOKEN_KEY);
     window._ghSessionToken = null;
     _openSetupModal(done);
   } else {
@@ -421,12 +436,35 @@ function openPublishModal() {
 
     pubBtn.onclick = async () => {
       const msg = overlay.querySelector('#ghCommitMsg').value.trim() || `Update ${catLabel} config`;
-      pubBtn.disabled = true;
+      pubBtn.disabled  = true;
+      pubBtn.textContent = '⏳ Publishing…';
       status.className = 'gh-status';
-      status.textContent = 'Pushing category data…';
+      status.textContent = 'Saving to Supabase…';
 
       try {
-        // 1. Push current category data to GitHub
+        // 1. Supabase is the source-of-truth: save there first with optimistic
+        //    locking so concurrent publishes surface a conflict rather than
+        //    clobbering silently. If this fails, we DO NOT push to GitHub —
+        //    otherwise the two stores drift apart (item #3 split-brain).
+        try {
+          const newVersion = await sbSaveCategoryData(
+            window._activeCategory.id, State, msg, getCurrentUser() || 'publish'
+          );
+          if (newVersion != null) State.stateVersion = newVersion;
+        } catch(sbErr) {
+          if (/workspace_version_conflict/i.test(sbErr.message || '')) {
+            status.className = 'gh-status gh-status-err';
+            status.textContent = 'Someone else published first. Reload the workspace and retry.';
+            pubBtn.disabled = false;
+            _showRemoteChangeBanner(window._activeCategory);
+            return;
+          }
+          throw sbErr;
+        }
+
+        // 2. Push current category data to GitHub (source of truth for readers
+        //    without Supabase access — falls back to this file).
+        status.textContent = 'Pushing to GitHub…';
         let meta;
         try {
           meta = await _ghGetFile(token);
@@ -438,14 +476,6 @@ function openPublishModal() {
           }
         }
         await _ghPushFile(token, content, meta.sha, msg);
-
-        // 1b. Dual-write category data to Supabase + create version (non-fatal)
-        status.textContent = 'Syncing to Supabase…';
-        try {
-          await sbSaveCategoryData(window._activeCategory.id, State, msg, getCurrentUser() || 'publish');
-        } catch(sbErr) {
-          console.warn('Supabase category sync failed:', sbErr.message);
-        }
 
         // 2. Push categories.json to GitHub if the list has changed
         if (window._categoriesDirty) {
@@ -473,6 +503,14 @@ function openPublishModal() {
         if (window._activeCategory) {
           window._categoryDirty[window._activeCategory.id] = false;
         }
+        // Clear the per-category autosave localStorage entry (item #10) so
+        // the unsaved-changes banner doesn't pop up next reload.
+        try { localStorage.removeItem(_autosaveKey()); } catch(_) {}
+        // Any pending autosave timer from before publish should be cancelled
+        // so it doesn't re-write stale data.
+        if (typeof _autosaveTimer !== 'undefined' && _autosaveTimer) {
+          clearTimeout(_autosaveTimer);
+        }
         _updateDirtyIndicator();
 
         status.className = 'gh-status gh-status-ok';
@@ -483,6 +521,7 @@ function openPublishModal() {
       } catch(e) {
         status.className = 'gh-status gh-status-err';
         status.textContent = 'Error: ' + e.message;
+        pubBtn.textContent = '⬆ Publish';
         pubBtn.disabled = false;
       }
     };
@@ -545,20 +584,20 @@ function openHistoryModal() {
     }
   };
 
-  const listEl = overlay.querySelector('#ghHistList');
+  const listEl  = overlay.querySelector('#ghHistList');
+  const PAGE_SIZE = 25;
+  let   _histOffset  = 0;
+  let   _histLoading = false;
+  let   _loadMoreBtn = null;
 
-  sbListVersions(catId, 50).then(versions => {
-    if (!versions || !versions.length) {
-      listEl.innerHTML = '<div class="gh-hist-loading">No versions saved yet.</div>';
-      return;
-    }
-    listEl.innerHTML = '';
+  function _appendVersionRows(versions, startIndex) {
     versions.forEach((v, i) => {
+      const idx     = startIndex + i;
       const d       = new Date(v.created_at);
       const dateStr = d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       const msg     = v.message || '(no message)';
       const author  = v.committed_by || 'anonymous';
-      const isLatest = i === 0;
+      const isLatest = idx === 0;
 
       const row = document.createElement('div');
       row.className = 'gh-hist-row';
@@ -629,10 +668,8 @@ function openHistoryModal() {
             document.body.appendChild(spinner);
 
             try {
-              // Restore normalized tables in Supabase
               await sbRestoreVersion(v.id, 'restore');
 
-              // Reload the restored state into memory
               const restoredState = await sbLoadCategoryData(catId);
               if (restoredState) {
                 Object.keys(State).forEach(k => delete State[k]);
@@ -658,12 +695,52 @@ function openHistoryModal() {
 
       listEl.appendChild(row);
     });
-  }).catch(e => {
-    const errEl = document.createElement('div');
-    errEl.className = 'gh-hist-loading';
-    errEl.style.color = '#e74c3c';
-    errEl.textContent = 'Error loading history: ' + e.message;
-    listEl.innerHTML = '';
-    listEl.appendChild(errEl);
-  });
+  }
+
+  async function _loadHistoryPage() {
+    if (_histLoading) return;
+    _histLoading = true;
+    if (_loadMoreBtn) { _loadMoreBtn.disabled = true; _loadMoreBtn.textContent = 'Loading…'; }
+
+    try {
+      const versions = await sbListVersions(catId, PAGE_SIZE, _histOffset);
+      if (_histOffset === 0) {
+        listEl.innerHTML = '';
+        if (!versions || !versions.length) {
+          const empty = document.createElement('div');
+          empty.className = 'gh-hist-loading';
+          empty.textContent = 'No versions saved yet.';
+          listEl.appendChild(empty);
+          return;
+        }
+      }
+      if (versions && versions.length) {
+        _appendVersionRows(versions, _histOffset);
+        _histOffset += versions.length;
+
+        if (_loadMoreBtn) _loadMoreBtn.remove();
+        _loadMoreBtn = null;
+
+        if (versions.length === PAGE_SIZE) {
+          _loadMoreBtn = document.createElement('button');
+          _loadMoreBtn.className = 'btn';
+          _loadMoreBtn.style.cssText = 'display:block;margin:8px auto;width:120px';
+          _loadMoreBtn.textContent = 'Load more';
+          _loadMoreBtn.onclick = _loadHistoryPage;
+          listEl.appendChild(_loadMoreBtn);
+        }
+      }
+    } catch(e) {
+      if (_histOffset === 0) listEl.innerHTML = '';
+      const errEl = document.createElement('div');
+      errEl.className = 'gh-hist-loading';
+      errEl.style.color = '#e74c3c';
+      errEl.textContent = 'Error loading history: ' + e.message;
+      listEl.appendChild(errEl);
+    } finally {
+      _histLoading = false;
+    }
+  }
+
+  _loadHistoryPage();
 }

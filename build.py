@@ -18,6 +18,7 @@ Cloudflare R2 public URL, etc.) so you don't need to pass it every time.
 import re
 import sys
 import datetime
+import subprocess
 
 # ── Configuration ─────────────────────────────────────────────────────────────
 
@@ -31,7 +32,17 @@ OUTPUT_FILE = "index.html"  # overwrites in-place
 
 # ── CLI args (simple, no argparse dependency) ─────────────────────────────────
 
-version  = datetime.date.today().strftime("%Y%m%d")
+def _git_sha():
+    try:
+        sha = subprocess.check_output(
+            ["git", "rev-parse", "--short", "HEAD"],
+            stderr=subprocess.DEVNULL
+        ).decode().strip()
+        return sha if sha else None
+    except Exception:
+        return None
+
+version  = _git_sha() or datetime.date.today().strftime("%Y%m%d")
 data_url = DATA_URL
 
 args = sys.argv[1:]

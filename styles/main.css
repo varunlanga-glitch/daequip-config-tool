@@ -19,6 +19,15 @@
 
 * { box-sizing: border-box; }
 
+/* Global keyboard-focus ring — only visible when navigating by keyboard */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+/* Suppress the ring on mouse-click for interactive divs / buttons that draw
+   their own selection highlight */
+.tree-item:focus:not(:focus-visible) { outline: none; }
+
 body {
   margin: 0;
   font-family: var(--sans);
@@ -221,7 +230,7 @@ tbody tr.row-child .inline-idx { opacity: 0.6; font-size: 9px; }
 
 /* Inline idx badge inside Part Name cell */
 .name-cell { display: flex; align-items: center; gap: 6px; }
-.name-cell-child { padding-left: 20px !important; }
+.name-cell.name-cell-child { padding-left: 20px; }
 .inline-idx {
   font-family: var(--mono); font-size: 10px; color: var(--muted);
   background: #f0ede6; padding: 1px 5px; border-radius: 3px;
@@ -778,13 +787,13 @@ tbody .row-header-child { background: rgba(43,108,176,.03); padding-left: 20px; 
    ════════════════════════════════════════════════════════════ */
 
 /* Nest drop indicator — vivid amber highlight so it's unmistakable */
-.tree-item.drop-nest {
-  background: rgba(237, 137, 54, 0.15) !important;
-  border: 2px dashed #ed8936 !important;
+.part-list .tree-item.drop-nest {
+  background: rgba(237, 137, 54, 0.15);
+  border: 2px dashed #ed8936;
   border-radius: 7px;
   box-shadow: inset 0 0 0 1px rgba(237,137,54,0.3);
 }
-.tree-item.drop-nest::after {
+.part-list .tree-item.drop-nest::after {
   content: '↳ nest here';
   position: absolute;
   right: 8px; top: 50%;
@@ -1396,7 +1405,7 @@ tr:hover .cell-filepick-btn {
 .rule-chip--idx,
 .rule-chip--name    { background: #ecfdf5; color: #065f46; border-color: #a7f3d0; }
 .rule-chip--math    { background: #fff7ed; color: #9a3412; border-color: #fed7aa; }
-.rule-chip--warn    { background: #fee2e2 !important; color: #b91c1c !important; border-color: #fecaca !important; }
+.rule-chip.rule-chip--warn { background: #fee2e2; color: #b91c1c; border-color: #fecaca; }
 
 /* Format popover rows (used by var-format popover) */
 .var-fmt-row {

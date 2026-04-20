@@ -19,6 +19,7 @@
       },
       {
         "id": "g1775840471709",
+        "midx": null,
         "name": "Width Parts",
         "type": "group",
         "level": 0,
@@ -76,6 +77,7 @@
         "id": "p1775840684932",
         "midx": null,
         "name": "(Body Weldment)",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -83,6 +85,7 @@
         "id": "p1770762899954",
         "midx": null,
         "name": "E",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -144,6 +147,7 @@
       },
       {
         "id": "g1775843850782",
+        "midx": null,
         "name": "Lugging",
         "type": "group",
         "level": 0,
@@ -151,27 +155,31 @@
       },
       {
         "id": "p1775843844835",
-        "name": "(Lug GA)",
         "midx": "00",
+        "name": "(Lug GA)",
+        "type": null,
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1775843900104",
-        "name": "(Lug MC)",
         "midx": null,
+        "name": "(Lug MC)",
+        "type": null,
         "level": 1,
         "enabled": true
       },
       {
         "id": "p1775843916572",
-        "name": "(Lug Plate)",
         "midx": null,
+        "name": "(Lug Plate)",
+        "type": null,
         "level": 2,
         "enabled": true
       },
       {
         "id": "g1775844236383",
+        "midx": null,
         "name": "400 & Above",
         "type": "group",
         "level": 0,
@@ -179,20 +187,30 @@
       },
       {
         "id": "p1775844271974",
-        "name": "(Top Shell Plate)",
         "midx": "02",
+        "name": "(Top Shell Plate)",
+        "type": null,
         "level": 0,
         "enabled": true
       },
       {
         "id": "p1775844252170",
-        "name": "(Top Stiffener Plate)",
         "midx": "04",
+        "name": "(Top Stiffener Plate)",
+        "type": null,
         "level": 0,
         "enabled": true
       }
     ],
     "tab1770826801156": [
+      {
+        "id": "g1775851749603",
+        "midx": null,
+        "name": "Machine Specific",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
       {
         "id": "p1",
         "midx": "A",
@@ -206,6 +224,14 @@
         "midx": "B",
         "name": "Body-Hub Weldment",
         "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "g1775851731533",
+        "midx": null,
+        "name": "Standard Parts",
+        "type": "group",
         "level": 0,
         "enabled": true
       },
@@ -284,6 +310,14 @@
     ],
     "tab1770838553711": [
       {
+        "id": "g1775851554114",
+        "midx": null,
+        "name": "Machine Specific",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
         "id": "p1",
         "midx": "A",
         "name": "GA",
@@ -329,6 +363,14 @@
         "name": "Hub-Rear-Left",
         "type": null,
         "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "g1775851499374",
+        "midx": null,
+        "name": "Standard Parts",
+        "type": "group",
+        "level": 0,
         "enabled": true
       },
       {
@@ -502,6 +544,14 @@
     ],
     "tab1770838629859": [
       {
+        "id": "g1775851695773",
+        "midx": null,
+        "name": "Machine Specific",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
         "id": "p1",
         "midx": "A",
         "name": "GA",
@@ -547,6 +597,14 @@
         "name": "Hub-Rear-Left",
         "type": null,
         "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "g1775851710771",
+        "midx": null,
+        "name": "Standard Parts",
+        "type": "group",
+        "level": 0,
         "enabled": true
       },
       {
@@ -1059,6 +1117,7 @@
       },
       {
         "id": "g1775843432943",
+        "midx": null,
         "name": "Standard Parts",
         "type": "group",
         "level": 0,
@@ -1197,7 +1256,7 @@
       {
         "id": "p1775839430390",
         "midx": "00",
-        "name": "GA (Copy)",
+        "name": "(GA)",
         "type": null,
         "level": 0,
         "enabled": true
@@ -1268,6 +1327,7 @@
       },
       {
         "id": "g1775839847195",
+        "midx": null,
         "name": "400 & above",
         "type": "group",
         "level": 0,
@@ -1405,6 +1465,7 @@
       },
       {
         "id": "g1775841541628",
+        "midx": null,
         "name": "400 & Above",
         "type": "group",
         "level": 0,
@@ -1504,6 +1565,7 @@
       },
       {
         "id": "g1775840471709",
+        "midx": null,
         "name": "Width Parts",
         "type": "group",
         "level": 0,
@@ -1529,6 +1591,7 @@
         "id": "p1775840684932",
         "midx": null,
         "name": "(Body Weldment)",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1536,6 +1599,7 @@
         "id": "p1770762899954",
         "midx": null,
         "name": "E",
+        "type": null,
         "level": 0,
         "enabled": true
       },
@@ -1615,6 +1679,7 @@
       },
       {
         "id": "g1775839847195",
+        "midx": null,
         "name": "400 & above",
         "type": "group",
         "level": 0,
@@ -1712,6 +1777,7 @@
       },
       {
         "id": "g1775839847195",
+        "midx": null,
         "name": "400 & above",
         "type": "group",
         "level": 0,
@@ -1809,6 +1875,7 @@
       },
       {
         "id": "g1775846149475",
+        "midx": null,
         "name": "Standard Parts",
         "type": "group",
         "level": 0,
@@ -1864,6 +1931,7 @@
       },
       {
         "id": "g1775846666159",
+        "midx": null,
         "name": "400 & Above",
         "type": "group",
         "level": 0,
@@ -1889,6 +1957,232 @@
         "id": "p1775846728641",
         "midx": null,
         "name": "(Side Edge LH)",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      }
+    ],
+    "tab1775855560276": [
+      {
+        "id": "g1775682307162",
+        "midx": null,
+        "name": "GA Level",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1",
+        "midx": "00",
+        "name": "(GA)",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "g1775857644813",
+        "midx": null,
+        "name": "PT level",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775857642085",
+        "midx": null,
+        "name": "Boss Weldment",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "g1775840471709",
+        "midx": null,
+        "name": "Width Parts",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770762912068",
+        "midx": "C",
+        "name": "Width Profile",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770762938928",
+        "midx": null,
+        "name": "Rear Plate",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770762944205",
+        "midx": null,
+        "name": "Base Plate",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770762956126",
+        "midx": null,
+        "name": "Top Plate",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770762975793",
+        "midx": null,
+        "name": "Cross Plate",
+        "type": null,
+        "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1775840684932",
+        "midx": null,
+        "name": "Front Gusset Plate",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "g1775682374357",
+        "midx": null,
+        "name": "Standard Parts",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770767898320",
+        "midx": "00",
+        "name": "Standard Parts Driver",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775856630708",
+        "midx": "01",
+        "name": "Doubler Plate-RH",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775840542739",
+        "midx": null,
+        "name": "Doubler Plate-LH",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775856627618",
+        "midx": null,
+        "name": "Cyl-Lug MC RH",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775856688998",
+        "midx": null,
+        "name": "Cyl-Lug Weldment RH",
+        "type": null,
+        "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1770767923264",
+        "midx": null,
+        "name": "Cyl Lug",
+        "type": null,
+        "level": 2,
+        "enabled": true
+      },
+      {
+        "id": "p1775856942465",
+        "midx": null,
+        "name": "Cyl-Lug Doubler",
+        "type": null,
+        "level": 2,
+        "enabled": true
+      },
+      {
+        "id": "p1775856671952",
+        "midx": null,
+        "name": "Cyl-Lug MC LH",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775856706892",
+        "midx": null,
+        "name": "Cyl-Lug Weldment LH",
+        "type": null,
+        "level": 1,
+        "enabled": true
+      },
+      {
+        "id": "p1770767958952",
+        "midx": null,
+        "name": "Rear Gusset Plate",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775856912695",
+        "midx": null,
+        "name": "Cyl-Lug Base Plate",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1770767931018",
+        "midx": null,
+        "name": "Mid Rib Plate",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775840507085",
+        "midx": null,
+        "name": "Center Gusset Plate",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "g1775844236383",
+        "midx": null,
+        "name": "400 & Above",
+        "type": "group",
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775844271974",
+        "midx": "02",
+        "name": "(Top Shell Plate)",
+        "type": null,
+        "level": 0,
+        "enabled": true
+      },
+      {
+        "id": "p1775844252170",
+        "midx": "04",
+        "name": "(Top Stiffener Plate)",
         "type": null,
         "level": 0,
         "enabled": true
@@ -2181,6 +2475,28 @@
         "id": "f1770766992117",
         "name": "Specs 2"
       }
+    ],
+    "tab1775855560276": [
+      {
+        "id": "f1770765683117",
+        "name": "Description"
+      },
+      {
+        "id": "f1770765927726",
+        "name": "Features 1"
+      },
+      {
+        "id": "f1770766964933",
+        "name": "Features 2"
+      },
+      {
+        "id": "f1770766978429",
+        "name": "Specs 1"
+      },
+      {
+        "id": "f1770766992117",
+        "name": "Specs 2"
+      }
     ]
   },
   "rules": {
@@ -2188,15 +2504,50 @@
       "p1": {
         "f1770765683117": "ATTACHMENT{[-]}SUBTYPE DUTY HOOK-UP NAME CLASS{[-]}SIZE",
         "f1770765927726": "HOOK-UP{[ - ]}LUGGING{[ - ]}VOLUME{[ - ]}TOOTH_QTY TOOTH_TYPE",
-        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
         "f1770766964933": "-",
+        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
+        "f1770766992117": "-"
+      },
+      "g1775682307162": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775682374357": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775840471709": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775843850782": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775844236383": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "p1770762899954": {
         "f1770765683117": "BODY-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
         "f1770765927726": "VOLUME",
-        "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
         "f1770766964933": "-",
+        "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°{[ - ]}{TOOTH_QTY?TOOTH_QTY TOOTH_TYPE}",
         "f1770766992117": "-"
       },
       "p1770762912068": {
@@ -2215,8 +2566,8 @@
       },
       "p1770762938928": {
         "f1770765683117": "SHELL PL{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
-        "f1770766964933": "-",
         "f1770765927726": "-",
+        "f1770766964933": "-",
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
@@ -2286,49 +2637,29 @@
       "p1775840684932": {
         "f1770765683117": "BODY-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
         "f1770765927726": "VOLUME",
+        "f1770766964933": "-",
         "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
-        "f1770766964933": "-",
         "f1770766992117": "-"
-      },
-      "g1775682307162": {
-        "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "g1775682374357": {
-        "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "g1775840471709": {
-        "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "p1775843916572": {
-        "f1770765683117": "LUG PL-ATTACHMENT-DUTY{[-]}LUGGING  CLASS",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-"
       },
       "p1775843844835": {
         "f1770765683117": "LUG GA-ATTACHMENT-DUTY{[-]}LUGGING CLASS",
         "f1770765927726": "-",
         "f1770766964933": "-",
-        "f1770766978429": "-",
+        "f1770766978429": "{LUG_SPREAD?LUG_SPREAD LS}{[ - ]}{CENTER_TO_CENTER?CENTER_TO_CENTER CC}",
         "f1770766992117": "-"
       },
       "p1775843900104": {
         "f1770765683117": "LUG MC-ATTACHMENT-DUTY{[-]}LUGGING  CLASS",
         "f1770765927726": "-",
         "f1770766964933": "-",
-        "f1770766978429": "-",
+        "f1770766978429": "{CENTER_TO_CENTER?CENTER_TO_CENTER CC}",
+        "f1770766992117": "-"
+      },
+      "p1775843916572": {
+        "f1770765683117": "LUG PL-ATTACHMENT-DUTY{[-]}LUGGING  CLASS",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "{CENTER_TO_CENTER?CENTER_TO_CENTER CC}",
         "f1770766992117": "-"
       },
       "p1775844252170": {
@@ -2350,9 +2681,9 @@
       "p1": {
         "f1770765683117": "QC{[-]}MAN WEDGE LUGGING NAME CLASS",
         "f1770765927726": "BUSHINGS{[ - ]}PINS",
+        "f1770766964933": "-",
         "f1770766978429": "FRONT_PIN_SIZE{[ - ]}REAR_PIN_SIZE{[ - ]}STICK_WIDTH ISFR{[ X ]}MACHINE_CENTRE MC",
-        "f1770766992117": "OUTSIDE_OS OS{[ - ]}CENTER_TO_CENTER CC",
-        "f1770766964933": "-"
+        "f1770766992117": "OUTSIDE_OS OS{[ - ]}CENTER_TO_CENTER CC"
       },
       "p2": {
         "f1770765683117": "TOOTH-WLDT-ATTACHMENT-SUBTYPE-DUTY CLASS-SIZE",
@@ -2360,31 +2691,31 @@
         "f1770766978429": "BLADE_THK X BLADE_ANGLE"
       },
       "p1770762899954": {
-        "f1770765683117": "HUB{[ - ]}WLDT{[ - ]}CPLR{[ - ]}MW CLASS",
-        "f1770765927726": "LUGGING{[ - ]}NAME",
+        "f1770765683117": "HUB{[-]}WLDT{[-]}CPLR{[-]}MW CLASS",
+        "f1770765927726": "LUGGING{[-]}BODY{[-]}HUB WLDT",
+        "f1770766964933": "-",
         "f1770766978429": "FRONT_PIN_SIZE{[ - ]}REAR_PIN_SIZE{[ - ]}STICK_WIDTH ISFR{[ - ]}MACHINE_CENTRE MC ",
-        "f1770766992117": "OUTSIDE_OS OS{[ - ]}CENTER_TO_CENTER CC",
-        "f1770766964933": "-"
+        "f1770766992117": "OUTSIDE_OS OS{[ - ]}CENTER_TO_CENTER CC"
       },
       "p1770762912068": {
         "f1770765683117": "BODY WLDT{[-]}CPLR{[-]}MW CLASS",
-        "f1770766978429": "WIDTH  WD{[ - ]}CENTER_TO_CENTER CC",
         "f1770765927726": "-",
         "f1770766964933": "-",
+        "f1770766978429": "WIDTH  WD{[ - ]}CENTER_TO_CENTER CC",
         "f1770766992117": "-"
       },
       "p1770762928430": {
         "f1770765683117": "SIDE PL MC{[-]}CPLR{[-]}MW LUGGING",
         "f1770765927726": "-",
-        "f1770766978429": "CENTER_TO_CENTER CC",
         "f1770766964933": "-",
+        "f1770766978429": "CENTER_TO_CENTER CC",
         "f1770766992117": "-"
       },
       "p1770762938928": {
         "f1770765683117": "SIDE PL{[-]}CPLR{[-]}MW{[-]}LUGGING",
-        "f1770766978429": "CENTER_TO_CENTER CC",
         "f1770765927726": "-",
         "f1770766964933": "-",
+        "f1770766978429": "CENTER_TO_CENTER CC",
         "f1770766992117": "-"
       },
       "p1770762944205": {
@@ -2403,30 +2734,30 @@
       },
       "p1770762975793": {
         "f1770765683117": "REAR PL{[-]}CPLR{[-]}MW{[-]}LUGGING",
-        "f1770766978429": "-",
         "f1770765927726": "-",
         "f1770766964933": "-",
+        "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "p1770767898320": {
         "f1770765683117": "PROFILE SKETCH{[-]}ATTACHMENT{[-]}CLASS",
-        "f1770766978429": "PROFILE SKETCH",
         "f1770765927726": "-",
         "f1770766964933": "-",
+        "f1770766978429": "PROFILE SKETCH",
         "f1770766992117": "-"
       },
       "p1770767923264": {
         "f1770765683117": "WEDGE BAR MC{[-]}CPLR{[-]}MW{[-]}LUGGING",
-        "f1770766978429": "WEDGE_BAR_HEIGHT{[ X ]}WEDGE_BAR_WIDTH{[ X ]}WEDGE_BAR_LENGTH{[ - ]}WEDGE_ANGLE",
         "f1770765927726": "-",
         "f1770766964933": "-",
+        "f1770766978429": "WEDGE_BAR_HEIGHT{[ X ]}WEDGE_BAR_WIDTH{[ X ]}WEDGE_BAR_LENGTH{[ - ]}WEDGE_ANGLE",
         "f1770766992117": "-"
       },
       "p1770767931018": {
         "f1770765683117": "WEDGE BAR{[-]}CPLR{[-]}MW{[-]}LUGGING",
-        "f1770766978429": "WEDGE_BAR_HEIGHT{[ X ]}WEDGE_BAR_WIDTH{[ X ]}WEDGE_BAR_LENGTH{[ - ]}WEDGE_ANGLE",
         "f1770765927726": "-",
         "f1770766964933": "-",
+        "f1770766978429": "WEDGE_BAR_HEIGHT{[ X ]}WEDGE_BAR_WIDTH{[ X ]}WEDGE_BAR_LENGTH{[ - ]}WEDGE_ANGLE",
         "f1770766992117": "-"
       },
       "p1770767938206": {
@@ -2444,21 +2775,28 @@
       "p1": {
         "f1770765683117": "QC{[-]}HYD WEDGE{[-]}LUGGING NAME CLASS",
         "f1770765927726": "BUSHINGS{[ - ]}PINS",
+        "f1770766964933": "-",
         "f1770766978429": "FRONT_PIN_SIZE{[ - ]}REAR_PIN_SIZE{[ - ]}STICK_WIDTH ISFR{[ - ]}MACHINE_CENTRE MC",
-        "f1770766992117": "OUTSIDE_OS OS{[ - ]}CENTER_TO_CENTER CC",
-        "f1770766964933": "-"
+        "f1770766992117": "OUTSIDE_OS OS{[ - ]}CENTER_TO_CENTER CC"
       },
       "p2": {
         "f1770765683117": "TOOTH-WLDT-ATTACHMENT-SUBTYPE-DUTY CLASS-SIZE",
         "f1770765927726": "VOLUME - TOOTH_QTY TOOTH_TYPE",
         "f1770766978429": "BLADE_THK X BLADE_ANGLE"
       },
+      "g1775851499374": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
       "p1770762899954": {
         "f1770765683117": "HUB-WLDT{[-]}CPLR{[-]}HW CLASS",
         "f1770765927726": "LUGGING{[ - ]}HUB BODY WELDMENT",
+        "f1770766964933": "-",
         "f1770766978429": "FRONT_PIN_SIZE{[ - ]}REAR_PIN_SIZE{[ - ]}STICK_WIDTH ISFR{[ - ]}MACHINE_CENTRE MC ",
-        "f1770766992117": "OUTSIDE_OS OS{[ - ]}CENTER_TO_CENTER CC",
-        "f1770766964933": "-"
+        "f1770766992117": "OUTSIDE_OS OS{[ - ]}CENTER_TO_CENTER CC"
       },
       "p1770762912068": {
         "f1770765683117": "BODY-WLDT{[-]}CPLR-HW CLASS",
@@ -2468,15 +2806,15 @@
       "p1770762928430": {
         "f1770765683117": "SIDE PL MC-CPLR-HW-MC",
         "f1770765927726": "-",
-        "f1770766978429": "CENTER_TO_CENTER CC",
         "f1770766964933": "-",
+        "f1770766978429": "CENTER_TO_CENTER CC",
         "f1770766992117": "-"
       },
       "p1770762938928": {
         "f1770765683117": "SIDE PL-CPLR-HW-LUGGING",
-        "f1770766978429": "CENTER_TO_CENTER CC",
         "f1770765927726": "-",
         "f1770766964933": "-",
+        "f1770766978429": "CENTER_TO_CENTER CC",
         "f1770766992117": "-"
       },
       "p1770762944205": {
@@ -2491,30 +2829,30 @@
       },
       "p1770762975793": {
         "f1770765683117": "REAR CROSSPL-CPLR-HW-LUGGING",
-        "f1770766978429": "-",
         "f1770765927726": "-",
         "f1770766964933": "-",
+        "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "p1770767898320": {
         "f1770765683117": "PROFILE SKETCH{[-]}CHW{[-]}CLASS",
-        "f1770766978429": "PROFILE SKETCH",
         "f1770765927726": "-",
         "f1770766964933": "-",
+        "f1770766978429": "PROFILE SKETCH",
         "f1770766992117": "-"
       },
       "p1770767923264": {
         "f1770765683117": "WEDGE BAR MC-CPLR-HW-LUGGING",
-        "f1770766978429": "WEDGE_BAR_HEIGHT X WEDGE_BAR_WIDTH X WEDGE_BAR_LENGTH - WEDGE_ANGLE",
-        "f1770766964933": "-",
         "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "WEDGE_BAR_HEIGHT X WEDGE_BAR_WIDTH X WEDGE_BAR_LENGTH - WEDGE_ANGLE",
         "f1770766992117": "-"
       },
       "p1770767931018": {
         "f1770765683117": "WEDGE BAR PL-CPLR-HW-LUGGING",
-        "f1770766978429": "WEDGE_BAR_HEIGHT X WEDGE_BAR_WIDTH X WEDGE_BAR_LENGTH - WEDGE_ANGLE",
         "f1770765927726": "-",
         "f1770766964933": "-",
+        "f1770766978429": "WEDGE_BAR_HEIGHT X WEDGE_BAR_WIDTH X WEDGE_BAR_LENGTH - WEDGE_ANGLE",
         "f1770766992117": "-"
       },
       "p1770767938206": {
@@ -2639,8 +2977,8 @@
       "p1770837371450": {
         "f1770765683117": "HUB-QC-RR-LH",
         "f1770765927726": "REAR_HUB_OD OD{[ X ]}REAR_HUB_ID ID{[ X ]}REAR_HUB_LENGTH LG ",
-        "f1770766978429": "-",
         "f1770766964933": "-",
+        "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "p1770838910007": {
@@ -2669,9 +3007,9 @@
       "p1": {
         "f1770765683117": "QC{[-]}HYD WEDGE{[-]}AUTOLOCK LUGGING NAME CLASS",
         "f1770765927726": "BUSHINGS{[ - ]}PINS",
+        "f1770766964933": "-",
         "f1770766978429": "FRONT_PIN_SIZE{[ - ]}REAR_PIN_SIZE{[ - ]}STICK_WIDTH ISFR{[ - ]}MACHINE_CENTRE MC",
-        "f1770766992117": "OUTSIDE_OS OS{[ - ]}CENTER_TO_CENTER CC",
-        "f1770766964933": "-"
+        "f1770766992117": "OUTSIDE_OS OS{[ - ]}CENTER_TO_CENTER CC"
       },
       "p2": {
         "f1770765683117": "TOOTH-WLDT-ATTACHMENT-SUBTYPE-DUTY CLASS-SIZE",
@@ -2681,29 +3019,29 @@
       "p1770762899954": {
         "f1770765683117": "HUB-WLDT{[-]}CPLR{[-]}HWA CLASS",
         "f1770765927726": "LUGGING{[ - ]}HUB BODY WELDMENT",
+        "f1770766964933": "-",
         "f1770766978429": "FRONT_PIN_SIZE{[ - ]}REAR_PIN_SIZE{[ - ]}STICK_WIDTH ISFR{[ - ]}MACHINE_CENTRE MC ",
-        "f1770766992117": "OUTSIDE_OS OS{[ - ]}CENTER_TO_CENTER CC",
-        "f1770766964933": "-"
+        "f1770766992117": "OUTSIDE_OS OS{[ - ]}CENTER_TO_CENTER CC"
       },
       "p1770762912068": {
         "f1770765683117": "BODY-WLDT{[-]}CPLR{[-]}HWA CLASS",
         "f1770765927726": "BODY WELDMENT",
-        "f1770766978429": "WIDTH  WD{[ - ]}CENTER_TO_CENTER CC",
         "f1770766964933": "-",
+        "f1770766978429": "WIDTH  WD{[ - ]}CENTER_TO_CENTER CC",
         "f1770766992117": "-"
       },
       "p1770762928430": {
         "f1770765683117": "SIDE PL MC{[-]}CPLR{[-]}HWA{[-]}MC",
         "f1770765927726": "-",
-        "f1770766978429": "CENTER_TO_CENTER CC",
         "f1770766964933": "-",
+        "f1770766978429": "CENTER_TO_CENTER CC",
         "f1770766992117": "-"
       },
       "p1770762938928": {
         "f1770765683117": "SIDE PL{[-]}CPLR{[-]}HWA{[-]}LUGGING",
-        "f1770766978429": "CENTER_TO_CENTER CC",
         "f1770765927726": "-",
         "f1770766964933": "-",
+        "f1770766978429": "CENTER_TO_CENTER CC",
         "f1770766992117": "-"
       },
       "p1770762944205": {
@@ -2718,30 +3056,30 @@
       },
       "p1770762975793": {
         "f1770765683117": "REAR CROSSPL{[-]}CPLR{[-]}HWA LUGGING",
-        "f1770766978429": "-",
         "f1770765927726": "-",
         "f1770766964933": "-",
+        "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "p1770767898320": {
         "f1770765683117": "PROFILE SKETCH{[-]}CPLR{[-]}HWA{[-]}CLASS",
-        "f1770766978429": "PROFILE SKETCH",
-        "f1770766964933": "-",
         "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "PROFILE SKETCH",
         "f1770766992117": "-"
       },
       "p1770767923264": {
         "f1770765683117": "WEDGE BAR MC{[-]}CPLR{[-]}HWA{[-]}LUGGING",
-        "f1770766978429": "WEDGE_BAR_HEIGHT{[ X ]}WEDGE_BAR_WIDTH{[ X ]}WEDGE_BAR_LENGTH{[ - ]}WEDGE_ANGLE",
         "f1770765927726": "-",
         "f1770766964933": "-",
+        "f1770766978429": "WEDGE_BAR_HEIGHT{[ X ]}WEDGE_BAR_WIDTH{[ X ]}WEDGE_BAR_LENGTH{[ - ]}WEDGE_ANGLE",
         "f1770766992117": "-"
       },
       "p1770767931018": {
         "f1770765683117": "WEDGE BAR PL-CPLR-HWA-LUGGING",
-        "f1770766978429": "WEDGE_BAR_HEIGHT{[ X ]}WEDGE_BAR_WIDTH{[ X ]}WEDGE_BAR_LENGTH{[ - ]}WEDGE_ANGLE",
         "f1770765927726": "-",
         "f1770766964933": "-",
+        "f1770766978429": "WEDGE_BAR_HEIGHT{[ X ]}WEDGE_BAR_WIDTH{[ X ]}WEDGE_BAR_LENGTH{[ - ]}WEDGE_ANGLE",
         "f1770766992117": "-"
       },
       "p1770767938206": {
@@ -2875,9 +3213,9 @@
       "p1": {
         "f1770765683117": "QC{[-]}HYD WEDGE{[-]}AUTOLOCK LUGGING NAME CLASS",
         "f1770765927726": "BUSHINGS{[ - ]}PINS",
+        "f1770766964933": "-",
         "f1770766978429": "FRONT_PIN_SIZE{[ - ]}REAR_PIN_SIZE{[ - ]}STICK_WIDTH ISFR{[ - ]}MACHINE_CENTRE MC",
-        "f1770766992117": "OUTSIDE_OS OS{[ - ]}CENTER_TO_CENTER CC",
-        "f1770766964933": "-"
+        "f1770766992117": "OUTSIDE_OS OS{[ - ]}CENTER_TO_CENTER CC"
       },
       "p2": {
         "f1770765683117": "TOOTH-WLDT-ATTACHMENT-SUBTYPE-DUTY CLASS-SIZE",
@@ -2887,29 +3225,29 @@
       "p1770762899954": {
         "f1770765683117": "HUB{[-]}WLDT{[-]}CPLR{[-]}HWA CLASS",
         "f1770765927726": "LUGGING{[ - ]}HUB BODY WELDMENT",
+        "f1770766964933": "-",
         "f1770766978429": "FRONT_PIN_SIZE{[ - ]}REAR_PIN_SIZE{[ - ]}STICK_WIDTH ISFR{[ - ]}MACHINE_CENTRE MC ",
-        "f1770766992117": "OUTSIDE_OS OS{[ - ]}CENTER_TO_CENTER CC",
-        "f1770766964933": "-"
+        "f1770766992117": "OUTSIDE_OS OS{[ - ]}CENTER_TO_CENTER CC"
       },
       "p1770762912068": {
         "f1770765683117": "BODY{[-]}WLDT{[-]}CPLR{[-]}HWA CLASS",
         "f1770765927726": "BODY WELDMENT",
-        "f1770766978429": "WIDTH  WD{[ - ]}CENTER_TO_CENTER CC",
         "f1770766964933": "-",
+        "f1770766978429": "WIDTH  WD{[ - ]}CENTER_TO_CENTER CC",
         "f1770766992117": "-"
       },
       "p1770762928430": {
         "f1770765683117": "SIDE PL MC{[-]}CPLR{[-]}HWA{[-]}MC",
         "f1770765927726": "-",
-        "f1770766978429": "CENTER_TO_CENTER CC",
         "f1770766964933": "-",
+        "f1770766978429": "CENTER_TO_CENTER CC",
         "f1770766992117": "-"
       },
       "p1770762938928": {
         "f1770765683117": "SIDE PL-CPLR-HWA-LUGGING",
-        "f1770766978429": "CENTER_TO_CENTER CC",
         "f1770765927726": "-",
         "f1770766964933": "-",
+        "f1770766978429": "CENTER_TO_CENTER CC",
         "f1770766992117": "-"
       },
       "p1770762944205": {
@@ -2924,30 +3262,30 @@
       },
       "p1770762975793": {
         "f1770765683117": "REAR CROSSPL-CPLR-HWA LUGGING",
-        "f1770766978429": "-",
         "f1770765927726": "-",
         "f1770766964933": "-",
+        "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "p1770767898320": {
         "f1770765683117": "PROFILE SKETCH-CPLR{[-]}HWA{[-]}CLASS",
-        "f1770766978429": "PROFILE SKETCH",
-        "f1770766964933": "-",
         "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "PROFILE SKETCH",
         "f1770766992117": "-"
       },
       "p1770767923264": {
         "f1770765683117": "WEDGE BAR MC-CPLR-HWA-LUGGING",
-        "f1770766978429": "WEDGE_BAR_HEIGHT X WEDGE_BAR_WIDTH X WEDGE_BAR_LENGTH - WEDGE_ANGLE",
         "f1770765927726": "-",
         "f1770766964933": "-",
+        "f1770766978429": "WEDGE_BAR_HEIGHT X WEDGE_BAR_WIDTH X WEDGE_BAR_LENGTH - WEDGE_ANGLE",
         "f1770766992117": "-"
       },
       "p1770767931018": {
         "f1770765683117": "WEDGE BAR PL-CPLR-HWA-LUGGING",
-        "f1770766978429": "WEDGE_BAR_HEIGHT X WEDGE_BAR_WIDTH X WEDGE_BAR_LENGTH - WEDGE_ANGLE",
         "f1770765927726": "-",
         "f1770766964933": "-",
+        "f1770766978429": "WEDGE_BAR_HEIGHT X WEDGE_BAR_WIDTH X WEDGE_BAR_LENGTH - WEDGE_ANGLE",
         "f1770766992117": "-"
       },
       "p1770767938206": {
@@ -3102,6 +3440,34 @@
         "f1770765927726": "VOLUME{[ - ]}TOOTH_QTY TOOTH_TYPE",
         "f1770766964933": "-",
         "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
+        "f1770766992117": "-"
+      },
+      "g1775682672203": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775682749061": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775682790362": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775843432943": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "p1770762899954": {
@@ -3265,27 +3631,6 @@
         "f1770766978429": "{CENTER_TO_CENTER#0.3: CC}",
         "f1770766992117": "-"
       },
-      "g1775682672203": {
-        "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "g1775682790362": {
-        "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "g1775682749061": {
-        "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
       "p1775843543329": {
         "f1770765683117": "TOP STIFFENER PL{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
         "f1770765927726": "-",
@@ -3298,16 +3643,37 @@
       "p1": {
         "f1770765683117": "ATTACHMENT{[-]}SUBTYPE DUTY HOOK-UP NAME CLASS{[-]}SIZE",
         "f1770765927726": "HOOK-UP{[ - ]}LUGGING{[ - ]}VOLUME{[ - ]}BOE",
-        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
         "f1770766964933": "-",
+        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
+        "f1770766992117": "-"
+      },
+      "g1775683522501": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775683537727": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775839847195": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "p1770762899954": {
         "f1770765683117": "BODY-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
         "f1770765927726": "VOLUME{[ - ]}BOE{[ - ]}BODY WELDMENT",
+        "f1770766964933": "-",
         "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
-        "f1770766992117": "BOLT_PATTERN BOLT PATTERN",
-        "f1770766964933": "-"
+        "f1770766992117": "BOLT_PATTERN BOLT PATTERN"
       },
       "p1770762912068": {
         "f1770765683117": "WIDTH SKETCH DUTY{[-]}SIZE",
@@ -3351,18 +3717,11 @@
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
-      "g1775683522501": {
-        "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
       "p1775839430390": {
-        "f1770765683117": "ATTACHMENT{[-]}SUBTYPE DUTY HOOK-UP NAME CLASS{[-]}SIZE",
+        "f1770765683117": "ATTACHMENT{[-]}SUBTYPE DUTY HOOK-UP GA CLASS{[-]}SIZE",
         "f1770765927726": "HOOK-UP{[ - ]}LUGGING{[ - ]}VOLUME{[ - ]} BOE",
-        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
         "f1770766964933": "-",
+        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
         "f1770766992117": "-"
       },
       "p1775839880823": {
@@ -3378,20 +3737,6 @@
         "f1770766964933": "-",
         "f1770766978429": "-",
         "f1770766992117": "-"
-      },
-      "g1775683537727": {
-        "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "g1775839847195": {
-        "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
       }
     },
     "tab1775681477169": {
@@ -3400,6 +3745,27 @@
         "f1770765927726": "HOOK-UP{[ - ]}LUGGING{[ - ]}VOLUME{[ - ]} ",
         "f1770766964933": "-",
         "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
+        "f1770766992117": "-"
+      },
+      "g1775682493296": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775682518705": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775841541628": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "p1770762899954": {
@@ -3485,43 +3851,36 @@
         "f1770766964933": "-",
         "f1770766978429": "-",
         "f1770766992117": "-"
-      },
-      "g1775841541628": {
-        "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "g1775682493296": {
-        "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "g1775682518705": {
-        "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
       }
     },
     "tab1775844754790": {
       "p1": {
         "f1770765683117": "ATTACHMENT{[-]}SUBTYPE DUTY HOOK-UP NAME CLASS{[-]}SIZE",
         "f1770765927726": "HOOK-UP{[ - ]}LUGGING{[ - ]}VOLUME{[ - ]}BOE",
-        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
         "f1770766964933": "-",
+        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
+        "f1770766992117": "-"
+      },
+      "g1775683522501": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775683537727": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "p1770762899954": {
         "f1770765683117": "BODY-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
         "f1770765927726": "VOLUME{[ - ]}BOE{[ - ]}BODY WELDMENT",
+        "f1770766964933": "-",
         "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
-        "f1770766992117": "BOLT_PATTERN BOLT PATTERN",
-        "f1770766964933": "-"
+        "f1770766992117": "BOLT_PATTERN BOLT PATTERN"
       },
       "p1770762956126": {
         "f1770765683117": "WEAR BAR ASSM{[-]}HOR{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
@@ -3537,25 +3896,11 @@
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
-      "g1775683522501": {
-        "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
       "p1775839430390": {
         "f1770765683117": "ATTACHMENT{[-]}SUBTYPE DUTY HOOK-UP NAME CLASS{[-]}SIZE",
         "f1770765927726": "HOOK-UP{[ - ]}LUGGING{[ - ]}VOLUME{[ - ]} BOE",
+        "f1770766964933": "-",
         "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
-        "f1770766964933": "-",
-        "f1770766992117": "-"
-      },
-      "g1775683537727": {
-        "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
         "f1770766992117": "-"
       }
     },
@@ -3563,15 +3908,36 @@
       "p1": {
         "f1770765683117": "ATTACHMENT{[-]}SUBTYPE DUTY HOOK-UP NAME CLASS{[-]}SIZE",
         "f1770765927726": "HOOK-UP{[ - ]}LUGGING{[ - ]}VOLUME{[ - ]}TOOTH_QTY TOOTH_TYPE",
-        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
         "f1770766964933": "-",
+        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
+        "f1770766992117": "-"
+      },
+      "g1775682307162": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775682374357": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775840471709": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "p1770762899954": {
         "f1770765683117": "BODY-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
         "f1770765927726": "VOLUME",
-        "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
         "f1770766964933": "-",
+        "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
         "f1770766992117": "-"
       },
       "p1770762956126": {
@@ -3605,36 +3971,15 @@
       "p1775840684932": {
         "f1770765683117": "BODY-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
         "f1770765927726": "VOLUME",
+        "f1770766964933": "-",
         "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
-        "f1770766964933": "-",
-        "f1770766992117": "-"
-      },
-      "g1775682307162": {
-        "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "g1775682374357": {
-        "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "g1775840471709": {
-        "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "p1775845078065": {
         "f1770765683117": "LUG-WLDT-SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
         "f1770765927726": "HOOK-UP{[ - ]}LUGGING{[ - ]}VOLUME{[ - ]}TOOTH_QTY TOOTH_TYPE",
-        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
         "f1770766964933": "-",
+        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
         "f1770766992117": "-"
       }
     },
@@ -3642,40 +3987,12 @@
       "p1": {
         "f1770765683117": "ATTACHMENT{[-]}SUBTYPE DUTY HOOK-UP NAME CLASS{[-]}SIZE",
         "f1770765927726": "HOOK-UP{[ - ]}LUGGING{[ - ]}VOLUME{[ - ]}BOE",
+        "f1770766964933": "-",
         "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
-        "f1770766964933": "-",
-        "f1770766992117": "-"
-      },
-      "p1770762899954": {
-        "f1770765683117": "BODY-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
-        "f1770765927726": "VOLUME{[ - ]}BOE{[ - ]}BODY WELDMENT",
-        "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
-        "f1770766992117": "BOLT_PATTERN BOLT PATTERN",
-        "f1770766964933": "-"
-      },
-      "p1770762928430": {
-        "f1770765683117": "CAPACITY ATTACHMENT DUTY{[-]}SIZE",
-        "f1770765927726": "HEAPED CAPACITY{[ - ]}VOLUME",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "g1775683522501": {
         "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "p1775839880823": {
-        "f1770765683117": "BASE EDGE CCOP{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "p1775840052320": {
-        "f1770765683117": "EDGE INSERT-MC-RH{[-]}ATTACHMENT{[-]}DUTY",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
@@ -3695,12 +4012,40 @@
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
+      "p1770762899954": {
+        "f1770765683117": "BODY-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
+        "f1770765927726": "VOLUME{[ - ]}BOE{[ - ]}BODY WELDMENT",
+        "f1770766964933": "-",
+        "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
+        "f1770766992117": "BOLT_PATTERN BOLT PATTERN"
+      },
+      "p1770762928430": {
+        "f1770765683117": "CAPACITY ATTACHMENT DUTY{[-]}SIZE",
+        "f1770765927726": "HEAPED CAPACITY{[ - ]}VOLUME",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775839880823": {
+        "f1770765683117": "BASE EDGE CCOP{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775840052320": {
+        "f1770765683117": "EDGE INSERT-MC-RH{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
       "p1775845515168": {
         "f1770765683117": "HEEL SHROUD-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
         "f1770765927726": "VOLUME{[ - ]}BOE{[ - ]}BODY WELDMENT",
+        "f1770766964933": "-",
         "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
-        "f1770766992117": "BOLT_PATTERN BOLT PATTERN",
-        "f1770766964933": "-"
+        "f1770766992117": "BOLT_PATTERN BOLT PATTERN"
       },
       "p1775845701382": {
         "f1770765683117": "BASE EDGE LIP CCOP{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
@@ -3728,40 +4073,12 @@
       "p1": {
         "f1770765683117": "ATTACHMENT{[-]}SUBTYPE DUTY HOOK-UP NAME CLASS{[-]}SIZE",
         "f1770765927726": "HOOK-UP{[ - ]}LUGGING{[ - ]}VOLUME{[ - ]}BOE",
+        "f1770766964933": "-",
         "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
-        "f1770766964933": "-",
-        "f1770766992117": "-"
-      },
-      "p1770762899954": {
-        "f1770765683117": "BODY-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
-        "f1770765927726": "VOLUME{[ - ]}BOE{[ - ]}BODY WELDMENT",
-        "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
-        "f1770766992117": "BOLT_PATTERN BOLT PATTERN",
-        "f1770766964933": "-"
-      },
-      "p1770762928430": {
-        "f1770765683117": "CAPACITY ATTACHMENT DUTY{[-]}SIZE",
-        "f1770765927726": "HEAPED CAPACITY{[ - ]}VOLUME",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "g1775683522501": {
         "f1770765683117": "-",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "p1775839880823": {
-        "f1770765683117": "BASE EDGE CCOP{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
-        "f1770765927726": "-",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
-        "f1770766992117": "-"
-      },
-      "p1775840052320": {
-        "f1770765683117": "EDGE INSERT-MC-RH{[-]}ATTACHMENT{[-]}DUTY",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
@@ -3781,12 +4098,40 @@
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
+      "p1770762899954": {
+        "f1770765683117": "BODY-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
+        "f1770765927726": "VOLUME{[ - ]}BOE{[ - ]}BODY WELDMENT",
+        "f1770766964933": "-",
+        "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
+        "f1770766992117": "BOLT_PATTERN BOLT PATTERN"
+      },
+      "p1770762928430": {
+        "f1770765683117": "CAPACITY ATTACHMENT DUTY{[-]}SIZE",
+        "f1770765927726": "HEAPED CAPACITY{[ - ]}VOLUME",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775839880823": {
+        "f1770765683117": "BASE EDGE CCOP{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775840052320": {
+        "f1770765683117": "EDGE INSERT-MC-RH{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
       "p1775845515168": {
         "f1770765683117": "HEEL SHROUD-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
         "f1770765927726": "VOLUME{[ - ]}BOE{[ - ]}BODY WELDMENT",
+        "f1770766964933": "-",
         "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
-        "f1770766992117": "BOLT_PATTERN BOLT PATTERN",
-        "f1770766964933": "-"
+        "f1770766992117": "BOLT_PATTERN BOLT PATTERN"
       },
       "p1775845701382": {
         "f1770765683117": "BASE EDGE LIP CCOP{[-]}ATTACHMENT{[-]}DUTY{[-]}SIZE",
@@ -3814,22 +4159,8 @@
       "p1": {
         "f1770765683117": "ATTACHMENT{[-]}SUBTYPE DUTY HOOK-UP NAME CLASS{[-]}SIZE",
         "f1770765927726": "HOOK-UP{[ - ]}LUGGING{[ - ]}VOLUME{[ - ]}TOOTH_QTY TOOTH_TYPE",
+        "f1770766964933": "-",
         "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}{[ - ]}{BLADE_THK#0.3:}{[ X ]}{BLADE_ANGLE#0.1:°}",
-        "f1770766964933": "-",
-        "f1770766992117": "-"
-      },
-      "p1770762899954": {
-        "f1770765683117": "BODY-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
-        "f1770765927726": "VOLUME{[ - ]}",
-        "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
-        "f1770766992117": "-",
-        "f1770766964933": "-"
-      },
-      "p1770762928430": {
-        "f1770765683117": "CAPACITY ATTACHMENT DUTY{[-]}SIZE",
-        "f1770765927726": "HEAPED CAPACITY{[ - ]}VOLUME",
-        "f1770766964933": "-",
-        "f1770766978429": "-",
         "f1770766992117": "-"
       },
       "g1775683522501": {
@@ -3839,15 +4170,43 @@
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
-      "p1775840052320": {
-        "f1770765683117": "EDGE INSERT-MC-RH{[-]}ATTACHMENT{[-]}DUTY",
+      "g1775683537727": {
+        "f1770765683117": "-",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
         "f1770766992117": "-"
       },
-      "g1775683537727": {
+      "g1775846149475": {
         "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775846666159": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770762899954": {
+        "f1770765683117": "BODY-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
+        "f1770765927726": "VOLUME{[ - ]}",
+        "f1770766964933": "-",
+        "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
+        "f1770766992117": "-"
+      },
+      "p1770762928430": {
+        "f1770765683117": "CAPACITY ATTACHMENT DUTY{[-]}SIZE",
+        "f1770765927726": "HEAPED CAPACITY{[ - ]}VOLUME",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775840052320": {
+        "f1770765683117": "EDGE INSERT-MC-RH{[-]}ATTACHMENT{[-]}DUTY",
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
@@ -3891,9 +4250,9 @@
       "p1775846571880": {
         "f1770765683117": "BODY-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}SIZE",
         "f1770765927726": "VOLUME{[ - ]}TOOTH_QTY TOOTH_TYPE",
+        "f1770766964933": "-",
         "f1770766978429": "BLADE_THK{[ X ]}BLADE_ANGLE°",
-        "f1770766992117": "-",
-        "f1770766964933": "-"
+        "f1770766992117": "-"
       },
       "p1775846680831": {
         "f1770765683117": "SIDE EDGE PL{[-]}ATTACHMENT{[-]}DUTY",
@@ -3914,6 +4273,197 @@
         "f1770765927726": "-",
         "f1770766964933": "-",
         "f1770766978429": "-",
+        "f1770766992117": "-"
+      }
+    },
+    "tab1775855560276": {
+      "p1": {
+        "f1770765683117": "HOOK-UP",
+        "f1770765927726": "HOOK-UP{[-]}LUGGING",
+        "f1770766964933": "-",
+        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}",
+        "f1770766992117": "-"
+      },
+      "g1775682307162": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775682374357": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775840471709": {
+        "f1770765683117": "",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "g1775844236383": {
+        "f1770765683117": "-",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770762912068": {
+        "f1770765683117": "WIDTH SKETCH DUTY{[-]}PIN_TO_TIP",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770762938928": {
+        "f1770765683117": "SHELL PL{[-]}ATTACHMENT{[-]}DUTY{[-]}PIN_TO_TIP",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770762944205": {
+        "f1770765683117": "STRBK PL{[-]}ATTACHMENT{[-]}DUTY{[-]}PIN_TO_TIP",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770762956126": {
+        "f1770765683117": "WEAR BAR ASSM{[-]}HOR{[-]}ATTACHMENT{[-]}DUTY{[-]}PIN_TO_TIP",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770762975793": {
+        "f1770765683117": "WEAR BAR{[-]}HOR{[-]}ATTACHMENT{[-]}DUTY{[-]}PIN_TO_TIP",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770767898320": {
+        "f1770765683117": "PROFILE SKETCH DUTY{[-]}CLASS",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770767923264": {
+        "f1770765683117": "SIDE EDGE{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770767931018": {
+        "f1770765683117": "SIDE PL{[-]}ATTACHMENT-DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1770767958952": {
+        "f1770765683117": "LIFTING EYE PL{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775840507085": {
+        "f1770765683117": "CHHEK PL{[-]}RH{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775840542739": {
+        "f1770765683117": "CHHEK PL{[-]}LH{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775840684932": {
+        "f1770765683117": "BODY-WLDT{[-]}ATTACHMENT SUBTYPE{[-]}DUTY CLASS{[-]}PIN_TO_TIP",
+        "f1770765927726": "",
+        "f1770766964933": "-",
+        "f1770766978429": "{[ X ]}°",
+        "f1770766992117": "-"
+      },
+      "p1775844252170": {
+        "f1770765683117": "TOP STIFFENER PL-ATTACHMENT{[-]}DUTY{[-]}PIN_TO_TIP",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775844271974": {
+        "f1770765683117": "TOP SHELL PL-ATTACHMENT{[-]}DUTY{[-]}PIN_TO_TIP",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775856627618": {
+        "f1770765683117": "CHHEK PL{[-]}RH{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775856630708": {
+        "f1770765683117": "CHHEK PL{[-]}RH{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775856671952": {
+        "f1770765683117": "CHHEK PL{[-]}RH{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775856688998": {
+        "f1770765683117": "CHHEK PL{[-]}RH{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775856706892": {
+        "f1770765683117": "CHHEK PL{[-]}RH{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775856912695": {
+        "f1770765683117": "LIFTING EYE PL{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775856942465": {
+        "f1770765683117": "LIFTING EYE PL{[-]}ATTACHMENT{[-]}DUTY",
+        "f1770765927726": "-",
+        "f1770766964933": "-",
+        "f1770766978429": "-",
+        "f1770766992117": "-"
+      },
+      "p1775857642085": {
+        "f1770765683117": "BOSS-WLDT{[-]}LUGGING{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY CLASS",
+        "f1770765927726": "TINE_QTY{[ - ]}BOSS WELDMENT",
+        "f1770766964933": "-",
+        "f1770766978429": "{LUG_SPREAD#0.3: LS}{[ - ]}{CENTER_TO_CENTER#0.3: CC}",
         "f1770766992117": "-"
       }
     }
@@ -4281,6 +4831,13 @@
           "26°"
         ],
         "label": "WEDGE ANGLE"
+      },
+      {
+        "key": "ATTACHMENT",
+        "vals": [
+          "CMW"
+        ],
+        "label": "ATTACHMENT"
       }
     ],
     "tab1770838553711": [
@@ -5328,11 +5885,11 @@
       },
       {
         "key": "BOLT_PATTERN",
-        "label": "BOLT PATTERN",
         "vals": [
           "6-4",
           "6-6"
-        ]
+        ],
+        "label": "BOLT PATTERN"
       }
     ],
     "tab1775681477169": [
@@ -5491,10 +6048,10 @@
       },
       {
         "key": "WEAR_BAR_THICKNESS",
-        "label": "Wear Bar Thickness",
         "vals": [
           "0.750"
-        ]
+        ],
+        "label": "Wear Bar Thickness"
       }
     ],
     "tab1775844754790": [
@@ -5653,11 +6210,11 @@
       },
       {
         "key": "BOLT_PATTERN",
-        "label": "BOLT PATTERN",
         "vals": [
           "6-4",
           "6-6"
-        ]
+        ],
+        "label": "BOLT PATTERN"
       }
     ],
     "tab1775844901509": [
@@ -5994,11 +6551,11 @@
       },
       {
         "key": "BOLT_PATTERN",
-        "label": "BOLT PATTERN",
         "vals": [
           "6-4",
           "6-6"
-        ]
+        ],
+        "label": "BOLT PATTERN"
       }
     ],
     "tab1775846066229": [
@@ -6158,11 +6715,11 @@
       },
       {
         "key": "BOLT_PATTERN",
-        "label": "BOLT PATTERN",
         "vals": [
           "6-4",
           "6-6"
-        ]
+        ],
+        "label": "BOLT PATTERN"
       }
     ],
     "tab1775846093984": [
@@ -6322,28 +6879,195 @@
       },
       {
         "key": "TOOTH_OEM",
-        "label": "Tooth OEM",
         "vals": [
           "BC",
           "ESCO"
-        ]
+        ],
+        "label": "Tooth OEM"
       },
       {
         "key": "TOOTH_TYPE",
-        "label": "Tooth Type",
         "vals": [
           "J460",
           "J200"
-        ]
+        ],
+        "label": "Tooth Type"
       },
       {
         "key": "TOOTH_QTY",
-        "label": "Tooth Qty",
         "vals": [
           "2",
           "4",
           "3"
-        ]
+        ],
+        "label": "Tooth Qty"
+      }
+    ],
+    "tab1775855560276": [
+      {
+        "key": "MACHINE_TYPE",
+        "vals": [
+          "EX",
+          "BHR",
+          "WL"
+        ],
+        "label": "Machine Type"
+      },
+      {
+        "key": "ATTACHMENT",
+        "vals": [
+          "THB"
+        ],
+        "label": "Attachment"
+      },
+      {
+        "key": "SUBTYPE",
+        "vals": [
+          "DIR",
+          "PRO"
+        ],
+        "label": "Subtype"
+      },
+      {
+        "key": "DUTY",
+        "vals": [
+          "XD"
+        ],
+        "label": "Duty"
+      },
+      {
+        "key": "CLASS",
+        "vals": [
+          "BH060",
+          "HE035",
+          "HE050",
+          "HE060",
+          "HE080",
+          "HE120",
+          "HE150",
+          "HE200",
+          "HE250",
+          "HE300",
+          "HE350",
+          "HE400",
+          "HE450",
+          "HE600",
+          "HE800"
+        ],
+        "label": "Class"
+      },
+      {
+        "key": "CLASS_NO",
+        "vals": [
+          "035",
+          "060",
+          "050",
+          "080",
+          "120",
+          "150",
+          "200",
+          "250",
+          "300",
+          "350",
+          "400",
+          "450",
+          "600",
+          "800"
+        ],
+        "label": "Class No"
+      },
+      {
+        "key": "LUGGING",
+        "vals": [
+          "WBM",
+          "WBMBH",
+          "CWS",
+          "FAS",
+          "WBML",
+          "PGL"
+        ],
+        "label": "Lugging"
+      },
+      {
+        "key": "PIN_TO_TIP",
+        "vals": [
+          "12",
+          "18",
+          "24",
+          "36",
+          "42",
+          "48",
+          "54",
+          "60",
+          "72",
+          "84",
+          "96"
+        ],
+        "label": "PIN TO TIP"
+      },
+      {
+        "key": "HOOK-UP",
+        "vals": [
+          "QCL",
+          "PTL",
+          "PGL"
+        ],
+        "label": "Hook-Up"
+      },
+      {
+        "key": "TINE_QTY",
+        "vals": [
+          "2T",
+          "3T"
+        ],
+        "label": "TINE QTY"
+      },
+      {
+        "key": "TOOTH_TYPE",
+        "vals": [
+          "J225",
+          "J300",
+          "J350",
+          "J400",
+          "J450"
+        ],
+        "label": "TOOTH TYPE"
+      },
+      {
+        "key": "LUG_SPREAD",
+        "vals": [
+          "8.125"
+        ],
+        "label": "LUG SPREAD"
+      },
+      {
+        "key": "CENTER_TO_CENTER",
+        "vals": [
+          "21.375"
+        ],
+        "label": "CENTER TO CENTER"
+      },
+      {
+        "key": "THUMB_WIDTH",
+        "vals": [
+          "14.500"
+        ],
+        "label": "THUMB WIDTH"
+      },
+      {
+        "key": "MACHINE_OEM",
+        "vals": [
+          "LB145X4"
+        ],
+        "label": "MACHINE OEM"
+      },
+      {
+        "key": "COUPLER_OEM",
+        "vals": [
+          "GEITH",
+          "ORIEL"
+        ],
+        "label": "COUPLER OEM"
       }
     ]
   },
@@ -6376,6 +7100,7 @@
       "SUBTYPE": "LE",
       "BUSHINGS": "BUSHED",
       "CLASS_NO": "120",
+      "ATTACHMENT": "CMW",
       "OUTSIDE_OS": "18.000",
       "STICK_WIDTH": "11.1875",
       "WEDGE_ANGLE": "25°",
@@ -6500,9 +7225,9 @@
       "ATTACHMENT": "BKT",
       "LUG_SPREAD": "8.125",
       "BLADE_ANGLE": "20",
+      "BOLT_PATTERN": "6-4",
       "MACHINE_TYPE": "EX",
-      "CENTER_TO_CENTER": "21.275",
-      "BOLT_PATTERN": "6-4"
+      "CENTER_TO_CENTER": "21.275"
     },
     "tab1775681477169": {
       "DUTY": "XDR",
@@ -6534,9 +7259,9 @@
       "ATTACHMENT": "BKT",
       "LUG_SPREAD": "8.125",
       "BLADE_ANGLE": "20",
+      "BOLT_PATTERN": "6-4",
       "MACHINE_TYPE": "EX",
-      "CENTER_TO_CENTER": "21.275",
-      "BOLT_PATTERN": "6-4"
+      "CENTER_TO_CENTER": "21.275"
     },
     "tab1775844901509": {
       "DUTY": "XDW",
@@ -6569,9 +7294,9 @@
       "ATTACHMENT": "BKT",
       "LUG_SPREAD": "8.125",
       "BLADE_ANGLE": "20",
+      "BOLT_PATTERN": "6-4",
       "MACHINE_TYPE": "EX",
-      "CENTER_TO_CENTER": "21.275",
-      "BOLT_PATTERN": "6-4"
+      "CENTER_TO_CENTER": "21.275"
     },
     "tab1775846066229": {
       "DUTY": "XDX",
@@ -6586,9 +7311,9 @@
       "ATTACHMENT": "BKT",
       "LUG_SPREAD": "8.125",
       "BLADE_ANGLE": "20",
+      "BOLT_PATTERN": "6-4",
       "MACHINE_TYPE": "EX",
-      "CENTER_TO_CENTER": "21.275",
-      "BOLT_PATTERN": "6-4"
+      "CENTER_TO_CENTER": "21.275"
     },
     "tab1775846093984": {
       "DUTY": "XDX",
@@ -6600,14 +7325,28 @@
       "SUBTYPE": "DIG",
       "CLASS_NO": "250",
       "BLADE_THK": "1.250",
+      "TOOTH_OEM": "BC",
+      "TOOTH_QTY": "2",
       "ATTACHMENT": "BKT",
       "LUG_SPREAD": "8.125",
+      "TOOTH_TYPE": "J200",
       "BLADE_ANGLE": "20",
       "MACHINE_TYPE": "EX",
-      "CENTER_TO_CENTER": "21.275",
-      "TOOTH_OEM": "BC",
-      "TOOTH_TYPE": "J200",
-      "TOOTH_QTY": "2"
+      "CENTER_TO_CENTER": "21.275"
+    },
+    "tab1775855560276": {
+      "DUTY": "XD",
+      "CLASS": "HE250",
+      "HOOK-UP": "QCL",
+      "LUGGING": "WBM",
+      "SUBTYPE": "DIR",
+      "CLASS_NO": "250",
+      "ATTACHMENT": "THB",
+      "LUG_SPREAD": "8.125",
+      "PIN_TO_TIP": "36",
+      "THUMB_WIDTH": "14.500",
+      "MACHINE_TYPE": "EX",
+      "CENTER_TO_CENTER": "21.275"
     }
   },
   "lockedTabs": {},
@@ -6624,19 +7363,19 @@
     "tab1775844901509": [],
     "tab1775845468662": [],
     "tab1775846066229": [],
-    "tab1775846093984": []
+    "tab1775846093984": [],
+    "tab1775855560276": []
   },
-  "inventorMaps": {
-    "tab1775844754790": {},
-    "tab1775844901509": {},
-    "tab1775845468662": {},
-    "tab1775846066229": {},
-    "tab1775846093984": {}
-  },
-  "activeClassId": "tab1775846093984",
+  "inventorMaps": {},
+  "activeClassId": "buckets",
   "fileNameRules": {
     "buckets": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
+      "g1775682307162": "-",
+      "g1775682374357": "-",
+      "g1775840471709": "-",
+      "g1775843850782": "-",
+      "g1775844236383": "-",
       "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BC{[-]}TOOTH_TYPE (Tooth Weldment)",
       "p1770762912068": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE (NAME)",
       "p1770762928430": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
@@ -6651,9 +7390,6 @@
       "p1775840507085": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}IDX (NAME)",
       "p1775840542739": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}IDX (NAME)",
       "p1775840684932": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BC NAME",
-      "g1775682307162": "-",
-      "g1775682374357": "-",
-      "g1775840471709": "-",
       "p1775843844835": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX NAME",
       "p1775843900104": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX NAME",
       "p1775843916572": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX NAME",
@@ -6663,7 +7399,7 @@
     "tab1770826801156": {
       "p1": "MACHINE{[-]}ATTACHMENT{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}00 (NAME)",
       "p2": "MACHINE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-LUGGING-SIZE-TOOTH_QTY-TOOTH_TYPE (NAME)",
-      "p1770762899954": "MACHINE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[ - ]}LUGGING{[ - ]}MODEL{[ - ]}01 (NAME)",
+      "p1770762899954": "MACHINE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}01 (NAME)",
       "p1770762912068": "MACHINE{[-]}ATTACHMENT{[-]}CLASS_NO{[-]}LUGGING{[-]}STD{[-]}IDX (NAME) ",
       "p1770762928430": "MACHINE{[-]}ATTACHMENT{[-]}CLASS_NO{[-]}LUGGING{[-]}STD{[-]}IDX (NAME)",
       "p1770762938928": "MACHINE{[-]}ATTACHMENT{[-]}CLASS_NO{[-]}LUGGING{[-]}STD{[-]}IDX (NAME)",
@@ -6680,7 +7416,8 @@
     "tab1770838553711": {
       "p1": "MACHINE{[-]}CHW{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}00 (NAME)",
       "p2": "MACHINE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-LUGGING-SIZE-TOOTH_QTY-TOOTH_TYPE (NAME)",
-      "p1770762899954": "MACHINE{[-]}CHW{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}01 (NAME)",
+      "g1775851499374": "-",
+      "p1770762899954": "MACHINE{[-]}CHW{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}01 (NAME)",
       "p1770762912068": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME) ",
       "p1770762928430": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770762938928": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
@@ -6709,10 +7446,10 @@
       "p1770832472093": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770835955029": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770835969099": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
-      "p1770837330352": "MACHINE{[-]}CHW{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}01-01 (NAME)",
-      "p1770837360914": "MACHINE-CHW-SUBTYPE-DUTY-CLASS_NO-LUGGING-MODEL-01-02 (NAME)",
-      "p1770837368844": "MACHINE-CHW-SUBTYPE-DUTY-CLASS_NO-LUGGING-MODEL-01-03 (NAME)",
-      "p1770837371450": "MACHINE-CHW-SUBTYPE-DUTY-CLASS_NO-LUGGING-MODEL-01-04 (NAME)",
+      "p1770837330352": "MACHINE{[-]}CHW{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}01-01 (NAME)",
+      "p1770837360914": "MACHINE-CHW-CLASS_NO-LUGGING-MODEL-01-02 (NAME)",
+      "p1770837368844": "MACHINE-CHW-CLASS_NO-LUGGING-MODEL-01-03 (NAME)",
+      "p1770837371450": "MACHINE-CHW-CLASS_NO-LUGGING-MODEL-01-04 (NAME)",
       "p1770838910007": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770838933503": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770838969693": "MACHINE-CHW-CLASS_NO-LUGGING-STD-IDX (NAME)"
@@ -6720,7 +7457,7 @@
     "tab1770838629859": {
       "p1": "MACHINE-CHWA-CLASS_NO-LUGGING-MODEL-00 (NAME)",
       "p2": "MACHINE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-LUGGING-SIZE-TOOTH_QTY-TOOTH_TYPE (NAME)",
-      "p1770762899954": "MACHINE{[-]}CHWA{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}01 (NAME)",
+      "p1770762899954": "MACHINE{[-]}CHWA{[-]}SUBTYPE{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}01 (NAME)",
       "p1770762912068": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME) ",
       "p1770762928430": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
       "p1770762938928": "MACHINE-CHWA-CLASS_NO-LUGGING-STD-IDX (NAME)",
@@ -6749,10 +7486,10 @@
       "p1770832472093": "MACHINE{[-]}CHWA{[-]}CLASS_NO{[-]}LUGGING{[-]}STD{[-]}IDX (NAME)",
       "p1770835955029": "MACHINE{[-]}CHWA{[-]}CLASS_NO{[-]}LUGGING{[-]}STD{[-]}IDX (NAME)",
       "p1770835969099": "MACHINE{[-]}CHWA{[-]}CLASS_NO{[-]}LUGGING{[-]}STD{[-]}IDX (NAME)",
-      "p1770837330352": "MACHINE-CHWA-SUBTYPE-DUTY-CLASS_NO-LUGGING-MODEL-01-01 (NAME)",
-      "p1770837360914": "MACHINE{[-]}CHWA{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}01-02 (NAME)",
-      "p1770837368844": "MACHINE{[-]}CHWA{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}01-03 (NAME)",
-      "p1770837371450": "MACHINE-CHWA-SUBTYPE-DUTY-CLASS_NO-LUGGING-MODEL-01-04 (NAME)"
+      "p1770837330352": "MACHINE-CHWA-CLASS_NO-LUGGING-MODEL-01-01 (NAME)",
+      "p1770837360914": "MACHINE{[-]}CHWA{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}01-02 (NAME)",
+      "p1770837368844": "MACHINE{[-]}CHWA{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}01-03 (NAME)",
+      "p1770837371450": "MACHINE{[-]}CHWA{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL-01-04 (NAME)"
     },
     "tab1770842447295": {
       "p1": "MACHINE{[-]}CHWA{[-]}CLASS_NO{[-]}LUGGING{[-]}MODEL{[-]}00 (NAME)",
@@ -6794,6 +7531,10 @@
     "tab1774978147622": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (GA)",
       "p2": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}TOOTH_OEM{[-]}TOOTH_QTY{[-]}TOOTH_TYPE NAME",
+      "g1775682672203": "-",
+      "g1775682749061": "-",
+      "g1775682790362": "-",
+      "g1775843432943": "-",
       "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}BC (NAME)",
       "p1770762912068": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE (NAME)",
       "p1770762928430": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
@@ -6817,13 +7558,13 @@
       "p1775679054369": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug GA)",
       "p1775679080676": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING-IDX (Lug MC)",
       "p1775679093496": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}IDX (Lug Plate)",
-      "g1775682672203": "-",
-      "g1775682790362": "-",
-      "g1775682749061": "-",
       "p1775843543329": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME"
     },
     "tab1775679963733": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE-IDX (GA)",
+      "g1775683522501": "-",
+      "g1775683537727": "-",
+      "g1775839847195": "-",
       "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE NAME",
       "p1770762912068": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE (NAME)",
       "p1770762928430": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
@@ -6831,15 +7572,15 @@
       "p1770762944205": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
       "p1770762956126": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
       "p1770762975793": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
-      "p1775839430390": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}HA-IDX (GA)",
+      "p1775839430390": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}HA-IDX NAME",
       "p1775839880823": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (Top Shell Plate)",
-      "p1775840052320": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (Top Stiffener Plate)",
-      "g1775683522501": "-",
-      "g1775683537727": "-",
-      "g1775839847195": "-"
+      "p1775840052320": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (Top Stiffener Plate)"
     },
     "tab1775681477169": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}IDX{[-]}{[-]} (GA)",
+      "g1775682493296": "-",
+      "g1775682518705": "-",
+      "g1775841541628": "-",
       "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}BOE (NAME)",
       "p1770762912068": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE (NAME)",
       "p1770762928430": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
@@ -6851,42 +7592,39 @@
       "p1775591549394": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX (Strongback-Plate)",
       "p1775841277656": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME",
       "p1775841294220": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME",
-      "p1775841395567": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME",
-      "g1775682493296": "-",
-      "g1775682518705": "-",
-      "g1775841541628": "-"
+      "p1775841395567": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME"
     },
     "tab1775844754790": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE-IDX (GA)",
+      "g1775683522501": "-",
+      "g1775683537727": "-",
       "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE NAME",
       "p1770762956126": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
       "p1770762975793": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
-      "p1775839430390": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}HA-IDX (GA)",
-      "g1775683522501": "-",
-      "g1775683537727": "-"
+      "p1775839430390": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}HA-IDX (GA)"
     },
     "tab1775844901509": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE (NAME)",
+      "g1775682307162": "-",
+      "g1775682374357": "-",
+      "g1775840471709": "-",
       "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BC{[-]}TOOTH_TYPE (Tooth Weldment)",
       "p1770762956126": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
       "p1770762975793": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-SIZE-IDX (NAME)",
       "p1775840507085": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}IDX (NAME)",
       "p1775840542739": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}IDX (NAME)",
       "p1775840684932": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BC NAME",
-      "g1775682307162": "-",
-      "g1775682374357": "-",
-      "g1775840471709": "-",
       "p1775845078065": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_QTY{[-]}TOOTH_TYPE NAME"
     },
     "tab1775845468662": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE-IDX (GA)",
+      "g1775683522501": "-",
+      "g1775683537727": "-",
+      "g1775839847195": "-",
       "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE NAME",
       "p1770762928430": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
       "p1775839880823": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME",
       "p1775840052320": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX (NAME)",
-      "g1775683522501": "-",
-      "g1775683537727": "-",
-      "g1775839847195": "-",
       "p1775845515168": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE NAME",
       "p1775845701382": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME",
       "p1775845932934": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX (NAME)",
@@ -6894,13 +7632,13 @@
     },
     "tab1775846066229": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE-IDX (GA)",
+      "g1775683522501": "-",
+      "g1775683537727": "-",
+      "g1775839847195": "-",
       "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE NAME",
       "p1770762928430": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
       "p1775839880823": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME",
       "p1775840052320": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX (NAME)",
-      "g1775683522501": "-",
-      "g1775683537727": "-",
-      "g1775839847195": "-",
       "p1775845515168": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE NAME",
       "p1775845701382": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX NAME",
       "p1775845932934": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX (NAME)",
@@ -6908,20 +7646,51 @@
     },
     "tab1775846093984": {
       "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}TOOTH_OEM{[-]}TOOTH_QTY{[-]}TOOTH_TYPE{[-]}IDX (GA)",
+      "g1775683522501": "-",
+      "g1775683537727": "-",
+      "g1775846149475": "-",
+      "g1775846666159": "-",
       "p1770762899954": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE NAME",
       "p1770762928430": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}SIZE{[-]}IDX (NAME)",
       "p1775840052320": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX (NAME)",
-      "g1775683522501": "-",
-      "g1775683537727": "-",
       "p1775845932934": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX (NAME)",
       "p1775845976878": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX (NAME)",
       "p1775846172665": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX NAME",
       "p1775846234105": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX NAME",
       "p1775846270574": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX NAME",
       "p1775846571880": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}SIZE{[-]}BOE NAME",
-      "p1775846707341": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX NAME",
       "p1775846680831": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX NAME",
+      "p1775846707341": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX NAME",
       "p1775846728641": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}IDX NAME"
+    },
+    "tab1775855560276": {
+      "p1": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}PIN_TO_TIP{[-]}THUMB_WIDTH{[-]}TINE_QTY{[-]}IDX NAME",
+      "g1775682307162": "-",
+      "g1775682374357": "-",
+      "g1775840471709": "-",
+      "g1775844236383": "-",
+      "p1770762912068": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}PIN_TO_TIP NAME",
+      "p1770762938928": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-PIN_TO_TIP-IDX (NAME)",
+      "p1770762944205": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-PIN_TO_TIP-IDX (NAME)",
+      "p1770762956126": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-PIN_TO_TIP-IDX (NAME)",
+      "p1770762975793": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-CLASS_NO-PIN_TO_TIP-IDX (NAME)",
+      "p1770767898320": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-00 (NAME)",
+      "p1770767923264": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-01 (NAME)",
+      "p1770767931018": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-02 (NAME)",
+      "p1770767958952": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-05 (NAME)",
+      "p1775840507085": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}IDX (NAME)",
+      "p1775840542739": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}IDX (NAME)",
+      "p1775840684932": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}PIN_TO_TIP{[-]}BC NAME",
+      "p1775844252170": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE DUTY{[-]}CLASS_NO{[-]}IDX NAME",
+      "p1775844271974": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE DUTY{[-]}CLASS_NO{[-]}IDX NAME",
+      "p1775856627618": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}IDX (NAME)",
+      "p1775856630708": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}IDX (NAME)",
+      "p1775856671952": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}IDX (NAME)",
+      "p1775856688998": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}IDX (NAME)",
+      "p1775856706892": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}STD{[-]}CLASS_NO{[-]}IDX (NAME)",
+      "p1775856912695": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-05 (NAME)",
+      "p1775856942465": "MACHINE_TYPE-ATTACHMENT-SUBTYPE-DUTY-STD-CLASS_NO-05 (NAME)",
+      "p1775857642085": "MACHINE_TYPE{[-]}ATTACHMENT{[-]}SUBTYPE{[-]}DUTY{[-]}CLASS_NO{[-]}LUGGING{[-]}PIN_TO_TIP{[-]}THUMB_WIDTH{[-]}TINE_QTY{[-]}IDX NAME"
     }
   },
   "activeRightTab": "rules",
@@ -6978,9 +7747,13 @@
     {
       "id": "tab1775846093984",
       "name": "Buckets (XDX) DIG"
+    },
+    {
+      "id": "tab1775855560276",
+      "name": "Thumb XD"
     }
   ],
-  "selectedPartId": "p1775846707341",
+  "selectedPartId": "p1770762899954",
   "exportSelections": {
     "buckets": {},
     "tab1770826801156": {},
@@ -6994,7 +7767,8 @@
     "tab1775844901509": {},
     "tab1775845468662": {},
     "tab1775846066229": {},
-    "tab1775846093984": {}
+    "tab1775846093984": {},
+    "tab1775855560276": {}
   },
   "fileNameOverrides": {
     "buckets": {},
@@ -7009,7 +7783,8 @@
     "tab1775844901509": {},
     "tab1775845468662": {},
     "tab1775846066229": {},
-    "tab1775846093984": {}
+    "tab1775846093984": {},
+    "tab1775855560276": {}
   },
   "inventorBaseFolders": {
     "tab1774978147622": "",
@@ -7019,6 +7794,7 @@
     "tab1775844901509": "",
     "tab1775845468662": "",
     "tab1775846066229": "",
-    "tab1775846093984": ""
+    "tab1775846093984": "",
+    "tab1775855560276": ""
   }
 }

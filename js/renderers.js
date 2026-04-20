@@ -238,7 +238,9 @@ function renderContext() {
     // Label row
     const labelDiv = document.createElement('div');
     labelDiv.className = 'label';
-    labelDiv.innerHTML = `<span>${m.label}</span>`;
+    const labelSpan = document.createElement('span');
+    labelSpan.textContent = m.label;
+    labelDiv.appendChild(labelSpan);
 
     // Searchable combobox
     const comboWrap = document.createElement('div');
@@ -530,7 +532,8 @@ function renderPartList() {
     <div class="parts-hint">Drag to reorder &nbsp;·&nbsp; Use <kbd>⇥</kbd> <kbd>⇤</kbd> to indent/outdent</div>`;
 
   const listWrap = document.createElement('div');
-  listWrap.id = 'partsList';
+  listWrap.id        = 'partsList';
+  listWrap.className = 'part-list';
   container.appendChild(listWrap);
 
   const idxList = calculateIndices();
@@ -569,14 +572,21 @@ function renderPartList() {
       delBtn.title = 'Delete group';
       delBtn.onclick = e => { e.stopPropagation(); deletePart(p.id); };
 
+      div.role     = 'button';
+      div.tabIndex = 0;
+      div.setAttribute('aria-label', 'Select group: ' + p.name);
       div.appendChild(dragHandle);
       div.appendChild(label);
       div.appendChild(convertBtn);
       div.appendChild(delBtn);
-      div.onclick = e => {
+      const _selectGroup = e => {
         if (!e.target.dataset.edit && !e.target.closest('button')) {
           State.selectedPartId = p.id; renderAll();
         }
+      };
+      div.onclick  = _selectGroup;
+      div.onkeydown = e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); State.selectedPartId = p.id; renderAll(); }
       };
       listWrap.appendChild(div);
       return;
@@ -665,6 +675,9 @@ function renderPartList() {
     delBtn.title = 'Delete part';
     delBtn.onclick = e => { e.stopPropagation(); deletePart(p.id); };
 
+    div.role     = 'button';
+    div.tabIndex = 0;
+    div.setAttribute('aria-label', 'Select part: ' + p.name);
     div.appendChild(dragHandle);
     div.appendChild(idxBadge);
     div.appendChild(nodeName);
@@ -680,6 +693,9 @@ function renderPartList() {
         renderAll();
       }
     };
+    div.onkeydown = e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); State.selectedPartId = p.id; renderAll(); }
+    };
 
     listWrap.appendChild(div);
   });
@@ -691,13 +707,30 @@ function renderPartList() {
 /* ── Section lock overlay (Rules / Config) ───────────────── */
 function _renderSectionLockOverlay(container, section) {
   const label = section.charAt(0).toUpperCase() + section.slice(1);
-  container.innerHTML = `
-    <div class="section-lock-overlay">
-      <div class="lock-icon">🔒</div>
-      <div class="lock-title">${label} is locked</div>
-      <p class="lock-desc">Enter the PIN to access this section.</p>
-      <button class="btn primary" onclick="unlockSection('${section}', null)">Unlock</button>
-    </div>`;
+  container.innerHTML = '';
+
+  const wrap = document.createElement('div');
+  wrap.className = 'section-lock-overlay';
+
+  const icon = document.createElement('div');
+  icon.className   = 'lock-icon';
+  icon.textContent = '🔒';
+
+  const title = document.createElement('div');
+  title.className   = 'lock-title';
+  title.textContent = label + ' is locked';
+
+  const desc = document.createElement('p');
+  desc.className   = 'lock-desc';
+  desc.textContent = 'Enter the PIN to access this section.';
+
+  const btn = document.createElement('button');
+  btn.className   = 'btn primary';
+  btn.textContent = 'Unlock';
+  btn.addEventListener('click', () => unlockSection(section, null));
+
+  wrap.append(icon, title, desc, btn);
+  container.appendChild(wrap);
 }
 
 /* ── Right panel: Config list ────────────────────────────── */
