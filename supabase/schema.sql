@@ -15,7 +15,7 @@ drop table if exists categories cascade;
 -- ============================================================
 
 -- 1. WORKSPACES (was "categories")
-create table workspaces (
+create table if not exists workspaces (
   id                text        primary key,
   label             text        not null,
   icon              text        not null default '📁',
@@ -33,10 +33,10 @@ create table workspaces (
 alter table workspaces add column if not exists state_version     bigint not null default 0;
 alter table workspaces add column if not exists last_content_hash text;
 
-create index idx_workspaces_sort on workspaces (sort_order);
+create index if not exists idx_workspaces_sort on workspaces (sort_order);
 
 -- 2. PRODUCT_CLASSES (tabs within a workspace)
-create table product_classes (
+create table if not exists product_classes (
   id            text        primary key,
   workspace_id  text        not null references workspaces(id) on delete cascade,
   name          text        not null,
@@ -44,10 +44,10 @@ create table product_classes (
   updated_at    timestamptz not null default now()
 );
 
-create index idx_pc_workspace on product_classes (workspace_id, sort_order);
+create index if not exists idx_pc_workspace on product_classes (workspace_id, sort_order);
 
 -- 3. MASTER_VARIABLES (variable definitions)
-create table master_variables (
+create table if not exists master_variables (
   id                bigint      generated always as identity primary key,
   product_class_id  text        not null references product_classes(id) on delete cascade,
   key               text        not null,
@@ -57,10 +57,10 @@ create table master_variables (
   unique (product_class_id, key)
 );
 
-create index idx_mv_pc on master_variables (product_class_id, sort_order);
+create index if not exists idx_mv_pc on master_variables (product_class_id, sort_order);
 
 -- 4. CONTEXT_VALUES (current selected value per variable)
-create table context_values (
+create table if not exists context_values (
   product_class_id  text    not null references product_classes(id) on delete cascade,
   variable_key      text    not null,
   value             text    not null default '',
@@ -68,7 +68,7 @@ create table context_values (
 );
 
 -- 5. PARTS (component tree)
-create table parts (
+create table if not exists parts (
   id                text    not null,
   product_class_id  text    not null references product_classes(id) on delete cascade,
   name              text    not null,
@@ -81,7 +81,7 @@ create table parts (
 );
 
 -- 6. PROPERTIES (column definitions)
-create table properties (
+create table if not exists properties (
   id                text    not null,
   product_class_id  text    not null references product_classes(id) on delete cascade,
   name              text    not null,
@@ -90,7 +90,7 @@ create table properties (
 );
 
 -- 7. RULES (template per part x property)
-create table rules (
+create table if not exists rules (
   product_class_id  text    not null references product_classes(id) on delete cascade,
   part_id           text    not null,
   property_id       text    not null,
@@ -98,10 +98,10 @@ create table rules (
   primary key (product_class_id, part_id, property_id)
 );
 
-create index idx_rules_pc on rules (product_class_id);
+create index if not exists idx_rules_pc on rules (product_class_id);
 
 -- 8. FILE_NAME_RULES (template per part for Inventor export)
-create table file_name_rules (
+create table if not exists file_name_rules (
   product_class_id  text    not null references product_classes(id) on delete cascade,
   part_id           text    not null,
   template          text    not null default '',
@@ -109,27 +109,27 @@ create table file_name_rules (
 );
 
 -- 9. HIDDEN_PROPS (toggled-off columns)
-create table hidden_props (
+create table if not exists hidden_props (
   product_class_id  text    not null references product_classes(id) on delete cascade,
   property_id       text    not null,
   primary key (product_class_id, property_id)
 );
 
 -- 10. INVENTOR_MAPS (iProperty mapping, stored as jsonb bag)
-create table inventor_maps (
+create table if not exists inventor_maps (
   product_class_id    text    primary key references product_classes(id) on delete cascade,
   file_name_prop_id   text,
   mapping             jsonb   not null default '{}'
 );
 
 -- 11. INVENTOR_BASE_FOLDERS
-create table inventor_base_folders (
+create table if not exists inventor_base_folders (
   product_class_id  text    primary key references product_classes(id) on delete cascade,
   folder_path       text    not null default ''
 );
 
 -- 12. FILE_NAME_OVERRIDES (manual filename per part)
-create table file_name_overrides (
+create table if not exists file_name_overrides (
   product_class_id  text    not null references product_classes(id) on delete cascade,
   part_id           text    not null,
   filename          text    not null default '',
@@ -137,7 +137,7 @@ create table file_name_overrides (
 );
 
 -- 13. EXPORT_SELECTIONS (per-part export config, props flags as jsonb)
-create table export_selections (
+create table if not exists export_selections (
   product_class_id  text    not null references product_classes(id) on delete cascade,
   part_id           text    not null,
   rename            boolean not null default false,
@@ -146,13 +146,13 @@ create table export_selections (
 );
 
 -- 14. LOCKED_TABS
-create table locked_tabs (
+create table if not exists locked_tabs (
   product_class_id  text    primary key references product_classes(id) on delete cascade,
   pin_hash          text    not null
 );
 
 -- 15. LOCKED_SECTIONS
-create table locked_sections (
+create table if not exists locked_sections (
   product_class_id  text    not null references product_classes(id) on delete cascade,
   section_name      text    not null,
   pin_hash          text    not null,
@@ -208,8 +208,10 @@ begin
 end;
 $$ language plpgsql;
 
+drop trigger if exists trg_workspaces_updated on workspaces;
 create trigger trg_workspaces_updated
   before update on workspaces for each row execute function touch_updated_at();
+drop trigger if exists trg_product_classes_updated on product_classes;
 create trigger trg_product_classes_updated
   before update on product_classes for each row execute function touch_updated_at();
 
